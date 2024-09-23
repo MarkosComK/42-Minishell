@@ -1,0 +1,3 @@
+[submodule "42-Libft"]
+	path = 42-Libft
+	url = git@github.com:MarkosComK/42-Libft.git
