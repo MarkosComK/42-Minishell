@@ -10,11 +10,13 @@ TITLE = $(shell printf "\33[32;40m")
 
 LIBFTDIR = 42-Libft/src/
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror -g -Iincludes
-COMPILER = cc
-SRCS = $(wildcard src/*.c)
+FLAGS = -Wall -Wextra -Werror -g -Iincludes
+CC = cc
+SRCS = $(wildcard srcs/*.c)
 OBJS = ${SRCS:.c=.o}
-INCLUDE = -L ./libft -lft
+INCLUDE = -L ${LIBFTDIR} -lft
+
+all: $(NAME)
 
 ${NAME}: ${OBJS}
 	@make --silent -C $(LIBFTDIR)
@@ -31,12 +33,10 @@ ${NAME}: ${OBJS}
 	@echo
 
 .c.o:
-	@${COMPILER} ${CFLAGS} -c $< -o $@
+	@${CC} ${FLAGS} -c $< -o ${<:.c=.o}
 	@sleep -1.02
 	@clear
 	@echo "$(RESET)[$(GREEN)OK$(RESET)]$(BLUE) Compiling $<$(YELLOW)"
-
-all: $(NAME)
 
 clean:
 	@clear
