@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 12:22:19 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 14:23:13 by marsoare         ###   ########.fr       */
+/*   Created: 2024/09/25 14:20:30 by marsoare          #+#    #+#             */
+/*   Updated: 2024/09/25 14:47:56 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+/*
+ * This file contains all the functions that handles the input of of the user
+ * either for validations then for parsing the commands.
+*/
 
-# include <libft.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <colors.h>
-# include <input.h>
+#ifndef INPUT_H
+# define INPUT_H
 
-// MACROS
-# define PROMPT "🔥 HELLSH ➜ "
+char	*quote_space_parser(char *argv);
+int		counter(char *str, char c);
+char	*space_to_minus(char *str);
+char	*dequote_single(char *str);
 
 #endif
