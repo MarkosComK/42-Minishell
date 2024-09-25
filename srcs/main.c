@@ -6,16 +6,27 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 22:10:17 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/24 23:07:53 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:23:37 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <minishell.h>
 
-int	main(int ac, char **av)
-{
-	(void) ac;
-	(void) av;
-	ft_printf("this is a compilation test\n");
-	return (0);
+int main() {
+	char	*input;
+
+	while (1)
+	{
+		input = readline("minishell> "); 
+		if (input == NULL)
+		{
+			printf("\nExiting shell...\n");
+			break;
+		}
+		if (*input)
+			add_history(input);
+		printf("You entered: %s\n", input);
+		free(input);
+	}
+	return 0;
 }
