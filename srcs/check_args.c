@@ -1,29 +1,37 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 22:10:17 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 16:39:17 by marsoare         ###   ########.fr       */
+/*   Created: 2024/09/25 15:49:49 by marsoare          #+#    #+#             */
+/*   Updated: 2024/09/25 15:50:00 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-/*
- * Start checking for the proper run of the program before starts read the user input
- * using the terminal(); that runs readline();
- *
- * User should run:
- * $./minishell
- * with no extra args
-*/
-
-int main(int argc, char *argv[], char *envp[])
+int	check_args(int argc, char *argv[], char *envp[])
 {
-	check_args(argc, argv, envp);
-	terminal();
-	return 0;
+	(void) argv;
+	if (!envp || !*envp)
+	{
+		ft_putendl_fd(RED"Executed withou env"DEFAULT, 2);
+		exit(1);
+	}
+	if (envp)
+	{
+		while(*envp)
+		{
+			printf("%s\n", *envp++);
+		}
+	}
+	if (argc > 1)
+	{
+		ft_putendl_fd(RED"Invalid input"DEFAULT, 2);
+		exit(1);
+	}
+	return (0);
 }
