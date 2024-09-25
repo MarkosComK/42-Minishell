@@ -11,13 +11,14 @@ TITLE = $(shell printf "\33[32;40m")
 LIBFTDIR = 42-Libft
 NAME = minishell
 FLAGS = -Wall -Wextra -Werror -g -Iincludes
-IFLAGS = -Iincludes/ -I$(LIBFTDIR)/src
+IFLAGS = -Iincludes/ -I${LIBFTDIR}/src
 CC = cc
 SRCS = $(wildcard srcs/*.c)
 OBJS = ${SRCS:.c=.o}
-INCLUDE = -L${LIBFTDIR}/src -lft
+INCLUDE = -L${LIBFTDIR}/src -lft -lreadline
+VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp
 
-all: $(NAME)
+all: ${NAME}
 
 .c.o:
 	@${CC} ${FLAGS} ${IFLAGS} -c $< -o ${<:.c=.o}
@@ -57,6 +58,9 @@ fclean: clean
 	@echo "┃ ┃ ┣ ┣┫┃┃┣ ┃┃"
 	@echo "┗┛┗┛┗┛┛┗┛┗┗┛┻┛"
 	@echo
+
+test: ${NAME}
+	${VALGRIND} ./${NAME}
 
 re: fclean all
 
