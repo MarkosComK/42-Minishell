@@ -13,7 +13,7 @@ NAME = minishell
 FLAGS = -Wall -Wextra -Werror -g -Iincludes
 IFLAGS = -Iincludes/ -I${LIBFTDIR}/src
 CC = cc
-SRCS = $(wildcard srcs/*.c)
+SRCS = $(wildcard srcs/*.c) $(wildcard srcs/*/*.c)
 OBJS = ${SRCS:.c=.o}
 INCLUDE = -L${LIBFTDIR}/src -lft -lreadline
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp
