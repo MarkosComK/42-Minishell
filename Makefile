@@ -26,8 +26,16 @@ all: $(NAME)
 ${NAME}: ${OBJS}
 	@make --silent -C $(LIBFTDIR)/src
 	@${CC} ${FLAGS} ${OBJS} ${INCLUDE} -o ${NAME}
+	@echo "$(TITLE)━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+	@echo "$(PURPLE)  ██╗  ██╗███████╗██╗     ██╗     ███████╗██╗  ██╗  "
+	@echo "  ██║  ██║██╔════╝██║     ██║     ██╔════╝██║  ██║  "
+	@echo "  ███████║█████╗  ██║     ██║     ███████╗███████║  "
+	@echo "  ██╔══██║██╔══╝  ██║     ██║     ╚════██║██╔══██║  "
+	@echo "  ██║  ██║███████╗███████╗███████╗███████║██║  ██║  "
+	@echo "  ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝  "
+	@echo "$(GREEN)━━━━━━[$(RESET)Made with $(RED)♥ $(RESET)by $(PURPLE)@marsoare$(RESET) and $(PURPLE)@hluiz-ma$(TITLE)]━━━━━━"
 	@echo
-	@echo "$(GREEN) Successfully compiled push_swap.$(RESET)"
+	@echo "$(GREEN) Successfully compiled minishell.$(RESET)"
 	@echo
 
 
