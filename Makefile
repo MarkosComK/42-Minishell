@@ -8,37 +8,32 @@ BLUE = $(shell printf "\33[34m")
 PURPLE = $(shell printf "\33[35m")
 TITLE = $(shell printf "\33[32;40m")
 
-LIBFTDIR = 42-Libft/src/
+LIBFTDIR = 42-Libft
 NAME = minishell
 FLAGS = -Wall -Wextra -Werror -g -Iincludes
+IFLAGS = -Iincludes/ -I$(LIBFTDIR)/src
 CC = cc
 SRCS = $(wildcard srcs/*.c)
 OBJS = ${SRCS:.c=.o}
-INCLUDE = -L ${LIBFTDIR} -lft
+INCLUDE = -L${LIBFTDIR}/src -lft
 
 all: $(NAME)
 
+.c.o:
+	@${CC} ${FLAGS} ${IFLAGS} -c $< -o ${<:.c=.o}
+	@echo "$(RESET)[$(GREEN)OK$(RESET)]$(BLUE) Compiling $<$(YELLOW)"
+
 ${NAME}: ${OBJS}
-	@make --silent -C $(LIBFTDIR)
-	@${CC} ${FLAGS} ${OBJS} -o ${NAME} ${INCLUDE}
-	@echo "$(PURPLE)██████╗ ██╗   ██╗███████╗██╗  ██╗        ███████╗██╗    ██╗ █████╗ ██████╗ "
-	@echo "██╔══██╗██║   ██║██╔════╝██║  ██║        ██╔════╝██║    ██║██╔══██╗██╔══██╗"
-	@echo "██████╔╝██║   ██║███████╗███████║        ███████╗██║ █╗ ██║███████║██████╔╝"
-	@echo "██╔═══╝ ██║   ██║╚════██║██╔══██║        ╚════██║██║███╗██║██╔══██║██╔═══╝ "
-	@echo "██║     ╚██████╔╝███████║██║  ██║███████╗███████║╚███╔███╔╝██║  ██║██║     "
-	@echo "╚═╝      ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝     "
+	@make --silent -C $(LIBFTDIR)/src
+	@${CC} ${FLAGS} ${OBJS} ${INCLUDE} -o ${NAME}
 	@echo
 	@echo "$(GREEN) Successfully compiled push_swap.$(RESET)"
 	@echo
-	@echo
 
-.c.o:
-	@${CC} ${FLAGS} -c $< -o ${<:.c=.o}
-	@sleep -1.02
-	@clear
-	@echo "$(RESET)[$(GREEN)OK$(RESET)]$(BLUE) Compiling $<$(YELLOW)"
 
 clean:
+	@${RM} ${OBJS} ${NAME}
+	@cd $(LIBFTDIR)/src && $(MAKE) --silent clean
 	@clear
 	@echo
 	@echo "$(RED)┏┓┓ ┏┓┏┓┳┓┏┓┳┓"
