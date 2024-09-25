@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 22:10:17 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 12:23:37 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/09/25 13:02:48 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int main() {
 
 	while (1)
 	{
-		input = readline("minishell> "); 
-		if (input == NULL)
+		input = readline(RED"HELLSH🔥> "DEFAULT); 
+		if (input == NULL || ft_strcmp(input, "exit\n"))
 		{
 			printf("\nExiting shell...\n");
 			break;
