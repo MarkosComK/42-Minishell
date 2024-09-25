@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 14:20:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 15:51:17 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:39:48 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 #ifndef INPUT_H
 # define INPUT_H
 
-//check_args.c
-int	check_args(int argc, char *argv[], char *envp[]);
 //quote_parser.c
 char	*quote_space_parser(char *argv);
 int		counter(char *str, char c);

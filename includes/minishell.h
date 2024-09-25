@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:22:19 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 15:47:59 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:39:41 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,6 @@
 // MACROS
 # define PROMPT "🔥 HELLSH ➜ "
 
+//check_args.c
+int	check_args(int argc, char *argv[], char *envp[]);
 #endif
