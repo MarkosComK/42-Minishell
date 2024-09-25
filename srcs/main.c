@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../42-Libft/src/libft.h"
+#include <libft.h>
 
 int	main(int ac, char **av)
 {
