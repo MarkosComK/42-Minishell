@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 22:10:17 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 15:53:17 by marsoare         ###   ########.fr       */
+/*   Created: 2024/09/25 15:49:49 by marsoare          #+#    #+#             */
+/*   Updated: 2024/09/25 15:50:00 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-/*
- * Start checking for the proper run of the program before starts read the user input
- * using the terminal(); that runs readline();
-*/
-
-int main(int argc, char *argv[], char *envp[])
+int	check_args(int argc, char *argv[], char *envp[])
 {
-	check_args(argc, argv, envp);
-	terminal();
-	return 0;
+	(void) argc;
+	(void) argv;
+	(void) envp;
+	return (0);
 }

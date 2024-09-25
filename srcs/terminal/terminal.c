@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   terminal.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 22:10:17 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 15:53:17 by marsoare         ###   ########.fr       */
+/*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
+/*   Updated: 2024/09/25 15:39:30 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-/*
- * Start checking for the proper run of the program before starts read the user input
- * using the terminal(); that runs readline();
-*/
-
-int main(int argc, char *argv[], char *envp[])
+void	terminal(void)
 {
-	check_args(argc, argv, envp);
-	terminal();
-	return 0;
+	char	*input;
+
+	while (1)
+	{
+		input = readline(B_RED PROMPT DEFAULT);
+		if (input == NULL || !ft_strcmp(input, "exit"))
+		{
+			printf("\nExiting shell...\n");
+			break;
+		}
+		if (*input)
+			add_history(input);
+		printf("You entered: %s\n", input);
+		free(input);
+	}
 }

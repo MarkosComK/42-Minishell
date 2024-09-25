@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:22:19 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 14:23:13 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:47:59 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <readline/history.h>
 # include <colors.h>
 # include <input.h>
+# include <terminal.h>
 
 // MACROS
 # define PROMPT "🔥 HELLSH ➜ "
