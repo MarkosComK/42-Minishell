@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:22:19 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/28 19:54:00 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/09/28 20:24:30 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdbool.h>
 # include <input.h>
 # include <terminal.h>
+# include <errors.h>
 
 // MACROS
 # define PROMPT "🔥 HELLSH ➜ "
