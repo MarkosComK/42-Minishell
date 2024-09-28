@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:22:19 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 16:39:41 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/09/28 19:54:00 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <colors.h>
+# include <stdbool.h>
 # include <input.h>
 # include <terminal.h>
 
