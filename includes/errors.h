@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 20:07:07 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/28 20:23:43 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/09/28 20:35:28 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@
  * MACROS FOR ERROR MESSAGES
  */
 # define OPEN_QUOTE "`open quote'"
-# define SYNTAX_ERROR "minishell: syntax error near unexpected token"
+# define SYNTAX_ERROR "minishell: syntax error near unexpected token "
 
 #endif
