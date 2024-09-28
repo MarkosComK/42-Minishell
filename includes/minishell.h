@@ -25,6 +25,13 @@
 // MACROS
 # define PROMPT "🔥 HELLSH ➜ "
 
+/*metacharaters
+ * A character that, when unquoted, separates words. A metacharacter is a space
+ * , tab, newline, or one of the following characters:
+ * ‘|’, ‘&’, ‘;’, ‘(’, ‘)’, ‘<’, or ‘>’
+*/
+# define METACHARS "\n\t|&;()<>"
+
 //check_args.c
 int	check_args(int argc, char *argv[], char *envp[]);
 #endif
