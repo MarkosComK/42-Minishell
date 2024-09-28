@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:36:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/28 20:25:48 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/09/28 20:38:07 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,22 @@ bool	input_validation(char *input)
 
 /*
  * Check if the the amount of quotes are odd or even
+ * (Every opened quote must close)
  * Even = return true
  *  Odd = return false
  */
 bool	check_quotes(char *str)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
 	while (str[i])
 	{
-		if (str[i] == '\'')
+		if (str[i] == '\'' || str[i] == '\\' || str[i] == '"')
 			j++;
-		if (i > 0 && str[i] == '\'' && str[i - 1] == '\\')
-			j--;
-		str++;
+		i++;
 	}
 	if (j % 2 == 0)
 		return (true);
