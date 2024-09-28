@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/28 19:56:00 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/09/28 20:26:14 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	terminal(void)
 	while (1)
 	{
 		input = readline(B_RED PROMPT DEFAULT);
-		if (!input_validation(input))
-			printf("input validation error\n");
+		input_validation(input);
 		if (input == NULL || !ft_strcmp(input, "exit"))
 		{
 			printf("\nExiting shell...\n");

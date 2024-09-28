@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:36:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/28 19:54:32 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/09/28 20:25:48 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	input_validation(char *input)
 {
 	if (!check_quotes(input))
-		printf("invalid number of quotes\n");
+		ft_putendl_fd(SYNTAX_ERROR OPEN_QUOTE, 2);
 	return (false);
 }
 
