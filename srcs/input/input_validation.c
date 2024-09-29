@@ -17,9 +17,9 @@ bool	input_validation(char *input)
 	while (*input == ' ' || *input =='\t' || *input == '\v')
 		input++;
 	if (!check_quotes(input))
-		ft_putendl_fd(SYNTAX_ERROR OPEN_QUOTE, 2);
+		syntax_error_msg(OPEN_QUOTE);
 	else if (!check_pipes(input))
-		ft_putendl_fd(SYNTAX_ERROR PIPE, 2);
+		syntax_error_msg(PIPE);
 	return (false);
 }
 
@@ -49,7 +49,8 @@ bool	check_quotes(char *str)
 
 /*
  * Check if the the pipes are correctly placed
- * (Pipes cannot have space between or start at the input)
+ * (Pipes cannot have space between them OR start at the input)
+ * Input cannot end with a pipe
  */
 bool	check_pipes(char *str)
 {
@@ -63,5 +64,7 @@ bool	check_pipes(char *str)
 			return (false);
 		i++;
 	}
+	if (str[ft_strlen(str) - 1] == '|')
+		return (false);
 	return (true);
 }
