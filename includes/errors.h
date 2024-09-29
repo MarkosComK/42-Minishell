@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   terminal.c                                         :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/28 20:26:14 by marsoare         ###   ########.fr       */
+/*   Created: 2024/09/28 20:07:07 by marsoare          #+#    #+#             */
+/*   Updated: 2024/09/28 20:35:28 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#ifndef ERRORS_H
+# define ERRORS_H
 
-void	terminal(void)
-{
-	char	*input;
+/*
+ * MACROS FOR ERROR MESSAGES
+ */
+# define OPEN_QUOTE "`open quote'"
+# define SYNTAX_ERROR "minishell: syntax error near unexpected token "
 
-	while (1)
-	{
-		input = readline(B_RED PROMPT DEFAULT);
-		input_validation(input);
-		if (input == NULL || !ft_strcmp(input, "exit"))
-		{
-			printf("\nExiting shell...\n");
-			break;
-		}
-		if (*input)
-			add_history(input);
-		printf("You entered: %s\n", input);
-		free(input);
-	}
-}
+#endif
