@@ -21,6 +21,7 @@
 //input_validation.c
 bool	input_validation(char *input);
 bool	check_quotes(char *str);
+bool	check_pipes(char *str);
 
 //quote_parser.c
 char	*quote_space_parser(char *argv);

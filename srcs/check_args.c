@@ -20,6 +20,7 @@ int	check_args(int argc, char *argv[], char *envp[])
 		ft_putendl_fd(RED"Executed withou env"DEFAULT, 2);
 		exit(1);
 	}
+	/*
 	if (envp)
 	{
 		while(*envp)
@@ -27,6 +28,7 @@ int	check_args(int argc, char *argv[], char *envp[])
 			printf("%s\n", *envp++);
 		}
 	}
+	*/
 	if (argc > 1)
 	{
 		ft_putendl_fd(RED"Invalid input"DEFAULT, 2);

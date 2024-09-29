@@ -14,8 +14,12 @@
 
 bool	input_validation(char *input)
 {
+	while (*input == ' ' || *input =='\t' || *input == '\v')
+		input++;
 	if (!check_quotes(input))
 		ft_putendl_fd(SYNTAX_ERROR OPEN_QUOTE, 2);
+	else if (!check_pipes(input))
+		ft_putendl_fd(SYNTAX_ERROR PIPE, 2);
 	return (false);
 }
 
@@ -34,11 +38,30 @@ bool	check_quotes(char *str)
 	j = 0;
 	while (str[i])
 	{
-		if (str[i] == '\'' || str[i] == '\\' || str[i] == '"')
+		if (str[i] == '\'' || str[i] == '"')
 			j++;
 		i++;
 	}
 	if (j % 2 == 0)
 		return (true);
 	return (false);
+}
+
+/*
+ * Check if the the pipes are correctly placed
+ * (Pipes cannot have space between or start at the input)
+ */
+bool	check_pipes(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[0] == '|' || 
+			(str[i] == '|' && str[i + 1] == ' ' && str[i + 2] == '|'))
+			return (false);
+		i++;
+	}
+	return (true);
 }

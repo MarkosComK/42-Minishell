@@ -18,5 +18,6 @@
  */
 # define OPEN_QUOTE "`open quote'"
 # define SYNTAX_ERROR "minishell: syntax error near unexpected token "
+# define PIPE "`|'"
 
 #endif
