@@ -17,9 +17,9 @@ bool	input_validation(char *input)
 	while (*input == ' ' || *input =='\t' || *input == '\v')
 		input++;
 	if (!check_quotes(input))
-		ft_putendl_fd(SYNTAX_ERROR OPEN_QUOTE, 2);
+		syntax_error_msg(OPEN_QUOTE);
 	else if (!check_pipes(input))
-		ft_putendl_fd(SYNTAX_ERROR PIPE, 2);
+		syntax_error_msg(PIPE);
 	return (false);
 }
 
