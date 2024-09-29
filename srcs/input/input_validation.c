@@ -14,6 +14,8 @@
 
 bool	input_validation(char *input)
 {
+	while (*input == ' ' || *input =='\t' || *input == '\v')
+		input++;
 	if (!check_quotes(input))
 		ft_putendl_fd(SYNTAX_ERROR OPEN_QUOTE, 2);
 	else if (!check_pipes(input))
