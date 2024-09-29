@@ -38,7 +38,7 @@ bool	check_quotes(char *str)
 	j = 0;
 	while (str[i])
 	{
-		if (str[i] == '\'' || str[i] == '\\' || str[i] == '"')
+		if (str[i] == '\'' || str[i] == '"')
 			j++;
 		i++;
 	}
