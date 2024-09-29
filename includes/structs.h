@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   terminal.h                                         :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 15:47:06 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/29 16:33:19 by marsoare         ###   ########.fr       */
+/*   Created: 2024/09/29 16:30:38 by marsoare          #+#    #+#             */
+/*   Updated: 2024/09/29 16:32:37 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TERMINAL_H
-# define TERMINAL_H
+#ifndef STRUCTS_H
+# define STRUCTS_H
 
-# include <structs.h>
+# include <libft.h>
 
-void	terminal(t_shell *shell);
+typedef struct s_shell
+{
+	t_list		*token_lst;
+}				t_shell;
+
 #endif
