@@ -57,6 +57,8 @@ This project has a guide for now that you can check <a href="https://www.notion.
 
 I added a rule to protect the main branch so me and my partner can only make commits (which means add code) by sending Pull-requests; the PR must be reviewed from the partner / peer before be added to the main project.
 
+So... for each add/change in the project we havea related branch to this modification, this will end up creating a lot of branches that teach us to how to deal with branches and use them to organize well the project.
+
 ## Binary tree flow
 
 Our approach to organize the user input in order to properly run them as bash does is by using binary-trees
