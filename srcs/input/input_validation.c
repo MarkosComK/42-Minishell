@@ -58,7 +58,8 @@ bool	check_pipes(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[0] == '|')
+		if (str[0] == '|' || 
+			(str[i] == '|' && str[i + 1] == ' ' && str[i + 2] == '|'))
 			return (false);
 		i++;
 	}
