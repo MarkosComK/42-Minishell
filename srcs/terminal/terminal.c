@@ -20,13 +20,14 @@ void	terminal(t_shell *shell)
 	{
 		input = readline(B_RED PROMPT DEFAULT);
 		input_validation(input);
+		shell->input = ft_split(input, ' ');
 		lexer(shell);
 		if (input == NULL || !ft_strcmp(input, "exit"))
 		{
 			printf("\nExiting shell...\n");
 			break;
 		}
-		if (*input)
+		if (input)
 			add_history(input);
 		printf("You entered: %s\n", input);
 		free(input);
