@@ -18,6 +18,7 @@
 typedef struct s_shell
 {
 	t_list		*token_lst;
+	char		**input;
 }				t_shell;
 
 #endif
