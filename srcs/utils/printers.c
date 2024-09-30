@@ -6,11 +6,21 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 16:14:07 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/30 16:35:52 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:47:58 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	print_lst(t_list *lst)
+{
+	while (lst)
+	{
+		printf("%s -> ", (char *)lst->content);
+		lst = lst -> next;
+	}
+	printf("\n");
+}
 
 void	print_cmd_lst(t_shell *shell)
 {
