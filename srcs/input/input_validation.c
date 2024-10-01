@@ -19,6 +19,7 @@ bool	input_validation(char *input)
 		syntax_error_msg(OPEN_QUOTE);
 	else if (!check_pipes(input))
 		syntax_error_msg(PIPE);
+	free(input);
 	return (false);
 }
 

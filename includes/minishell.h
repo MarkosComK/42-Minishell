@@ -35,7 +35,7 @@
  * , tab, newline, or one of the following characters:
  * ‘|’, ‘&’, ‘;’, ‘(’, ‘)’, ‘<’, or ‘>’
 */
-# define METACHARS "\n\t|&;()<>"
+# define METACHARS "|;<>"
 
 
 //check_args.c
