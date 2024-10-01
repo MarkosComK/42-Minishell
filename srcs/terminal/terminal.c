@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/30 17:36:52 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:39:35 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@ void	terminal(t_shell *shell)
 	while (1)
 	{
 		input = readline(B_RED PROMPT DEFAULT);
-		input_validation(input);
-		shell->input = ft_split(input, ' ');
-		lexer(shell);
-		print_lst(shell->token_lst);
 		if (input == NULL || !ft_strcmp(input, "exit"))
 		{
 			printf("\nExiting shell...\n");
@@ -30,9 +26,12 @@ void	terminal(t_shell *shell)
 			free_shell(shell);
 			break;
 		}
+		input_validation(input);
+		shell->input = ft_split(input, ' ');
+		lexer(shell);
+		print_lst(shell->token_lst);
 		if (input)
 			add_history(input);
-		printf("You entered: %s\n", input);
 		free(input);
 		free_shell(shell);
 	}
