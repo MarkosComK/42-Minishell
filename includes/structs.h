@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 22:10:17 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/29 16:40:58 by marsoare         ###   ########.fr       */
+/*   Created: 2024/09/29 16:30:38 by marsoare          #+#    #+#             */
+/*   Updated: 2024/09/29 16:32:37 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#ifndef STRUCTS_H
+# define STRUCTS_H
 
-/*
- * Start checking for the proper run of the program before starts read the user input
- * using the terminal(); that runs readline();
- *
- * User should run:
- * $./minishell
- * with no extra args
-*/
+# include <libft.h>
 
-int main(int argc, char *argv[], char *envp[])
+typedef struct s_shell
 {
-	t_shell	shell;
-	check_args(argc, argv, envp);
-	terminal(&shell);
-	return 0;
-}
+	t_list		*token_lst;
+	char		**input;
+}				t_shell;
+
+#endif
