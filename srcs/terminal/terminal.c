@@ -19,19 +19,23 @@ void	terminal(t_shell *shell)
 	while (1)
 	{
 		input = readline(B_RED PROMPT DEFAULT);
+		printf("input:%s", input);
 		if (input == NULL || !ft_strcmp(input, "exit"))
 		{
 			printf("\nExiting shell...\n");
 			free(input);
 			break;
 		}
-		input_validation(input);
-		lexer(shell, input);
-		print_lst(shell->token_lst);
-		if (input)
-			add_history(input);
-		free(input);
-		free_shell(shell);
+		else
+		{
+			input_validation(input);
+			lexer(shell, input);
+			print_lst(shell->token_lst);
+			if (input)
+				add_history(input);
+			free(input);
+			free_shell(shell);
+		}
 	}
 }
 
