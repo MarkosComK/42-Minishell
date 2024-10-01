@@ -14,8 +14,7 @@
 
 bool	input_validation(char *input)
 {
-	while (*input == ' ' || *input =='\t' || *input == '\v')
-		input++;
+	input = ft_strtrim(input, "\t ");
 	if (!check_quotes(input))
 		syntax_error_msg(OPEN_QUOTE);
 	else if (!check_pipes(input))
