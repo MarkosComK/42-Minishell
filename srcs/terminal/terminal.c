@@ -26,9 +26,7 @@ void	terminal(t_shell *shell)
 			break;
 		}
 		input_validation(input);
-		printf("input->[%s]\n", input);
-		shell->input = ft_split(input, ' ');
-		lexer(shell);
+		lexer(shell, input);
 		print_lst(shell->token_lst);
 		if (input)
 			add_history(input);

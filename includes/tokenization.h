@@ -16,6 +16,6 @@
 #include <structs.h>
 
 //lexer.c
-void	lexer(t_shell *shell);
+void	lexer(t_shell *shell, char	*input);
 
 #endif
