@@ -23,10 +23,10 @@ void	terminal(t_shell *shell)
 		{
 			printf("\nExiting shell...\n");
 			free(input);
-			free_shell(shell);
 			break;
 		}
 		input_validation(input);
+		printf("input->[%s]\n", input);
 		shell->input = ft_split(input, ' ');
 		lexer(shell);
 		print_lst(shell->token_lst);
