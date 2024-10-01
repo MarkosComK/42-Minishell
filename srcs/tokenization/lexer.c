@@ -18,7 +18,7 @@ void	lexer(t_shell *shell, char	*input)
 
 	i = 0;
 	shell->token_lst = NULL;
-	shell->input = ft_split(input, ' ');
+	shell->input = ft_split(ft_strtrim(input, "\t "), ' ');
 	while (shell->input[i])
 	{
 		ft_lstadd_back(&shell->token_lst, ft_lstnew(shell->input[i]));
