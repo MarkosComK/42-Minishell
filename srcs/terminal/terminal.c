@@ -19,7 +19,6 @@ void	terminal(t_shell *shell)
 	while (1)
 	{
 		input = readline(B_RED PROMPT DEFAULT);
-		printf("input:%s", input);
 		if (input == NULL || !ft_strcmp(input, "exit"))
 		{
 			printf("\nExiting shell...\n");
