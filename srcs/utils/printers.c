@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   printers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 22:10:17 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/29 16:40:58 by marsoare         ###   ########.fr       */
+/*   Created: 2024/09/30 16:14:07 by marsoare          #+#    #+#             */
+/*   Updated: 2024/09/30 18:08:31 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-/*
- * Start checking for the proper run of the program before starts read the user input
- * using the terminal(); that runs readline();
- *
- * User should run:
- * $./minishell
- * with no extra args
-*/
-
-int main(int argc, char *argv[], char *envp[])
+void	print_lst(t_list *lst)
 {
-	t_shell	shell;
-	check_args(argc, argv, envp);
-	terminal(&shell);
-	return 0;
+	while (lst)
+	{
+		printf("[%s]➜", (char *)lst->content);
+		lst = lst -> next;
+	}
+	printf("0\n");
+}
+
+void	print_cmd_lst(t_shell *shell)
+{
+	int	i;
+
+	i = 0;
+	while (shell->input[i])
+	{
+		printf("item: %s\n", shell->input[i]);
+		i++;
+	}
 }
