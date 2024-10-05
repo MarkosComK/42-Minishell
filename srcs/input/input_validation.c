@@ -19,7 +19,8 @@ bool	input_validation(char *input)
 		syntax_error_msg(OPEN_QUOTE);
 	else if (!check_pipes(input))
 		syntax_error_msg(PIPE);
-	free(input);
+	if (input)
+		free(input);
 	return (false);
 }
 
@@ -59,8 +60,8 @@ bool	check_pipes(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[0] == '|' || 
-			(str[i] == '|' && str[i + 1] == ' ' && str[i + 2] == '|'))
+		if (str[0] == '|'
+			|| (str[i] == '|' && str[i + 1] == ' ' && str[i + 2] == '|'))
 			return (false);
 		i++;
 	}

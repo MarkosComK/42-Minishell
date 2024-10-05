@@ -25,13 +25,16 @@ void	terminal(t_shell *shell)
 			free(input);
 			break;
 		}
-		input_validation(input);
-		lexer(shell, input);
-		print_lst(shell->token_lst);
-		if (input)
-			add_history(input);
-		free(input);
-		free_shell(shell);
+		else
+		{
+			input_validation(input);
+			lexer(shell, input);
+			print_lst(shell->token_lst);
+			if (input)
+				add_history(input);
+			free(input);
+			free_shell(shell);
+		}
 	}
 }
 
