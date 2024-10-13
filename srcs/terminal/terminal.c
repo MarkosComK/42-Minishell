@@ -18,7 +18,6 @@ void	terminal(t_shell *shell)
 
 	input = readline(B_RED PROMPT DEFAULT);
 	input_validation(input);
-	shell->input = ft_split(input, ' ');
 	lexer(shell, input);
 	print_lst(shell->token_lst);
 	if (input == NULL || !ft_strcmp(input, "exit"))
@@ -37,19 +36,13 @@ void	terminal(t_shell *shell)
 
 void	free_shell(t_shell *shell)
 {
-	int	i;
-	
-	i = 0;
-	while(shell->input[i])
-		free(shell->input[i++]);
-	free(shell->input);
-
 	t_list	*tmp;
 
 	tmp = shell->token_lst;
 	while (shell->token_lst)
 	{
 		tmp = shell->token_lst -> next;
+		free(shell->token_lst->content);
 		free(shell->token_lst);
 		shell->token_lst = tmp;
 	}
