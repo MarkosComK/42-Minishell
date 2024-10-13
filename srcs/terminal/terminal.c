@@ -19,26 +19,10 @@ void	terminal(t_shell *shell)
 	input = readline(B_RED PROMPT DEFAULT);
 	input_validation(input);
 	shell->input = ft_split(input, ' ');
-	lexer(shell);
+	lexer(shell, input);
 	print_lst(shell->token_lst);
 	if (input == NULL || !ft_strcmp(input, "exit"))
 	{
-<<<<<<< HEAD
-		printf("\nExiting shell...\n");
-=======
-		input = readline(B_RED PROMPT DEFAULT);
-		if (input == NULL || !ft_strcmp(input, "exit"))
-		{
-			printf("\nExiting shell...\n");
-			free(input);
-			break;
-		}
-		input_validation(input);
-		lexer(shell, input);
-		print_lst(shell->token_lst);
-		if (input)
-			add_history(input);
->>>>>>> tokenization
 		free(input);
 		free_shell(shell);
 		return ;
