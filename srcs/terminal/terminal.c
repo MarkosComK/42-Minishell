@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/30 17:36:52 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:39:35 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,22 @@ void	terminal(t_shell *shell)
 	print_lst(shell->token_lst);
 	if (input == NULL || !ft_strcmp(input, "exit"))
 	{
+<<<<<<< HEAD
 		printf("\nExiting shell...\n");
+=======
+		input = readline(B_RED PROMPT DEFAULT);
+		if (input == NULL || !ft_strcmp(input, "exit"))
+		{
+			printf("\nExiting shell...\n");
+			free(input);
+			break;
+		}
+		input_validation(input);
+		lexer(shell, input);
+		print_lst(shell->token_lst);
+		if (input)
+			add_history(input);
+>>>>>>> tokenization
 		free(input);
 		free_shell(shell);
 		return ;
