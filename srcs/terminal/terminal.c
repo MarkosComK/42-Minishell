@@ -16,26 +16,24 @@ void	terminal(t_shell *shell)
 {
 	char	*input;
 
-	while (1)
+	input = readline(B_RED PROMPT DEFAULT);
+	input_validation(input);
+	shell->input = ft_split(input, ' ');
+	lexer(shell);
+	print_lst(shell->token_lst);
+	if (input == NULL || !ft_strcmp(input, "exit"))
 	{
-		input = readline(B_RED PROMPT DEFAULT);
-		input_validation(input);
-		shell->input = ft_split(input, ' ');
-		lexer(shell);
-		print_lst(shell->token_lst);
-		if (input == NULL || !ft_strcmp(input, "exit"))
-		{
-			printf("\nExiting shell...\n");
-			free(input);
-			free_shell(shell);
-			break;
-		}
-		if (input)
-			add_history(input);
-		printf("You entered: %s\n", input);
+		printf("\nExiting shell...\n");
 		free(input);
 		free_shell(shell);
+		return ;
 	}
+	if (input)
+		add_history(input);
+	printf("You entered: %s\n", input);
+	free(input);
+	free_shell(shell);
+	terminal(shell);
 }
 
 void	free_shell(t_shell *shell)
