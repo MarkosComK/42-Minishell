@@ -17,8 +17,7 @@ void	tokenize_input(t_shell *shell, char *input)
 	int		i;
 
 	i = 0;
-	(void) shell;
-	while(input[i])
+	while (input[i])
 	{
 		while (ft_isspace(input[i]))
 			i++;
@@ -71,7 +70,6 @@ int	handle_pipe(t_list **tokens, const char *input, int i)
 	i++;
 	return (i);
 }
-
 /*
 int	handle_quotes(t_list *token_lst, t_token **token, const char *input, int i)
 {
