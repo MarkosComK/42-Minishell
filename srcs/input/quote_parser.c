@@ -35,8 +35,9 @@ int	main()
  */
 char	*quote_space_parser(char *argv)
 {
-	int	count;
+	int		count;
 	char	*new;
+	char	*dequoted;
 
 	count = counter(argv, 39);
 	if (count % 2 != 0)
@@ -45,8 +46,8 @@ char	*quote_space_parser(char *argv)
 		exit(EXIT_FAILURE);
 	}
 	new = space_to_minus(argv);
-	char *dequoted = dequote_single(new);
-	return dequoted;
+	dequoted = dequote_single(new);
+	return (dequoted);
 }
 
 /* nb of single quotes not escapped by \ */
@@ -91,11 +92,13 @@ char	*space_to_minus(char *str)
 /*
  * Remove the single quote from the *STR but only when it's not
  * part of a escape sequence. For EX:
- * Input string:    "This is a 'string' with a backslash \\ and a single quote \'"
+ * Input string:    "This is a 'string' with a backslash \\
+ * and a single quote \'"
  * Expected output: "This is a string with a backslash \ and a single quote '"
  */
 // Remove single quotes not part of an escape sequence
-char *dequote_single(char *str)
+/*
+char	*dequote_single(char *str)
 {
     int i = 0, j = 0;
     int len = strlen(str);
@@ -117,3 +120,4 @@ char *dequote_single(char *str)
     new[j] = '\0'; // Null-terminate the new string
     return new; // Return the dequoted string
 }
+*/
