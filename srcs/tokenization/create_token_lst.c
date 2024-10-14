@@ -14,12 +14,14 @@
 
 t_list	*tokenize_input(const char *input)
 {
-	t_list	*tokens = NULL;
-	int i = 0;
+	t_list	*tokens;
+	int		i;
 
+	tokens = NULL;
+	i = 0;
 	while (input[i])
 	{
-		while(ft_isspace(input[i]))
+		while (ft_isspace(input[i]))
 			i++;
 		if (input[i] == '"' || input[i] == '\'')
 			i = handle_quotes(&tokens, input, i);
@@ -35,21 +37,23 @@ t_list	*tokenize_input(const char *input)
 			i = handle_word_token(&tokens, input, i);
 		}
 	}
-	return tokens;
+	return (tokens);
 }
 
 int	handle_quotes(t_list **tokens, const char *input, int i)
 {
-	char quote = input[i++];
-	int start = i;
-	char *token;
+	char	quote;
+	int		start;
+	char	*token;
 
+	quote = input[i++];
+	start = i;
 	while (input[i] && input[i] != quote)
 		i++;
 	token = ft_substr(input, start, i - start);
 	ft_lstadd_back(tokens, ft_lstnew(ft_strdup(token)));
 	free(token);
-	return i + 1;
+	return (i + 1);
 }
 
 int	handle_redir(t_list **tokens, const char *input, int i)
@@ -75,16 +79,18 @@ int	handle_pipe(t_list **tokens, const char *input, int i)
 
 int	handle_word_token(t_list **tokens, const char *input, int i)
 {
-	int start;
-	char *token;
+	int		start;
+	char	*token;
 
 	start = i;
-	while (input[i] && !ft_isspace(input[i]) && input[i] != '|' && input[i] != '>' && input[i] != '<' && input[i] != '"' && input[i] != '\'')
+	while (input[i] && !ft_isspace(input[i]) && input[i] != '|'
+		&& input[i] != '>' && input[i] != '<'
+		&& input[i] != '"' && input[i] != '\'')
 	{
-			i++;
+		i++;
 	}
 	token = ft_strndup(input + start, i - start);
 	ft_lstadd_back(tokens, ft_lstnew(ft_strdup(token)));
 	free(token);
-	return i;
+	return (i);
 }
