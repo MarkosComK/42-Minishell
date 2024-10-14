@@ -18,7 +18,7 @@
  */
 # define OPEN_QUOTE "`open quote'"
 # define SYNTAX_ERROR "minishell: syntax error near unexpected token "
-# define PIPE "`|'"
+# define PIPE_ERROR "`|'"
 
 //printers.c
 void	syntax_error_msg(char *str);
