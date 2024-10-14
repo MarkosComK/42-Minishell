@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#ifndef TOKENIZATION_H
+# define TOKENIZATION_H
 
-#include <structs.h>
+# include <structs.h>
 
 typedef enum s_token_type
 {
@@ -41,10 +41,10 @@ typedef struct s_token
 
 //create_token_lst.c
 t_list	*tokenize_input(const char *input);
-int	handle_redir(t_list **tokens, const char *input, int i);
-int	handle_pipe(t_list **tokens, const char *input, int i);
-int handle_quotes(t_list **tokens, const char *input, int i);
-int	handle_word_token(t_list **tokens, const char *input, int i);
+int		handle_redir(t_list **tokens, const char *input, int i);
+int		handle_pipe(t_list **tokens, const char *input, int i);
+int		handle_quotes(t_list **tokens, const char *input, int i);
+int		handle_word_token(t_list **tokens, const char *input, int i);
 //lexer.c
 void	lexer(t_shell *shell, char	*input);
 
