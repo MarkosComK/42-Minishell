@@ -33,18 +33,19 @@ typedef enum s_token_state
 
 typedef struct s_token
 {
-	char			*content;
+	char			*value;
 	t_token_type	type;
 	t_token_state	state;
 	int				pos;
 }	t_token;
 
 //create_token_lst.c
-t_list	*tokenize_input(const char *input);
+void	tokenize_input(t_shell *shell, char *input);
+//t_list	*tokenize_input(const char *input);
+int		handle_word_token(t_list **token_list, char *input, int i);
 int		handle_redir(t_list **tokens, const char *input, int i);
 int		handle_pipe(t_list **tokens, const char *input, int i);
-int		handle_quotes(t_list **tokens, const char *input, int i);
-int		handle_word_token(t_list **tokens, const char *input, int i);
+int		handle_quotes(t_list **tokens, t_token **token, char *input, int i);
 //lexer.c
 void	lexer(t_shell *shell, char	*input);
 
