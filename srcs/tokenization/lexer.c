@@ -16,6 +16,6 @@ void	lexer(t_shell *shell, char	*input)
 {
 	shell->token_lst = NULL;
 	input = ft_strtrim(input, "\t ");
-	shell->token_lst = tokenize_input(input);
+	tokenize_input(shell, input);
 	free(input);
 }
