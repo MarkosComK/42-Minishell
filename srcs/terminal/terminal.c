@@ -37,11 +37,14 @@ void	terminal(t_shell *shell)
 void	free_shell(t_shell *shell)
 {
 	t_list	*tmp;
+	t_token *token;
 
 	tmp = shell->token_lst;
 	while (shell->token_lst)
 	{
 		tmp = shell->token_lst -> next;
+		token = (t_token *) shell->token_lst->content;
+		free(token->value);
 		free(shell->token_lst->content);
 		free(shell->token_lst);
 		shell->token_lst = tmp;
