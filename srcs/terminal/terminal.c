@@ -19,7 +19,7 @@ void	terminal(t_shell *shell)
 	input = readline(B_RED PROMPT DEFAULT);
 	input_validation(input);
 	lexer(shell, input);
-	print_lst(shell->token_lst);
+	print_token_lst(shell->token_lst);
 	if (input == NULL || !ft_strcmp(input, "exit"))
 	{
 		free(input);
