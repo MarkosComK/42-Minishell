@@ -16,8 +16,6 @@ t_list	*tokenize_input(const char *input)
 {
 	t_list	*tokens = NULL;
 	int i = 0;
-	int start;
-	char *token;
 
 	while (input[i])
 	{
@@ -34,12 +32,7 @@ t_list	*tokenize_input(const char *input)
 		}
 		else
 		{
-			start = i;
-			while (input[i] && !ft_isspace(input[i]) && input[i] != '|' && input[i] != '>' && input[i] != '<' && input[i] != '"' && input[i] != '\'')
-				i++;
-			token = ft_strndup(input + start, i - start);
-			ft_lstadd_back(&tokens, ft_lstnew(ft_strdup(token)));
-			free(token);
+			i = handle_word_token(&tokens, input, i);
 		}
 	}
 	return tokens;
@@ -78,4 +71,20 @@ int	handle_pipe(t_list **tokens, const char *input, int i)
 	i++;
 	free(token);
 	return (i);
+}
+
+int	handle_word_token(t_list **tokens, const char *input, int i)
+{
+	int start;
+	char *token;
+
+	start = i;
+	while (input[i] && !ft_isspace(input[i]) && input[i] != '|' && input[i] != '>' && input[i] != '<' && input[i] != '"' && input[i] != '\'')
+	{
+			i++;
+	}
+	token = ft_strndup(input + start, i - start);
+	ft_lstadd_back(tokens, ft_lstnew(ft_strdup(token)));
+	free(token);
+	return i;
 }
