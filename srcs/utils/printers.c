@@ -22,6 +22,19 @@ void	print_lst(t_list *lst)
 	printf("0\n");
 }
 
+void	print_token_lst(t_list *lst)
+{
+	t_token *token;
+
+	while (lst)
+	{
+		token = (t_token *)lst->content;
+		printf("[%s]➜", token->value);
+		lst = lst->next;
+	}
+	printf("0\n");
+}
+
 void	print_cmd_lst(t_shell *shell)
 {
 	int	i;
