@@ -16,22 +16,21 @@ void	terminal(t_shell *shell)
 {
 	char	*input;
 
-	input = readline(B_RED PROMPT DEFAULT);
-	if (input)
+	shell->input = readline(B_RED PROMPT DEFAULT);
+	if (shell->input)
 		add_history(input);
-	if (input_validation(input))
+	if (input_validation(shell))
 	{
 		terminal(shell);
 	}
-	if (input == NULL || !ft_strcmp(input, "exit") || input_validation(input))
+	if (shell->input == NULL || !ft_strcmp(shell->trim_input, "exit"))
 	{
-		free(input);
+		free_shell(shell);
 		return ;
 	}
-	lexer(shell, input);
+	lexer(shell, shell->input);
 	print_token_lst(shell->token_lst);
-	printf("You entered: %s\n", input);
-	free(input);
+	printf("You entered: %s\n", shell->input);
 	free_shell(shell);
 	terminal(shell);
 }
@@ -51,4 +50,6 @@ void	free_shell(t_shell *shell)
 		free(shell->token_lst);
 		shell->token_lst = tmp;
 	}
+	free(shell->input);
+	free(shell->trim_input);
 }

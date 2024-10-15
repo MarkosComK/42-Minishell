@@ -12,9 +12,10 @@
 
 #include <minishell.h>
 
-bool	input_validation(char *input)
+bool	input_validation(t_shell *shell, char *input)
 {
-	input = ft_strtrim(input, "\t ");
+	shell->input = input;
+	shell->trim_input = ft_strtrim(input, "\t ");
 	if (!check_quotes(input))
 		return (free(input), syntax_error_msg(OPEN_QUOTE));
 	else if (!check_pipes(input))
