@@ -19,7 +19,7 @@
 # define INPUT_H
 
 //input_validation.c
-bool	input_validation(char *input);
+bool	input_validation(t_shell *shell);
 bool	check_quotes(char *str);
 bool	check_pipes(char *str);
 
