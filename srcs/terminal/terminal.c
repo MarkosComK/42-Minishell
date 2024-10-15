@@ -30,7 +30,6 @@ void	terminal(t_shell *shell)
 	}
 	lexer(shell, shell->input);
 	print_token_lst(shell->token_lst);
-	printf("You entered: %s\n", shell->input);
 	free_shell(shell);
 	terminal(shell);
 }
