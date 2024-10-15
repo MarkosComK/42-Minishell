@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:41:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/13 15:14:34 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:59:29 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef enum s_token_type
 	APPEND,
 	OUTFILE,
 	INFILE,
+	HEREDOC,
 }	t_token_type;
 
 typedef enum s_token_state
@@ -39,6 +40,8 @@ typedef struct s_token
 	int				pos;
 }	t_token;
 
+//check_token_type.c
+t_token_type	token_type(char *value);
 //create_token_lst.c
 void	tokenize_input(t_shell *shell, char *input);
 //t_list	*tokenize_input(const char *input);
