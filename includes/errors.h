@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 20:07:07 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/28 20:35:28 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:06:59 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@
 # define PIPE "`|'"
 
 //printers.c
-void	syntax_error_msg(char *str);
+bool	syntax_error_msg(char *str);
 
 #endif
