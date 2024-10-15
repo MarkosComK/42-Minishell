@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:41:24 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 16:06:55 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:15:47 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	tokenize_input(t_shell *shell, char *input)
 			i = handle_quotes(&shell->token_lst, input, i);
 		else if (input[i] == '|')
 			i = handle_pipe(&shell->token_lst, input, i);
-		else if (input[i] == '>')
+		else if (input[i] == '>' || input[i] == '<')
 			i = handle_redir(&shell->token_lst, input, i);
 		else
 			i = handle_word_token(&shell->token_lst, input, i);
@@ -45,6 +45,7 @@ int	handle_word_token(t_list **token_list, char *input, int i)
 	}
 	new_token->value = ft_strndup(input + start, i - start);
 	new_token->type = WORD;
+	new_token->state = GENERAL;
 	ft_lstadd_back(token_list, ft_lstnew(new_token));
 	while (ft_isspace(input[i]))
 		i++;
@@ -65,9 +66,13 @@ int	handle_redir(t_list **tokens, char *input, int i)
 	else
 	{
 		new_token->value = ft_strndup(&input[i], 1);
-		new_token->type = OUTFILE;
+		if (input[i] == '<')
+			new_token->type = INFILE;
+		else
+			new_token->type = OUTFILE;
 		i++;
 	}
+	new_token->state = GENERAL;
 	ft_lstadd_back(tokens, ft_lstnew(new_token));
 	while (ft_isspace(input[i]))
 		i++;
@@ -81,6 +86,7 @@ int	handle_pipe(t_list **tokens, char *input, int i)
 	new_token = ft_calloc(1, sizeof(t_token));
 	new_token->value = ft_strndup(&input[i], 1);
 	new_token->type = PIPE;
+	new_token->state = GENERAL;
 	ft_lstadd_back(tokens, ft_lstnew(new_token));
 	i++;
 	while (ft_isspace(input[i]))
