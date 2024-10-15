@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:41:24 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 16:03:26 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:06:55 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,10 @@ int	handle_quotes(t_list **tokens, char *input, int i)
 		i++;
 	new_token->value = ft_substr(input, start, i - start);
 	new_token->type = WORD;
+	if (quote == '"')
+		new_token->state = IN_DQUOTES;
+	else if (quote == '\'')
+		new_token->state = IN_SQUOTES;
 	ft_lstadd_back(tokens, ft_lstnew(new_token));
 	i++;
 	while (ft_isspace(input[i]))
