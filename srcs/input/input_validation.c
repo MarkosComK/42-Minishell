@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:36:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/28 20:38:07 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:22:08 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ bool	input_validation(char *input)
 {
 	input = ft_strtrim(input, "\t ");
 	if (!check_quotes(input))
-		syntax_error_msg(OPEN_QUOTE);
+		return (syntax_error_msg(OPEN_QUOTE));
 	else if (!check_pipes(input))
-		syntax_error_msg(PIPE_ERROR);
-	free(input);
+		return (syntax_error_msg(PIPE_ERROR));
+	if (input)
+		free(input);
 	return (false);
 }
 
@@ -59,8 +60,10 @@ bool	check_pipes(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[0] == '|' || 
-			(str[i] == '|' && str[i + 1] == ' ' && str[i + 2] == '|'))
+		if (str[0] == '|'
+			|| (str[i] == '|' && str[i + 1] == ' ' && str[i + 2] == '|'))
+			return (false);
+		if (str[i] == '|' && str[i + 1] == '|')
 			return (false);
 		i++;
 	}
