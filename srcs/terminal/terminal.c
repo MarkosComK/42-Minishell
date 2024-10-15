@@ -14,11 +14,10 @@
 
 void	terminal(t_shell *shell)
 {
-	char	*input;
-
+	ft_bzero(shell, sizeof(t_shell));
 	shell->input = readline(B_RED PROMPT DEFAULT);
 	if (shell->input)
-		add_history(input);
+		add_history(shell->input);
 	if (input_validation(shell))
 	{
 		terminal(shell);
@@ -50,6 +49,8 @@ void	free_shell(t_shell *shell)
 		free(shell->token_lst);
 		shell->token_lst = tmp;
 	}
-	free(shell->input);
-	free(shell->trim_input);
+	if (shell->input)
+		free(shell->input);
+	if (shell->trim_input)
+		free(shell->trim_input);
 }

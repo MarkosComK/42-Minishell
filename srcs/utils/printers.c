@@ -70,7 +70,7 @@ void	print_cmd_lst(t_shell *shell)
 	i = 0;
 	while (shell->input[i])
 	{
-		printf("item: %s\n", shell->input[i]);
+		printf("item: %s\n", shell->input);
 		i++;
 	}
 }

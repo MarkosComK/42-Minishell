@@ -12,15 +12,14 @@
 
 #include <minishell.h>
 
-bool	input_validation(t_shell *shell, char *input)
+bool	input_validation(t_shell *shell)
 {
-	shell->input = input;
-	shell->trim_input = ft_strtrim(input, "\t ");
-	if (!check_quotes(input))
-		return (free(input), syntax_error_msg(OPEN_QUOTE));
-	else if (!check_pipes(input))
-		return (free(input), syntax_error_msg(OPEN_QUOTE));
-	return (free(input) ,false);
+	shell->trim_input = ft_strtrim(shell->input, "\t ");
+	if (!check_quotes(shell->trim_input))
+		return (syntax_error_msg(OPEN_QUOTE));
+	else if (!check_pipes(shell->trim_input))
+		return (syntax_error_msg(OPEN_QUOTE));
+	return (false);
 }
 
 /*
