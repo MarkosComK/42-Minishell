@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   tokenize_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:30:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/29 16:32:37 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/15 15:39:51 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/15 15:54:16 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#include <minishell.h>
 
-# include <libft.h>
-
-typedef struct s_shell
+bool	in_quotes(char *input, int i)
 {
-	t_list		*token_lst;
-	char		*input;
-	char		*trim_input;
-}				t_shell;
-
-#endif
+	if (input[i] == '"')
+		return (true);
+	return (false);
+}

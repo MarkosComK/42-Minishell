@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   check_token_type.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:30:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/29 16:32:37 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/15 11:53:57 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/15 12:00:46 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#include <minishell.h>
 
-# include <libft.h>
-
-typedef struct s_shell
+t_token_type	token_type(char *value)
 {
-	t_list		*token_lst;
-	char		*input;
-	char		*trim_input;
-}				t_shell;
-
-#endif
+	if (ft_strcmp(value, "|"))
+		return (PIPE);
+	else
+		return (WORD);
+}

@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   set_token_pos.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:30:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/29 16:32:37 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/15 16:39:04 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/15 16:43:09 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#include <minishell.h>
 
-# include <libft.h>
-
-typedef struct s_shell
+void	set_token_pos(t_list *lst)
 {
-	t_list		*token_lst;
-	char		*input;
-	char		*trim_input;
-}				t_shell;
+	t_token *token;
+	int		i;
 
-#endif
+	i = 0;
+	while (lst)
+	{
+		token = (t_token *) lst->content;
+		token->pos = i;
+		lst = lst->next;
+		i++;
+	}
+}

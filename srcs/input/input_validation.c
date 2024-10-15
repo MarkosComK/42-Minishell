@@ -6,21 +6,23 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:36:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/28 20:38:07 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:32:21 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-bool	input_validation(char *input)
+bool	input_validation(t_shell *shell)
 {
-	input = ft_strtrim(input, "\t ");
-	if (!check_quotes(input))
-		syntax_error_msg(OPEN_QUOTE);
-	else if (!check_pipes(input))
-		syntax_error_msg(PIPE);
-	if (input)
-		free(input);
+	if (shell->input[0] == '\0')
+		return (true);
+	shell->trim_input = ft_strtrim(shell->input, "\t ");
+	if (!shell->trim_input || shell->trim_input[0] == '\0')
+		return (true);
+	if (!check_quotes(shell->trim_input))
+		return (syntax_error_msg(OPEN_QUOTE));
+	else if (!check_pipes(shell->trim_input))
+		return (syntax_error_msg(OPEN_QUOTE));
 	return (false);
 }
 
@@ -62,6 +64,8 @@ bool	check_pipes(char *str)
 	{
 		if (str[0] == '|'
 			|| (str[i] == '|' && str[i + 1] == ' ' && str[i + 2] == '|'))
+			return (false);
+		if (str[i] == '|' && str[i + 1] == '|')
 			return (false);
 		i++;
 	}
