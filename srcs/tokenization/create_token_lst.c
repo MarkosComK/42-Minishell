@@ -46,6 +46,7 @@ int	handle_word_token(t_list **token_list, char *input, int i)
 		i++;
 	}
 	new_token->value = ft_strndup(input + start, i - start);
+	new_token->type = WORD;
 	ft_lstadd_back(token_list, ft_lstnew(new_token));
 	return (i);
 }
@@ -66,6 +67,7 @@ int	handle_pipe(t_list **tokens, const char *input, int i)
 
 	new_token = ft_calloc(1, sizeof(t_token));
 	new_token->value = ft_strndup(&input[i], 1);
+	new_token->type = PIPE;
 	ft_lstadd_back(tokens, ft_lstnew(new_token));
 	i++;
 	return (i);
