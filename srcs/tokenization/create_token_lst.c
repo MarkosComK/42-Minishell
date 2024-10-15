@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:41:24 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 16:15:47 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:44:47 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	tokenize_input(t_shell *shell, char *input)
 			i = handle_redir(&shell->token_lst, input, i);
 		else
 			i = handle_word_token(&shell->token_lst, input, i);
+		set_token_pos(shell->token_lst);
 	}
 }
 
