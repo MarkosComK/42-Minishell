@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:41:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 11:59:29 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:45:09 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@ t_token_type	token_type(char *value);
 void	tokenize_input(t_shell *shell, char *input);
 //t_list	*tokenize_input(const char *input);
 int		handle_word_token(t_list **token_list, char *input, int i);
-int		handle_redir(t_list **tokens, const char *input, int i);
-int		handle_pipe(t_list **tokens, const char *input, int i);
-int		handle_quotes(t_list **tokens, t_token **token, char *input, int i);
+int		handle_redir(t_list **tokens, char *input, int i);
+int		handle_pipe(t_list **tokens, char *input, int i);
+int		handle_quotes(t_list **tokens, char *input, int i);
 //lexer.c
 void	lexer(t_shell *shell, char	*input);
+//tokenize_utils.c
+bool	in_quotes(char *input, int i);
 
 #endif

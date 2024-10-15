@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   tokenize_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:38:23 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 15:52:26 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/15 15:39:51 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/15 15:54:16 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	lexer(t_shell *shell, char	*input)
+bool	in_quotes(char *input, int i)
 {
-	shell->token_lst = NULL;
-	tokenize_input(shell, input);
+	if (input[i] == '"')
+		return (true);
+	return (false);
 }
