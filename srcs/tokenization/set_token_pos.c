@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   set_token_pos.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:38:23 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 17:37:48 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/15 16:39:04 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/15 16:43:09 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	lexer(t_shell *shell, char	*input)
+void	set_token_pos(t_list *lst)
 {
-	shell->token_lst = NULL;
-	tokenize_input(shell, input);
+	t_token *token;
+	int		i;
+
+	i = 0;
+	while (lst)
+	{
+		token = (t_token *) lst->content;
+		token->pos = i;
+		lst = lst->next;
+		i++;
+	}
 }

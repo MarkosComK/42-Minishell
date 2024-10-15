@@ -14,7 +14,11 @@
 
 bool	input_validation(t_shell *shell)
 {
+	if (shell->input[0] == '\0')
+		return (true);
 	shell->trim_input = ft_strtrim(shell->input, "\t ");
+	if (!shell->trim_input || shell->trim_input[0] == '\0')
+		return (true);
 	if (!check_quotes(shell->trim_input))
 		return (syntax_error_msg(OPEN_QUOTE));
 	else if (!check_pipes(shell->trim_input))
