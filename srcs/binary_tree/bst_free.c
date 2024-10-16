@@ -18,11 +18,12 @@ void free_pipe_children(t_pipe *pipe)
 {
 	if (pipe)
 	{
-		if (pipe->right)
-			free_bst(pipe->right);
 		if (pipe->left)
 			free_bst(pipe->left);
+		if (pipe->right)
+			free_bst(pipe->right);
 	}
+	free(pipe);
 }
 
 void free_exec(t_exec *node)
