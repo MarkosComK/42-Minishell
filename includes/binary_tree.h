@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:53:24 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/16 11:21:25 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/16 12:28:14 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,12 @@ typedef struct	s_exec
 	char		*command;
 }				t_exec;
 
-void	*build_tree(t_list *token_list);
+//bst_utils.c
 void	*print_bst(void *root, int space);
+//build_tree.c
+void	*build_tree(t_list *token_list);
+void	*insert_node(void *node, t_token *curr_token, t_token *next_token);
+void	*create_pipe(t_exec *left, t_exec *right);
+void	*create_exec(t_token *token);
 
 #endif
