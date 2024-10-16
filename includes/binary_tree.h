@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:53:24 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/16 12:37:22 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/16 12:56:18 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct	s_exec
 	char		*command;
 }				t_exec;
 
+//bst_free.c
+void	free_bst(void *root);
 //bst_print.c
 void	*print_bst(void *root, int space);
 void	print_pipe_children(t_pipe *pipe, int space);

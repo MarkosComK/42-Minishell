@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/16 12:35:42 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:01:11 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,8 @@ void	free_shell(t_shell *shell)
 		free(shell->input);
 	if (shell->trim_input)
 		free(shell->trim_input);
+	if (shell->root)
+		free_bst(shell->root);
+	free(shell->root);
 	ft_bzero(shell, sizeof(t_shell));
 }
