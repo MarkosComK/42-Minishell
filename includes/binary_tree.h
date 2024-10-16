@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:53:24 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/16 12:28:14 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/16 12:32:15 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ typedef struct	s_exec
 
 //bst_utils.c
 void	*print_bst(void *root, int space);
+void	print_pipe_children(t_pipe *pipe, int space);
+void	print_bst_pipe(t_pipe *node, int space);
+void	print_bst_exec(t_exec *node, int space);
 //build_tree.c
 void	*build_tree(t_list *token_list);
 void	*insert_node(void *node, t_token *curr_token, t_token *next_token);
