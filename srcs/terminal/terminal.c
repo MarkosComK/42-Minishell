@@ -57,6 +57,5 @@ void	free_shell(t_shell *shell)
 		free(shell->trim_input);
 	if (shell->root)
 		free_bst(shell->root);
-	//free(shell->root);
 	ft_bzero(shell, sizeof(t_shell));
 }
