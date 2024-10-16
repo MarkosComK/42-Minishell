@@ -39,8 +39,7 @@ int	handle_word_token(t_list **token_list, char *input, int i)
 	start = i;
 	new_token = ft_calloc(1, sizeof(t_token));
 	while (input[i] && !ft_isspace(input[i]) && input[i] != '|'
-		&& input[i] != '>' && input[i] != '<'
-		)
+		&& input[i] != '>' && input[i] != '<')
 	{
 		i++;
 	}

@@ -14,7 +14,7 @@
 
 void	set_token_pos(t_list *lst)
 {
-	t_token *token;
+	t_token	*token;
 	int		i;
 
 	i = 0;
