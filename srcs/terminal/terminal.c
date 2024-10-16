@@ -30,6 +30,7 @@ void	terminal(t_shell *shell)
 	}
 	lexer(shell, shell->input);
 	print_token_lst(shell->token_lst);
+	shell->root = build_tree(shell->token_lst);
 	free_shell(shell);
 	terminal(shell);
 }
