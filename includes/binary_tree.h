@@ -41,6 +41,8 @@ typedef struct	s_exec
 
 //bst_free.c
 void	free_bst(void *root);
+void	free_pipe_children(t_pipe *pipe);
+void	free_exec(t_exec *node);
 //bst_print.c
 void	*print_bst(void *root, int space);
 void	print_pipe_children(t_pipe *pipe, int space);

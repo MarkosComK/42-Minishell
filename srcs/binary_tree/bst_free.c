@@ -12,7 +12,19 @@
 
 #include <minishell.h>
 
-void	free_bst(void *root);
+void	free_bst(void *root)
+{
+	t_node *node;
+
+	if (!root)
+		return ;
+	node = (t_node *)root;
+	if (node->type == N_PIPE)
+		free_pipe_children((t_pipe *)root);
+	else
+		free_exec((t_exec *)root);
+	return ;
+}
 
 void free_pipe_children(t_pipe *pipe)
 {
@@ -30,18 +42,4 @@ void free_exec(t_exec *node)
 {
 	if (node)
 		free(node);
-}
-
-void	free_bst(void *root)
-{
-	t_node *node;
-
-	if (!root)
-		return ;
-	node = (t_node *)root;
-	if (node->type == N_PIPE)
-		free_pipe_children((t_pipe *)root);
-	else
-		free_exec((t_exec *)root);
-	return ;
 }
