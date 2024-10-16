@@ -10,30 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BINARY_TREE
-# define BINARY_TREE
+#ifndef BINARY_TREE_H
+# define BINARY_TREE_H
 
-#include <structs.h>
+# include <structs.h>
 
-typedef enum	e_node_type
+typedef enum e_node_type
 {
 	N_PIPE,
 	N_EXEC,
 }				t_node_type;
 
-typedef struct	s_node
+typedef struct s_node
 {
 	t_node_type	type;
 }				t_node;
 
-typedef struct	s_pipe
+typedef struct s_pipe
 {
 	t_node			type;
 	struct s_exec	*left;
 	struct s_exec	*right;
 }				t_pipe;
 
-typedef struct	s_exec
+typedef struct s_exec
 {
 	t_node		type;
 	char		*command;
