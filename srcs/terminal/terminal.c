@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 12:31:01 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:08:13 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	terminal(t_shell *shell)
 	}
 	lexer(shell, shell->input);
 	print_token_lst(shell->token_lst);
+	shell->root = build_tree(shell->token_lst);
+	print_bst(shell->root, 5);
 	free_shell(shell);
 	terminal(shell);
 }
@@ -53,5 +55,7 @@ void	free_shell(t_shell *shell)
 		free(shell->input);
 	if (shell->trim_input)
 		free(shell->trim_input);
+	if (shell->root)
+		free_bst(shell->root);
 	ft_bzero(shell, sizeof(t_shell));
 }
