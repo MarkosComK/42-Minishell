@@ -14,7 +14,7 @@
 
 void	free_bst(void *root)
 {
-	t_node *node;
+	t_node	*node;
 
 	if (!root)
 		return ;
@@ -26,7 +26,7 @@ void	free_bst(void *root)
 	return ;
 }
 
-void free_pipe_children(t_pipe *pipe)
+void	free_pipe_children(t_pipe *pipe)
 {
 	if (pipe)
 	{
@@ -38,7 +38,7 @@ void free_pipe_children(t_pipe *pipe)
 	free(pipe);
 }
 
-void free_exec(t_exec *node)
+void	free_exec(t_exec *node)
 {
 	if (node)
 		free(node);

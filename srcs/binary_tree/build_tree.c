@@ -30,7 +30,7 @@ void	*build_tree(t_list *token_list)
 			tmp = tmp->next;
 		tmp = tmp->next;
 	}
-	return root;
+	return (root);
 }
 
 void	*insert_node(void *node, t_token *curr_token, t_token *next_token)
