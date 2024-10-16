@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 17:40:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/16 12:34:13 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:12:39 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	*build_tree(t_list *token_list)
 {
 	t_list	*tmp;
 	void	*root;
+	t_node	*node;
 
 	tmp = token_list;
 	root = NULL;
@@ -25,6 +26,9 @@ void	*build_tree(t_list *token_list)
 		if (!tmp->next)
 			break ;
 		root = insert_node(root, tmp->content, tmp->next->content);
+		node = (t_node *)root;
+		if (node->type == N_PIPE)
+			tmp = tmp->next;
 		tmp = tmp->next;
 	}
 	return root;
