@@ -66,5 +66,19 @@ void	print_bst_exec(t_exec *node, int space)
 		printf(" ");
 		i++;
 	}
-	printf("%s\n", node->command);
+	printf("[EXEC]\n");
+		// Print the arguments in argv
+	if (node->argv)
+	{
+		int j = 0;
+		while (node->argv[j] != NULL)
+		{
+			for (i = 0; i < space + 2; i++) // Indent arguments further
+			{
+				printf(" ");
+			}
+			printf("[%s]\n", node->argv[j]); // Print each argument
+			j++;
+		}
+	}
 }
