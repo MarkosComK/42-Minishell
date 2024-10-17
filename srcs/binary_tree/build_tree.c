@@ -20,11 +20,9 @@ void	*build_tree(t_list *token_list)
 
 	tmp = token_list;
 	root = NULL;
-	while (tmp)
+	while (tmp && tmp->next)
 	{
-		if (!tmp->next)
-			break ;
-		root = insert_node(root, tmp->content, tmp->next->content);
+		root = insert_node(root, tmp);
 		node = (t_node *)root;
 		if (node->type == N_PIPE)
 			tmp = tmp->next;
@@ -33,13 +31,13 @@ void	*build_tree(t_list *token_list)
 	return (root);
 }
 
-void	*insert_node(void *node, t_token *curr_token, t_token *next_token)
+void	*insert_node(void *node, t_list *token_lst)
 {
 	t_pipe	*pipe;
 
 	if (!node)
-		return (create_exec(curr_token));
-	pipe = create_pipe(node, create_exec(next_token));
+		return (create_exec(token_lst->content));
+	pipe = create_pipe(node, create_exec(token_lst->next->content));
 	return (pipe);
 }
 
