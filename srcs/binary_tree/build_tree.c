@@ -48,20 +48,20 @@ void	*insert_node(void *node, t_list *token_lst)
 	t_pipe	*pipe;
 
 	if (!node)
-		return (create_exec(token_lst->content));
-	pipe = create_pipe(node, create_exec(token_lst->next->content));
+		return (create_exec(token_lst));
+	pipe = create_pipe(node, create_exec(token_lst->next));
 	return (pipe);
 }
 
-void	*create_exec(t_token *token)
+void	*create_exec(t_list *token_lst)
 {
 	t_exec	*node;
 
-	if (!token)
+	if (!token_lst)
 		return (NULL);
 	node = (t_exec *)malloc(sizeof(t_exec));
 	node->type.type = N_EXEC;
-	node->command = token->value;
+	node->command = ((t_token *)token_lst->content)->value;
 	return (node);
 }
 

@@ -52,6 +52,6 @@ void	print_bst_exec(t_exec *node, int space);
 void	*build_tree(t_list *token_list);
 void	*insert_node(void *node, t_list *token_lst);
 void	*create_pipe(t_exec *left, t_exec *right);
-void	*create_exec(t_token *token);
+void	*create_exec(t_list *token_lst);
 
 #endif
