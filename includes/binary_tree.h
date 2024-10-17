@@ -37,6 +37,7 @@ typedef struct s_exec
 {
 	t_node		type;
 	char		*command;
+	char		**argv;
 }				t_exec;
 
 //bst_free.c
