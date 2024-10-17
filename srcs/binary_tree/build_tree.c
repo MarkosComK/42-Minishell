@@ -16,17 +16,29 @@ void	*build_tree(t_list *token_list)
 {
 	t_list	*tmp;
 	void	*root;
-	t_node	*node;
+	//t_node	*node;
 
 	tmp = token_list;
 	root = NULL;
 	while (tmp && tmp->next)
 	{
+		print_token_lst(tmp);
 		root = insert_node(root, tmp);
-		node = (t_node *)root;
-		if (node->type == N_PIPE)
+		if (((t_token *)tmp->content)->type == WORD)
+		{
+			while (tmp && ((t_token *)tmp->content)->type == WORD)
+			{
+				tmp = tmp->next;
+			}
+		}
+		else
+		{
 			tmp = tmp->next;
-		tmp = tmp->next;
+			while (tmp && ((t_token *)tmp->content)->type == WORD)
+			{
+				tmp = tmp->next;
+			}
+		}
 	}
 	return (root);
 }
