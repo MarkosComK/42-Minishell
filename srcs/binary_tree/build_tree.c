@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 17:40:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/16 13:13:15 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:29:11 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,15 @@ void	*insert_node(void *node, t_list *token_lst)
 void	*create_exec(t_list *token_lst)
 {
 	t_exec	*node;
-    int argc = 0;
-    char **argv = NULL;
 
 	if (!token_lst)
 		return (NULL);
 	node = (t_exec *)malloc(sizeof(t_exec));
 	node->type.type = N_EXEC;
 	node->command = ((t_token *)token_lst->content)->value;
+	node->argv = get_argv(token_lst);
 	
+	/*
 	// Count the number of arguments until we hit a pipe
 	t_list *current = token_lst;
 	while (current && ft_strcmp(((t_token *)current->content)->value, "|") != 0)
@@ -86,6 +86,7 @@ void	*create_exec(t_list *token_lst)
 	}
 	argv[argc] = NULL;
 	node->argv = argv;
+	*/
 	return (node);
 }
 

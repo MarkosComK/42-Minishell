@@ -42,7 +42,8 @@ void	free_exec(t_exec *node)
 {
 	if (node)
 	{
-		free(node->argv);
+		if (node->argv)
+			free(node->argv);
 		free(node);
 	}
 }
