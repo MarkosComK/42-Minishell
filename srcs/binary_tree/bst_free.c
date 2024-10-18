@@ -41,5 +41,9 @@ void	free_pipe_children(t_pipe *pipe)
 void	free_exec(t_exec *node)
 {
 	if (node)
+	{
+		if (node->argv)
+			free(node->argv);
 		free(node);
+	}
 }
