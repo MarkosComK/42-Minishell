@@ -58,8 +58,10 @@ void	print_bst_pipe(t_pipe *node, int space)
 void	print_bst_exec(t_exec *node, int space)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	printf("\n");
 	while (i < space)
 	{
@@ -67,17 +69,17 @@ void	print_bst_exec(t_exec *node, int space)
 		i++;
 	}
 	printf("[EXEC]\n");
-		// Print the arguments in argv
 	if (node->argv)
 	{
-		int j = 0;
-		while (node->argv[j] != NULL)
+		while (node->argv[j])
 		{
-			for (i = 0; i < space + 2; i++) // Indent arguments further
+			i = 0;
+			while (i < space + 2)
 			{
 				printf(" ");
+				i++;
 			}
-			printf("[%s]\n", node->argv[j]); // Print each argument
+			printf("[%s]\n", node->argv[j]);
 			j++;
 		}
 	}

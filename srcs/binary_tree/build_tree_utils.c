@@ -15,12 +15,14 @@
 char	**get_argv(t_list *token_lst)
 {
 	t_list	*current;
-    int		argc;
-    char	**argv;
+	int		argc;
+	char	**argv;
+	int		i;
 
 	current = token_lst;
 	argc = 0;
 	argv = NULL;
+	i = 0;
 	while (current && ft_strcmp(((t_token *)current->content)->value, "|") != 0)
 	{
 		argc++;
@@ -28,10 +30,11 @@ char	**get_argv(t_list *token_lst)
 	}
 	argv = malloc((argc + 1) * sizeof(char *));
 	current = token_lst;
-	for (int i = 0; i < argc; i++)
+	while (i < argc)
 	{
 		argv[i] = ((t_token *)current->content)->value;
 		current = current->next;
+		i++;
 	}
 	argv[argc] = NULL;
 	return (argv);
