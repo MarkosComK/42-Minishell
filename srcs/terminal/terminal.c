@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/16 13:08:13 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/19 12:52:47 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	terminal(t_shell *shell)
 	print_token_lst(shell->token_lst);
 	shell->root = build_tree(shell->token_lst);
 	print_bst(shell->root, 5);
+	exec_tree(shell->root);
 	free_shell(shell);
 	terminal(shell);
 }
