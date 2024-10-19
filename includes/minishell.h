@@ -28,6 +28,7 @@
 # include <utils.h>
 # include <binary_tree.h>
 # include <exec.h>
+# include <sys/wait.h>
 
 // MACROS
 # define PROMPT "🔥 HELLSH ➜ "
