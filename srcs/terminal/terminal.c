@@ -29,10 +29,12 @@ void	terminal(t_shell *shell)
 		return ;
 	}
 	lexer(shell, shell->input);
-	print_token_lst(shell->token_lst);
 	shell->root = build_tree(shell->token_lst);
-	print_bst(shell->root, 5);
-	exec_tree(shell->root);
+	//print_token_lst(shell->token_lst);
+	//print_bst(shell->root, 5);
+	if (fork() == 0)
+		exec_tree(shell->root);
+	wait(NULL);
 	free_shell(shell);
 	terminal(shell);
 }
