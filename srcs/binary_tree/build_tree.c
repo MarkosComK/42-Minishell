@@ -19,7 +19,7 @@ void	*build_tree(t_list *token_list)
 
 	tmp = token_list;
 	root = NULL;
-	while (tmp && tmp->next)
+	while (tmp)
 	{
 		root = insert_node(root, tmp);
 		if (((t_token *)tmp->content)->type == WORD)
