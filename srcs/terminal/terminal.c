@@ -53,6 +53,13 @@ void	free_shell(t_shell *shell)
 		free(shell->token_lst);
 		shell->token_lst = tmp;
 	}
+	while (shell->path)
+	{
+		tmp = shell->path->next;
+		free(shell->path->content);
+		free(shell->path);
+		shell->path= tmp;
+	}
 	if (shell->input)
 		free(shell->input);
 	if (shell->trim_input)
