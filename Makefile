@@ -19,10 +19,9 @@ INCLUDE  = -L${LIBFTDIR}/src -lft -lreadline
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp
 ENV      = env -i ${VALGRIND}
 
-all: ${LIBFTDIR} ${NAME}
+all: submodule ${LIBFTDIR} ${NAME}
 
-${LIBFTDIR}:
-	@echo "$(YELLOW)Cloning libft repository with submodules...$(RESET)"
+submodule:
 	@git submodule update --init --recursive
 
 ${NAME}: ${OBJS}
