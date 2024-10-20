@@ -6,13 +6,11 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 14:39:45 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/20 15:21:51 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:18:40 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-int	get_path(t_list	**path_list, char *path, int i);
 
 t_list	*path_list(char **envp)
 {
