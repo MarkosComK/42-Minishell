@@ -12,12 +12,13 @@
 
 #include <minishell.h>
 
-void	terminal(t_shell *shell)
+void	terminal(t_shell *shell, char **envp)
 {
 	ft_bzero(shell, sizeof(t_shell));
 	shell->input = readline(B_RED PROMPT DEFAULT);
 	if (shell->input && shell->input[0] != '\0')
 		add_history(shell->input);
+	shell->path = path_list(envp);
 	if (input_validation(shell))
 	{
 		free_shell(shell);

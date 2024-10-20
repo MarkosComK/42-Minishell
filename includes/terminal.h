@@ -15,6 +15,6 @@
 
 # include <structs.h>
 
-void	terminal(t_shell *shell);
+void	terminal(t_shell *shell, char **envp);
 void	free_shell(t_shell *shell);
 #endif
