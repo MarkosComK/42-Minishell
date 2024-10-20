@@ -6,13 +6,14 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:43:04 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/19 12:49:18 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:37:43 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <minishell.h>
 
-void	exec_tree(void *root)
+void	exec_tree(t_shell *shell, void *root)
 {
-	execve("/bin/ls", ((t_exec *)root)->argv, NULL);
+	char	*cmd_path = find_cmd_path(shell->path, ((t_exec *)root)->command);
+	execve(cmd_path, ((t_exec *)root)->argv, NULL);
 }
