@@ -21,6 +21,6 @@ int	get_path(t_list	**path_list, char *path, int i);
 //environment_printers.c
 void	print_env_lst(t_list *lst);
 //find_command_path.c
-char *find_cmd_path(t_list *path_list, const char *command);
+char *find_cmd_path(t_list *path_list, char *command);
 
 #endif
