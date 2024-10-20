@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <minishell.h>
+#include <minishell.h>
 
 /*
 void	exec_tree(t_shell *shell, void *root)
@@ -36,20 +36,13 @@ void	exec_tree(t_shell *shell, void *root)
 void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 {
 	int		pipefd[2];
-	pid_t	pid;
 
 	if (pipe(pipefd) == -1)
 	{
 		perror("pipe failed");
 		exit(1);
 	}
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork failed");
-		exit(1);
-	}
-	if (pid == 0)
+	if (fork() == 0)
 	{
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
@@ -67,17 +60,16 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 	}
 }
 
-void exec_node(t_shell *shell, t_exec *exec_node)
+void	exec_node(t_shell *shell, t_exec *exec_node)
 {
 	char	*cmd_path;
 
 	cmd_path = find_cmd_path(shell->path, exec_node->command);
-    if (!cmd_path)
+	if (!cmd_path)
 	{
 		fprintf(stderr, "Command not found: %s\n", exec_node->command);
 		exit(1);
 	}
-
 	if (execve(cmd_path, exec_node->argv, NULL) == -1)
 	{
 		perror("execve failed");
@@ -85,4 +77,3 @@ void exec_node(t_shell *shell, t_exec *exec_node)
 		exit(1);
 	}
 }
-
