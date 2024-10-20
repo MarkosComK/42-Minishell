@@ -20,6 +20,7 @@ typedef struct s_shell
 	t_list		*token_lst;
 	char		*input;
 	char		*trim_input;
+	void		*root; //binary tree root
 }				t_shell;
 
 #endif
