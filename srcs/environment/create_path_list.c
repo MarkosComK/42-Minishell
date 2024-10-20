@@ -17,8 +17,8 @@ t_list	*path_list(char **envp)
 	t_list	*path_list;
 	char	*path;
 	int		i;
-	(void)	envp;
 
+	(void) envp;
 	path_list = NULL;
 	path = getenv("PATH");
 	if (path == NULL)
@@ -41,7 +41,7 @@ int	get_path(t_list	**path_list, char *path, int i)
 		i++;
 	new_path = ft_substr(path, start, i - start);
 	ft_lstadd_back(path_list, ft_lstnew(new_path));
-	if (path[i] == ':') //handles the last path of the path list
+	if (path[i] == ':')
 		i++;
 	return (i);
 }
