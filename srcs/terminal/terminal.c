@@ -23,7 +23,8 @@ void	terminal(t_shell *shell, char **envp)
 		free_shell(shell);
 		terminal(shell, envp);
 	}
-	//shell->path = path_list(envp);
+	shell->path = path_list(envp);
+	print_lst(shell->path);
 	if (shell->input == NULL || !ft_strcmp(shell->trim_input, "exit"))
 	{
 		free_shell(shell);
