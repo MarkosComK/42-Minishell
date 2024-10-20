@@ -72,4 +72,4 @@ env: ${NAME}
 
 re: fclean all
 
-.PHONY: all clean fclean re test
+.PHONY: all bonus clean fclean re test
