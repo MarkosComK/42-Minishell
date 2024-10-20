@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/20 14:45:25 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/20 15:23:31 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	terminal(t_shell *shell, char **envp)
 	shell->input = readline(B_RED PROMPT DEFAULT);
 	if (shell->input && shell->input[0] != '\0')
 		add_history(shell->input);
-	shell->path = path_list(envp);
 	if (input_validation(shell))
 	{
 		free_shell(shell);
 		terminal(shell, envp);
 	}
+	//shell->path = path_list(envp);
 	if (shell->input == NULL || !ft_strcmp(shell->trim_input, "exit"))
 	{
 		free_shell(shell);
