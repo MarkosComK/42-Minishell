@@ -25,6 +25,6 @@ int main(int argc, char *argv[], char *envp[])
 {
 	t_shell	shell;
 	check_args(argc, argv, envp);
-	terminal(&shell);
+	terminal(&shell, envp);
 	return 0;
 }

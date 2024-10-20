@@ -1,38 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bst_free.c                                         :+:      :+:    :+:   */
+/*   environment_printers.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/16 12:37:41 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/16 12:42:16 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/20 16:59:15 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/20 17:00:01 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	free_bst(void *root);
-
-void free_pipe_children(t_pipe *pipe, int space)
+void	print_env_lst(t_list *lst)
 {
-	if (pipe->right)
-		free_bst(pipe->right);
-	print_bst_pipe(pipe, space);
-	if (pipe->left)
-		free_bst(pipe->left);
-}
-
-void	free_bst(void *root)
-{
-	t_node *node;
-
-	if (!root)
-		return ;
-	node = (t_node *)root;
-	if (node->type == N_PIPE)
-		free_pipe_children((t_pipe *)root);
-	else
-		free_exec((t_exec *)root);
-	return NULL;
+	printf("ENV LIST:\n");
+	while (lst)
+	{
+		printf("[%s]➜", (char *)lst->content);
+		lst = lst -> next;
+	}
+	printf("NULL\n");
 }

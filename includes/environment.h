@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:30:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/20 14:48:50 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/20 14:46:02 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/20 17:34:38 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#ifndef ENVIRONMENT_H
+# define ENVIRONMENT_H
 
-# include <libft.h>
+# include <structs.h>
 
-typedef struct s_shell
-{
-	t_list		*path; //env_list
-	t_list		*token_lst;
-	char		*input;
-	char		*trim_input;
-	void		*root; //binary tree root
-}				t_shell;
+//create_path_list.c
+t_list	*path_list(char **envp);
+int	get_path(t_list	**path_list, char *path, int i);
+//environment_printers.c
+void	print_env_lst(t_list *lst);
+//find_command_path.c
+char *find_cmd_path(t_list *path_list, char *command);
 
 #endif

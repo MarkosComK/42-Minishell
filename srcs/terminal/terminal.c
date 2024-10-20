@@ -6,13 +6,13 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/16 13:08:13 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:39:01 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	terminal(t_shell *shell)
+void	terminal(t_shell *shell, char **envp)
 {
 	ft_bzero(shell, sizeof(t_shell));
 	shell->input = readline(B_RED PROMPT DEFAULT);
@@ -21,7 +21,7 @@ void	terminal(t_shell *shell)
 	if (input_validation(shell))
 	{
 		free_shell(shell);
-		terminal(shell);
+		terminal(shell, envp);
 	}
 	if (shell->input == NULL || !ft_strcmp(shell->trim_input, "exit"))
 	{
@@ -29,11 +29,16 @@ void	terminal(t_shell *shell)
 		return ;
 	}
 	lexer(shell, shell->input);
-	print_token_lst(shell->token_lst);
+	shell->path = path_list(envp);
 	shell->root = build_tree(shell->token_lst);
-	print_bst(shell->root, 5);
+	//print_env_lst(shell->path);
+	//print_token_lst(shell->token_lst);
+	//print_bst(shell->root, 5);
+	if (fork() == 0)
+		exec_tree(shell, shell->root);
+	wait(NULL);
 	free_shell(shell);
-	terminal(shell);
+	terminal(shell, envp);
 }
 
 void	free_shell(t_shell *shell)
@@ -50,6 +55,13 @@ void	free_shell(t_shell *shell)
 		free(shell->token_lst->content);
 		free(shell->token_lst);
 		shell->token_lst = tmp;
+	}
+	while (shell->path)
+	{
+		tmp = shell->path->next;
+		free(shell->path->content);
+		free(shell->path);
+		shell->path= tmp;
 	}
 	if (shell->input)
 		free(shell->input);
