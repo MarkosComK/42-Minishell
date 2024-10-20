@@ -12,7 +12,7 @@
 
 #include <minishell.h>
 
-char	*find_cmd_path(t_list *path_list, const char *command)
+char	*find_cmd_path(t_list *path_list, char *command)
 {
 	char	*cmd_path;
 	char	*only_path;
@@ -38,5 +38,5 @@ char	*find_cmd_path(t_list *path_list, const char *command)
 		free(cmd_path);
 		current = current->next;
 	}
-	return (NULL);
+	return (command);
 }
