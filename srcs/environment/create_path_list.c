@@ -25,7 +25,6 @@ t_list	*path_list(char **envp)
 	path = getenv("PATH");
 	if (path == NULL)
 		return (NULL);
-	printf("%s\n", path);
 	i = 0;
 	while (path[i])
 	{
