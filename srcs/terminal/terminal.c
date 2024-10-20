@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/20 17:00:25 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:39:01 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	terminal(t_shell *shell, char **envp)
 	//print_token_lst(shell->token_lst);
 	//print_bst(shell->root, 5);
 	if (fork() == 0)
-		exec_tree(shell->root);
+		exec_tree(shell, shell->root);
 	wait(NULL);
 	free_shell(shell);
 	terminal(shell, envp);
