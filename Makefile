@@ -17,6 +17,7 @@ SRCS = $(wildcard srcs/*.c) $(wildcard srcs/*/*.c)
 OBJS = ${SRCS:.c=.o}
 INCLUDE = -L${LIBFTDIR}/src -lft -lreadline
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp
+ENV = env -i ${VALGRIND}
 
 all: ${NAME}
 
@@ -61,6 +62,9 @@ fclean: clean
 
 test: ${NAME}
 	${VALGRIND} ./${NAME}
+
+env: ${NAME}
+	${ENV} ./${NAME}
 
 re: fclean all
 
