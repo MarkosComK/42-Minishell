@@ -15,5 +15,10 @@
 void	exec_tree(t_shell *shell, void *root)
 {
 	char	*cmd_path = find_cmd_path(shell->path, ((t_exec *)root)->command);
-	execve(cmd_path, ((t_exec *)root)->argv, NULL);
+	printf("cmd_path: %s\n", cmd_path);
+	if (execve(cmd_path, ((t_exec *)root)->argv, NULL) == -1)
+	{
+		free_shell(shell);
+		exit(1);
+	}
 }
