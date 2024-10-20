@@ -16,5 +16,7 @@
 # include <structs.h>
 
 void	exec_tree(t_shell *shell, void *root);
+void	exec_pipe(t_shell *shell, t_pipe *pipe_node);
+void	exec_node(t_shell *shell, t_exec *exec_node);
 
 #endif
