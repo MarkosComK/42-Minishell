@@ -23,15 +23,15 @@ void	terminal(t_shell *shell, char **envp)
 		free_shell(shell);
 		terminal(shell, envp);
 	}
-	shell->path = path_list(envp);
-	print_lst(shell->path);
 	if (shell->input == NULL || !ft_strcmp(shell->trim_input, "exit"))
 	{
 		free_shell(shell);
 		return ;
 	}
 	lexer(shell, shell->input);
+	shell->path = path_list(envp);
 	shell->root = build_tree(shell->token_lst);
+	print_lst(shell->path);
 	//print_token_lst(shell->token_lst);
 	//print_bst(shell->root, 5);
 	if (fork() == 0)
