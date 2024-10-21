@@ -13,6 +13,8 @@
 #ifndef ERRORS_H
 # define ERRORS_H
 
+# include <structs.h>
+
 /*
  * MACROS FOR ERROR MESSAGES
  */
@@ -22,5 +24,6 @@
 
 //printers.c
 bool	syntax_error_msg(char *str);
+void	exit_failure(t_shell *shell, char *function);
 
 #endif

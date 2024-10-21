@@ -44,5 +44,4 @@
 
 //check_args.c
 int	check_args(int argc, char *argv[], char *envp[]);
-void	exit_failure(t_shell *shell, char *function);
 #endif
