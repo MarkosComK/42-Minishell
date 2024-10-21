@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/21 12:41:15 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:11:33 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,13 @@ void	free_shell(t_shell *shell)
 		free(shell->token_lst->content);
 		free(shell->token_lst);
 		shell->token_lst = tmp;
+	}
+	while (shell->envp)
+	{
+		tmp = shell->envp->next;
+		free(shell->envp->content);
+		free(shell->envp);
+		shell->envp= tmp;
 	}
 	while (shell->path)
 	{
