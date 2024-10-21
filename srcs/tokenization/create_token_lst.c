@@ -20,24 +20,26 @@ void	tokenize_input(t_shell *shell, char *input)
 	while (input[i])
 	{
 		if (input[i] == '"' || input[i] == '\'')
-			i = handle_quotes(&shell->token_lst, input, i);
+			i = handle_quotes(shell, &shell->token_lst, input, i);
 		else if (input[i] == '|')
-			i = handle_pipe(&shell->token_lst, input, i);
+			i = handle_pipe(shell, &shell->token_lst, input, i);
 		else if (input[i] == '>' || input[i] == '<')
-			i = handle_redir(&shell->token_lst, input, i);
+			i = handle_redir(shell, &shell->token_lst, input, i);
 		else
-			i = handle_word_token(&shell->token_lst, input, i);
+			i = handle_word_token(shell, &shell->token_lst, input, i);
 		set_token_pos(shell->token_lst);
 	}
 }
 
-int	handle_word_token(t_list **token_list, char *input, int i)
+int	handle_word_token(t_shell *shell, t_list **token_list, char *input, int i)
 {
 	t_token	*new_token;
 	int		start;
 
 	start = i;
 	new_token = ft_calloc(1, sizeof(t_token));
+	if (!new_token)
+		exit_failure(shell, "handle_word_token");
 	while (input[i] && !ft_isspace(input[i]) && input[i] != '|'
 		&& input[i] != '>' && input[i] != '<')
 	{
@@ -52,11 +54,13 @@ int	handle_word_token(t_list **token_list, char *input, int i)
 	return (i);
 }
 
-int	handle_redir(t_list **tokens, char *input, int i)
+int	handle_redir(t_shell *shell, t_list **tokens, char *input, int i)
 {
 	t_token	*new_token;
 
 	new_token = ft_calloc(1, sizeof(t_token));
+	if (!new_token)
+		exit_failure(shell, "handle_redir");
 	if (input[i] == '>' && input[i + 1] == '>')
 	{
 		new_token->value = ft_strndup(&input[i], 2);
@@ -79,11 +83,13 @@ int	handle_redir(t_list **tokens, char *input, int i)
 	return (i);
 }
 
-int	handle_pipe(t_list **tokens, char *input, int i)
+int	handle_pipe(t_shell *shell, t_list **tokens, char *input, int i)
 {
 	t_token	*new_token;
 
 	new_token = ft_calloc(1, sizeof(t_token));
+	if (!new_token)
+		exit_failure(shell, "handle_pipe");
 	new_token->value = ft_strndup(&input[i], 1);
 	new_token->type = PIPE;
 	new_token->state = GENERAL;
@@ -94,13 +100,15 @@ int	handle_pipe(t_list **tokens, char *input, int i)
 	return (i);
 }
 
-int	handle_quotes(t_list **tokens, char *input, int i)
+int	handle_quotes(t_shell *shell, t_list **tokens, char *input, int i)
 {
 	t_token	*new_token;
 	char	quote;
 	int		start;
 
 	new_token = ft_calloc(1, sizeof(t_token));
+	if (!new_token)
+		exit_failure(shell, "handle_quotes");
 	quote = input[i++];
 	start = i;
 	while (input[i] && input[i] != quote)
