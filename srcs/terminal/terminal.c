@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/21 13:13:41 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:37:41 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	terminal(t_shell *shell, char **envp)
 		return ;
 	}
 	lexer(shell, shell->input);
-	shell->envp = env_list(envp);
+	shell->envp = env_list(shell, envp);
 	shell->path = path_list(envp);
 	shell->root = build_tree(shell->token_lst);
 	//print_env_lst(shell->envp);
