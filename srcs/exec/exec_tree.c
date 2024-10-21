@@ -36,13 +36,15 @@ void	exec_tree(t_shell *shell, void *root)
 void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 {
 	int		pipefd[2];
+	pid_t	pid1;
+	pid_t	pid2;
 
 	if (pipe(pipefd) == -1)
 	{
 		perror("pipe failed");
 		exit(1);
 	}
-	if (fork() == 0)
+	if ((pid1 = fork()) == 0)
 	{
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
@@ -50,14 +52,20 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 		exec_tree(shell, pipe_node->left);
 		exit(0);
 	}
-	else
+	else if ((pid2 = fork()) == 0)
 	{
 		close(pipefd[1]);
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
 		exec_tree(shell, pipe_node->right);
-		wait(NULL);
+		exit(0);
 	}
+	close(pipefd[0]);
+	close(pipefd[1]);
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, NULL, 0);
+	free_shell(shell);
+	exit(0);
 }
 
 void	exec_node(t_shell *shell, t_exec *exec_node)

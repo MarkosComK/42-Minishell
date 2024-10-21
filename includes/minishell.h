@@ -30,6 +30,7 @@
 # include <environment.h>
 # include <exec.h>
 # include <sys/wait.h>
+# include <fcntl.h>
 
 // MACROS
 # define PROMPT "🔥 HELLSH ➜ "
