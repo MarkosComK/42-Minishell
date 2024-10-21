@@ -55,6 +55,6 @@ void	*insert_node(t_shell *shell, void *node, t_list *token_lst);
 void	*create_pipe(t_shell *shell, t_exec *left, t_exec *right);
 void	*create_exec(t_shell *shell, t_list *token_lst);
 //build_tree_utils.c
-char	**get_argv(t_list *token_lst);
+char	**get_argv(t_shell *shell, t_list *token_lst);
 
 #endif
