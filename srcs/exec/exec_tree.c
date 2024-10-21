@@ -80,8 +80,6 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 	}
 	if (execve(cmd_path, exec_node->argv, NULL) == -1)
 	{
-		perror("execve failed");
-		free_shell(shell);
-		exit(1);
+		exit_failure(shell, "exec_node");
 	}
 }
