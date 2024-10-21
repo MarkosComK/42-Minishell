@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 14:46:02 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/20 17:34:38 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/21 12:28:14 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <structs.h>
 
+//create_env_list.c
+t_list	*env_list(char **envp);
 //create_path_list.c
 t_list	*path_list(char **envp);
 int	get_path(t_list	**path_list, char *path, int i);
