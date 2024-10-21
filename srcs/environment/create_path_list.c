@@ -12,7 +12,7 @@
 
 #include <minishell.h>
 
-t_list	*path_list(char **envp)
+t_list	*path_list(t_shell *shell, char **envp)
 {
 	t_list	*path_list;
 	char	*path;
@@ -26,12 +26,12 @@ t_list	*path_list(char **envp)
 	i = 0;
 	while (path[i])
 	{
-		i = get_path(&path_list, path, i);
+		i = get_path(shell, &path_list, path, i);
 	}
 	return (path_list);
 }
 
-int	get_path(t_list	**path_list, char *path, int i)
+int	get_path(t_shell *shell, t_list	**path_list, char *path, int i)
 {
 	char	*new_path;
 	int		start;
@@ -40,6 +40,8 @@ int	get_path(t_list	**path_list, char *path, int i)
 	while (path[i] && path[i] != ':')
 		i++;
 	new_path = ft_substr(path, start, i - start);
+	if (!new_path)
+		exit_failure(shell, "get_path");
 	ft_lstadd_back(path_list, ft_lstnew(new_path));
 	if (path[i] == ':')
 		i++;

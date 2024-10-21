@@ -18,11 +18,11 @@
 //create_env_list.c
 t_list	*env_list(t_shell *shell, char **envp);
 //create_path_list.c
-t_list	*path_list(char **envp);
-int	get_path(t_list	**path_list, char *path, int i);
+t_list	*path_list(t_shell *shell, char **envp);
+int		get_path(t_shell *shell, t_list	**path_list, char *path, int i);
 //environment_printers.c
 void	print_env_lst(t_list *lst);
 //find_command_path.c
-char *find_cmd_path(t_list *path_list, char *command);
+char	*find_cmd_path(t_list *path_list, char *command);
 
 #endif
