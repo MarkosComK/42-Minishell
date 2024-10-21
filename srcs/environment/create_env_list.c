@@ -6,13 +6,13 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:25:36 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/21 13:13:35 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:25:13 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_list	*env_list(char **envp)
+t_list	*env_list(t_shell *shell, char **envp)
 {
 	t_list	*env_list;
 	char	*content;
@@ -23,6 +23,8 @@ t_list	*env_list(char **envp)
 	while (*envp)
 	{
 		content = ft_strdup(*envp);
+		if (!content)
+			exit_failure(shell);
 		ft_lstadd_back(&env_list, ft_lstnew(content));
 		(envp)++;
 	}
