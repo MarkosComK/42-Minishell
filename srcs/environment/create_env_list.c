@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:25:36 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/21 13:25:13 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:45:02 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_list	*env_list(t_shell *shell, char **envp)
 	{
 		content = ft_strdup(*envp);
 		if (!content)
-			exit_failure(shell);
+			exit_failure(shell, "env_list");
 		ft_lstadd_back(&env_list, ft_lstnew(content));
 		(envp)++;
 	}

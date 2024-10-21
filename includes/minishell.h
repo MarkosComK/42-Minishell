@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:22:19 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/21 13:36:59 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:46:17 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,5 @@
 
 //check_args.c
 int	check_args(int argc, char *argv[], char *envp[]);
-void	exit_failure(t_shell *shell);
+void	exit_failure(t_shell *shell, char *function);
 #endif
