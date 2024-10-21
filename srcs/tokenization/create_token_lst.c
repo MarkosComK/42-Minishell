@@ -65,14 +65,19 @@ int	handle_redir(t_shell *shell, char *input, int i)
 		exit_failure(shell, "handle_redir");
 	if (input[i] == '>' && input[i + 1] == '>')
 	{
+		i = set_append(shell, new_token, input, i);
+		/*
 		new_token->value = ft_strndup(&input[i], 2);
 		if (!new_token->value)
 			exit_failure(shell, "handle_redir_1");
 		new_token->type = APPEND;
 		i += 2;
+		*/
 	}
 	else
 	{
+		i = set_simple(shell, new_token, input, i);
+		/*
 		new_token->value = ft_strndup(&input[i], 1);
 		if (!new_token->value)
 			exit_failure(shell, "handle_redir_2");
@@ -81,6 +86,7 @@ int	handle_redir(t_shell *shell, char *input, int i)
 		else
 			new_token->type = OUTFILE;
 		i++;
+		*/
 	}
 	new_token->state = GENERAL;
 	ft_lstadd_back(&shell->token_lst, ft_lstnew(new_token));

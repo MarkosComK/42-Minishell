@@ -55,5 +55,7 @@ void			lexer(t_shell *shell, char	*input);
 void			set_token_pos(t_list *lst);
 //tokenize_utils.c
 bool			in_quotes(char *input, int i);
+int				set_append(t_shell *sh, t_token *new_token, char *input, int i);
+int				set_simple(t_shell *sh, t_token *new_token, char *input, int i);
 
 #endif
