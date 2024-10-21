@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 20:07:07 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 12:21:13 by marsoare         ###   ########.fr       */
+/*   Created: 2024/09/29 16:30:38 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/20 14:48:50 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#ifndef STRUCTS_H
+# define STRUCTS_H
 
-/*
- * MACROS FOR ERROR MESSAGES
- */
-# define OPEN_QUOTE "`open quote'"
-# define SYNTAX_ERROR "minishell: syntax error near unexpected token "
-# define PIPE_ERROR "`|'"
+# include <libft.h>
 
-//printers.c
-bool	syntax_error_msg(char *str);
+typedef struct s_shell
+{
+	t_list		*envp;
+	t_list		*path; //path_list
+	t_list		*token_lst;
+	char		*input;
+	char		*trim_input;
+	void		*root; //binary tree root
+}				t_shell;
 
 #endif

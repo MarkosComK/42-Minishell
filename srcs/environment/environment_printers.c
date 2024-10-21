@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   environment_printers.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 20:07:07 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 12:21:13 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/20 16:59:15 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/21 13:09:36 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#include <minishell.h>
 
-/*
- * MACROS FOR ERROR MESSAGES
- */
-# define OPEN_QUOTE "`open quote'"
-# define SYNTAX_ERROR "minishell: syntax error near unexpected token "
-# define PIPE_ERROR "`|'"
-
-//printers.c
-bool	syntax_error_msg(char *str);
-
-#endif
+void	print_env_lst(t_list *lst)
+{
+	printf("ENVIRONMENT:\n");
+	printf("---------------------:\n");
+	while (lst)
+	{
+		printf("%s\n", (char *)lst->content);
+		lst = lst -> next;
+	}
+	printf("---------------------:\n");
+	printf("END\n");
+}

@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   create_env_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 20:07:07 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 12:21:13 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/21 12:25:36 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/21 13:45:02 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#include <minishell.h>
 
-/*
- * MACROS FOR ERROR MESSAGES
- */
-# define OPEN_QUOTE "`open quote'"
-# define SYNTAX_ERROR "minishell: syntax error near unexpected token "
-# define PIPE_ERROR "`|'"
+t_list	*env_list(t_shell *shell, char **envp)
+{
+	t_list	*env_list;
+	char	*content;
 
-//printers.c
-bool	syntax_error_msg(char *str);
-
-#endif
+	env_list = NULL;
+	if (!envp || !*envp)
+		return (printf("empty env\n"), NULL);
+	while (*envp)
+	{
+		content = ft_strdup(*envp);
+		if (!content)
+			exit_failure(shell, "env_list");
+		ft_lstadd_back(&env_list, ft_lstnew(content));
+		(envp)++;
+	}
+	return (env_list);
+}

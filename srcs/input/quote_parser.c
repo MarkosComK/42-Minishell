@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:56:15 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 15:32:05 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:04:18 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,12 @@ int	main()
 	return (exit_code);
 }
  */
+/*
 char	*quote_space_parser(char *argv)
 {
-	int	count;
+	int		count;
 	char	*new;
+	char	*dequoted;
 
 	count = counter(argv, 39);
 	if (count % 2 != 0)
@@ -45,11 +47,12 @@ char	*quote_space_parser(char *argv)
 		exit(EXIT_FAILURE);
 	}
 	new = space_to_minus(argv);
-	char *dequoted = dequote_single(new);
-	return dequoted;
+	dequoted = dequote_single(new);
+	return (dequoted);
 }
-
+*/
 /* nb of single quotes not escapped by \ */
+/*
 int	counter(char *str, char c)
 {
 	int		i;
@@ -65,8 +68,9 @@ int	counter(char *str, char c)
 	}
 	return (i);
 }
-
+*/
 //might be necessary change '-' to -1
+/*
 char	*space_to_minus(char *str)
 {
 	int			in_quote;
@@ -87,15 +91,17 @@ char	*space_to_minus(char *str)
 	}
 	return (str);
 }
-
+*/
 /*
  * Remove the single quote from the *STR but only when it's not
  * part of a escape sequence. For EX:
- * Input string:    "This is a 'string' with a backslash \\ and a single quote \'"
+ * Input string:    "This is a 'string' with a backslash \\
+ * and a single quote \'"
  * Expected output: "This is a string with a backslash \ and a single quote '"
  */
 // Remove single quotes not part of an escape sequence
-char *dequote_single(char *str)
+/*
+char	*dequote_single(char *str)
 {
     int i = 0, j = 0;
     int len = strlen(str);
@@ -117,3 +123,4 @@ char *dequote_single(char *str)
     new[j] = '\0'; // Null-terminate the new string
     return new; // Return the dequoted string
 }
+*/

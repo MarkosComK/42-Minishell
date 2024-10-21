@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   check_token_type.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 20:07:07 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 12:21:13 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/15 11:53:57 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/15 12:00:46 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#include <minishell.h>
 
-/*
- * MACROS FOR ERROR MESSAGES
- */
-# define OPEN_QUOTE "`open quote'"
-# define SYNTAX_ERROR "minishell: syntax error near unexpected token "
-# define PIPE_ERROR "`|'"
-
-//printers.c
-bool	syntax_error_msg(char *str);
-
-#endif
+t_token_type	token_type(char *value)
+{
+	if (ft_strcmp(value, "|"))
+		return (PIPE);
+	else
+		return (WORD);
+}

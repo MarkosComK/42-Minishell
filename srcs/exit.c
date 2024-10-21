@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 20:07:07 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 12:21:13 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/21 13:37:44 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/21 13:44:51 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#include <minishell.h>
 
-/*
- * MACROS FOR ERROR MESSAGES
- */
-# define OPEN_QUOTE "`open quote'"
-# define SYNTAX_ERROR "minishell: syntax error near unexpected token "
-# define PIPE_ERROR "`|'"
-
-//printers.c
-bool	syntax_error_msg(char *str);
-
-#endif
+void	exit_failure(t_shell *shell, char *function)
+{
+	free_shell(shell);
+	perror(RED"malloc error:");
+	perror(function);
+	perror(DEFAULT);
+	perror("\n");
+	exit(1);
+}

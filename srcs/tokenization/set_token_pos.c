@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   set_token_pos.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 20:07:07 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 12:21:13 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/15 16:39:04 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/15 16:43:09 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#include <minishell.h>
 
-/*
- * MACROS FOR ERROR MESSAGES
- */
-# define OPEN_QUOTE "`open quote'"
-# define SYNTAX_ERROR "minishell: syntax error near unexpected token "
-# define PIPE_ERROR "`|'"
+void	set_token_pos(t_list *lst)
+{
+	t_token	*token;
+	int		i;
 
-//printers.c
-bool	syntax_error_msg(char *str);
-
-#endif
+	i = 0;
+	while (lst)
+	{
+		token = (t_token *) lst->content;
+		token->pos = i;
+		lst = lst->next;
+		i++;
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:22:19 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/28 20:24:30 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:46:17 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,18 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <structs.h>
 # include <colors.h>
 # include <stdbool.h>
 # include <input.h>
 # include <terminal.h>
 # include <errors.h>
+# include <tokenization.h>
+# include <utils.h>
+# include <binary_tree.h>
+# include <environment.h>
+# include <exec.h>
+# include <sys/wait.h>
 
 // MACROS
 # define PROMPT "🔥 HELLSH ➜ "
@@ -32,8 +39,10 @@
  * , tab, newline, or one of the following characters:
  * ‘|’, ‘&’, ‘;’, ‘(’, ‘)’, ‘<’, or ‘>’
 */
-# define METACHARS "\n\t|&;()<>"
+# define METACHARS "|;<>"
+
 
 //check_args.c
 int	check_args(int argc, char *argv[], char *envp[]);
+void	exit_failure(t_shell *shell, char *function);
 #endif

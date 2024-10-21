@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 22:10:17 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 16:39:17 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/09/29 16:40:58 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 
 int main(int argc, char *argv[], char *envp[])
 {
+	t_shell	shell;
 	check_args(argc, argv, envp);
-	terminal();
+	terminal(&shell, envp);
 	return 0;
 }

@@ -6,20 +6,23 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:36:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/28 20:38:07 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:32:21 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-bool	input_validation(char *input)
+bool	input_validation(t_shell *shell)
 {
-	while (*input == ' ' || *input =='\t' || *input == '\v')
-		input++;
-	if (!check_quotes(input))
-		ft_putendl_fd(SYNTAX_ERROR OPEN_QUOTE, 2);
-	else if (!check_pipes(input))
-		ft_putendl_fd(SYNTAX_ERROR PIPE, 2);
+	if (shell->input[0] == '\0')
+		return (true);
+	shell->trim_input = ft_strtrim(shell->input, "\t ");
+	if (!shell->trim_input || shell->trim_input[0] == '\0')
+		return (true);
+	if (!check_quotes(shell->trim_input))
+		return (syntax_error_msg(OPEN_QUOTE));
+	else if (!check_pipes(shell->trim_input))
+		return (syntax_error_msg(OPEN_QUOTE));
 	return (false);
 }
 
@@ -49,7 +52,8 @@ bool	check_quotes(char *str)
 
 /*
  * Check if the the pipes are correctly placed
- * (Pipes cannot have space between or start at the input)
+ * (Pipes cannot have space between them OR start at the input)
+ * Input cannot end with a pipe
  */
 bool	check_pipes(char *str)
 {
@@ -58,10 +62,14 @@ bool	check_pipes(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[0] == '|' || 
-			(str[i] == '|' && str[i + 1] == ' ' && str[i + 2] == '|'))
+		if (str[0] == '|'
+			|| (str[i] == '|' && str[i + 1] == ' ' && str[i + 2] == '|'))
+			return (false);
+		if (str[i] == '|' && str[i + 1] == '|')
 			return (false);
 		i++;
 	}
+	if (str[ft_strlen(str) - 1] == '|')
+		return (false);
 	return (true);
 }
