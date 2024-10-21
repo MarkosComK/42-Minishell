@@ -46,6 +46,8 @@ int	handle_word_token(t_shell *shell, char *input, int i)
 		i++;
 	}
 	new_token->value = ft_strndup(input + start, i - start);
+	if (!new_token->value)
+		exit_failure(shell, "handle_word_token_1");
 	new_token->type = WORD;
 	new_token->state = GENERAL;
 	ft_lstadd_back(&shell->token_lst, ft_lstnew(new_token));
@@ -64,12 +66,16 @@ int	handle_redir(t_shell *shell, char *input, int i)
 	if (input[i] == '>' && input[i + 1] == '>')
 	{
 		new_token->value = ft_strndup(&input[i], 2);
+		if (!new_token->value)
+			exit_failure(shell, "handle_redir_1");
 		new_token->type = APPEND;
 		i += 2;
 	}
 	else
 	{
 		new_token->value = ft_strndup(&input[i], 1);
+		if (!new_token->value)
+			exit_failure(shell, "handle_redir_2");
 		if (input[i] == '<')
 			new_token->type = INFILE;
 		else
@@ -91,6 +97,8 @@ int	handle_pipe(t_shell *shell, char *input, int i)
 	if (!new_token)
 		exit_failure(shell, "handle_pipe");
 	new_token->value = ft_strndup(&input[i], 1);
+	if (!new_token->value)
+		exit_failure(shell, "handle_pipe_1");
 	new_token->type = PIPE;
 	new_token->state = GENERAL;
 	ft_lstadd_back(&shell->token_lst, ft_lstnew(new_token));
@@ -114,6 +122,8 @@ int	handle_quotes(t_shell *shell, char *input, int i)
 	while (input[i] && input[i] != quote)
 		i++;
 	new_token->value = ft_substr(input, start, i - start);
+	if (!new_token->value)
+		exit_failure(shell, "handle_quotes_1");
 	new_token->type = WORD;
 	if (quote == '"')
 		new_token->state = IN_DQUOTES;
