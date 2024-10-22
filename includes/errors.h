@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 20:07:07 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 12:48:02 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:37:56 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@
 //printers.c
 bool	syntax_error_msg(char *str);
 void	exit_failure(t_shell *shell, char *function);
+void	exec_failure(t_shell *shell);
 
 #endif
