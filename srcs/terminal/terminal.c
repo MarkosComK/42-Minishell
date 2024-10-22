@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/21 13:37:41 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:35:09 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ void	terminal(t_shell *shell, char **envp)
 	}
 	lexer(shell, shell->trim_input);
 	shell->envp = env_list(shell, envp);
+	shell->envp_arr = env_arr(shell);
+	for (int i = 0; shell->envp_arr[i]; i++)
+		printf("%s\n", shell->envp_arr[i]);
 	shell->path = path_list(shell, envp);
 	shell->root = build_tree(shell, shell->token_lst);
 	//print_env_lst(shell->envp);
@@ -63,6 +66,16 @@ void	free_shell(t_shell *shell)
 		free(shell->envp->content);
 		free(shell->envp);
 		shell->envp= tmp;
+	}
+	int i = 0;
+	if (shell->envp_arr)
+	{
+		while (shell->envp_arr[i])
+		{
+			free(shell->envp_arr[i]);
+			i++;
+		}
+		free(shell->envp_arr);
 	}
 	while (shell->path)
 	{
