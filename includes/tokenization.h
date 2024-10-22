@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:41:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 18:34:43 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/22 21:18:33 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ int				handle_word_token(t_shell *shell, char *input, int i);
 int				handle_redir(t_shell *shell, char *input, int i);
 int				handle_pipe(t_shell *shell, char *input, int i);
 int				handle_quotes(t_shell *shell, char *input, int i);
+//ft_joinstrs.c
+int				join_strs(char **str, char *input, int i);
+int				handle_quoted_str(char **str, char *input, int i);
+int				handle_nonquoted_str(char **str, char *input, int i);
 //lexer.c
 void			lexer(t_shell *shell, char	*input);
 //remove_qutes.c

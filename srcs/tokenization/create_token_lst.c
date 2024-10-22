@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:41:24 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 20:59:21 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/22 21:07:51 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,53 +31,18 @@ void	tokenize_input(t_shell *shell, char *input)
 	}
 }
 
-int	join_strs(char **str, char *input, int i)
-{
-	char	*join;
-	char	quote;
-	int		start;
-	char	*tmp;
-
-	if (ft_isquote(input[i]))
-	{
-		quote = input[i++];
-		start = i;
-		while (input[i] != quote && input[i] != '\0')
-			i++;
-		join = ft_substr(input, start, i - start);
-		tmp = *str;
-		*str = ft_strjoin(*str, join);
-		free(tmp);
-		free(join);
-		i++;
-	}
-	else
-	{
-		start = i;
-		while (input[i] && !ft_isquote(input[i])
-				&& !ft_isspace(input[i]) && !ft_ismeta(input, i))
-			i++;
-		join = ft_substr(input, start, i - start);
-		tmp = *str;
-		*str = ft_strjoin(*str, join);
-		free(tmp);
-		free(join);
-		//i++;
-	}
-	return (i);
-}
-
 int	handle_word_token(t_shell *shell, char *input, int i)
 {
 	t_token	*new_token;
-	char	*str = ft_strdup("");
+	char	*str;
 
 	new_token = ft_calloc(1, sizeof(t_token));
-	if (!new_token)
+	str = ft_strdup("");
+	if (!new_token || !str)
 		exit_failure(shell, "handle_word_token");
 	while (input[i] && !ft_isspace(input[i]) && !ft_ismeta(input, i))
 	{
-		i = join_strs(&str, input,  i);
+		i = join_strs(&str, input, i);
 	}
 	new_token->value = str;
 	if (!new_token->value)
@@ -134,15 +99,16 @@ int	handle_pipe(t_shell *shell, char *input, int i)
 int	handle_quotes(t_shell *shell, char *input, int i)
 {
 	t_token		*new_token;
-	char	quote = input[i];
-	char	*str = ft_strdup("");
+	const char	quote = input[i];
+	char		*str;
 
 	new_token = ft_calloc(1, sizeof(t_token));
+	str = ft_strdup("");
 	if (!new_token)
 		exit_failure(shell, "handle_quotes");
 	while (input[i] && !ft_isspace(input[i]) && !ft_ismeta(input, i))
 	{
-		i = join_strs(&str, input,  i);
+		i = join_strs(&str, input, i);
 	}
 	new_token->value = str;
 	if (!new_token->value)
