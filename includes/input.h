@@ -18,6 +18,8 @@
 #ifndef INPUT_H
 # define INPUT_H
 
+# include <structs.h>
+
 //input_validation.c
 bool	input_validation(t_shell *shell);
 bool	check_quotes(char *str);

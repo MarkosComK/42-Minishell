@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:22:19 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/30 16:19:05 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:46:17 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@
 # include <errors.h>
 # include <tokenization.h>
 # include <utils.h>
+# include <binary_tree.h>
+# include <environment.h>
+# include <exec.h>
+# include <sys/wait.h>
+# include <fcntl.h>
 
 // MACROS
 # define PROMPT "🔥 HELLSH ➜ "

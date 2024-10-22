@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:38:23 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 17:37:48 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/19 12:42:37 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/20 17:36:23 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#ifndef EXEC_H
+# define EXEC_H
 
-void	lexer(t_shell *shell, char	*input)
-{
-	shell->token_lst = NULL;
-	tokenize_input(shell, input);
-}
+# include <structs.h>
+
+void	exec_tree(t_shell *shell, void *root);
+void	exec_pipe(t_shell *shell, t_pipe *pipe_node);
+void	exec_node(t_shell *shell, t_exec *exec_node);
+
+#endif

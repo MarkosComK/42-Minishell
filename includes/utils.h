@@ -17,6 +17,7 @@
 
 //printers.c
 void	print_lst(t_list *list);
+void	print_token_lst(t_list *lst);
 void	print_cmd_lst(t_shell *shell);
 
 #endif

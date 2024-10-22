@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   check_token_type.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:38:23 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 17:37:48 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/15 11:53:57 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/15 12:00:46 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	lexer(t_shell *shell, char	*input)
+t_token_type	token_type(char *value)
 {
-	shell->token_lst = NULL;
-	tokenize_input(shell, input);
+	if (ft_strcmp(value, "|"))
+		return (PIPE);
+	else
+		return (WORD);
 }
