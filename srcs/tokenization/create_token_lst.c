@@ -40,8 +40,7 @@ int	handle_word_token(t_shell *shell, char *input, int i)
 	new_token = ft_calloc(1, sizeof(t_token));
 	if (!new_token)
 		exit_failure(shell, "handle_word_token");
-	while (input[i] && !ft_isspace(input[i]) && input[i] != '|'
-		&& input[i] != '>' && input[i] != '<')
+	while (input[i] && !ft_isspace(input[i]) && !ft_ismeta(input, i))
 	{
 		i++;
 	}
