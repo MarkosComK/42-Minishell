@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:39:51 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 15:54:16 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/22 20:05:43 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	ft_ismeta(char *str, int i)
 	j = 0;
 	while (metachars[j])
 	{
-		if (str[i] && str[i] == metachars[j] && str[i + 1] != '"')
+		if (str[i] && str[i] == metachars[j])
 			return (true);
 		j++;
 	}
