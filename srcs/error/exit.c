@@ -16,6 +16,11 @@
 void	exit_failure(t_shell *shell, char *function)
 {
 	free_shell(shell);
+	if (!function)
+	{
+		perror(RED"EXECVE FAIL"DEFAULT);
+		exit(1);
+	}
 	perror(RED"malloc error:");
 	perror(function);
 	perror(DEFAULT);
