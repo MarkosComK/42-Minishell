@@ -62,7 +62,7 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 		exit_failure(shell, "crete_exec");
 	node->type.type = N_EXEC;
 	node->command = ((t_token *)token_lst->content)->value;
-	node->argv = get_argv(token_lst);
+	node->argv = get_argv(shell, token_lst);
 	return (node);
 }
 
