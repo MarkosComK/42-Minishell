@@ -38,5 +38,5 @@ char	*find_cmd_path(t_list *path_list, char *command)
 		free(cmd_path);
 		current = current->next;
 	}
-	return (NULL);
+	return (command);
 }
