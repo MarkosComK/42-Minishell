@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:36:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 12:32:21 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/22 12:49:44 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ bool	input_validation(t_shell *shell)
 		exit_failure(shell, "input_validation");
 	if (shell->trim_input[0] == '\0')
 		return (true);
+	if (!check_pipes(shell->trim_input))
+		return (syntax_error_msg(PIPE_ERROR));
 	if (!check_quotes(shell->trim_input))
 		return (syntax_error_msg(OPEN_QUOTE));
-	else if (!check_pipes(shell->trim_input))
-		return (syntax_error_msg(OPEN_QUOTE));
+	if (!check_quotes_pos(shell->trim_input))
+		return (syntax_error_msg(SYNTAX_QUOTE));
 	return (false);
 }
 
@@ -50,6 +52,33 @@ bool	check_quotes(char *str)
 	if (j % 2 == 0)
 		return (true);
 	return (false);
+}
+
+// this function prevents minishell to run with that case below
+// "'example"'
+// "'ls"'
+bool	check_quotes_pos(char *str)
+{
+	int		i;
+	char	quote;
+
+	i = 0;
+	quote = 0;
+	while (str[i] && str[i + 1])
+	{
+		if (str[i] && ft_isquote(str[i]) && !ft_isquote(str[i + 1]))
+		{
+			quote = str[i];
+			break ;
+		}
+		i++;
+	}
+	i++;
+	while (str[i] && !ft_isquote(str[i]))
+		i++;
+	if (str[i] != quote)
+		return (false);
+	return (true);
 }
 
 /*
