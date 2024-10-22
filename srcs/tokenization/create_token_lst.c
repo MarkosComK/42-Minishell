@@ -106,7 +106,9 @@ int	handle_quotes(t_shell *shell, char *input, int i)
 	new_token = ft_calloc(1, sizeof(t_token));
 	if (!new_token)
 		exit_failure(shell, "handle_quotes");
-	quote = input[i++];
+	quote = input[i];
+	while (input[i] == quote)
+		i++;
 	start = i;
 	while (input[i] && input[i] != quote)
 		i++;
@@ -120,6 +122,8 @@ int	handle_quotes(t_shell *shell, char *input, int i)
 		new_token->state = IN_SQUOTES;
 	ft_lstadd_back(&shell->token_lst, ft_lstnew(new_token));
 	i++;
+	while (input[i] == quote)
+		i++;
 	while (ft_isspace(input[i]))
 		i++;
 	return (i);
