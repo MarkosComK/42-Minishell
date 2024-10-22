@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:38:23 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 18:38:25 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/22 18:33:42 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/22 18:41:38 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	lexer(t_shell *shell, char	*input)
+void	remove_quotes(t_shell *shell)
 {
-	shell->token_lst = NULL;
-	tokenize_input(shell, input);
-	remove_quotes(shell);
+	t_list	*token_list;
+	
+	token_list = shell->token_lst;
+	print_token_lst(token_list);
+	while (token_list)
+	{
+		printf("before remove: %s\n", ((t_token *)token_list->content)->value);
+		token_list = token_list->next;
+	}
 }

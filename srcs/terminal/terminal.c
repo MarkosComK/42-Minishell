@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 14:35:09 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/22 18:37:02 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	terminal(t_shell *shell, char **envp)
 	shell->path = path_list(shell, envp);
 	shell->root = build_tree(shell, shell->token_lst);
 	//print_env_lst(shell->envp);
-	print_token_lst(shell->token_lst);
+	//print_token_lst(shell->token_lst);
 	//print_bst(shell->root, 5);
 	if (fork() == 0)
 		exec_tree(shell, shell->root);
