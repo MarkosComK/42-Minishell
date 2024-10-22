@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 18:37:02 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/22 21:49:35 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	terminal(t_shell *shell, char **envp)
 	/*
 	for (int i = 0; shell->envp_arr[i]; i++)
 		printf("%s\n", shell->envp_arr[i]);
-	*/
+		*/
 	shell->path = path_list(shell, envp);
 	shell->root = build_tree(shell, shell->token_lst);
 	//print_env_lst(shell->envp);
