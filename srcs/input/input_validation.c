@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:36:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 12:37:40 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/22 12:49:44 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ bool	input_validation(t_shell *shell)
 		exit_failure(shell, "input_validation");
 	if (shell->trim_input[0] == '\0')
 		return (true);
+	if (!check_pipes(shell->trim_input))
+		return (syntax_error_msg(PIPE_ERROR));
 	if (!check_quotes(shell->trim_input))
 		return (syntax_error_msg(OPEN_QUOTE));
 	if (!check_quotes_pos(shell->trim_input))
-		return (syntax_error_msg("quotes pos"));
-	else if (!check_pipes(shell->trim_input))
-		return (syntax_error_msg(OPEN_QUOTE));
+		return (syntax_error_msg(SYNTAX_QUOTE));
 	return (false);
 }
 
