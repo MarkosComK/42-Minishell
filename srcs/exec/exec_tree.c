@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:43:04 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 22:51:19 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/22 23:01:45 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 	char	*cmd_path;
 
 	cmd_path = find_cmd_path(shell->path, exec_node->command);
-	printf("cmd_path%s\n", cmd_path);
 	if (!cmd_path)
 	{
 		exit_failure(shell, "CMD NOT FOUND\n");
