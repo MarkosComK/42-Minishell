@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:41:24 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 21:20:27 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/22 21:25:15 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	handle_quotes(t_shell *shell, char *input, int i)
 		exit_failure(shell, "handle_quotes");
 	while (input[i] && !ft_isspace(input[i]) && !ft_ismeta(input, i))
 	{
-		i = join_strs(&str, input, i);
+		i = join_strs(shell, &str, input, i);
 	}
 	new_token->value = str;
 	if (!new_token->value)
