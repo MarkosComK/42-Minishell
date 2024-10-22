@@ -99,18 +99,14 @@ int	handle_pipe(t_shell *shell, char *input, int i)
 
 int	handle_quotes(t_shell *shell, char *input, int i)
 {
-	t_token	*new_token;
-	char	quote;
-	int		start;
+	t_token		*new_token;
+	const char	quote = input[i++];
+	const int	start = i;
 
 	new_token = ft_calloc(1, sizeof(t_token));
 	if (!new_token)
 		exit_failure(shell, "handle_quotes");
-	quote = input[i];
-	while (input[i] == quote)
-		i++;
-	start = i;
-	while (input[i] && input[i] != quote)
+	while (input[i] && !ft_isspace(input[i]) && !ft_ismeta(input, i))
 		i++;
 	new_token->value = ft_substr(input, start, i - start);
 	if (!new_token->value)
@@ -121,9 +117,8 @@ int	handle_quotes(t_shell *shell, char *input, int i)
 	else if (quote == '\'')
 		new_token->state = IN_SQUOTES;
 	ft_lstadd_back(&shell->token_lst, ft_lstnew(new_token));
-	i++;
-	while (input[i] == quote)
-		i++;
+	while (input[++i] == quote)
+		;
 	while (ft_isspace(input[i]))
 		i++;
 	return (i);

@@ -19,6 +19,23 @@ bool	in_quotes(char *input, int i)
 	return (false);
 }
 
+bool	ft_ismeta(char *str, int i)
+{
+	char	*metachars;
+	int		j;
+
+	metachars = "<|>";
+	j = 0;
+	printf("char: %c\n", str[i]);
+	while (metachars[j])
+	{
+		if (str[i] == metachars[j] && str[i + 1] != '"')
+			return (true);
+		j++;
+	}
+	return (false);
+}
+
 int	set_append(t_shell *sh, t_token *new_token, char *input, int i)
 {
 	new_token->value = ft_strndup(&input[i], 2);
