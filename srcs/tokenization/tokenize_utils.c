@@ -26,10 +26,9 @@ bool	ft_ismeta(char *str, int i)
 
 	metachars = "<|>";
 	j = 0;
-	printf("char: %c\n", str[i]);
 	while (metachars[j])
 	{
-		if (str[i] == metachars[j] && str[i + 1] != '"')
+		if (str[i] && str[i] == metachars[j] && str[i + 1] != '"')
 			return (true);
 		j++;
 	}
