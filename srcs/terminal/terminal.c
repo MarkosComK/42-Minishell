@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/20 17:39:01 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:37:41 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ void	terminal(t_shell *shell, char **envp)
 		free_shell(shell);
 		return ;
 	}
-	lexer(shell, shell->input);
-	shell->path = path_list(envp);
-	shell->root = build_tree(shell->token_lst);
-	//print_env_lst(shell->path);
-	//print_token_lst(shell->token_lst);
+	lexer(shell, shell->trim_input);
+	shell->envp = env_list(shell, envp);
+	shell->path = path_list(shell, envp);
+	shell->root = build_tree(shell, shell->token_lst);
+	//print_env_lst(shell->envp);
+	print_token_lst(shell->token_lst);
 	//print_bst(shell->root, 5);
 	if (fork() == 0)
 		exec_tree(shell, shell->root);
@@ -55,6 +56,13 @@ void	free_shell(t_shell *shell)
 		free(shell->token_lst->content);
 		free(shell->token_lst);
 		shell->token_lst = tmp;
+	}
+	while (shell->envp)
+	{
+		tmp = shell->envp->next;
+		free(shell->envp->content);
+		free(shell->envp);
+		shell->envp= tmp;
 	}
 	while (shell->path)
 	{

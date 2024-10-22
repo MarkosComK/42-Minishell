@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:22:19 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/20 14:47:21 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:46:17 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <environment.h>
 # include <exec.h>
 # include <sys/wait.h>
+# include <fcntl.h>
 
 // MACROS
 # define PROMPT "🔥 HELLSH ➜ "

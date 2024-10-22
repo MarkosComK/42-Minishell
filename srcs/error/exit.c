@@ -1,26 +1,24 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment_printers.c                             :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/20 16:59:15 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/21 13:09:36 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/21 13:37:44 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/21 13:44:51 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	print_env_lst(t_list *lst)
+void	exit_failure(t_shell *shell, char *function)
 {
-	printf("ENVIRONMENT:\n");
-	printf("---------------------:\n");
-	while (lst)
-	{
-		printf("%s\n", (char *)lst->content);
-		lst = lst -> next;
-	}
-	printf("---------------------:\n");
-	printf("END\n");
+	free_shell(shell);
+	perror(RED"malloc error:");
+	perror(function);
+	perror(DEFAULT);
+	perror("\n");
+	exit(1);
 }

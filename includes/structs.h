@@ -17,7 +17,8 @@
 
 typedef struct s_shell
 {
-	t_list		*path; //env_list
+	t_list		*envp;
+	t_list		*path; //path_list
 	t_list		*token_lst;
 	char		*input;
 	char		*trim_input;
