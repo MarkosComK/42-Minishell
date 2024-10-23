@@ -22,9 +22,9 @@ void	*build_tree(t_shell *shell, t_list *token_list)
 	while (tmp)
 	{
 		root = insert_node(shell, root, tmp);
-		if (((t_token *)tmp->content)->type == WORD)
+		if (((t_token *)tmp->content)->type != PIPE)
 		{
-			while (tmp && ((t_token *)tmp->content)->type == WORD)
+			while (tmp && ((t_token *)tmp->content)->type != PIPE)
 			{
 				tmp = tmp->next;
 			}
@@ -32,7 +32,7 @@ void	*build_tree(t_shell *shell, t_list *token_list)
 		else
 		{
 			tmp = tmp->next;
-			while (tmp && ((t_token *)tmp->content)->type == WORD)
+			while (tmp && ((t_token *)tmp->content)->type != PIPE)
 			{
 				tmp = tmp->next;
 			}

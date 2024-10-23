@@ -52,8 +52,8 @@ char	*get_infile(t_shell *shell, t_list **token_lst)
 	infile = NULL;
 	if (((t_token *)current->content)->type == INFILE)
 	{
-		*token_lst = (*token_lst)->next;
-		return ((char *)((t_token *)current->next)->value);
+		*token_lst = (*token_lst)->next->next; //jump to CMD
+		return ((char *)((t_token *)current->next)->value); //return next token which is the infile
 	}
 	return (infile);
 }
