@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 21:49:35 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/23 11:26:44 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	terminal(t_shell *shell, char **envp)
 {
 	ft_bzero(shell, sizeof(t_shell));
+	handle_signal();
 	shell->input = readline(B_RED PROMPT DEFAULT);
 	if (shell->input && shell->input[0] != '\0')
 		add_history(shell->input);
