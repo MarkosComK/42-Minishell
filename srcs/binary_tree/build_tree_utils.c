@@ -42,6 +42,18 @@ char	**get_argv(t_shell *shell, t_list *token_lst)
 	return (argv);
 }
 
-char	*get_infile(t_shell *shell, t_list *token_lst)
+char	*get_infile(t_shell *shell, t_list **token_lst)
 {
+	char	*infile;
+	t_list	*current;
+	(void) shell;
+	
+	current = *token_lst;
+	infile = NULL;
+	if (((t_token *)current->content)->type == INFILE)
+	{
+		*token_lst = (*token_lst)->next;
+		return ((char *)((t_token *)current->next)->value);
+	}
+	return (infile);
 }
