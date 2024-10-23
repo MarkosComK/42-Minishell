@@ -83,4 +83,14 @@ void	print_bst_exec(t_exec *node, int space)
 			j++;
 		}
 	}
+	if (node->inf)
+	{
+		i = 0;
+		while (i < space + 2)
+		{
+			printf(" ");
+			i++;
+		}
+		printf("[INFILE: %s]\n", node->inf);
+	}
 }
