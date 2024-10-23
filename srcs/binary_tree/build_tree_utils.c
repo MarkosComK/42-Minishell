@@ -41,3 +41,7 @@ char	**get_argv(t_shell *shell, t_list *token_lst)
 	argv[argc] = NULL;
 	return (argv);
 }
+
+char	*get_infile(t_shell *shell, t_list *token_lst)
+{
+}
