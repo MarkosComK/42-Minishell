@@ -38,25 +38,57 @@ bool	input_validation(t_shell *shell)
  */
 bool	check_quotes(char *str)
 {
-	int	i;
-	int	j;
+	int		i;
+	char	current_quote;
 
 	i = 0;
-	j = 0;
+	current_quote = 0;
 	while (str[i])
 	{
-		if (str[i] == '\'' || str[i] == '"')
-			j++;
+		if (ft_isquote(str[i]))
+		{
+			if (current_quote == 0)
+				current_quote = str[i];
+			else if (str[i] == current_quote)
+				current_quote = 0;
+		}
 		i++;
 	}
-	if (j % 2 == 0)
-		return (true);
-	return (false);
+
+	return (current_quote == 0);
 }
 
 // this function prevents minishell to run with that case below
 // "'example"'
 // "'ls"'
+bool	check_quotes_pos(char *str)
+{
+	int		i;
+	char	quote;
+	bool	quote_found;
+
+	i = -1;
+	quote = 0;
+	quote_found = false;
+	while (str[++i])
+	{
+		if (ft_isquote(str[i]))
+		{
+			if (!quote_found)
+			{
+				quote = str[i];
+				quote_found = true;
+			}
+			else if (str[i] == quote)
+			{
+				quote = 0;
+				quote_found = false;
+			}
+		}
+	}
+	return (!quote_found);
+}
+/*
 bool	check_quotes_pos(char *str)
 {
 	int		i;
@@ -80,7 +112,7 @@ bool	check_quotes_pos(char *str)
 		return (false);
 	return (true);
 }
-
+*/
 /*
  * Check if the the pipes are correctly placed
  * (Pipes cannot have space between them OR start at the input)
