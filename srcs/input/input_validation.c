@@ -31,10 +31,11 @@ bool	input_validation(t_shell *shell)
 }
 
 /*
- * Check if the the amount of quotes are odd or even
- * (Every opened quote must close)
- * Even = return true
- *  Odd = return false
+ * Check if all quotes in the string are properly matched.
+ * It tracks the opening and closing of single and double quotes.
+ * If every opened quote has a corresponding closing quote,
+ * the function returns true (indicating valid quotes).
+ * If there are unmatched quotes, it returns false (indicating invalid quotes).
  */
 bool	check_quotes(char *str)
 {
@@ -54,13 +55,18 @@ bool	check_quotes(char *str)
 		}
 		i++;
 	}
-
 	return (current_quote == 0);
 }
 
-// this function prevents minishell to run with that case below
-// "'example"'
-// "'ls"'
+/*
+ * This function checks if there are unmatched quotes in the string.
+ * It ensures that every opening quote has a corresponding closing quote.
+ * If there are unmatched quotes at the end of the string,
+ * the function returns false (indicating that the command should not run).
+ * Examples that would prevent minishell from running:
+ * - "'example"'
+ * - "'ls"'
+ */
 bool	check_quotes_pos(char *str)
 {
 	int		i;
@@ -88,31 +94,7 @@ bool	check_quotes_pos(char *str)
 	}
 	return (!quote_found);
 }
-/*
-bool	check_quotes_pos(char *str)
-{
-	int		i;
-	char	quote;
 
-	i = 0;
-	quote = 0;
-	while (str[i] && str[i + 1])
-	{
-		if (str[i] && ft_isquote(str[i]) && !ft_isquote(str[i + 1]))
-		{
-			quote = str[i];
-			break ;
-		}
-		i++;
-	}
-	i++;
-	while (str[i] && !ft_isquote(str[i]))
-		i++;
-	if (str[i] != quote)
-		return (false);
-	return (true);
-}
-*/
 /*
  * Check if the the pipes are correctly placed
  * (Pipes cannot have space between them OR start at the input)
