@@ -18,6 +18,7 @@
 typedef struct s_shell
 {
 	t_list		*envp;
+	char		**envp_arr;
 	t_list		*path; //path_list
 	t_list		*token_lst;
 	char		*input;

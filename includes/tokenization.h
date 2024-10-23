@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:41:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 16:43:46 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/22 21:21:50 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,19 @@ int				handle_word_token(t_shell *shell, char *input, int i);
 int				handle_redir(t_shell *shell, char *input, int i);
 int				handle_pipe(t_shell *shell, char *input, int i);
 int				handle_quotes(t_shell *shell, char *input, int i);
+//ft_joinstrs.c
+int				join_strs(t_shell *shell, char **str, char *input, int i);
+int				handle_quoted_str(t_shell *shell, char **str, char *input, int i);
+int				handle_nonquoted_str(t_shell *shell, char **str, char *input, int i);
 //lexer.c
 void			lexer(t_shell *shell, char	*input);
+//remove_qutes.c
+void	remove_quotes(t_shell *shell);
 //set_token_pos.c
 void			set_token_pos(t_list *lst);
 //tokenize_utils.c
 bool			in_quotes(char *input, int i);
+bool			ft_ismeta(char *str, int i);
 int				set_append(t_shell *sh, t_token *new_token, char *input, int i);
 int				set_simple(t_shell *sh, t_token *new_token, char *input, int i);
 
