@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   create_env_arr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 15:49:49 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 15:50:00 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/22 13:56:58 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/22 14:25:13 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	check_args(int argc, char *argv[], char *envp[])
+char	**env_arr(t_shell *shell)
 {
-	(void) argv;
-	if (!envp || !*envp)
+	t_list	*envp_list;
+	char	**env_arr;
+	int		i;
+	
+	envp_list = shell->envp;
+	i = ft_lstsize(envp_list);
+	env_arr = malloc(sizeof(char *) * (i + 1));
+	if (!env_arr)
+		exit_failure(shell, "env_arr");
+	i = 0;
+	while (envp_list)
 	{
-		ft_putendl_fd(RED"Executed withou env"DEFAULT, 2);
+		env_arr[i] = ft_strdup(envp_list->content);
+		if (!env_arr[i])
+			exit_failure(shell, "env_arr_1");
+		envp_list = envp_list->next;
+		i++;
 	}
-	/*
-	if (envp)
-	{
-		while(*envp)
-		{
-			printf("%s\n", *envp++);
-		}
-	}
-	*/
-	if (argc > 1)
-	{
-		ft_putendl_fd(RED"Invalid input"DEFAULT, 2);
-		exit(1);
-	}
-	return (0);
+	env_arr[i] = NULL;
+	return (env_arr);
 }

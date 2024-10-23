@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   create_env_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:30:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/20 14:48:50 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/21 12:25:36 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/21 13:45:02 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#include <minishell.h>
 
-# include <libft.h>
-
-typedef struct s_shell
+t_list	*env_list(t_shell *shell, char **envp)
 {
-	t_list		*envp;
-	char		**envp_arr;
-	t_list		*path; //path_list
-	t_list		*token_lst;
-	char		*input;
-	char		*trim_input;
-	void		*root; //binary tree root
-}				t_shell;
+	t_list	*env_list;
+	char	*content;
 
-#endif
+	env_list = NULL;
+	if (!envp || !*envp)
+		return (printf("empty env\n"), NULL);
+	while (*envp)
+	{
+		content = ft_strdup(*envp);
+		if (!content)
+			exit_failure(shell, "env_list");
+		ft_lstadd_back(&env_list, ft_lstnew(content));
+		(envp)++;
+	}
+	return (env_list);
+}

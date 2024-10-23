@@ -12,7 +12,7 @@
 
 #include <minishell.h>
 
-void	*build_tree(t_list *token_list)
+void	*build_tree(t_shell *shell, t_list *token_list)
 {
 	t_list	*tmp;
 	void	*root;
@@ -21,7 +21,7 @@ void	*build_tree(t_list *token_list)
 	root = NULL;
 	while (tmp)
 	{
-		root = insert_node(root, tmp);
+		root = insert_node(shell, root, tmp);
 		if (((t_token *)tmp->content)->type == WORD)
 		{
 			while (tmp && ((t_token *)tmp->content)->type == WORD)
@@ -41,34 +41,38 @@ void	*build_tree(t_list *token_list)
 	return (root);
 }
 
-void	*insert_node(void *node, t_list *token_lst)
+void	*insert_node(t_shell *shell, void *node, t_list *token_lst)
 {
 	t_pipe	*pipe;
 
 	if (!node)
-		return (create_exec(token_lst));
-	pipe = create_pipe(node, create_exec(token_lst->next));
+		return (create_exec(shell, token_lst));
+	pipe = create_pipe(shell, node, create_exec(shell, token_lst->next));
 	return (pipe);
 }
 
-void	*create_exec(t_list *token_lst)
+void	*create_exec(t_shell *shell, t_list *token_lst)
 {
 	t_exec	*node;
 
 	if (!token_lst)
 		return (NULL);
 	node = (t_exec *)malloc(sizeof(t_exec));
+	if (!node)
+		exit_failure(shell, "crete_exec");
 	node->type.type = N_EXEC;
 	node->command = ((t_token *)token_lst->content)->value;
-	node->argv = get_argv(token_lst);
+	node->argv = get_argv(shell, token_lst);
 	return (node);
 }
 
-void	*create_pipe(t_exec *left, t_exec *right)
+void	*create_pipe(t_shell *shell, t_exec *left, t_exec *right)
 {
 	t_pipe	*node;
 
 	node = (t_pipe *)malloc(sizeof(t_pipe));
+	if (!node)
+		exit_failure(shell, "crete_exec");
 	node->type.type = N_PIPE;
 	node->left = left;
 	node->right = right;

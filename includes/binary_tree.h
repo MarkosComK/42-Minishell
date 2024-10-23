@@ -50,11 +50,11 @@ void	print_pipe_children(t_pipe *pipe, int space);
 void	print_bst_pipe(t_pipe *node, int space);
 void	print_bst_exec(t_exec *node, int space);
 //build_tree.c
-void	*build_tree(t_list *token_list);
-void	*insert_node(void *node, t_list *token_lst);
-void	*create_pipe(t_exec *left, t_exec *right);
-void	*create_exec(t_list *token_lst);
+void	*build_tree(t_shell *shell, t_list *token_list);
+void	*insert_node(t_shell *shell, void *node, t_list *token_lst);
+void	*create_pipe(t_shell *shell, t_exec *left, t_exec *right);
+void	*create_exec(t_shell *shell, t_list *token_lst);
 //build_tree_utils.c
-char	**get_argv(t_list *token_lst);
+char	**get_argv(t_shell *shell, t_list *token_lst);
 
 #endif

@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:30:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/20 14:48:50 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/19 12:42:37 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/20 17:36:23 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#ifndef EXEC_H
+# define EXEC_H
 
-# include <libft.h>
+# include <structs.h>
 
-typedef struct s_shell
-{
-	t_list		*envp;
-	char		**envp_arr;
-	t_list		*path; //path_list
-	t_list		*token_lst;
-	char		*input;
-	char		*trim_input;
-	void		*root; //binary tree root
-}				t_shell;
+void	exec_tree(t_shell *shell, void *root);
+void	exec_pipe(t_shell *shell, t_pipe *pipe_node);
+void	exec_node(t_shell *shell, t_exec *exec_node);
 
 #endif

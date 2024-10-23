@@ -1,29 +1,32 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:30:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/20 14:48:50 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/21 13:37:44 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/21 13:44:51 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#include <minishell.h>
 
-# include <libft.h>
-
-typedef struct s_shell
+void	exit_failure(t_shell *shell, char *function)
 {
-	t_list		*envp;
-	char		**envp_arr;
-	t_list		*path; //path_list
-	t_list		*token_lst;
-	char		*input;
-	char		*trim_input;
-	void		*root; //binary tree root
-}				t_shell;
+	free_shell(shell);
+	perror(RED"malloc error:");
+	perror(function);
+	perror(DEFAULT);
+	perror("\n");
+	exit(1);
+}
 
-#endif
+void	exec_failure(t_shell *shell)
+{
+	free_shell(shell);
+	perror(RED"execve:");
+	perror(DEFAULT"\n");
+	exit(1);
+}

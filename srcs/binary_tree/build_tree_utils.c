@@ -12,7 +12,7 @@
 
 #include <minishell.h>
 
-char	**get_argv(t_list *token_lst)
+char	**get_argv(t_shell *shell, t_list *token_lst)
 {
 	t_list	*current;
 	int		argc;
@@ -29,6 +29,8 @@ char	**get_argv(t_list *token_lst)
 		current = current->next;
 	}
 	argv = malloc((argc + 1) * sizeof(char *));
+	if (!argv)
+		exit_failure(shell, "get_argv");
 	current = token_lst;
 	while (i < argc)
 	{
