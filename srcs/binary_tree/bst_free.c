@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:37:41 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/16 13:00:56 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/24 04:38:09 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	free_exec(t_exec *node)
 				free(node->infiles[i++]);
 			free(node->infiles);
 		}
+		i = 0;
 		if (node->outfiles)
 		{
 			while (node->outfiles[i])
