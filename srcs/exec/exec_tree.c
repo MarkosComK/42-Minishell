@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:43:04 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/24 03:53:13 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/24 04:09:41 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,21 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 				exit_failure(shell, "INFILE FAILURE\n");
 			}
 			dup2(fd, STDIN_FILENO);
+			close(fd);
+			i++;
+		}
+	}
+	i = 0;
+	if (exec_node->outfiles)
+	{
+		while (exec_node->outfiles[i])
+		{
+			fd = open(exec_node->outfiles[i], O_RDWR | O_CREAT, 0644);
+			if (fd < 0)
+			{
+				exit_failure(shell, "OUTF FAILURE\n");
+			}
+			dup2(fd, STDOUT_FILENO);
 			close(fd);
 			i++;
 		}
