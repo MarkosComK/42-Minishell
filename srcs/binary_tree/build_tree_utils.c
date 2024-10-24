@@ -42,22 +42,31 @@ char	**get_argv(t_shell *shell, t_list *token_lst)
 	return (argv);
 }
 
-char	*get_infile(t_shell *shell, t_list **token_lst)
+char	**get_infiles(t_shell *shell, t_list **token_lst)
 {
-	char	*infile;
+	char	**infiles;
+	int		total;
 	t_list	*current;
-	t_list	*next;
 	(void) shell;
 	
 	current = *token_lst;
-	next = (*token_lst)->next;
-	infile = NULL;
-	printf("inf->value:%s\n", (char *)((t_token *)current->content)->value);
-	if (((t_token *)current->content)->type == INFILE)
+	infiles = NULL;
+	total = 0;
+	while (((t_token *)current->content)->type == INFILE) //get total of infiles
 	{
-		printf("inf->value:%s\n", (char *)(((t_token *)next->content)->value));
-		*token_lst = (*token_lst)->next->next; //jump to CMD
-		return ((char *)((t_token *)next->content)->value); //return next token which is the infile
+		total++;
+		current = current->next->next;
 	}
-	return (infile); //return NULL case theres no infile so we dont execute dup2 with the infile
+	infiles = malloc(sizeof(char *) * (total + 1));
+	total = 0;
+	current = *token_lst;
+	while (current && ((t_token *)current->content)->type == INFILE) //get total of infiles
+	{
+		infiles[total] = ft_strdup(((t_token *)current->next->content)->value);
+		current = current->next->next;
+		*token_lst = (*token_lst)->next->next;
+		total++;
+	}
+	infiles[total] = 0;
+	return (infiles); //return NULL case theres no infile so we dont execute dup2 with the infile
 }
