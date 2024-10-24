@@ -47,7 +47,7 @@ char	**get_infiles(t_shell *shell, t_list **token_lst)
 	char	**infiles;
 	t_list	*current;
 	int		total;
-	
+
 	current = *token_lst;
 	total = 0;
 	while (current && ((t_token *)current->content)->type == INFILE)
@@ -63,12 +63,10 @@ char	**get_infiles(t_shell *shell, t_list **token_lst)
 	while (current && ((t_token *)current->content)->type == INFILE)
 	{
 		infiles[total] = ft_strdup(((t_token *)current->next->content)->value);
-		if (!infiles[total])
+		if (!infiles[total++])
 			exit_failure(shell, "get_infiles");
 		current = current->next->next;
 		*token_lst = (*token_lst)->next->next;
-		total++;
 	}
-	infiles[total] = NULL;
-	return (infiles);
+	return (infiles[total] = NULL, infiles);
 }
