@@ -53,6 +53,12 @@ void	free_exec(t_exec *node)
 				free(node->infiles[i++]);
 			free(node->infiles);
 		}
+		if (node->outfiles)
+		{
+			while (node->outfiles[i])
+				free(node->outfiles[i++]);
+			free(node->outfiles);
+		}
 		free(node);
 	}
 }
