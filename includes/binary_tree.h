@@ -38,6 +38,8 @@ typedef struct s_exec
 	t_node		type;
 	char		*command;
 	char		**argv;
+	char		**infiles;
+	char		**outfiles;
 }				t_exec;
 
 //bst_free.c
@@ -56,5 +58,8 @@ void	*create_pipe(t_shell *shell, t_exec *left, t_exec *right);
 void	*create_exec(t_shell *shell, t_list *token_lst);
 //build_tree_utils.c
 char	**get_argv(t_shell *shell, t_list *token_lst);
+char	**get_infiles(t_shell *shell, t_list **token_lst);
+char	**get_outfiles(t_shell *shell, t_list **token_lst);
+char	**get_colors(t_shell *shell, char **argv);
 
 #endif

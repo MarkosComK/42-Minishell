@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 21:49:35 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/24 05:07:49 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 void	terminal(t_shell *shell, char **envp)
 {
 	ft_bzero(shell, sizeof(t_shell));
+	handle_signals();
 	shell->input = readline(B_RED PROMPT DEFAULT);
 	if (shell->input && shell->input[0] != '\0')
 		add_history(shell->input);
-	if (input_validation(shell))
+	if (shell->input && input_validation(shell))
 	{
 		free_shell(shell);
 		terminal(shell, envp);
@@ -28,6 +29,7 @@ void	terminal(t_shell *shell, char **envp)
 		free_shell(shell);
 		return ;
 	}
+	set_main_signals();
 	lexer(shell, shell->trim_input);
 	shell->envp = env_list(shell, envp);
 	shell->envp_arr = env_arr(shell);
@@ -38,7 +40,7 @@ void	terminal(t_shell *shell, char **envp)
 	shell->path = path_list(shell, envp);
 	shell->root = build_tree(shell, shell->token_lst);
 	//print_env_lst(shell->envp);
-	print_token_lst(shell->token_lst);
+	//print_token_lst(shell->token_lst);
 	//print_bst(shell->root, 5);
 	if (fork() == 0)
 		exec_tree(shell, shell->root);
