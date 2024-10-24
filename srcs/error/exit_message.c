@@ -1,30 +1,26 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   exit_message.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 13:37:44 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/21 13:44:51 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/24 15:48:20 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/24 15:48:57 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	exit_failure(t_shell *shell, char *function)
+void	exit_message(char *bash, char *file, char *message)
 {
-	free_shell(shell);
-	ft_putstr_fd(RED"malloc error: "DEFAULT, 2);
-	ft_putendl_fd(function, 2);
-	exit(1);
-}
-
-void	exec_failure(t_shell *shell, char *cmd)
-{
-	ft_putstr_fd(cmd, 2);
-	ft_putendl_fd(": command not found", 2);
-	free_shell(shell);
-	exit(127);
+	if (bash)
+		ft_putstr_fd(bash, 2);
+	if (file)
+	{
+		ft_putstr_fd(file, 2);
+		ft_putstr_fd(": ", 2);
+	}
+	ft_putstr_fd(message, 2);
+	ft_putstr_fd("\n", 2);
 }

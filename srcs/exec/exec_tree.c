@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:43:04 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/24 04:22:04 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/24 16:04:06 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 	}
 	if (execve(cmd_path, exec_node->argv, shell->envp_arr) == -1)
 	{
-		exec_failure(shell);
+		exec_failure(shell, cmd_path);
 	}
 }
