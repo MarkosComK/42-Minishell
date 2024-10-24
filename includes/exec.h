@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:42:37 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/24 03:49:17 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/24 04:21:21 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,9 @@ void	exec_node(t_shell *shell, t_exec *exec_node);
 //pids_utils
 void	handle_pid1(t_shell *shell, int pipefd[], t_pipe *pipe_node);
 void	handle_pid2(t_shell *shell, int pipefd[], t_pipe *pipe_node);
+
+//redirects
+void	handle_infiles(t_shell *shell, t_exec *exec_node);
+void	handle_outfiles(t_shell *shell, t_exec *exec_node);
 
 #endif
