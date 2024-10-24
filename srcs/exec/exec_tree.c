@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:43:04 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/24 04:09:41 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/24 04:22:04 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,39 +61,9 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 void	exec_node(t_shell *shell, t_exec *exec_node)
 {
 	char	*cmd_path;
-	int		i;
-	int		fd;
 
-	i = 0;
-	if (exec_node->infiles)
-	{
-		while (exec_node->infiles[i])
-		{
-			fd = open(exec_node->infiles[i], O_RDONLY);
-			if (fd < 0)
-			{
-				exit_failure(shell, "INFILE FAILURE\n");
-			}
-			dup2(fd, STDIN_FILENO);
-			close(fd);
-			i++;
-		}
-	}
-	i = 0;
-	if (exec_node->outfiles)
-	{
-		while (exec_node->outfiles[i])
-		{
-			fd = open(exec_node->outfiles[i], O_RDWR | O_CREAT, 0644);
-			if (fd < 0)
-			{
-				exit_failure(shell, "OUTF FAILURE\n");
-			}
-			dup2(fd, STDOUT_FILENO);
-			close(fd);
-			i++;
-		}
-	}
+	handle_infiles(shell, exec_node);
+	handle_outfiles(shell, exec_node);
 	cmd_path = find_cmd_path(shell->path, exec_node->command);
 	if (!cmd_path)
 	{
