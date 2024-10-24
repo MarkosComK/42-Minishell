@@ -46,14 +46,18 @@ char	*get_infile(t_shell *shell, t_list **token_lst)
 {
 	char	*infile;
 	t_list	*current;
+	t_list	*next;
 	(void) shell;
 	
 	current = *token_lst;
+	next = (*token_lst)->next;
 	infile = NULL;
+	printf("inf->value:%s\n", (char *)((t_token *)current->content)->value);
 	if (((t_token *)current->content)->type == INFILE)
 	{
+		printf("inf->value:%s\n", (char *)(((t_token *)next->content)->value));
 		*token_lst = (*token_lst)->next->next; //jump to CMD
-		return ((char *)((t_token *)current->next)->value); //return next token which is the infile
+		return ((char *)((t_token *)next->content)->value); //return next token which is the infile
 	}
-	return (infile);
+	return (infile); //return NULL case theres no infile so we dont execute dup2 with the infile
 }
