@@ -39,7 +39,7 @@ typedef struct s_exec
 	char		*command;
 	char		**argv;
 	char		**infiles;
-	char		*outf;
+	char		**outfiles;
 }				t_exec;
 
 //bst_free.c
@@ -59,5 +59,6 @@ void	*create_exec(t_shell *shell, t_list *token_lst);
 //build_tree_utils.c
 char	**get_argv(t_shell *shell, t_list *token_lst);
 char	**get_infiles(t_shell *shell, t_list **token_lst);
+char	**get_outfiles(t_shell *shell, t_list **token_lst);
 
 #endif

@@ -69,3 +69,32 @@ char	**get_infiles(t_shell *shell, t_list **token_lst)
 	}
 	return (infiles[total] = NULL, infiles);
 }
+
+char	**get_outfiles(t_shell *shell, t_list **token_lst)
+{
+	char	**infiles;
+	t_list	*current;
+	int		total;
+
+	current = *token_lst;
+	total = 0;
+	while (current && ((t_token *)current->content)->type == OUTFILE)
+	{
+		total++;
+		current = current->next->next;
+	}
+	infiles = malloc(sizeof(char *) * (total + 1));
+	if (!infiles)
+		exit_failure(shell, "get_infiles");
+	total = 0;
+	current = *token_lst;
+	while (current && ((t_token *)current->content)->type == OUTFILE)
+	{
+		infiles[total] = ft_strdup(((t_token *)current->next->content)->value);
+		if (!infiles[total++])
+			exit_failure(shell, "get_infiles");
+		current = current->next->next;
+		*token_lst = (*token_lst)->next->next;
+	}
+	return (infiles[total] = NULL, infiles);
+}
