@@ -22,7 +22,7 @@ char	**get_argv(t_shell *shell, t_list *token_lst)
 	current = token_lst;
 	argc = 0;
 	i = 0;
-	while (current && ft_strcmp(((t_token *)current->content)->value, "|") != 0)
+	while (current && ((t_token *)current->content)->type == WORD)
 	{
 		argc++;
 		current = current->next;
