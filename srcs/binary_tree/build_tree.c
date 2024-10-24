@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 17:40:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/18 16:29:11 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/24 04:16:33 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 	node->type.type = N_EXEC;
 	node->infiles = NULL;
 	node->command = NULL;
+	node->argv = NULL;
 	node->outfiles = NULL;
 	if (((t_token *)token_lst->content)->type == INFILE)
 		node->infiles = get_infiles(shell, &token_lst);
