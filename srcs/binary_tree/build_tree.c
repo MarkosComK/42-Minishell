@@ -61,7 +61,9 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 	if (!node)
 		exit_failure(shell, "crete_exec");
 	node->type.type = N_EXEC;
-	node->infiles = get_infiles(shell, &token_lst);
+	node->infiles = NULL;
+	if (((t_token *)token_lst->content)->type == INFILE)
+		node->infiles = get_infiles(shell, &token_lst);
 	node->outf = NULL;
 	node->command = ((t_token *)token_lst->content)->value;
 	node->argv = get_argv(shell, token_lst);
