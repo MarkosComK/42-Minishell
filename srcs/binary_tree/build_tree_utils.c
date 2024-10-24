@@ -98,3 +98,21 @@ char	**get_outfiles(t_shell *shell, t_list **token_lst)
 	}
 	return (infiles[total] = NULL, infiles);
 }
+
+char	**get_colors(t_shell *shell, char **argv)
+{
+	char	**colors;
+	int		i;
+
+	i = 0;
+	while (argv[i])
+		i++;
+	colors = malloc(sizeof(char *) * (i + 2));
+	if (!colors)
+		exit_failure(shell, "get_colors");
+	ft_memcpy(colors, argv, sizeof(char *) * i);
+	colors[i] = "--color=auto";
+	colors[i + 1] = NULL;
+	free(argv);
+	return (colors);
+}

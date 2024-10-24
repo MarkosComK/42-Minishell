@@ -60,5 +60,6 @@ void	*create_exec(t_shell *shell, t_list *token_lst);
 char	**get_argv(t_shell *shell, t_list *token_lst);
 char	**get_infiles(t_shell *shell, t_list **token_lst);
 char	**get_outfiles(t_shell *shell, t_list **token_lst);
+char	**get_colors(t_shell *shell, char **argv);
 
 #endif
