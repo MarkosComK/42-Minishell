@@ -69,11 +69,11 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 	if(((t_token *)token_lst))
 	{
 		node->command = ((t_token *)token_lst->content)->value;
+		node->argv = get_argv(shell, token_lst);
 		token_lst = (token_lst)->next;
 	}
 	if (token_lst && ((t_token *)token_lst->content)->type == OUTFILE)
 		node->outfiles = get_outfiles(shell, &token_lst);
-	node->argv = get_argv(shell, token_lst);
 	return (node);
 }
 
