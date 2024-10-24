@@ -62,6 +62,23 @@ void	print_bst_exec(t_exec *node, int space)
 
 	i = 0;
 	j = 0;
+	if (node->outfiles)
+	{
+		i = 0;
+		// Add indentation before printing infiles
+		while (i < space + 2)
+		{
+			printf(" ");
+			i++;
+		}
+		printf("[OUTFILES]: ");
+		for (i = 0; node->outfiles[i]; i++)
+		{
+			printf("%s", node->outfiles[i]);
+			if (node->outfiles[i + 1])
+				printf(", "); // Separate infiles with commas
+		}
+	}
 	printf("\n");
 	while (i < space)
 	{
@@ -93,7 +110,6 @@ void	print_bst_exec(t_exec *node, int space)
 			i++;
 		}
 		printf("[INFILES]: ");
-
 		for (i = 0; node->infiles[i]; i++)
 		{
 			printf("%s", node->infiles[i]);
@@ -101,4 +117,5 @@ void	print_bst_exec(t_exec *node, int space)
 				printf(", "); // Separate infiles with commas
 		}
 		printf("\n");
-	}}
+	}
+}
