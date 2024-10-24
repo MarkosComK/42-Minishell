@@ -71,7 +71,23 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 void	exec_node(t_shell *shell, t_exec *exec_node)
 {
 	char	*cmd_path;
+	int		i;
 
+	i = 0;
+	if (exec_node->infiles)
+	{
+		while (exec_node->infiles[i])
+		{
+			int fd = open(exec_node->infiles[i], O_RDONLY);
+			if (fd < 0)
+			{
+				exit_failure(shell, "INFILE FAILURE\n");
+			}
+			dup2(fd, STDIN_FILENO);
+			close(fd);
+			i++;
+		}
+	}
 	cmd_path = find_cmd_path(shell->path, exec_node->command);
 	if (!cmd_path)
 	{
