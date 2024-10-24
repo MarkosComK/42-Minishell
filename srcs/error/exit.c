@@ -21,6 +21,15 @@ void	exit_failure(t_shell *shell, char *function)
 	exit(1);
 }
 
+void	infile_failure(t_shell *shell, char *file)
+{
+	ft_putstr_fd(YELLOW"HELLSH: "DEFAULT, 2);
+	ft_putstr_fd(file, 2);
+	ft_putendl_fd(": No such file or directory", 2);
+	free_shell(shell);
+	exit(1);
+}
+
 void	exec_failure(t_shell *shell, char *cmd)
 {
 	ft_putstr_fd(cmd, 2);
