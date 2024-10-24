@@ -15,7 +15,7 @@
 void	terminal(t_shell *shell, char **envp)
 {
 	ft_bzero(shell, sizeof(t_shell));
-	handle_signal();
+	handle_signals();
 	shell->input = readline(B_RED PROMPT DEFAULT);
 	if (shell->input && shell->input[0] != '\0')
 		add_history(shell->input);
@@ -29,6 +29,7 @@ void	terminal(t_shell *shell, char **envp)
 		free_shell(shell);
 		return ;
 	}
+	set_main_signals();
 	lexer(shell, shell->trim_input);
 	shell->envp = env_list(shell, envp);
 	shell->envp_arr = env_arr(shell);

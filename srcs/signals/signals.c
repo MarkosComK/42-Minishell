@@ -12,73 +12,47 @@
 
 #include <minishell.h>
 
-void signal_handler(int sig)
+void	handle_signal_child(int signo)
 {
-	printf("executing parent\n");
-	// Ignore the signal, or do any custom behavior if needed
-	(void)sig;
-	write(2, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-}
-
-void signal_handler_child(int sig)
-{
-	printf("executing child\n");
-	// Ignore the signal, or do any custom behavior if needed
-	(void)sig;
-	write(2, "\n", 1);
-	rl_replace_line("", 0);
-	//rl_on_new_line();
-	rl_redisplay();
-}
-
-void	handle_signal(void)
-{
-	struct sigaction sa;
-
-	// Set up the sigaction structure to ignore SIGINT
-	sa.sa_handler = signal_handler;  // Handler function
-	sa.sa_flags = 0;  // No special flags
-	sigemptyset(&sa.sa_mask);  // Do not block any signals while handling
-
-	// Install the signal handler for SIGINT (Ctrl-C)
-	if (sigaction(SIGINT, &sa, NULL) == -1)
+	if (signo == SIGINT)
 	{
-		perror("sigaction");
-		exit(EXIT_FAILURE);
+		write(2, "\n", 1);
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	else if (signo == SIGQUIT)
+	{
+		write(2, "Quit (core dumped)\n", 19);
 	}
 }
 
-void	handle_signal_parent(void)
+void	sig_function(int signo)
 {
-	struct sigaction sa;
-
-	sa.sa_handler = SIG_IGN;  // ignore signal when in parent process
-	sa.sa_flags = 0;  // No special flags
-	sigemptyset(&sa.sa_mask);  // Do not block any signals while handling
-
-	// Install the signal handler for SIGINT (Ctrl-C)
-	if (sigaction(SIGINT, &sa, NULL) == -1)
+	if (signo == SIGINT)
 	{
-		perror("sigaction");
-		exit(EXIT_FAILURE);
+		write(2, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
 	}
 }
 
-void	handle_signal_child(void)
+void	set_main_signals(void)
 {
-	struct sigaction sa;
-
-	sa.sa_handler = signal_handler_child;  // Handler function
-	sa.sa_flags = 0;  // No special flags
-	sigemptyset(&sa.sa_mask);  // Do not block any signals while handling
-
-	// Install the signal handler for SIGINT (Ctrl-C)
-	if (sigaction(SIGINT, &sa, NULL) == -1)
-	{
-		perror("sigaction");
-		exit(EXIT_FAILURE);
-	}
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 }
+
+void	set_child_signals(void)
+{
+	signal(SIGINT, handle_signal_child);
+	signal(SIGQUIT, handle_signal_child);
+}
+
+void	handle_signals(void)
+{
+	signal(SIGINT, sig_function);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
+}
+

@@ -13,9 +13,10 @@
 #ifndef SIGNALS_H
 # define SIGNALS_H
 
-void signal_handler(int sig);
-void	handle_signal(void);
-void	handle_signal_parent(void);
-void	handle_signal_child(void);
+void	handle_signal_child(int signo);
+void	sig_function(int signo);
+void	set_main_signals(void);
+void	set_child_signals(void);
+void	handle_signals(void);
 
 #endif
