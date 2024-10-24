@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:43:04 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 23:01:45 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/24 04:22:04 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,12 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 		perror("pipe failed");
 		exit(1);
 	}
-	if ((pid1 = fork()) == 0)
-	{
-		close(pipefd[0]);
-		dup2(pipefd[1], STDOUT_FILENO);
-		close(pipefd[1]);
-		exec_tree(shell, pipe_node->left);
-		exit(0);
-	}
-	else if ((pid2 = fork()) == 0)
-	{
-		close(pipefd[1]);
-		dup2(pipefd[0], STDIN_FILENO);
-		close(pipefd[0]);
-		exec_tree(shell, pipe_node->right);
-		exit(0);
-	}
+	pid1 = fork();
+	if (pid1 == 0)
+		handle_pid1(shell, pipefd, pipe_node);
+	pid2 = fork();
+	if (pid2 == 0)
+		handle_pid2(shell, pipefd, pipe_node);
 	close(pipefd[0]);
 	close(pipefd[1]);
 	waitpid(pid1, NULL, 0);
@@ -72,6 +62,8 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 {
 	char	*cmd_path;
 
+	handle_infiles(shell, exec_node);
+	handle_outfiles(shell, exec_node);
 	cmd_path = find_cmd_path(shell->path, exec_node->command);
 	if (!cmd_path)
 	{
