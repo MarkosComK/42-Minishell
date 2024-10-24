@@ -12,20 +12,6 @@
 
 #include <minishell.h>
 
-void	handle_signal_child(int signo)
-{
-	if (signo == SIGINT)
-	{
-		write(2, "\n", 1);
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	else if (signo == SIGQUIT)
-	{
-		write(2, "Quit (core dumped)\n", 19);
-	}
-}
-
 void	sig_function(int signo)
 {
 	if (signo == SIGINT)
@@ -43,16 +29,9 @@ void	set_main_signals(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	set_child_signals(void)
-{
-	signal(SIGINT, handle_signal_child);
-	signal(SIGQUIT, handle_signal_child);
-}
-
 void	handle_signals(void)
 {
 	signal(SIGINT, sig_function);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
 }
-
