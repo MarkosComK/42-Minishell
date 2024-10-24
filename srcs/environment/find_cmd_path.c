@@ -20,6 +20,8 @@ char	*find_cmd_path(t_list *path_list, char *command)
 	char	*path_dir;
 
 	current = path_list;
+	if (!ft_strcmp(command, ""))
+		return ("");
 	if (!command || ft_strlen(command) == 0)
 		return (NULL);
 	while (current != NULL)

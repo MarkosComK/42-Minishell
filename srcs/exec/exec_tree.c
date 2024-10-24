@@ -65,6 +65,7 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 	handle_infiles(shell, exec_node);
 	handle_outfiles(shell, exec_node);
 	cmd_path = find_cmd_path(shell->path, exec_node->command);
+	printf("[%s]\n", exec_node->argv[0]);
 	if (!cmd_path)
 	{
 		exec_failure(shell, cmd_path);
