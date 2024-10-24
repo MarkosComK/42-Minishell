@@ -23,9 +23,9 @@ void	exit_failure(t_shell *shell, char *function)
 
 void	infile_failure(t_shell *shell, char *file)
 {
-	ft_putstr_fd(YELLOW"HELLSH: "DEFAULT, 2);
-	ft_putstr_fd(file, 2);
-	ft_putendl_fd(": No such file or directory", 2);
+	ft_putstr_fd(YELLOW"hellsh: "DEFAULT, 2);
+	perror(file);
+	//ft_putendl_fd(": No such file or directory", 2);
 	free_shell(shell);
 	exit(1);
 }
