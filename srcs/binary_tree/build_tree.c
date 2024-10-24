@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 17:40:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/18 16:29:11 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/24 04:16:33 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	*build_tree(t_shell *shell, t_list *token_list)
 	while (tmp)
 	{
 		root = insert_node(shell, root, tmp);
-		if (((t_token *)tmp->content)->type == WORD)
+		if (((t_token *)tmp->content)->type != PIPE)
 		{
-			while (tmp && ((t_token *)tmp->content)->type == WORD)
+			while (tmp && ((t_token *)tmp->content)->type != PIPE)
 			{
 				tmp = tmp->next;
 			}
@@ -32,7 +32,7 @@ void	*build_tree(t_shell *shell, t_list *token_list)
 		else
 		{
 			tmp = tmp->next;
-			while (tmp && ((t_token *)tmp->content)->type == WORD)
+			while (tmp && ((t_token *)tmp->content)->type != PIPE)
 			{
 				tmp = tmp->next;
 			}
@@ -61,8 +61,20 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 	if (!node)
 		exit_failure(shell, "crete_exec");
 	node->type.type = N_EXEC;
-	node->command = ((t_token *)token_lst->content)->value;
-	node->argv = get_argv(token_lst);
+	node->infiles = NULL;
+	node->command = NULL;
+	node->argv = NULL;
+	node->outfiles = NULL;
+	if (((t_token *)token_lst->content)->type == INFILE)
+		node->infiles = get_infiles(shell, &token_lst);
+	if(((t_token *)token_lst))
+	{
+		node->command = ((t_token *)token_lst->content)->value;
+		node->argv = get_argv(shell, token_lst);
+		token_lst = (token_lst)->next;
+	}
+	if (token_lst && ((t_token *)token_lst->content)->type == OUTFILE)
+		node->outfiles = get_outfiles(shell, &token_lst);
 	return (node);
 }
 

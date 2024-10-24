@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:41:24 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 16:44:47 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/22 21:25:15 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,17 @@ void	tokenize_input(t_shell *shell, char *input)
 int	handle_word_token(t_shell *shell, char *input, int i)
 {
 	t_token	*new_token;
-	int		start;
+	char	*str;
 
-	start = i;
 	new_token = ft_calloc(1, sizeof(t_token));
-	if (!new_token)
+	str = ft_strdup("");
+	if (!new_token || !str)
 		exit_failure(shell, "handle_word_token");
-	while (input[i] && !ft_isspace(input[i]) && input[i] != '|'
-		&& input[i] != '>' && input[i] != '<')
+	while (input[i] && !ft_isspace(input[i]) && !ft_ismeta(input, i))
 	{
-		i++;
+		i = join_strs(shell, &str, input, i);
 	}
-	new_token->value = ft_strndup(input + start, i - start);
+	new_token->value = str;
 	if (!new_token->value)
 		exit_failure(shell, "handle_word_token_1");
 	new_token->type = WORD;
@@ -99,18 +98,19 @@ int	handle_pipe(t_shell *shell, char *input, int i)
 
 int	handle_quotes(t_shell *shell, char *input, int i)
 {
-	t_token	*new_token;
-	char	quote;
-	int		start;
+	t_token		*new_token;
+	const char	quote = input[i];
+	char		*str;
 
 	new_token = ft_calloc(1, sizeof(t_token));
+	str = ft_strdup("");
 	if (!new_token)
 		exit_failure(shell, "handle_quotes");
-	quote = input[i++];
-	start = i;
-	while (input[i] && input[i] != quote)
-		i++;
-	new_token->value = ft_substr(input, start, i - start);
+	while (input[i] && !ft_isspace(input[i]) && !ft_ismeta(input, i))
+	{
+		i = join_strs(shell, &str, input, i);
+	}
+	new_token->value = str;
 	if (!new_token->value)
 		exit_failure(shell, "handle_quotes_1");
 	new_token->type = WORD;
@@ -119,7 +119,6 @@ int	handle_quotes(t_shell *shell, char *input, int i)
 	else if (quote == '\'')
 		new_token->state = IN_SQUOTES;
 	ft_lstadd_back(&shell->token_lst, ft_lstnew(new_token));
-	i++;
 	while (ft_isspace(input[i]))
 		i++;
 	return (i);

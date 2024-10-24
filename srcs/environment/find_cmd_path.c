@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:18:22 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/20 17:48:32 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:57:20 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*find_cmd_path(t_list *path_list, char *command)
 	char	*path_dir;
 
 	current = path_list;
+	if (!command || ft_strlen(command) == 0)
+		return (NULL);
 	while (current != NULL)
 	{
 		path_dir = (char *)current->content;

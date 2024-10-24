@@ -22,3 +22,11 @@ void	exit_failure(t_shell *shell, char *function)
 	perror("\n");
 	exit(1);
 }
+
+void	exec_failure(t_shell *shell)
+{
+	free_shell(shell);
+	perror(RED"execve:");
+	perror(DEFAULT"\n");
+	exit(1);
+}

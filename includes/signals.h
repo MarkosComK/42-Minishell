@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:30:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/20 14:48:50 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/23 11:16:31 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/23 11:47:55 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#ifndef SIGNALS_H
+# define SIGNALS_H
 
-# include <libft.h>
-
-typedef struct s_shell
-{
-	t_list		*envp;
-	char		**envp_arr;
-	t_list		*path; //path_list
-	t_list		*token_lst;
-	char		*input;
-	char		*trim_input;
-	void		*root; //binary tree root
-}				t_shell;
+void	handle_signal_child(int signo);
+void	sig_function(int signo);
+void	set_main_signals(void);
+void	set_child_signals(void);
+void	handle_signals(void);
 
 #endif

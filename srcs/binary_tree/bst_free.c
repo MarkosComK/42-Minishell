@@ -40,10 +40,25 @@ void	free_pipe_children(t_pipe *pipe)
 
 void	free_exec(t_exec *node)
 {
+	int	i;
+
+	i = 0;
 	if (node)
 	{
 		if (node->argv)
 			free(node->argv);
+		if (node->infiles)
+		{
+			while (node->infiles[i])
+				free(node->infiles[i++]);
+			free(node->infiles);
+		}
+		if (node->outfiles)
+		{
+			while (node->outfiles[i])
+				free(node->outfiles[i++]);
+			free(node->outfiles);
+		}
 		free(node);
 	}
 }
