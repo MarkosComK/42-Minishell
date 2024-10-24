@@ -19,7 +19,7 @@ void	terminal(t_shell *shell, char **envp)
 	shell->input = readline(B_RED PROMPT DEFAULT);
 	if (shell->input && shell->input[0] != '\0')
 		add_history(shell->input);
-	if (input_validation(shell))
+	if (shell->input && input_validation(shell))
 	{
 		free_shell(shell);
 		terminal(shell, envp);
