@@ -23,7 +23,7 @@ char	*find_cmd_path(t_shell *shell, t_list *path_list, char *command)
 	if (!ft_strcmp(command, ""))
 		return (ft_strdup(""));
 	if (!command || ft_strlen(command) == 0)
-		return (NULL);
+		return (ft_strdup(""));
 	while (current != NULL)
 	{
 		path_dir = (char *)current->content;

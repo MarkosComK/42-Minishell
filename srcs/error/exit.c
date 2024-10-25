@@ -37,9 +37,7 @@ void	is_directory(t_shell *shell, char *path, char *cmd)
 
 	errno = 0;
 	stat(path, &path_stat);
-	while(*path == '.')
-		path++;
-	if (!ft_strncmp(path, "/", 1))
+	if (!ft_strncmp(path, "./", 1))
 	{
 		ft_putstr_fd(MINISHELL " " DEFAULT, 2);
 		ft_putstr_fd(path, 2);
