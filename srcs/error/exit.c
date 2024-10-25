@@ -55,10 +55,14 @@ void	is_directory(t_shell *shell, char *path, char *cmd)
 	}
 }
 
-void	exec_failure(t_shell *shell, char *cmd)
+void	exec_failure(t_shell *shell, char *cmd, char **argv)
 {
-	ft_putstr_fd(cmd, 2);
-	ft_putendl_fd(": command not found", 2);
+	(void) cmd;
+	if (argv)
+	{
+		ft_putstr_fd(argv[0], 2);
+		ft_putendl_fd(": command not found", 2);
+	}
 	free_shell(shell);
 	exit(127);
 }
