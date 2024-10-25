@@ -12,14 +12,14 @@
 
 #include <minishell.h>
 
-char	**get_argv(t_shell *shell, t_list *token_lst)
+char	**get_argv(t_shell *shell, t_list **token_lst)
 {
 	t_list	*current;
 	int		argc;
 	char	**argv;
 	int		i;
 
-	current = token_lst;
+	current = *token_lst;
 	argc = 0;
 	i = 0;
 	while (current && ((t_token *)current->content)->type == WORD)
@@ -30,15 +30,15 @@ char	**get_argv(t_shell *shell, t_list *token_lst)
 	argv = malloc((argc + 1) * sizeof(char *));
 	if (!argv)
 		exit_failure(shell, "get_argv");
-	current = token_lst;
+	current = *token_lst;
 	while (i < argc)
 	{
 		argv[i] = ((t_token *)current->content)->value;
 		current = current->next;
+		*token_lst = (*token_lst)->next;
 		i++;
 	}
-	argv[argc] = NULL;
-	return (argv);
+	return (argv[argc] = NULL, argv);
 }
 
 char	**get_infiles(t_shell *shell, t_list **token_lst)
