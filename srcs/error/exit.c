@@ -30,6 +30,30 @@ void	infile_failure(t_shell *shell, char *file)
 	exit(1);
 }
 
+void	is_directory(t_shell *shell, char *path)
+{
+	struct stat	path_stat;
+
+	errno = 0;
+	stat(path, &path_stat);
+	if (!ft_strncmp(path, "./", 2))
+	{
+		ft_putstr_fd(MINISHELL " " DEFAULT, 2);
+		ft_putstr_fd(path, 2);
+		free_shell(shell);
+		if (errno == ENOENT)
+		{
+			ft_putendl_fd(": No such file or directory", 2);
+			exit(127);
+		}
+		else
+		{
+			ft_putendl_fd(": Is a directory", 2);
+			exit(126);
+		}
+	}
+}
+
 void	exec_failure(t_shell *shell, char *cmd)
 {
 	ft_putstr_fd(cmd, 2);
