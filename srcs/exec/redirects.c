@@ -6,7 +6,11 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 04:19:00 by marsoare          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/24 04:28:34 by marsoare         ###   ########.fr       */
+=======
+/*   Updated: 2024/10/24 16:31:28 by marsoare         ###   ########.fr       */
+>>>>>>> binary-tree
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +29,11 @@ void	handle_infiles(t_shell *shell, t_exec *exec_node)
 			fd = open(exec_node->infiles[i], O_RDONLY);
 			if (fd < 0)
 			{
+<<<<<<< HEAD
 				exit_failure(shell, "INFILE FAILURE\n");
+=======
+				infile_failure(shell, exec_node->infiles[i]);
+>>>>>>> binary-tree
 			}
 			dup2(fd, STDIN_FILENO);
 			close(fd);

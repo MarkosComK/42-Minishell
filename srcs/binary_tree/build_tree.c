@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 17:40:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/24 04:16:33 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/24 16:42:30 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,16 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 	node->outfiles = NULL;
 	if (((t_token *)token_lst->content)->type == INFILE)
 		node->infiles = get_infiles(shell, &token_lst);
-	if(((t_token *)token_lst))
+	if (token_lst && ((t_token *)token_lst->content)->type == OUTFILE)
+		node->outfiles = get_outfiles(shell, &token_lst);
+	if (((t_token *)token_lst))
 	{
 		node->command = ((t_token *)token_lst->content)->value;
 		node->argv = get_argv(shell, token_lst);
+		if (ft_strcmp(node->argv[0], "ls") == 0)
+			node->argv = get_colors(shell, node->argv);
 		token_lst = (token_lst)->next;
 	}
-	if (token_lst && ((t_token *)token_lst->content)->type == OUTFILE)
-		node->outfiles = get_outfiles(shell, &token_lst);
 	return (node);
 }
 

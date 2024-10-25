@@ -16,17 +16,24 @@
 void	exit_failure(t_shell *shell, char *function)
 {
 	free_shell(shell);
-	perror(RED"malloc error:");
-	perror(function);
-	perror(DEFAULT);
-	perror("\n");
+	ft_putstr_fd(RED"malloc error: "DEFAULT, 2);
+	ft_putendl_fd(function, 2);
 	exit(1);
 }
 
-void	exec_failure(t_shell *shell)
+void	infile_failure(t_shell *shell, char *file)
 {
+	ft_putstr_fd(YELLOW"HELLSH: "DEFAULT, 2);
+	ft_putstr_fd(file, 2);
+	ft_putendl_fd(": No such file or directory", 2);
 	free_shell(shell);
-	perror(RED"execve:");
-	perror(DEFAULT"\n");
 	exit(1);
+}
+
+void	exec_failure(t_shell *shell, char *cmd)
+{
+	ft_putstr_fd(cmd, 2);
+	ft_putendl_fd(": command not found", 2);
+	free_shell(shell);
+	exit(127);
 }
