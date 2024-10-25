@@ -33,11 +33,12 @@ void	infile_failure(t_shell *shell, char *file)
 void	is_directory(t_shell *shell, char *path, char *cmd)
 {
 	struct stat	path_stat;
-	(void)		cmd;
 
 	errno = 0;
+	(void) cmd;
 	stat(path, &path_stat);
-	if (!ft_strncmp(path, "./", 1))
+	if (ft_strnstr(path, "./", ft_strlen(path))
+		|| ft_strnstr(path, "/.", ft_strlen(path)))
 	{
 		ft_putstr_fd(MINISHELL " " DEFAULT, 2);
 		ft_putstr_fd(path, 2);
