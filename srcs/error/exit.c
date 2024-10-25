@@ -30,13 +30,16 @@ void	infile_failure(t_shell *shell, char *file)
 	exit(1);
 }
 
-void	is_directory(t_shell *shell, char *path)
+void	is_directory(t_shell *shell, char *path, char *cmd)
 {
 	struct stat	path_stat;
+	(void)		cmd;
 
 	errno = 0;
 	stat(path, &path_stat);
-	if (!ft_strncmp(path, "./", 2))
+	while(*path == '.')
+		path++;
+	if (!ft_strncmp(path, "/", 1))
 	{
 		ft_putstr_fd(MINISHELL " " DEFAULT, 2);
 		ft_putstr_fd(path, 2);
@@ -46,7 +49,7 @@ void	is_directory(t_shell *shell, char *path)
 			ft_putendl_fd(": No such file or directory", 2);
 			exit(127);
 		}
-		else
+		else if (S_ISDIR(path_stat.st_mode))
 		{
 			ft_putendl_fd(": Is a directory", 2);
 			exit(126);

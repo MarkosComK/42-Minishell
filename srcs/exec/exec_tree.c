@@ -60,15 +60,14 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 
 void	exec_node(t_shell *shell, t_exec *exec_node)
 {
-	char	*cmd_path;
-
 	handle_infiles(shell, exec_node);
 	handle_outfiles(shell, exec_node);
-	cmd_path = find_cmd_path(shell->path, exec_node->command);
-	printf("[%s]\n", exec_node->argv[0]);
-	is_directory(shell, exec_node->argv[0]);
-	if (execve(cmd_path, exec_node->argv, shell->envp_arr) == -1)
+	shell->cmd_path = find_cmd_path(shell, shell->path, exec_node->command);
+	ft_putstr_fd("Path: ", 2);
+	ft_putendl_fd(shell->cmd_path, 2);
+	is_directory(shell, exec_node->argv[0], shell->cmd_path);
+	if (execve(shell->cmd_path, exec_node->argv, shell->envp_arr) == -1)
 	{
-		exec_failure(shell, cmd_path);
+		exec_failure(shell, shell->cmd_path);
 	}
 }

@@ -12,9 +12,9 @@
 
 #include <minishell.h>
 
-char	*find_cmd_path(t_list *path_list, char *command)
+char	*find_cmd_path(t_shell *shell, t_list *path_list, char *command)
 {
-	char	*cmd_path;
+	char	*path;
 	char	*only_path;
 	t_list	*current;
 	char	*path_dir;
@@ -29,18 +29,15 @@ char	*find_cmd_path(t_list *path_list, char *command)
 		path_dir = (char *)current->content;
 		only_path = ft_strjoin(path_dir, "/");
 		if (!only_path)
-		{
-			perror("ft_strjoin");
-			return (NULL);
-		}
-		cmd_path = ft_strjoin(only_path, command);
+			exit_failure(shell, "find_cmd_path");
+		path = ft_strjoin(only_path, command);
 		free(only_path);
-		if (!cmd_path)
-			return (NULL);
-		if (access(cmd_path, F_OK | X_OK) == 0)
-			return (cmd_path);
-		free(cmd_path);
+		if (!path)
+			exit_failure(shell, "find_cmd_path");
+		if (access(path, F_OK | X_OK) == 0)
+			return (path);
+		free(path);
 		current = current->next;
 	}
-	return (command);
+	return (ft_strdup(command));
 }

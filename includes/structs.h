@@ -24,6 +24,7 @@ typedef struct s_shell
 	char		*input;
 	char		*trim_input;
 	void		*root; //binary tree root
+	char		*cmd_path;
 }				t_shell;
 
 #endif
