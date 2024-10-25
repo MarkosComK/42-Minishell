@@ -30,6 +30,7 @@ void	infile_failure(t_shell *shell, char *file)
 	exit(1);
 }
 
+//tem coisa inutil aqui mas fdase
 void	is_directory(t_shell *shell, char *path, char *cmd)
 {
 	struct stat	path_stat;
@@ -38,7 +39,8 @@ void	is_directory(t_shell *shell, char *path, char *cmd)
 	(void) cmd;
 	stat(path, &path_stat);
 	if (ft_strnstr(path, "./", ft_strlen(path))
-		|| ft_strnstr(path, "/.", ft_strlen(path)))
+		|| ft_strnstr(path, "/.", ft_strlen(path))
+		|| ft_strnstr(path, "/", ft_strlen(path)))
 	{
 		ft_putstr_fd(MINISHELL " " DEFAULT, 2);
 		ft_putstr_fd(path, 2);
