@@ -67,8 +67,6 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 	node->outfiles = NULL;
 	if (((t_token *)token_lst->content)->type == INFILE)
 		node->infiles = get_infiles(shell, &token_lst);
-	if (token_lst && ((t_token *)token_lst->content)->type == OUTFILE)
-		node->outfiles = get_outfiles(shell, &token_lst);
 	if (((t_token *)token_lst))
 	{
 		node->command = ((t_token *)token_lst->content)->value;
@@ -77,6 +75,8 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 			node->argv = get_colors(shell, node->argv);
 		token_lst = (token_lst)->next;
 	}
+	if (token_lst && ((t_token *)token_lst->content)->type == OUTFILE)
+		node->outfiles = get_outfiles(shell, &token_lst);
 	return (node);
 }
 
