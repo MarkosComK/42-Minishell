@@ -21,15 +21,13 @@ char	*find_cmd_path(t_shell *shell, t_list *path_list, char *command)
 
 	current = path_list;
 	if (!ft_strcmp(command, ""))
-		return ("");
+		return (ft_strdup(""));
 	if (!command || ft_strlen(command) == 0)
 		return (NULL);
 	while (current != NULL)
 	{
 		path_dir = (char *)current->content;
 		only_path = ft_strjoin(path_dir, "/");
-		if (!only_path)
-			exit_failure(shell, "find_cmd_path");
 		path = ft_strjoin(only_path, command);
 		free(only_path);
 		if (!path)
