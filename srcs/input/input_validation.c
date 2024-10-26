@@ -27,6 +27,8 @@ bool	input_validation(t_shell *shell)
 		return (syntax_error_msg(OPEN_QUOTE));
 	if (!check_quotes_pos(shell->trim_input))
 		return (syntax_error_msg(SYNTAX_QUOTE));
+	if (!check_redirs(shell->trim_input))
+		return (syntax_error_msg(SYNTAX_QUOTE));
 	return (false);
 }
 
@@ -127,4 +129,25 @@ bool check_pipes(char *str)
 	if (str[i - 1] == '|')
 		return false;
 	return true;
+}
+
+bool	check_redirs(char *str)
+{
+	int		i;
+	char	current_quote;
+
+	i = 0;
+	current_quote = 0;
+	while (str[i])
+	{
+		if (ft_isquote(str[i]))
+		{
+			if (current_quote == 0)
+				current_quote = str[i];
+			else if (str[i] == current_quote)
+				current_quote = 0;
+		}
+		i++;
+	}
+	return (current_quote == 0);
 }

@@ -25,6 +25,7 @@ bool	input_validation(t_shell *shell);
 bool	check_quotes(char *str);
 bool	check_quotes_pos(char *str);
 bool	check_pipes(char *str);
+bool	check_redirs(char *str);
 
 //input_validation.c
 bool	ft_isquote(char c);
