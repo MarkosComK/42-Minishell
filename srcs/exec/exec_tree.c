@@ -71,7 +71,15 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 void	exec_node(t_shell *shell, t_exec *exec_node)
 {
 	char	*cmd_path;
+	int		ret;
 
+    if (exec_node->command && is_builtin(exec_node->command))
+    {
+		printf("builtin\n");
+        ret = exec_builtin(exec_node);
+        exit(ret);
+        return;
+    }
 	cmd_path = find_cmd_path(shell->path, exec_node->command);
 	if (!cmd_path)
 	{
