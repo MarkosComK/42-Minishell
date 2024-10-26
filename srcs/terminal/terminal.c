@@ -40,8 +40,8 @@ void	terminal(t_shell *shell, char **envp)
 	shell->path = path_list(shell, envp);
 	shell->root = build_tree(shell, shell->token_lst);
 	//print_env_lst(shell->envp);
-	print_token_lst(shell->token_lst);
-	print_bst(shell->root, 5);
+	//print_token_lst(shell->token_lst);
+	//print_bst(shell->root, 5);
 	if (fork() == 0)
 		exec_tree(shell, shell->root);
 	wait(NULL);
@@ -94,5 +94,7 @@ void	free_shell(t_shell *shell)
 		free(shell->trim_input);
 	if (shell->root)
 		free_bst(shell->root);
+	if (shell->cmd_path)
+		free(shell->cmd_path);
 	ft_bzero(shell, sizeof(t_shell));
 }

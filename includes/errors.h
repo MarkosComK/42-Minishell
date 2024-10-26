@@ -29,6 +29,7 @@
 bool	syntax_error_msg(char *str);
 void	exit_failure(t_shell *shell, char *function);
 void	infile_failure(t_shell *shell, char *file);
-void	exec_failure(t_shell *shell, char *cmd);
+void	is_directory(t_shell *shell, char *path, char *cmd);
+void	exec_failure(t_shell *shell, char *cmd, char **argv);
 
 #endif

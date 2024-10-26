@@ -30,10 +30,42 @@ void	infile_failure(t_shell *shell, char *file)
 	exit(1);
 }
 
-void	exec_failure(t_shell *shell, char *cmd)
+//tem coisa inutil aqui mas fdase
+void	is_directory(t_shell *shell, char *path, char *cmd)
 {
-	ft_putstr_fd(cmd, 2);
-	ft_putendl_fd(": command not found", 2);
+	struct stat	path_stat;
+
+	errno = 0;
+	(void) cmd;
+	stat(path, &path_stat);
+	if (ft_strnstr(path, "./", ft_strlen(path))
+		|| ft_strnstr(path, "/.", ft_strlen(path))
+		|| ft_strnstr(path, "/", ft_strlen(path)))
+	{
+		ft_putstr_fd(MINISHELL " " DEFAULT, 2);
+		ft_putstr_fd(path, 2);
+		free_shell(shell);
+		if (errno == ENOENT)
+		{
+			ft_putendl_fd(": No such file or directory", 2);
+			exit(127);
+		}
+		else if (S_ISDIR(path_stat.st_mode))
+		{
+			ft_putendl_fd(": Is a directory", 2);
+			exit(126);
+		}
+	}
+}
+
+void	exec_failure(t_shell *shell, char *cmd, char **argv)
+{
+	(void) cmd;
+	if (argv)
+	{
+		ft_putstr_fd(argv[0], 2);
+		ft_putendl_fd(": command not found", 2);
+	}
 	free_shell(shell);
 	exit(127);
 }
