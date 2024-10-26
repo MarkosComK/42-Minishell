@@ -66,8 +66,9 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 
 	if (exec_node->command && is_builtin(exec_node->command))
 	{
-		printf("builtin\n");
+		//printf("builtin\n");
 		ret = exec_builtin(exec_node);
+		free_shell(shell);
 		exit(ret);
 		return ;
 	}
