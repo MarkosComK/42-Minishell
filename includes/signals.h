@@ -1,37 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_validation_utils.c                           :+:      :+:    :+:   */
+/*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 12:16:13 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 12:54:33 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/23 11:16:31 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/23 11:47:55 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#ifndef SIGNALS_H
+# define SIGNALS_H
 
-bool	ft_isquote(char c)
-{
-	if (c == '\'' || c == '"')
-		return (true);
-	return (false);
-}
+void	handle_signal_child(int signo);
+void	sig_function(int signo);
+void	set_main_signals(void);
+void	set_child_signals(void);
+void	handle_signals(void);
 
-int		ft_isredir(char *c)
-{
-	if (c[0] == '>')
-	{
-		if (c[1] == '>')
-			return (2);
-		return (1);
-	}
-	if (c[0] == '<')
-	{
-		if (c[1] == '<')
-			return (2);
-		return (1);
-	}
-	return (0);
-}
+#endif

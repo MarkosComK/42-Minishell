@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:36:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 12:49:44 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/24 05:06:01 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ bool	input_validation(t_shell *shell)
 		return (syntax_error_msg(OPEN_QUOTE));
 	if (!check_quotes_pos(shell->trim_input))
 		return (syntax_error_msg(SYNTAX_QUOTE));
+	if (!check_redirs(shell->trim_input))
+		return (syntax_error_msg(REDIR_ERROR));
 	return (false);
 }
 
@@ -105,16 +107,52 @@ bool	check_pipes(char *str)
 	int	i;
 
 	i = 0;
+	if (str[i] == '|')
+		return (false);
 	while (str[i])
 	{
-		if (str[0] == '|'
-			|| (str[i] == '|' && str[i + 1] == ' ' && str[i + 2] == '|'))
-			return (false);
-		if (str[i] == '|' && str[i + 1] == '|')
-			return (false);
-		i++;
+		while (isspace(str[i]))
+			i++;
+		if (str[i] == '|')
+		{
+			if (str[i + 1] == '|' || str[i + 1] == '\0')
+				return (false);
+			i++;
+			while (isspace(str[i]))
+				i++;
+			if (str[i] == '|')
+				return (false);
+		}
+		else
+			i++;
 	}
-	if (str[ft_strlen(str) - 1] == '|')
+	if (str[i - 1] == '|')
 		return (false);
+	return (true);
+}
+
+bool	check_redirs(char *str)
+{
+	int		i;
+	int		redir_len;
+
+	i = 0;
+	while (str[i])
+	{
+		redir_len = ft_isredir(&str[i]);
+		if (redir_len > 0)
+		{
+			i += redir_len;
+			while (str[i] && ft_isspace(str[i]))
+				i++;
+			if (ft_isredir(&str[i]))
+				return (false);
+			if (!str[i])
+				return (false);
+			continue ;
+		}
+		if (str[i])
+			i++;
+	}
 	return (true);
 }

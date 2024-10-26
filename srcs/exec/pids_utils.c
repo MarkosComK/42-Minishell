@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_validation_utils.c                           :+:      :+:    :+:   */
+/*   pids_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 12:16:13 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 12:54:33 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/24 03:43:13 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/24 03:51:40 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-bool	ft_isquote(char c)
+void	handle_pid1(t_shell *shell, int pipefd[], t_pipe *pipe_node)
 {
-	if (c == '\'' || c == '"')
-		return (true);
-	return (false);
+	close(pipefd[0]);
+	dup2(pipefd[1], STDOUT_FILENO);
+	close(pipefd[1]);
+	exec_tree(shell, pipe_node->left);
+	exit(0);
 }
 
-int		ft_isredir(char *c)
+void	handle_pid2(t_shell *shell, int pipefd[], t_pipe *pipe_node)
 {
-	if (c[0] == '>')
-	{
-		if (c[1] == '>')
-			return (2);
-		return (1);
-	}
-	if (c[0] == '<')
-	{
-		if (c[1] == '<')
-			return (2);
-		return (1);
-	}
-	return (0);
+	close(pipefd[1]);
+	dup2(pipefd[0], STDIN_FILENO);
+	close(pipefd[0]);
+	exec_tree(shell, pipe_node->right);
+	exit(0);
 }

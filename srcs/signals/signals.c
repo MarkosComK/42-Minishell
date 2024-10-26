@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_validation_utils.c                           :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 12:16:13 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 12:54:33 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/23 11:15:08 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/23 12:28:15 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-bool	ft_isquote(char c)
+void	sig_function(int signo)
 {
-	if (c == '\'' || c == '"')
-		return (true);
-	return (false);
+	if (signo == SIGINT)
+	{
+		write(2, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
 
-int		ft_isredir(char *c)
+void	set_main_signals(void)
 {
-	if (c[0] == '>')
-	{
-		if (c[1] == '>')
-			return (2);
-		return (1);
-	}
-	if (c[0] == '<')
-	{
-		if (c[1] == '<')
-			return (2);
-		return (1);
-	}
-	return (0);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	handle_signals(void)
+{
+	signal(SIGINT, sig_function);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 }
