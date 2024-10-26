@@ -12,6 +12,15 @@
 
 #include <minishell.h>
 
+int		exit_code(int	value)
+{
+	static int	code = 0;
+
+	code = value;
+	printf("exit code: %i\n", code);
+	return (code);
+}
+
 void	terminal(t_shell *shell, char **envp)
 {
 	ft_bzero(shell, sizeof(t_shell));
@@ -40,8 +49,8 @@ void	terminal(t_shell *shell, char **envp)
 	shell->path = path_list(shell, envp);
 	shell->root = build_tree(shell, shell->token_lst);
 	//print_env_lst(shell->envp);
-	//print_token_lst(shell->token_lst);
-	//print_bst(shell->root, 5);
+	print_token_lst(shell->token_lst);
+	print_bst(shell->root, 5);
 	if (fork() == 0)
 		exec_tree(shell, shell->root);
 	wait(NULL);

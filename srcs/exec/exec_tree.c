@@ -64,16 +64,17 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 {
 	int		ret;
 
+	handle_infiles(shell, exec_node);
+	handle_outfiles(shell, exec_node);
 	if (exec_node->command && is_builtin(exec_node->command))
 	{
 		//printf("builtin\n");
 		ret = exec_builtin(exec_node);
 		free_shell(shell);
+		exit_code(ret);
 		exit(ret);
 		return ;
 	}
-	handle_infiles(shell, exec_node);
-	handle_outfiles(shell, exec_node);
 	shell->cmd_path = find_cmd_path(shell, shell->path, exec_node->command);
 	if (exec_node->argv)
 		is_directory(shell, exec_node->argv[0], shell->cmd_path);
