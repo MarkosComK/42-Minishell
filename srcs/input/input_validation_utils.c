@@ -27,5 +27,11 @@ int		ft_isredir(char *c)
 			return (2);
 		return (1);
 	}
+	if (c[0] == '<')
+	{
+		if (c[1] == '<')
+			return (2);
+		return (1);
+	}
 	return (0);
 }

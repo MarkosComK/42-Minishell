@@ -137,24 +137,20 @@ bool	check_redirs(char *str)
 	int		redir_len;
 
 	i = 0;
-	redir_len = 0;
 	while (str[i])
 	{
 		redir_len = ft_isredir(&str[i]);
-		if (redir_len > 0) // Found a '>' or '>>'
+		if (redir_len > 0)
 		{
-			// Move past the redirection operator
 			i += redir_len;
-
-			// Skip spaces after redirection
 			while (str[i] && ft_isspace(str[i]))
 				i++;
-
-			// If there's nothing after the redirection operator, return true (error)
+			if (ft_isredir(&str[i]))
+				return (false);
 			if (!str[i])
-				return (false); // Error: redirection with nothing after
+				return (false);
+			continue;
 		}
-		// Move to the next character
 		if (str[i])
 			i++;
 	}
