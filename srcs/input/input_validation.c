@@ -28,7 +28,7 @@ bool	input_validation(t_shell *shell)
 	if (!check_quotes_pos(shell->trim_input))
 		return (syntax_error_msg(SYNTAX_QUOTE));
 	if (!check_redirs(shell->trim_input))
-		return (syntax_error_msg(SYNTAX_QUOTE));
+		return (syntax_error_msg("ERROR"));
 	return (false);
 }
 
@@ -134,20 +134,29 @@ bool check_pipes(char *str)
 bool	check_redirs(char *str)
 {
 	int		i;
-	char	current_quote;
+	int		redir_len;
 
 	i = 0;
-	current_quote = 0;
+	redir_len = 0;
 	while (str[i])
 	{
-		if (ft_isquote(str[i]))
+		redir_len = ft_isredir(&str[i]);
+		if (redir_len > 0) // Found a '>' or '>>'
 		{
-			if (current_quote == 0)
-				current_quote = str[i];
-			else if (str[i] == current_quote)
-				current_quote = 0;
+			// Move past the redirection operator
+			i += redir_len;
+
+			// Skip spaces after redirection
+			while (str[i] && ft_isspace(str[i]))
+				i++;
+
+			// If there's nothing after the redirection operator, return true (error)
+			if (!str[i])
+				return (false); // Error: redirection with nothing after
 		}
-		i++;
+		// Move to the next character
+		if (str[i])
+			i++;
 	}
-	return (current_quote == 0);
+	return (true);
 }
