@@ -38,9 +38,9 @@ void	is_directory(t_shell *shell, char *path, char *cmd)
 	errno = 0;
 	(void) cmd;
 	stat(path, &path_stat);
-	if (ft_strnstr(path, "./", ft_strlen(path))
-		|| ft_strnstr(path, "/.", ft_strlen(path))
-		|| ft_strnstr(path, "/", ft_strlen(path)))
+	if (!path)
+		return ;
+	if (ft_strchr(path, '/'))
 	{
 		ft_putstr_fd(MINISHELL " " DEFAULT, 2);
 		ft_putstr_fd(path, 2);
@@ -61,11 +61,13 @@ void	is_directory(t_shell *shell, char *path, char *cmd)
 void	exec_failure(t_shell *shell, char *cmd, char **argv)
 {
 	(void) cmd;
-	if (argv)
+	if (argv && argv[0])
 	{
 		ft_putstr_fd(argv[0], 2);
 		ft_putendl_fd(": command not found", 2);
+		free_shell(shell);
+		exit(127);
 	}
 	free_shell(shell);
-	exit(127);
+	exit(0);
 }
