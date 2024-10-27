@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:41:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 21:21:50 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/27 13:59:50 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct s_token
 t_token_type	token_type(char *value);
 //create_token_lst.c
 void			tokenize_input(t_shell *shell, char *input);
+//expand_tokens.c
+void			expand_tokens(t_shell *shell);
 //t_list	*tokenize_input(const char *input);
 int				handle_word_token(t_shell *shell, char *input, int i);
 int				handle_redir(t_shell *shell, char *input, int i);
