@@ -18,3 +18,20 @@ bool	ft_isquote(char c)
 		return (true);
 	return (false);
 }
+
+int		ft_isredir(char *c)
+{
+	if (c[0] == '>')
+	{
+		if (c[1] == '>')
+			return (2);
+		return (1);
+	}
+	if (c[0] == '<')
+	{
+		if (c[1] == '<')
+			return (2);
+		return (1);
+	}
+	return (0);
+}

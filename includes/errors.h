@@ -24,6 +24,7 @@
 # define D_QUOTE "`\"'"
 # define OPEN_QUOTE "`open quote'"
 # define PIPE_ERROR "near unexpected token `|'"
+# define REDIR_ERROR "near unexpected token `redir'"
 
 //printers.c
 bool	syntax_error_msg(char *str);

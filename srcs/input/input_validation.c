@@ -27,6 +27,8 @@ bool	input_validation(t_shell *shell)
 		return (syntax_error_msg(OPEN_QUOTE));
 	if (!check_quotes_pos(shell->trim_input))
 		return (syntax_error_msg(SYNTAX_QUOTE));
+	if (!check_redirs(shell->trim_input))
+		return (syntax_error_msg(REDIR_ERROR));
 	return (false);
 }
 
@@ -100,13 +102,13 @@ bool	check_quotes_pos(char *str)
  * (Pipes cannot have space between them OR start at the input)
  * Input cannot end with a pipe
  */
-bool check_pipes(char *str)
+bool	check_pipes(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] == '|')
-		return false;
+		return (false);
 	while (str[i])
 	{
 		while (isspace(str[i]))
@@ -114,17 +116,43 @@ bool check_pipes(char *str)
 		if (str[i] == '|')
 		{
 			if (str[i + 1] == '|' || str[i + 1] == '\0')
-				return false;
+				return (false);
 			i++;
 			while (isspace(str[i]))
 				i++;
 			if (str[i] == '|')
-				return false;
+				return (false);
 		}
 		else
 			i++;
 	}
 	if (str[i - 1] == '|')
-		return false;
-	return true;
+		return (false);
+	return (true);
+}
+
+bool	check_redirs(char *str)
+{
+	int		i;
+	int		redir_len;
+
+	i = 0;
+	while (str[i])
+	{
+		redir_len = ft_isredir(&str[i]);
+		if (redir_len > 0)
+		{
+			i += redir_len;
+			while (str[i] && ft_isspace(str[i]))
+				i++;
+			if (ft_isredir(&str[i]))
+				return (false);
+			if (!str[i])
+				return (false);
+			continue ;
+		}
+		if (str[i])
+			i++;
+	}
+	return (true);
 }
