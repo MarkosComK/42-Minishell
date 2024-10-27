@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:41:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/27 13:59:50 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/27 20:15:57 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int				handle_quotes(t_shell *shell, char *input, int i);
 int				join_strs(t_shell *shell, char **str, char *input, int i);
 int				handle_quoted_str(t_shell *shell, char **str, char *input, int i);
 int				handle_nonquoted_str(t_shell *shell, char **str, char *input, int i);
+//handle_expand.c
+int				handle_expand(t_shell *shell, char *input, int i);
 //lexer.c
 void			lexer(t_shell *shell, char	*input);
 //remove_qutes.c
