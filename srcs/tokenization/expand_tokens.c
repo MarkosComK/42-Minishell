@@ -6,26 +6,40 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 13:57:42 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/27 16:26:55 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/27 17:34:58 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*check_expansion(char *value, int start)
+char	*check_expansion(t_shell *shell, char *value, int start)
 {
 	int		end;
 	char	*expansion;
+	t_list	*current;
 	start++;
 	end = start;
 	if (!value[start])
 		return(free(value), ft_strdup("$"));
-	while (value[end] && ft_isalnum(value[end]))
+	while (value[end] && ft_isprint(value[end]))
 		end++;
 	expansion = ft_strndup(&value[start], end);
-	free(value);
-	printf("string to look: %s\n", expansion);
-	return (expansion);
+	start = ft_strlen(expansion);
+	if (expansion)
+	{
+		current = shell->envp;
+		while (current)
+		{
+			if (!ft_strncmp(current->content, expansion, start))
+			{
+				free(expansion);
+				expansion = ft_strdup(&current->content[start + 1]);
+			}
+			current = current->next;
+		}
+		
+	}
+	return (free(value), expansion);
 }
 
 void	expand_tokens(t_shell *shell)
@@ -43,9 +57,7 @@ void	expand_tokens(t_shell *shell)
 		while (value[i] && value[i] != '$')
 			i++;
 		if (value[i] && value[i] == '$')
-		{
-			((t_token *)current->content)->value = check_expansion(value, i);
-		}
+			((t_token *)current->content)->value = check_expansion(shell, value, i);
 		i = 0;
 		current = current->next;
 	}
