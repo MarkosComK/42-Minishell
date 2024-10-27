@@ -1,28 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/27 18:49:40 by hluiz-ma          #+#    #+#             */
+/*   Updated: 2024/10/27 18:49:42 by hluiz-ma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef BUILTINS_H
-#define BUILTINS_H
+# define BUILTINS_H
 
-# include <structs.h>
 # include <binary_tree.h>
+# include <structs.h>
 
-//EXEC
-int exec_builtin(t_exec *exec_node);
-int is_builtin(const char *command);
+// EXEC
+int		exec_builtin(t_exec *exec_node);
+int		is_builtin(const char *command);
 
-//ECHO
+// ECHO
 int		ft_echo(t_exec *exec_node);
 int		echo_flag_n(char *arg);
 void	echo_output(char **args, int idx, int newline);
+// PWD
+void	ft_pwd(void);
+int		check_pwd(t_exec *exec_node);
 
-
-void test_echo(void);
-
-
-
-
-
-
-
-
+void	test_echo(void);
 
 #endif
