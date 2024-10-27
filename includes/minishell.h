@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:22:19 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/27 19:00:35 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/10/27 19:17:59 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,7 @@
 */
 # define METACHARS "|;<>"
 
-extern int e_signo;
-
 //check_args.c
 int	check_args(int argc, char *argv[], char *envp[]);
-int		exit_code(int	value);
+int	exit_code(int value);
 #endif

@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:03:14 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/10/27 18:46:58 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/10/27 19:15:54 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 
 int	check_pwd(t_exec *exec_node)
 {
-	e_signo = 0;
 	if (exec_node->argv[1])
 	{
 		printf("pwd: too many arguments\n");
-		e_signo = 2;
 	}
 	else
 		ft_pwd();
-	return (e_signo);
+	return (0);
 }
 
 void	ft_pwd(void)
@@ -36,6 +34,5 @@ void	ft_pwd(void)
 	else
 	{
 		perror("pwd error:");
-		e_signo = 2;
 	}
 }
