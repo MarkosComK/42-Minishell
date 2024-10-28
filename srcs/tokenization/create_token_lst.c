@@ -19,7 +19,7 @@ void	tokenize_input(t_shell *shell, char *input)
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == '$' || ft_isquote(input[i]))
+		if (is_expandable(&input[i]))
 			i = handle_expand(shell, input, i);
 		else if (input[i] == '"' || input[i] == '\'')
 			i = handle_quotes(shell, input, i);
@@ -31,6 +31,7 @@ void	tokenize_input(t_shell *shell, char *input)
 			i = handle_word_token(shell, input, i);
 		set_token_pos(shell->token_lst);
 	}
+	print_token_lst(shell->token_lst);
 }
 
 int	handle_word_token(t_shell *shell, char *input, int i)

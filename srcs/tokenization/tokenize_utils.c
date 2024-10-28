@@ -55,3 +55,19 @@ int	set_simple(t_shell *sh, t_token *new_token, char *input, int i)
 		new_token->type = OUTFILE;
 	return (i + 1);
 }
+
+bool is_expandable(char *token)
+{
+	int i;
+
+	i = 0;
+	while (token[i])
+	{
+		if (ft_isspace(token[i] || ft_ismeta(&token[i], i)))
+			return (false);
+		if (token[i] == '$')
+			return (true);
+		i++;
+	}
+	return (false);
+}

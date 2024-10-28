@@ -84,5 +84,6 @@ bool			in_quotes(char *input, int i);
 bool			ft_ismeta(char *str, int i);
 int				set_append(t_shell *sh, t_token *new_token, char *input, int i);
 int				set_simple(t_shell *sh, t_token *new_token, char *input, int i);
+bool			is_expandable(char *token);
 
 #endif
