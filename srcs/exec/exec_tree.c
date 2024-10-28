@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:43:04 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/24 16:40:33 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/28 21:30:24 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 	if (exec_node->command && is_builtin(exec_node->command))
 	{
 		//printf("builtin\n");
-		ret = exec_builtin(exec_node);
+		ret = exec_builtin(shell, exec_node);
 		free_shell(shell);
 		exit_code(ret);
 		exit(ret);

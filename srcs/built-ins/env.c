@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:24:30 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/10/28 21:06:53 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/10/28 21:25:42 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,9 @@ int	get_path(t_shell *shell, t_list **path_list, char *path, int i)
 
 void	print_env_lst(t_list *lst)
 {
-	printf("ENVIRONMENT:\n");
-	printf("---------------------:\n");
 	while (lst)
 	{
 		printf("%s\n", (char *)lst->content);
 		lst = lst->next;
 	}
-	printf("---------------------:\n");
-	printf("END\n");
 }
