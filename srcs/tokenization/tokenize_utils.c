@@ -26,6 +26,8 @@ bool	ft_ismeta(char *str, int i)
 
 	metachars = "<|>";
 	j = 0;
+	if (!str || i < 0)
+		return (false);
 	while (metachars[j] && str[i])
 	{
 		if (str[i] && str[i] == metachars[j])
@@ -63,7 +65,7 @@ bool is_expandable(char *token)
 	i = 0;
 	while (token[i])
 	{
-		if (token[i] && (ft_isspace(token[i]) || ft_ismeta(&token[i], i)))
+		if ((ft_isspace(token[i]) || ft_ismeta(token, i)) && token[i])
 		{
 			return (false);
 		}
