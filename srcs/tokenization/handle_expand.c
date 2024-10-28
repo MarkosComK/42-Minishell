@@ -6,32 +6,80 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 20:12:39 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/27 22:25:07 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:02:23 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*ft_strjoin_char(char *str, char c)
+int	expand_single(t_shell *shell, char **str, char *input, int i)
 {
-	char	*new_str;
-	int		len;
-	int		i;
+	int		start;
+	char	*tmp;
+	char	*subs;
 
-	len = ft_strlen(str);
-	new_str = (char *)malloc(sizeof(char) * (len + 2));
-	if (!new_str)
-		return (NULL);
-	i = 0;
-	while (str[i])
-	{
-		new_str[i] = str[i];
+	start = ++i;
+	while (input[i] && input[i] != '\'')
 		i++;
+	subs = ft_substr(input, start, i - start);
+	if (!subs)
+		exit_failure(shell, "expand_unquoted");
+	tmp = *str;
+	*str = ft_strjoin(*str, subs);
+	if (!subs)
+		exit_failure(shell, "expand_unquoted_1");
+	free(tmp);
+	free(subs);
+	return (i + 1);
+}
+
+//do never touch this
+int	handle_expand(t_shell *shell, char *input, int i)
+{
+	t_token	*new_token;
+	char	*str;
+
+	str = ft_strdup("");
+	if (!str)
+		exit_failure(shell, "handle_expand");
+	while (input[i])
+	{
+		i = prcs_expansion(shell, &str, input, i);
+		if (ft_isspace(input[i]) || ft_ismeta(input, i))
+			break ;
 	}
-	new_str[i] = c;
-	new_str[i + 1] = '\0';
-	free(str);  // Free the old string if needed
-	return (new_str);
+	new_token = ft_calloc(1, sizeof(t_token));
+	new_token->value = str;
+	new_token->type = WORD;
+	new_token->state = GENERAL;
+	ft_lstadd_back(&shell->token_lst, ft_lstnew(new_token));
+	while (ft_isspace(input[i]))
+		i++;
+	return (i);
+}
+
+int	prcs_expansion(t_shell *shell, char **str, char *input, int i)
+{
+	if (input[i] == '$')
+		i = expand_unquoted(shell, str, input, i);
+	else if (input[i] == '"')
+	{
+		i++;
+		while (input[i] && (input[i] != '$' && input[i] != '"'))
+			*str = ft_strjoin_char(*str, input[i++]);
+		if (input[i] == '$')
+			i = expand_quoted(shell, str, input, i);
+		while (input[i] && input[i] != '"')
+			*str = ft_strjoin_char(*str, input[i++]);
+		if (input[i] == '"')
+			i++;
+	}
+	else if (input[i] == '\'')
+	{
+		i++;
+		i = expand_single(shell, str, input, i);
+	}
+	return (i);
 }
 
 int	expand_unquoted(t_shell *shell, char **str, char *input, int i)
@@ -83,75 +131,5 @@ int	expand_quoted(t_shell *shell, char **str, char *input, int i)
 		*str = ft_strjoin(*str, var_value);
 		free(tmp);
 	}
-	return (i);
-}
-
-int	expand_single(t_shell *shell, char **str, char *input, int i)
-{
-	int		start;
-	char	*tmp;
-	char	*subs;
-
-	start = ++i;
-	while (input[i] && input[i] != '\'')
-		i++;
-	subs = ft_substr(input, start, i - start);
-	if (!subs)
-		exit_failure(shell, "expand_unquoted");
-	tmp = *str;
-	*str = ft_strjoin(*str, subs);
-	if (!subs)
-		exit_failure(shell, "expand_unquoted_1");
-	free(tmp);
-	free(subs);
-	return (i + 1);
-}
-
-int	process_expansion(t_shell *shell, char **str, char *input, int i)
-{
-	if (input[i] == '$')
-		i = expand_unquoted(shell, str, input, i);
-	else if (input[i] == '"')
-	{
-		i++;
-		while (input[i] && (input[i] != '$' && input[i] != '"'))
-			*str = ft_strjoin_char(*str, input[i++]);
-		if (input[i] == '$')
-			i = expand_quoted(shell, str, input, i);
-		while (input[i] && input[i] != '"')
-			*str = ft_strjoin_char(*str, input[i++]);
-		if (input[i] == '"')
-			i++;
-	}
-	else if (input[i] == '\'')
-	{
-		i++;
-		i = expand_single(shell, str, input, i);
-	}
-	return (i);
-}
-
-//do never touch this
-int	handle_expand(t_shell *shell, char *input, int i)
-{
-	t_token	*new_token;
-	char	*str;
-
-	str = ft_strdup("");
-	if (!str)
-		exit_failure(shell, "handle_expand");
-	while (input[i])
-	{
-		i = process_expansion(shell, &str, input, i);
-		if (ft_isspace(input[i]) || ft_ismeta(input, i))
-			break ;
-	}
-	new_token = ft_calloc(1, sizeof(t_token));
-	new_token->value = str;
-	new_token->type = WORD;
-	new_token->state = GENERAL;
-	ft_lstadd_back(&shell->token_lst, ft_lstnew(new_token));
-	while (ft_isspace(input[i]))
-		i++;
 	return (i);
 }
