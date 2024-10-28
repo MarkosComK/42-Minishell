@@ -12,27 +12,6 @@
 
 #include <minishell.h>
 
-int	expand_single(t_shell *shell, char **str, char *input, int i)
-{
-	int		start;
-	char	*tmp;
-	char	*subs;
-
-	start = ++i;
-	while (input[i] && input[i] != '\'')
-		i++;
-	subs = ft_substr(input, start, i - start);
-	if (!subs)
-		exit_failure(shell, "expand_unquoted");
-	tmp = *str;
-	*str = ft_strjoin(*str, subs);
-	if (!subs)
-		exit_failure(shell, "expand_unquoted_1");
-	free(tmp);
-	free(subs);
-	return (i + 1);
-}
-
 //do never touch this
 int	handle_expand(t_shell *shell, char *input, int i)
 {
@@ -76,7 +55,6 @@ int	prcs_expansion(t_shell *shell, char **str, char *input, int i)
 	}
 	else if (input[i] == '\'')
 	{
-		i++;
 		i = expand_single(shell, str, input, i);
 	}
 	return (i);
@@ -132,4 +110,25 @@ int	expand_quoted(t_shell *shell, char **str, char *input, int i)
 		free(tmp);
 	}
 	return (i);
+}
+
+int	expand_single(t_shell *shell, char **str, char *input, int i)
+{
+	int		start;
+	char	*tmp;
+	char	*subs;
+
+	start = ++i;
+	while (input[i] && input[i] != '\'')
+		i++;
+	subs = ft_substr(input, start, i - start);
+	if (!subs)
+		exit_failure(shell, "expand_unquoted");
+	tmp = *str;
+	*str = ft_strjoin(*str, subs);
+	if (!subs)
+		exit_failure(shell, "expand_unquoted_1");
+	free(tmp);
+	free(subs);
+	return (i + 1);
 }
