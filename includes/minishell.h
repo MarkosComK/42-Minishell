@@ -26,6 +26,7 @@
 # include <errors.h>
 # include <tokenization.h>
 # include <utils.h>
+# include <builtins.h>
 # include <binary_tree.h>
 # include <environment.h>
 # include <exec.h>
@@ -49,4 +50,5 @@
 
 //check_args.c
 int	check_args(int argc, char *argv[], char *envp[]);
+int		exit_code(int	value);
 #endif

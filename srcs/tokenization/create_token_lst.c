@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:41:24 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 21:25:15 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/27 22:05:28 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	tokenize_input(t_shell *shell, char *input)
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == '"' || input[i] == '\'')
+		if (input[i] == '$' || ft_isquote(input[i]))
+			i = handle_expand(shell, input, i);
+		else if (input[i] == '"' || input[i] == '\'')
 			i = handle_quotes(shell, input, i);
 		else if (input[i] == '|')
 			i = handle_pipe(shell, input, i);
