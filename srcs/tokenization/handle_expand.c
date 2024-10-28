@@ -70,6 +70,33 @@ int	expand_unquoted(t_shell *shell, char **str, char *input, int i)
 	return (i);
 }
 
+int	expand_quoted(t_shell *shell, char **str, char *input, int i)
+{
+	int		start;
+	char	*tmp;
+	char	*var_name;
+	char	*var_value;
+	(void) shell;
+
+	start = ++i;
+	while (input[i] && !ft_isspace(input[i])
+		&& (ft_isalnum(input[i]) || input[i] == '_')
+		&& input[i] != '"')
+		i++;
+	var_name = ft_substr(input, start, i - start);
+	if (!var_name)
+		exit_failure(shell, "expand_unquoted");
+	var_value = getenv(var_name);
+	free(var_name);
+	if (var_value)
+	{
+		tmp = *str;
+		*str = ft_strjoin(*str, var_value);
+		free(tmp);
+	}
+	return (i);
+}
+
 int	handle_expand(t_shell *shell, char *input, int i)
 {
 	t_token	*new_token;
@@ -84,7 +111,12 @@ int	handle_expand(t_shell *shell, char *input, int i)
 		{
 			i = expand_unquoted(shell, &str, input, i);
 		}
-		if (ft_isspace(input[i]) || ft_ismeta(input, i))
+		if (input[i] == '"')
+		{
+			i++;
+			i = expand_quoted(shell, &str, input, i);
+		}
+		if (ft_isspace(input[i]) || ft_ismeta(input, i) || ft_isquote(input[i]))
 			break ;
 	}
 	new_token = ft_calloc(1, sizeof(t_token));
