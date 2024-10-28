@@ -31,7 +31,6 @@ void	tokenize_input(t_shell *shell, char *input)
 			i = handle_word_token(shell, input, i);
 		set_token_pos(shell->token_lst);
 	}
-	print_token_lst(shell->token_lst);
 }
 
 int	handle_word_token(t_shell *shell, char *input, int i)
