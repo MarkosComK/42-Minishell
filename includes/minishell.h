@@ -38,7 +38,7 @@
 # include <limits.h>
 
 // MACROS
-# define PROMPT "🔥 HELLSH ➜ "
+# define PROMPT " Minihell:"
 # define MINISHELL YELLOW"hellsh"
 
 /*metacharaters

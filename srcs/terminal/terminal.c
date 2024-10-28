@@ -21,11 +21,26 @@ int		exit_code(int	value)
 	return (code);
 }
 
+void	shell_input(t_shell *shell)
+{
+	char	*prompt;
+	char	cwd[PATH_MAX];
+	char	*tmp;
+
+	prompt = B_RED PROMPT DEFAULT;
+	getcwd(cwd, sizeof(cwd));
+	shell->cwd = ft_strjoin(prompt, cwd);
+	tmp = shell->cwd;
+	shell->cwd = ft_strjoin(tmp, B_RED" → "DEFAULT);
+	free(tmp);
+}
+
 void	terminal(t_shell *shell, char **envp)
 {
 	ft_bzero(shell, sizeof(t_shell));
 	handle_signals();
-	shell->input = readline(B_RED PROMPT DEFAULT);
+	shell_input(shell);
+	shell->input = readline(shell->cwd);
 	if (shell->input && shell->input[0] != '\0')
 		add_history(shell->input);
 	if (shell->input && input_validation(shell))
@@ -105,5 +120,7 @@ void	free_shell(t_shell *shell)
 		free_bst(shell->root);
 	if (shell->cmd_path)
 		free(shell->cmd_path);
+	if (shell->cwd)
+		free(shell->cwd);
 	ft_bzero(shell, sizeof(t_shell));
 }
