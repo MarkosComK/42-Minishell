@@ -46,40 +46,41 @@ int	is_expand(char *c, int *i)
 int	handle_expand(t_shell *shell, char *input, int i)
 {
 	t_token	*new_token;
-	char	*str = ft_strdup("");
+	char	*str;
+	int		start;
+
+	str = ft_strdup("");
 	if (!str)
 		exit_failure(shell, "handle_expand");
 	while (input[i])
 	{
-		if (is_expand(&input[i], &i))
+		if (input[i] == '$')
 		{
-			int start = i;
+			start = ++i;
 			while (input[i] && !ft_isspace(input[i])
 				&& (ft_isalnum(input[i]) || input[i] == '_')
 				&& !ft_ismeta(input, i))
 				i++;
+			printf("start: %s\n", &input[start]);
+			printf("end: %s\n", &input[i - 1]);
 			char *var_name = ft_substr(input, start, i - start);
 			char *var_value = getenv(var_name); // Get variable value
+			printf("var_value: %s\n", var_value);
 			free(var_name);
-			if (var_value) {
+			if (var_value)
+			{
 				char *tmp = str;
 				str = ft_strjoin(str, var_value);
 				free(tmp);
 			}
 		}
-		if (input[i] && (ft_isspace(input[i]) || ft_ismeta(input, i)))
-			break ;
+		break ;
 	}
-	if (*str)
-	{
-		new_token = ft_calloc(1, sizeof(t_token));
-		new_token->value = str;
-		new_token->type = WORD;
-		new_token->state = GENERAL;
-		ft_lstadd_back(&shell->token_lst, ft_lstnew(new_token));
-	}
-	else
-		free(str);
+	new_token = ft_calloc(1, sizeof(t_token));
+	new_token->value = str;
+	new_token->type = WORD;
+	new_token->state = GENERAL;
+	ft_lstadd_back(&shell->token_lst, ft_lstnew(new_token));
 	while (ft_isspace(input[i]))
 		i++;
 	printf("return i: %c\n", input[i]);
