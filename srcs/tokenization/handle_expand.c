@@ -71,10 +71,13 @@ int	handle_expand(t_shell *shell, char *input, int i)
 			{
 				char *tmp = str;
 				str = ft_strjoin(str, var_value);
+				printf("result: %s\n", str);
+				printf("end: %c\n", input[i]);
 				free(tmp);
 			}
 		}
-		break ;
+		if (ft_isspace(input[i]) || ft_ismeta(input, i))
+			break ;
 	}
 	new_token = ft_calloc(1, sizeof(t_token));
 	new_token->value = str;
