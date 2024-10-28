@@ -14,6 +14,7 @@
 # define STRUCTS_H
 
 # include <libft.h>
+# include <limits.h>
 
 typedef struct s_shell
 {
@@ -25,6 +26,7 @@ typedef struct s_shell
 	char		*trim_input;
 	void		*root; //binary tree root
 	char		*cmd_path;
+	char		*cwd;
 }				t_shell;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:22:19 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/23 11:19:28 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/27 19:17:59 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <signals.h>
+# include <limits.h>
 
 // MACROS
-# define PROMPT "🔥 HELLSH ➜ "
+# define PROMPT " Minihell:"
 # define MINISHELL YELLOW"hellsh"
 
 /*metacharaters
@@ -47,8 +48,7 @@
 */
 # define METACHARS "|;<>"
 
-
 //check_args.c
 int	check_args(int argc, char *argv[], char *envp[]);
-int		exit_code(int	value);
+int	exit_code(int value);
 #endif

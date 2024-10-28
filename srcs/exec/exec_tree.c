@@ -77,7 +77,7 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 	}
 	shell->cmd_path = find_cmd_path(shell, shell->path, exec_node->command);
 	if (exec_node->argv)
-		is_directory(shell, exec_node->argv[0], shell->cmd_path);
+		is_directory(shell, exec_node->argv[0]);
 	if (execve(shell->cmd_path, exec_node->argv, shell->envp_arr) < 0)
 	{
 		exec_failure(shell, shell->cmd_path, exec_node->argv);

@@ -17,15 +17,29 @@ int		exit_code(int	value)
 	static int	code = 0;
 
 	code = value;
-	printf("exit code: %i\n", code);
+	//printf("exit code: %i\n", code);
 	return (code);
+}
+
+void	shell_input(t_shell *shell)
+{
+	char	*prompt;
+	char	cwd[PATH_MAX];
+	char	*tmp;
+
+	getcwd(cwd, sizeof(cwd));
+	prompt = "\001" B_RED "\002Minishell\001" DEFAULT "\002";
+	tmp = ft_strjoin(prompt, cwd);
+	shell->cwd = ft_strjoin(tmp, "\001"B_RED"\002 → \001"DEFAULT"\002");
+	free(tmp);
 }
 
 void	terminal(t_shell *shell, char **envp)
 {
 	ft_bzero(shell, sizeof(t_shell));
 	handle_signals();
-	shell->input = readline(B_RED PROMPT DEFAULT);
+	shell_input(shell);
+	shell->input = readline(shell->cwd);
 	if (shell->input && shell->input[0] != '\0')
 		add_history(shell->input);
 	if (shell->input && input_validation(shell))
@@ -105,5 +119,7 @@ void	free_shell(t_shell *shell)
 		free_bst(shell->root);
 	if (shell->cmd_path)
 		free(shell->cmd_path);
+	if (shell->cwd)
+		free(shell->cwd);
 	ft_bzero(shell, sizeof(t_shell));
 }

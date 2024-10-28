@@ -26,7 +26,9 @@ bool	ft_ismeta(char *str, int i)
 
 	metachars = "<|>";
 	j = 0;
-	while (metachars[j])
+	if (!str || i < 0)
+		return (false);
+	while (metachars[j] && str[i])
 	{
 		if (str[i] && str[i] == metachars[j])
 			return (true);
@@ -54,4 +56,24 @@ int	set_simple(t_shell *sh, t_token *new_token, char *input, int i)
 	else
 		new_token->type = OUTFILE;
 	return (i + 1);
+}
+
+bool is_expandable(char *token)
+{
+	int i;
+
+	i = 0;
+	while (token[i])
+	{
+		if ((ft_isspace(token[i]) || ft_ismeta(token, i)) && token[i])
+		{
+			return (false);
+		}
+		if (token[i] == '$')
+		{
+			return (true);
+		}
+		i++;
+	}
+	return (false);
 }

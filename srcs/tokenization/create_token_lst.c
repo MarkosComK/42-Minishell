@@ -19,7 +19,7 @@ void	tokenize_input(t_shell *shell, char *input)
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == '$' || ft_isquote(input[i]))
+		if (is_expandable(&input[i]))
 			i = handle_expand(shell, input, i);
 		else if (input[i] == '"' || input[i] == '\'')
 			i = handle_quotes(shell, input, i);

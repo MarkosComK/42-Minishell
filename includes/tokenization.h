@@ -65,6 +65,7 @@ int				handle_expand(t_shell *shell, char *input, int i);
 int				prcs_expansion(t_shell *shell, char **str, char *input, int i);
 int				expand_unquoted(t_shell *shell, char **str, char *input, int i);
 int				expand_quoted(t_shell *shell, char **str, char *input, int i);
+int				expand_single(t_shell *shell, char **str, char *input, int i);
 
 //handle_expand_utils.c
 char			*ft_strjoin_char(char *str, char c);
@@ -83,5 +84,6 @@ bool			in_quotes(char *input, int i);
 bool			ft_ismeta(char *str, int i);
 int				set_append(t_shell *sh, t_token *new_token, char *input, int i);
 int				set_simple(t_shell *sh, t_token *new_token, char *input, int i);
+bool			is_expandable(char *token);
 
 #endif
