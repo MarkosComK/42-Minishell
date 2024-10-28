@@ -105,9 +105,7 @@ int	expand_single(t_shell *shell, char **str, char *input, int i)
 	(void) shell;
 
 	start = ++i;
-	while (input[i] && !ft_isspace(input[i])
-		&& (ft_isalnum(input[i]) || input[i] == '_')
-		&& input[i] != '\'')
+	while (input[i] && input[i] != '\'')
 		i++;
 	subs = ft_substr(input, start, i - start);
 	if (!subs)
@@ -116,7 +114,7 @@ int	expand_single(t_shell *shell, char **str, char *input, int i)
 	*str = ft_strjoin(*str, subs);
 	free(tmp);
 	free(subs);
-	return (i);
+	return (i + 1);
 }
 
 int	handle_expand(t_shell *shell, char *input, int i)
