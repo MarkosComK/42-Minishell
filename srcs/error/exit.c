@@ -31,12 +31,11 @@ void	infile_failure(t_shell *shell, char *file)
 }
 
 //tem coisa inutil aqui mas fdase
-void	is_directory(t_shell *shell, char *path, char *cmd)
+void	is_directory(t_shell *shell, char *path)
 {
 	struct stat	path_stat;
 
 	errno = 0;
-	(void) cmd;
 	stat(path, &path_stat);
 	if (!path)
 		return ;
