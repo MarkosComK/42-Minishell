@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 21:12:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 21:24:49 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:01:21 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ int	join_strs(t_shell *shell, char **str, char *input, int i)
 {
 	if (ft_isquote(input[i]))
 	{
-		i = handle_quoted_str(shell, str, input, i);
+		i = h_quoted_str(shell, str, input, i);
 	}
 	else
 	{
-		i = handle_nonquoted_str(shell, str, input, i);
+		i = h_nonquoted_str(shell, str, input, i);
 	}
 	return (i);
 }
 
-int	handle_quoted_str(t_shell *shell, char **str, char *input, int i)
+int	h_quoted_str(t_shell *shell, char **str, char *input, int i)
 {
 	char	*join;
 	char	quote;
@@ -49,7 +49,7 @@ int	handle_quoted_str(t_shell *shell, char **str, char *input, int i)
 	return (i);
 }
 
-int	handle_nonquoted_str(t_shell *shell, char **str, char *input, int i)
+int	h_nonquoted_str(t_shell *shell, char **str, char *input, int i)
 {
 	char	*join;
 	int		start;

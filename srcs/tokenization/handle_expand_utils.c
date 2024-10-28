@@ -1,20 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   handle_expand_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:38:23 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/27 19:00:59 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/28 12:58:20 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/28 12:58:28 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	lexer(t_shell *shell, char	*input)
+char	*ft_strjoin_char(char *str, char c)
 {
-	shell->token_lst = NULL;
-	tokenize_input(shell, input);
-	//expand_tokens(shell);
+	char	*new_str;
+	int		len;
+	int		i;
+
+	len = ft_strlen(str);
+	new_str = (char *)malloc(sizeof(char) * (len + 2));
+	if (!new_str)
+		return (NULL);
+	i = 0;
+	while (str[i])
+	{
+		new_str[i] = str[i];
+		i++;
+	}
+	new_str[i] = c;
+	new_str[i + 1] = '\0';
+	free(str);
+	return (new_str);
 }

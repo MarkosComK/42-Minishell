@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/24 05:07:49 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:06:07 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void	terminal(t_shell *shell, char **envp)
 		return ;
 	}
 	set_main_signals();
-	lexer(shell, shell->trim_input);
 	shell->envp = env_list(shell, envp);
+	lexer(shell, shell->trim_input);
 	shell->envp_arr = env_arr(shell);
 	/*
 	for (int i = 0; shell->envp_arr[i]; i++)
