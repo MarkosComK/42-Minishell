@@ -27,11 +27,10 @@ void	shell_input(t_shell *shell)
 	char	cwd[PATH_MAX];
 	char	*tmp;
 
-	prompt = B_RED PROMPT DEFAULT;
 	getcwd(cwd, sizeof(cwd));
-	shell->cwd = ft_strjoin(prompt, cwd);
-	tmp = shell->cwd;
-	shell->cwd = ft_strjoin(tmp, B_RED" → "DEFAULT);
+	prompt = "\001" B_RED "\002Minishell\001" DEFAULT "\002";
+	tmp = ft_strjoin(prompt, cwd);
+	shell->cwd = ft_strjoin(tmp, "\001" B_RED "\002 → \001" DEFAULT "\002");
 	free(tmp);
 }
 
