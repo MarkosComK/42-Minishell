@@ -43,11 +43,35 @@ int	is_expand(char *c, int *i)
 	return (0);
 }
 
+int	expand_unquoted(t_shell *shell, char **str, char *input, int i)
+{
+	int		start;
+	char	*tmp;
+	char	*var_name;
+	char	*var_value;
+	(void) shell;
+
+	start = ++i;
+	while (input[i] && !ft_isspace(input[i])
+		&& (ft_isalnum(input[i]) || input[i] == '_')
+		&& !ft_ismeta(input, i))
+		i++;
+	var_name = ft_substr(input, start, i - start);
+	var_value = getenv(var_name);
+	free(var_name);
+	if (var_value)
+	{
+		tmp = *str;
+		*str = ft_strjoin(*str, var_value);
+		free(tmp);
+	}
+	return (i);
+}
+
 int	handle_expand(t_shell *shell, char *input, int i)
 {
 	t_token	*new_token;
 	char	*str;
-	int		start;
 
 	str = ft_strdup("");
 	if (!str)
@@ -56,25 +80,7 @@ int	handle_expand(t_shell *shell, char *input, int i)
 	{
 		if (input[i] == '$')
 		{
-			start = ++i;
-			while (input[i] && !ft_isspace(input[i])
-				&& (ft_isalnum(input[i]) || input[i] == '_')
-				&& !ft_ismeta(input, i))
-				i++;
-			printf("start: %s\n", &input[start]);
-			printf("end: %s\n", &input[i - 1]);
-			char *var_name = ft_substr(input, start, i - start);
-			char *var_value = getenv(var_name); // Get variable value
-			printf("var_value: %s\n", var_value);
-			free(var_name);
-			if (var_value)
-			{
-				char *tmp = str;
-				str = ft_strjoin(str, var_value);
-				printf("result: %s\n", str);
-				printf("end: %c\n", input[i]);
-				free(tmp);
-			}
+			i = expand_unquoted(shell, &str, input, i);
 		}
 		if (ft_isspace(input[i]) || ft_ismeta(input, i))
 			break ;
@@ -86,7 +92,6 @@ int	handle_expand(t_shell *shell, char *input, int i)
 	ft_lstadd_back(&shell->token_lst, ft_lstnew(new_token));
 	while (ft_isspace(input[i]))
 		i++;
-	printf("return i: %c\n", input[i]);
 	return (i);
 }
 
