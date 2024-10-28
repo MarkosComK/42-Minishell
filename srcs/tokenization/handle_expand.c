@@ -57,6 +57,8 @@ int	expand_unquoted(t_shell *shell, char **str, char *input, int i)
 		&& !ft_ismeta(input, i))
 		i++;
 	var_name = ft_substr(input, start, i - start);
+	if (!var_name)
+		exit_failure(shell, "expand_unquoted");
 	var_value = getenv(var_name);
 	free(var_name);
 	if (var_value)
