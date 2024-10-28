@@ -76,7 +76,6 @@ int	expand_quoted(t_shell *shell, char **str, char *input, int i)
 	char	*tmp;
 	char	*var_name;
 	char	*var_value;
-	(void) shell;
 
 	start = ++i;
 	while (input[i] && !ft_isspace(input[i])
@@ -102,7 +101,6 @@ int	expand_single(t_shell *shell, char **str, char *input, int i)
 	int		start;
 	char	*tmp;
 	char	*subs;
-	(void) shell;
 
 	start = ++i;
 	while (input[i] && input[i] != '\'')
@@ -112,11 +110,14 @@ int	expand_single(t_shell *shell, char **str, char *input, int i)
 		exit_failure(shell, "expand_unquoted");
 	tmp = *str;
 	*str = ft_strjoin(*str, subs);
+	if (!subs)
+		exit_failure(shell, "expand_unquoted_1");
 	free(tmp);
 	free(subs);
 	return (i + 1);
 }
 
+//do never touch this
 int	handle_expand(t_shell *shell, char *input, int i)
 {
 	t_token	*new_token;
@@ -134,25 +135,22 @@ int	handle_expand(t_shell *shell, char *input, int i)
 		if (input[i] == '"')
 		{
 			i++;
-			// Capture everything before $USER and handle surrounding spaces
 			while (input[i] && (input[i] != '$' && input[i] != '"'))
 			{
-				str = ft_strjoin_char(str, input[i]); // Append current character
+				str = ft_strjoin_char(str, input[i]);
 				i++;
 			}
-			if (input[i] == '$') // If we encounter a $ for environment variable
+			if (input[i] == '$')
 			{
-				i = expand_quoted(shell, &str, input, i); // Expand $USER
+				i = expand_quoted(shell, &str, input, i);
 			}
-			// Append remaining spaces and text after $USER
 			while (input[i] && input[i] != '"')
 			{
-				str = ft_strjoin_char(str, input[i]); // Continue adding to the string
+				str = ft_strjoin_char(str, input[i]);
 				i++;
 			}
-			// Close the quoted string
 			if (input[i] == '"')
-				i++; // Move past the closing quote
+				i++;
 		}
 		if (input[i] == '\'')
 		{
