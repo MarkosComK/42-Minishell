@@ -34,22 +34,12 @@ char	*ft_strjoin_char(char *str, char c)
 	return (new_str);
 }
 
-int	is_expand(char *c, int *i)
-{
-	if (c[0] == '$')
-		return ( *i += 1, 1);
-	if (c[1] == '$')
-		return ( *i += 2, 2);
-	return (0);
-}
-
 int	expand_unquoted(t_shell *shell, char **str, char *input, int i)
 {
 	int		start;
 	char	*tmp;
 	char	*var_name;
 	char	*var_value;
-	(void) shell;
 
 	start = ++i;
 	while (input[i] && !ft_isspace(input[i])
@@ -117,6 +107,30 @@ int	expand_single(t_shell *shell, char **str, char *input, int i)
 	return (i + 1);
 }
 
+int	process_expansion(t_shell *shell, char **str, char *input, int i)
+{
+	if (input[i] == '$')
+		i = expand_unquoted(shell, str, input, i);
+	else if (input[i] == '"')
+	{
+		i++;
+		while (input[i] && (input[i] != '$' && input[i] != '"'))
+			*str = ft_strjoin_char(*str, input[i++]);
+		if (input[i] == '$')
+			i = expand_quoted(shell, str, input, i);
+		while (input[i] && input[i] != '"')
+			*str = ft_strjoin_char(*str, input[i++]);
+		if (input[i] == '"')
+			i++;
+	}
+	else if (input[i] == '\'')
+	{
+		i++;
+		i = expand_single(shell, str, input, i);
+	}
+	return (i);
+}
+
 //do never touch this
 int	handle_expand(t_shell *shell, char *input, int i)
 {
@@ -128,35 +142,7 @@ int	handle_expand(t_shell *shell, char *input, int i)
 		exit_failure(shell, "handle_expand");
 	while (input[i])
 	{
-		if (input[i] == '$')
-		{
-			i = expand_unquoted(shell, &str, input, i);
-		}
-		if (input[i] == '"')
-		{
-			i++;
-			while (input[i] && (input[i] != '$' && input[i] != '"'))
-			{
-				str = ft_strjoin_char(str, input[i]);
-				i++;
-			}
-			if (input[i] == '$')
-			{
-				i = expand_quoted(shell, &str, input, i);
-			}
-			while (input[i] && input[i] != '"')
-			{
-				str = ft_strjoin_char(str, input[i]);
-				i++;
-			}
-			if (input[i] == '"')
-				i++;
-		}
-		if (input[i] == '\'')
-		{
-			i++;
-			i = expand_single(shell, &str, input, i);
-		}
+		i = process_expansion(shell, &str, input, i);
 		if (ft_isspace(input[i]) || ft_ismeta(input, i))
 			break ;
 	}
@@ -169,44 +155,3 @@ int	handle_expand(t_shell *shell, char *input, int i)
 		i++;
 	return (i);
 }
-
-/*
-int	handle_expand(t_shell *shell, char *input, int i)
-{
-	char	*var_name;
-	char	*var_value;
-	int		start;
-
-	// Check if we are inside quotes
-	if (input[i] == '"')
-		i++; // Skip the initial quote
-	
-	// Start after the '$' sign
-	start = i + 1;
-	i++;
-	// Continue until you find a non-alphanumeric character or underscore
-	while (input[i] && (ft_isalnum(input[i]) || input[i] == '_'))
-		i++;
-
-	printf("end:%c\n", input[i]);
-	// Extract the variable name
-	var_name = ft_substr(input, start, i - start);
-	printf("var_name: %s\n", var_name);
-
-	if (!var_name)
-		exit_failure(shell, "handle_expand");
-
-	// Retrieve the environment variable value
-	var_value = getenv(var_name);
-	free(var_name);
-
-	if (var_value)
-	{
-		// Add var_value to your token list or string handling
-		printf(GREEN"Expanded: %s\n"DEFAULT, var_value);
-		// Code to insert var_value into your token structure goes here
-	}
-
-	return (i);
-}
-*/
