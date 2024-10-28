@@ -23,7 +23,11 @@ int	handle_expand(t_shell *shell, char *input, int i)
 		exit_failure(shell, "handle_expand");
 	while (input[i])
 	{
-		i = prcs_expansion(shell, &str, input, i);
+		if (input[i] == '$' || ft_isquote(input[i]))
+			i = prcs_expansion(shell, &str, input, i);
+		else
+			while (input[i] && (input[i] != '$' && input[i] != '"'))
+				str = ft_strjoin_char(str, input[i++]);
 		if (ft_isspace(input[i]) || ft_ismeta(input, i))
 			break ;
 	}

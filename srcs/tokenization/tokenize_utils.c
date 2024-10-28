@@ -63,10 +63,14 @@ bool is_expandable(char *token)
 	i = 0;
 	while (token[i])
 	{
-		if (ft_isspace(token[i] || ft_ismeta(&token[i], i)))
+		if (ft_isspace(token[i]) || ft_ismeta(&token[i], i))
+		{
 			return (false);
+		}
 		if (token[i] == '$')
+		{
 			return (true);
+		}
 		i++;
 	}
 	return (false);
