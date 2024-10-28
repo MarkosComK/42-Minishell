@@ -42,16 +42,19 @@ void	is_directory(t_shell *shell, char *path, char *cmd)
 		return ;
 	if (ft_strchr(path, '/'))
 	{
-		ft_putstr_fd(MINISHELL " " DEFAULT, 2);
-		ft_putstr_fd(path, 2);
-		free_shell(shell);
 		if (errno == ENOENT)
 		{
+			ft_putstr_fd(MINISHELL " " DEFAULT, 2);
+			ft_putstr_fd(path, 2);
+			free_shell(shell);
 			ft_putendl_fd(": No such file or directory", 2);
 			exit(127);
 		}
 		else if (S_ISDIR(path_stat.st_mode))
 		{
+			ft_putstr_fd(MINISHELL " " DEFAULT, 2);
+			ft_putstr_fd(path, 2);
+			free_shell(shell);
 			ft_putendl_fd(": Is a directory", 2);
 			exit(126);
 		}
