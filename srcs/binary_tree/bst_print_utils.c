@@ -6,11 +6,32 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 21:07:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/29 21:07:54 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:08:51 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	print_bst_exec(t_exec *node, int space)
+{
+	int	i;
+
+	i = 0;
+	if (node->outfiles)
+		print_outfiles(node->outfiles, space);
+	while (i < space)
+	{
+		printf(" ");
+		i++;
+	}
+	printf("[EXEC]\n");
+	if (node->argv)
+	{
+		print_exec(node->argv, space);
+	}
+	if (node->infiles)
+		print_infiles(node->infiles, space);
+}
 
 void	print_outfiles(char **outfiles, int space)
 {
@@ -73,25 +94,4 @@ void	print_infiles(char **outfiles, int space)
 		i++;
 	}
 	printf("\n");
-}
-
-void	print_bst_exec(t_exec *node, int space)
-{
-	int	i;
-
-	i = 0;
-	if (node->outfiles)
-		print_outfiles(node->outfiles, space);
-	while (i < space)
-	{
-		printf(" ");
-		i++;
-	}
-	printf("[EXEC]\n");
-	if (node->argv)
-	{
-		print_exec(node->argv, space);
-	}
-	if (node->infiles)
-		print_infiles(node->infiles, space);
 }
