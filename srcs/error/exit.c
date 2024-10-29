@@ -12,6 +12,19 @@
 
 #include <minishell.h>
 
+char *itoa_exit(t_shell *shell, char **str)
+{
+	char	*code;
+
+	code = ft_itoa(exit_code(-1));
+	if (!code)
+		exit_failure(shell, "itoa_exit");
+	*str = ft_strjoin(*str, code);
+	if (!code)
+		exit_failure(shell, "itoa_exit_2");
+	return (*str);
+}
+
 int	exit_code(int value)
 {
 	static int	code = 0;
