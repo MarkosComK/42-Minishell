@@ -31,6 +31,7 @@ char *itoa_exit(t_shell *shell, char **str);
 int		exit_code(int value);
 void	exit_failure(t_shell *shell, char *function);
 void	infile_failure(t_shell *shell, char *file);
+void	outfile_failure(t_shell *shell, char *file);
 void	is_directory(t_shell *shell, char *path);
 
 //printers.c
