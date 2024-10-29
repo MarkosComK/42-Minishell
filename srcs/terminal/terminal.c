@@ -62,7 +62,7 @@ void	terminal(t_shell *shell, char **envp)
 	shell->root = build_tree(shell, shell->token_lst);
 	if (fork() == 0)
 		exec_tree(shell, shell->root);
-	waitpid(0, &status, 0);
+	waitpid(-1, &status, 0);
 	if (WIFEXITED(status))
 		exit_code(WEXITSTATUS(status));
 	printf("exit_code from terminal%i\n", exit_code(-1));

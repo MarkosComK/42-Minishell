@@ -57,9 +57,7 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 	waitpid(pid2, &status, 0);
 	if (WIFEXITED(status))
 		exit_code(WEXITSTATUS(status));
-	printf("exit_code from exec_pipe 2 %i\n", exit_code(-1));
 	free_shell(shell);
-	printf("exit_code after frees %i\n", exit_code(-1));
 	exit(exit_code(-1));
 }
 
