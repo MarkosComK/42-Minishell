@@ -55,7 +55,6 @@ void	terminal(t_shell *shell, char **envp)
 	waitpid(-1, &status, 0);
 	if (WIFEXITED(status))
 		exit_code(WEXITSTATUS(status));
-	printf("exit_code: %i\n", exit_code(-1));
 	free_shell(shell);
 	terminal(shell, envp);
 }
