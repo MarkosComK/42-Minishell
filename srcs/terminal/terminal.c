@@ -12,6 +12,16 @@
 
 #include <minishell.h>
 
+int	exit_code(int value)
+{
+	static int	code = 0;
+
+	if (value == -1)
+		return (code);
+	code = value;
+	return (code);
+}
+
 void	shell_input(t_shell *shell)
 {
 	char	*prompt;
@@ -52,10 +62,10 @@ void	terminal(t_shell *shell, char **envp)
 	shell->root = build_tree(shell, shell->token_lst);
 	if (fork() == 0)
 		exec_tree(shell, shell->root);
-	waitpid(-1, &status,0);
+	waitpid(0, &status, 0);
 	if (WIFEXITED(status))
-		shell->exit_code = WEXITSTATUS(status);
-	printf("%i\n", shell->exit_code);
+		exit_code(WEXITSTATUS(status));
+	printf("exit_code from terminal%i\n", exit_code(-1));
 	free_shell(shell);
 	terminal(shell, envp);
 }
