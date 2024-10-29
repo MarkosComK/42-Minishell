@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 15:49:49 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 15:50:00 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/23 11:15:08 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/23 12:28:15 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	check_args(int argc, char *argv[], char *envp[])
+void	sig_function(int signo)
 {
-	(void) argv;
-	if (!envp || !*envp)
+	if (signo == SIGINT)
 	{
-		ft_putendl_fd(RED"Executed withou env"DEFAULT, 2);
+		write(2, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
 	}
-	/*
-	if (envp)
-	{
-		while(*envp)
-		{
-			printf("%s\n", *envp++);
-		}
-	}
-	*/
-	if (argc > 1)
-	{
-		ft_putendl_fd(RED"Invalid input"DEFAULT, 2);
-		exit(1);
-	}
-	return (0);
+}
+
+void	set_main_signals(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	handle_signals(void)
+{
+	signal(SIGINT, sig_function);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 }

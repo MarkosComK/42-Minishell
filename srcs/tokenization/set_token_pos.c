@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   set_token_pos.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 15:49:49 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 15:50:00 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/15 16:39:04 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/15 16:43:09 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	check_args(int argc, char *argv[], char *envp[])
+void	set_token_pos(t_list *lst)
 {
-	(void) argv;
-	if (!envp || !*envp)
+	t_token	*token;
+	int		i;
+
+	i = 0;
+	while (lst)
 	{
-		ft_putendl_fd(RED"Executed withou env"DEFAULT, 2);
+		token = (t_token *) lst->content;
+		token->pos = i;
+		lst = lst->next;
+		i++;
 	}
-	/*
-	if (envp)
-	{
-		while(*envp)
-		{
-			printf("%s\n", *envp++);
-		}
-	}
-	*/
-	if (argc > 1)
-	{
-		ft_putendl_fd(RED"Invalid input"DEFAULT, 2);
-		exit(1);
-	}
-	return (0);
 }

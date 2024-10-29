@@ -1,37 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 15:49:49 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 15:50:00 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/23 11:16:31 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/23 11:47:55 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#ifndef SIGNALS_H
+# define SIGNALS_H
 
-int	check_args(int argc, char *argv[], char *envp[])
-{
-	(void) argv;
-	if (!envp || !*envp)
-	{
-		ft_putendl_fd(RED"Executed withou env"DEFAULT, 2);
-	}
-	/*
-	if (envp)
-	{
-		while(*envp)
-		{
-			printf("%s\n", *envp++);
-		}
-	}
-	*/
-	if (argc > 1)
-	{
-		ft_putendl_fd(RED"Invalid input"DEFAULT, 2);
-		exit(1);
-	}
-	return (0);
-}
+void	handle_signal_child(int signo);
+void	sig_function(int signo);
+void	set_main_signals(void);
+void	set_child_signals(void);
+void	handle_signals(void);
+
+#endif

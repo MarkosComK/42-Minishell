@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   input_validation_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 15:49:49 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 15:50:00 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/22 12:16:13 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/22 12:54:33 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	check_args(int argc, char *argv[], char *envp[])
+bool	ft_isquote(char c)
 {
-	(void) argv;
-	if (!envp || !*envp)
+	if (c == '\'' || c == '"')
+		return (true);
+	return (false);
+}
+
+int		ft_isredir(char *c)
+{
+	if (c[0] == '>')
 	{
-		ft_putendl_fd(RED"Executed withou env"DEFAULT, 2);
+		if (c[1] == '>')
+			return (2);
+		return (1);
 	}
-	/*
-	if (envp)
+	if (c[0] == '<')
 	{
-		while(*envp)
-		{
-			printf("%s\n", *envp++);
-		}
-	}
-	*/
-	if (argc > 1)
-	{
-		ft_putendl_fd(RED"Invalid input"DEFAULT, 2);
-		exit(1);
+		if (c[1] == '<')
+			return (2);
+		return (1);
 	}
 	return (0);
 }

@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 15:49:49 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 15:50:00 by marsoare         ###   ########.fr       */
+/*   Created: 2024/09/29 16:30:38 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/20 14:48:50 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#ifndef STRUCTS_H
+# define STRUCTS_H
 
-int	check_args(int argc, char *argv[], char *envp[])
+# include <libft.h>
+# include <limits.h>
+
+typedef struct s_shell
 {
-	(void) argv;
-	if (!envp || !*envp)
-	{
-		ft_putendl_fd(RED"Executed withou env"DEFAULT, 2);
-	}
-	/*
-	if (envp)
-	{
-		while(*envp)
-		{
-			printf("%s\n", *envp++);
-		}
-	}
-	*/
-	if (argc > 1)
-	{
-		ft_putendl_fd(RED"Invalid input"DEFAULT, 2);
-		exit(1);
-	}
-	return (0);
-}
+	t_list		*envp;
+	char		**envp_arr;
+	t_list		*path; //path_list
+	t_list		*token_lst;
+	char		*input;
+	char		*trim_input;
+	void		*root; //binary tree root
+	char		*cmd_path;
+	char		*cwd;
+	int			exit_code;
+}				t_shell;
+
+#endif

@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   handle_expand_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 15:49:49 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 15:50:00 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/28 12:58:20 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/28 12:58:28 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	check_args(int argc, char *argv[], char *envp[])
+char	*ft_strjoin_char(char *str, char c)
 {
-	(void) argv;
-	if (!envp || !*envp)
+	char	*new_str;
+	int		len;
+	int		i;
+
+	len = ft_strlen(str);
+	new_str = (char *)malloc(sizeof(char) * (len + 2));
+	if (!new_str)
+		return (NULL);
+	i = 0;
+	while (str[i])
 	{
-		ft_putendl_fd(RED"Executed withou env"DEFAULT, 2);
+		new_str[i] = str[i];
+		i++;
 	}
-	/*
-	if (envp)
-	{
-		while(*envp)
-		{
-			printf("%s\n", *envp++);
-		}
-	}
-	*/
-	if (argc > 1)
-	{
-		ft_putendl_fd(RED"Invalid input"DEFAULT, 2);
-		exit(1);
-	}
-	return (0);
+	new_str[i] = c;
+	new_str[i + 1] = '\0';
+	free(str);
+	return (new_str);
 }

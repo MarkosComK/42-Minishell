@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 15:49:49 by marsoare          #+#    #+#             */
-/*   Updated: 2024/09/25 15:50:00 by marsoare         ###   ########.fr       */
+/*   Created: 2024/09/30 16:15:36 by marsoare          #+#    #+#             */
+/*   Updated: 2024/09/30 16:50:33 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#ifndef UTILS_H
+# define UTILS_H
 
-int	check_args(int argc, char *argv[], char *envp[])
-{
-	(void) argv;
-	if (!envp || !*envp)
-	{
-		ft_putendl_fd(RED"Executed withou env"DEFAULT, 2);
-	}
-	/*
-	if (envp)
-	{
-		while(*envp)
-		{
-			printf("%s\n", *envp++);
-		}
-	}
-	*/
-	if (argc > 1)
-	{
-		ft_putendl_fd(RED"Invalid input"DEFAULT, 2);
-		exit(1);
-	}
-	return (0);
-}
+# include <structs.h>
+
+//printers.c
+void	print_lst(t_list *list);
+void	print_token_lst(t_list *lst);
+void	print_cmd_lst(t_shell *shell);
+
+#endif
