@@ -22,6 +22,15 @@ void	print_lst(t_list *lst)
 	printf("0\n");
 }
 
+void	print_token_lst(t_list *lst)
+{
+	printf("+-----------------+------------+--------------+--------+\n");
+	printf("|     Value       |    Type    |    State     |  Pos   |\n");
+	printf("+-----------------+------------+--------------+--------+\n");
+	printf("+-----------------+------------+--------------+--------+\n");
+	token_loop(lst);
+}
+
 void	token_loop(t_list *lst)
 {
 	t_token	*token;
@@ -49,15 +58,6 @@ void	token_loop(t_list *lst)
 		printf("%-6d |\n", token->pos);
 		lst = lst->next;
 	}
-}
-
-void	print_token_lst(t_list *lst)
-{
-	printf("+-----------------+------------+--------------+--------+\n");
-	printf("|     Value       |    Type    |    State     |  Pos   |\n");
-	printf("+-----------------+------------+--------------+--------+\n");
-	printf("+-----------------+------------+--------------+--------+\n");
-	token_loop(lst);
 }
 
 void	print_cmd_lst(t_shell *shell)
