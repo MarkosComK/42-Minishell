@@ -12,16 +12,6 @@
 
 #include <minishell.h>
 
-int	exit_code(int value)
-{
-	static int	code = 0;
-
-	if (value == -1)
-		return (code);
-	code = value;
-	return (code);
-}
-
 void	shell_input(t_shell *shell)
 {
 	char	*prompt;
