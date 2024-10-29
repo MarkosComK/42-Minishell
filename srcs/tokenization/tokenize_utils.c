@@ -77,7 +77,8 @@ bool	is_expandable(char *token)
 			i++;
 			continue ;
 		}
-		if (in_quotes && token[i] == '$')
+		if (token[i] == '$' && (token[i + 1] == '?'
+				|| ft_isalnum(token[i + 1])))
 			return (true);
 		if (!in_quotes && (ft_isspace(token[i]) || ft_ismeta(token, i)))
 			return (false);
