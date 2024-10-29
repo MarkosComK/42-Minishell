@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 20:07:07 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/24 16:21:45 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:14:58 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,18 @@
 # define PIPE_ERROR "near unexpected token `|'"
 # define REDIR_ERROR "near unexpected token `redir'"
 
-//exit.c
-char *itoa_exit(t_shell *shell, char **str);
+//exit_code.c
+char	*itoa_exit(t_shell *shell, char **str);
 int		exit_code(int value);
+
+//exit_messages.c
 void	exit_failure(t_shell *shell, char *function);
 void	infile_failure(t_shell *shell, char *file);
 void	is_directory(t_shell *shell, char *path);
+void	exec_failure(t_shell *shell, char *cmd, char **argv);
+void	exit_message(char *bash, char *file, char *message);
 
 //printers.c
 bool	syntax_error_msg(char *str);
-void	exec_failure(t_shell *shell, char *cmd, char **argv);
 
 #endif
