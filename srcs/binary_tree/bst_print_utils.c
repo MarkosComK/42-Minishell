@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 21:07:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/29 21:08:51 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:10:56 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	print_outfiles(char **outfiles, int space)
 
 void	print_exec(char **argv, int space)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	j = 0;
 	while (argv[j])
