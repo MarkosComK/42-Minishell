@@ -12,15 +12,6 @@
 
 #include <minishell.h>
 
-int		exit_code(int	value)
-{
-	static int	code = 0;
-
-	code = value;
-	//printf("exit code: %i\n", code);
-	return (code);
-}
-
 void	shell_input(t_shell *shell)
 {
 	char	*prompt;
@@ -37,6 +28,7 @@ void	shell_input(t_shell *shell)
 void	terminal(t_shell *shell, char **envp)
 {
 	ft_bzero(shell, sizeof(t_shell));
+	int	status = 0;
 	handle_signals();
 	shell_input(shell);
 	shell->input = readline(shell->cwd);
@@ -56,18 +48,14 @@ void	terminal(t_shell *shell, char **envp)
 	shell->envp = env_list(shell, envp);
 	lexer(shell, shell->trim_input);
 	shell->envp_arr = env_arr(shell);
-	/*
-	for (int i = 0; shell->envp_arr[i]; i++)
-		printf("%s\n", shell->envp_arr[i]);
-		*/
 	shell->path = path_list(shell, envp);
 	shell->root = build_tree(shell, shell->token_lst);
-	//print_env_lst(shell->envp);
-	//print_token_lst(shell->token_lst);
-	//print_bst(shell->root, 5);
 	if (fork() == 0)
 		exec_tree(shell, shell->root);
-	wait(NULL);
+	waitpid(-1, &status,0);
+	if (WIFEXITED(status))
+		shell->exit_code = WEXITSTATUS(status);
+	printf("%i\n", shell->exit_code);
 	free_shell(shell);
 	terminal(shell, envp);
 }

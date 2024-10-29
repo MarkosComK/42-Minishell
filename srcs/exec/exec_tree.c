@@ -71,7 +71,6 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 		//printf("builtin\n");
 		ret = exec_builtin(exec_node);
 		free_shell(shell);
-		exit_code(ret);
 		exit(ret);
 		return ;
 	}

@@ -46,7 +46,6 @@ void	is_directory(t_shell *shell, char *path)
 			ft_putstr_fd(path, 2);
 			free_shell(shell);
 			ft_putendl_fd(": No such file or directory", 2);
-			exit_code(127);
 			exit(127);
 		}
 		else if (S_ISDIR(path_stat.st_mode))
@@ -55,7 +54,6 @@ void	is_directory(t_shell *shell, char *path)
 			ft_putstr_fd(path, 2);
 			free_shell(shell);
 			ft_putendl_fd(": Is a directory", 2);
-			exit_code(126);
 			exit(126);
 		}
 	}
@@ -69,7 +67,6 @@ void	exec_failure(t_shell *shell, char *cmd, char **argv)
 		ft_putstr_fd(argv[0], 2);
 		ft_putendl_fd(": command not found", 2);
 		free_shell(shell);
-		exit_code(127);
 		exit(127);
 	}
 	free_shell(shell);
