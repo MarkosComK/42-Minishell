@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_message.c                                     :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 15:48:20 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/24 15:48:57 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/21 13:37:44 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/29 21:12:29 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	exit_message(char *bash, char *file, char *message)
+char	*itoa_exit(t_shell *shell, char **str)
 {
-	if (bash)
-		ft_putstr_fd(bash, 2);
-	if (file)
-	{
-		ft_putstr_fd(file, 2);
-		ft_putstr_fd(": ", 2);
-	}
-	ft_putstr_fd(message, 2);
-	ft_putstr_fd("\n", 2);
+	char	*code;
+
+	code = ft_itoa(exit_code(-1));
+	if (!code)
+		exit_failure(shell, "itoa_exit");
+	*str = ft_strjoin(*str, code);
+	free(code);
+	if (!code)
+		exit_failure(shell, "itoa_exit_2");
+	return (*str);
+}
+
+int	exit_code(int value)
+{
+	static int	code = 0;
+
+	if (value == -1)
+		return (code);
+	code = value;
+	return (code);
 }
