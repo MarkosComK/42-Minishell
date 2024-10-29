@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 14:46:02 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 14:05:43 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:09:19 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 # define ENVIRONMENT_H
 
 # include <structs.h>
+
+typedef struct s_env
+{
+    int         *key;   
+    char        *value;
+    char        *content;
+}				t_env;
 
 //create_env_arr.c
 char	**env_arr(t_shell *shell);

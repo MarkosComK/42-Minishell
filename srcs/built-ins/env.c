@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:24:30 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/10/28 21:25:42 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:41:36 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,42 @@ char	**env_arr(t_shell *shell)
 	env_arr[i] = NULL;
 	return (env_arr);
 }
-
 t_list	*env_list(t_shell *shell, char **envp)
 {
 	t_list	*env_list;
 	char	*content;
+	int i;
 
 	env_list = NULL;
 	if (!envp || !*envp)
 		return (printf("empty env\n"), NULL);
-	while (*envp)
+	i = 0;
+	while (envp[i])
 	{
-		content = ft_strdup(*envp);
+		content = ft_strdup(*envp);//create_node_env(shell, i);
 		if (!content)
 			exit_failure(shell, "env_list");
 		ft_lstadd_back(&env_list, ft_lstnew(content));
-		(envp)++;
+		i++;
 	}
 	return (env_list);
 }
+/*
+t_list	*create_node_env(t_shell *shell, int index)
+{
+	t_env	*node;
+
+	node = ft_calloc(1, sizeof(t_env));
+	if (!node)
+		exit_failure(shell, "create_node_env");
+	
+	t_env->key= i;
+	t_env->value = 
+	t_env->content =
+
+	return(node);
+}
+*/
 
 t_list	*path_list(t_shell *shell, char **envp)
 {
