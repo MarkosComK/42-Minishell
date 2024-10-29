@@ -104,6 +104,8 @@ int	expand_quoted(t_shell *shell, char **str, char *input, int i)
 		&& (ft_isalnum(input[i]) || input[i] == '_')
 		&& input[i] != '"')
 		i++;
+	if (input[i] == '?')
+		return (*str = itoa_exit(shell, str), ++i);
 	var_name = ft_substr(input, start, i - start);
 	if (!var_name)
 		exit_failure(shell, "expand_unquoted");

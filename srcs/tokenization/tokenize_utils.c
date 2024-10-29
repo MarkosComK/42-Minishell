@@ -58,11 +58,13 @@ int	set_simple(t_shell *sh, t_token *new_token, char *input, int i)
 	return (i + 1);
 }
 
-bool is_expandable(char *token)
+bool	is_expandable(char *token)
 {
-	int i;
+	int	i;
 
 	i = 0;
+	while (ft_isspace(token[i]) || ft_isquote(token[i]))
+		i++;
 	while (token[i])
 	{
 		if ((ft_isspace(token[i]) || ft_ismeta(token, i)) && token[i])
