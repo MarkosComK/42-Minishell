@@ -20,6 +20,7 @@ char *itoa_exit(t_shell *shell, char **str)
 	if (!code)
 		exit_failure(shell, "itoa_exit");
 	*str = ft_strjoin(*str, code);
+	free(code);
 	if (!code)
 		exit_failure(shell, "itoa_exit_2");
 	return (*str);

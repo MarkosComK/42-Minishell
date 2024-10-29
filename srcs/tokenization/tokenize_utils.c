@@ -60,21 +60,27 @@ int	set_simple(t_shell *sh, t_token *new_token, char *input, int i)
 
 bool	is_expandable(char *token)
 {
-	int	i;
+	int		i;
+	bool	in_quotes;
 
 	i = 0;
-	while (ft_isspace(token[i]) || ft_isquote(token[i]))
+	in_quotes = false;
+	while (ft_isspace(token[i]))
 		i++;
+	if (token[i] == '\0')
+		return (false);
 	while (token[i])
 	{
-		if ((ft_isspace(token[i]) || ft_ismeta(token, i)) && token[i])
+		if (ft_isquote(token[i]))
 		{
-			return (false);
+			in_quotes = !in_quotes;
+			i++;
+			continue ;
 		}
-		if (token[i] == '$')
-		{
+		if (in_quotes && token[i] == '$')
 			return (true);
-		}
+		if (!in_quotes && (ft_isspace(token[i]) || ft_ismeta(token, i)))
+			return (false);
 		i++;
 	}
 	return (false);
