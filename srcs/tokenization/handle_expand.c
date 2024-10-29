@@ -24,7 +24,11 @@ int	handle_expand(t_shell *shell, char *input, int i)
 	while (input[i])
 	{
 		if (input[i] == '$' || ft_isquote(input[i]))
+		{
+			printf("b_start at: %s\n", &input[i]);
 			i = prcs_expansion(shell, &str, input, i);
+			printf("a_start at: %s\n", &input[i]);
+		}
 		else
 			while (input[i] && (input[i] != '$' && input[i] != '"'))
 				str = ft_strjoin_char(str, input[i++]);
@@ -52,7 +56,7 @@ int	prcs_expansion(t_shell *shell, char **str, char *input, int i)
 			*str = ft_strjoin_char(*str, input[i++]);
 		if (input[i] == '$')
 			i = expand_quoted(shell, str, input, i);
-		while (input[i] && input[i] != '"')
+		while (input[i] && (input[i] != '$' && input[i] != '"'))
 			*str = ft_strjoin_char(*str, input[i++]);
 		if (input[i] == '"')
 			i++;

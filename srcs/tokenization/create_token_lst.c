@@ -20,10 +20,7 @@ void	tokenize_input(t_shell *shell, char *input)
 	while (input[i])
 	{
 		if (is_expandable(&input[i]))
-		{
-			printf("you got here with %s\n", &input[i]);
 			i = handle_expand(shell, input, i);
-		}
 		else if (input[i] == '"' || input[i] == '\'')
 			i = handle_quotes(shell, input, i);
 		else if (input[i] == '|')
