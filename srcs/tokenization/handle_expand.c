@@ -52,7 +52,7 @@ int	prcs_expansion(t_shell *shell, char **str, char *input, int i)
 			*str = ft_strjoin_char(*str, input[i++]);
 		if (input[i] == '$')
 			i = expand_quoted(shell, str, input, i);
-		while (input[i] && input[i] != '"')
+		while (input[i] && (input[i] != '$' && input[i] != '"'))
 			*str = ft_strjoin_char(*str, input[i++]);
 		if (input[i] == '"')
 			i++;
@@ -76,6 +76,8 @@ int	expand_unquoted(t_shell *shell, char **str, char *input, int i)
 		&& (ft_isalnum(input[i]) || input[i] == '_')
 		&& !ft_ismeta(input, i))
 		i++;
+	if (input[i] == '?')
+		return (*str = itoa_exit(shell, str), ++i);
 	var_name = ft_substr(input, start, i - start);
 	if (!var_name)
 		exit_failure(shell, "expand_unquoted");
@@ -102,6 +104,8 @@ int	expand_quoted(t_shell *shell, char **str, char *input, int i)
 		&& (ft_isalnum(input[i]) || input[i] == '_')
 		&& input[i] != '"')
 		i++;
+	if (input[i] == '?')
+		return (*str = itoa_exit(shell, str), ++i);
 	var_name = ft_substr(input, start, i - start);
 	if (!var_name)
 		exit_failure(shell, "expand_unquoted");

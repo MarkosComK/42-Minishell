@@ -50,5 +50,4 @@
 
 //check_args.c
 int	check_args(int argc, char *argv[], char *envp[]);
-int	exit_code(int value);
 #endif

@@ -38,6 +38,7 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 	int		pipefd[2];
 	pid_t	pid1;
 	pid_t	pid2;
+	int status = 0;
 
 	if (pipe(pipefd) == -1)
 	{
@@ -52,10 +53,12 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 		handle_pid2(shell, pipefd, pipe_node);
 	close(pipefd[0]);
 	close(pipefd[1]);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
+	waitpid(pid1, &status, 0);
+	waitpid(pid2, &status, 0);
+	if (WIFEXITED(status))
+		exit_code(WEXITSTATUS(status));
 	free_shell(shell);
-	exit(0);
+	exit(exit_code(-1));
 }
 
 //muitas coisas na vida sao estranhas, mas nada vencera as validacoes
@@ -71,7 +74,6 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 		//printf("builtin\n");
 		ret = exec_builtin(shell, exec_node);
 		free_shell(shell);
-		exit_code(ret);
 		exit(ret);
 		return ;
 	}
