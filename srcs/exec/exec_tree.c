@@ -58,7 +58,7 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 	if (WIFEXITED(status))
 		exit_code(WEXITSTATUS(status));
 	if (WIFSIGNALED(status))
-		printf("%i\n", exit_code(128 + WTERMSIG(status)));
+		exit_code(128 + WTERMSIG(status));
 	free_shell(shell);
 	exit(exit_code(-1));
 }
