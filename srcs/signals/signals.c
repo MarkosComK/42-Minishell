@@ -27,14 +27,12 @@ void	set_main_signals(void)
 {
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGSTOP, SIG_IGN);
 }
 
 void	handle_signals(void)
 {
 	signal(SIGINT, sig_main);
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
 }
 
 void	set_fork1_signal(void)
