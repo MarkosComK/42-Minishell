@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/28 13:06:07 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:17:52 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	terminal(t_shell *shell, char **envp)
 	shell->envp_arr = env_arr(shell);
 	shell->path = path_list(shell, envp);
 	shell->root = build_tree(shell, shell->token_lst);
+	print_bst(shell->root, 5);
 	if (fork() == 0)
 		exec_tree(shell, shell->root);
 	waitpid(-1, &status, 0);
@@ -62,7 +63,8 @@ void	terminal(t_shell *shell, char **envp)
 void	free_shell(t_shell *shell)
 {
 	t_list	*tmp;
-	t_token *token;
+	t_token	*token;
+	int		i;
 
 	tmp = shell->token_lst;
 	while (shell->token_lst)
@@ -79,9 +81,9 @@ void	free_shell(t_shell *shell)
 		tmp = shell->envp->next;
 		free(shell->envp->content);
 		free(shell->envp);
-		shell->envp= tmp;
+		shell->envp = tmp;
 	}
-	int i = 0;
+	i = 0;
 	if (shell->envp_arr)
 	{
 		while (shell->envp_arr[i])
@@ -96,7 +98,7 @@ void	free_shell(t_shell *shell)
 		tmp = shell->path->next;
 		free(shell->path->content);
 		free(shell->path);
-		shell->path= tmp;
+		shell->path = tmp;
 	}
 	if (shell->input)
 		free(shell->input);
