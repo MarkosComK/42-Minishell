@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:53:24 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/18 16:28:59 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:09:51 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,25 @@ typedef struct s_exec
 void	free_bst(void *root);
 void	free_pipe_children(t_pipe *pipe);
 void	free_exec(t_exec *node);
+
 //bst_print.c
 void	*print_bst(void *root, int space);
 void	print_pipe_children(t_pipe *pipe, int space);
 void	print_bst_pipe(t_pipe *node, int space);
 void	print_bst_exec(t_exec *node, int space);
+
+//bst_print_utils.c
+void	print_bst_exec(t_exec *node, int space);
+void	print_outfiles(char **outfiles, int space);
+void	print_exec(char **argv, int space);
+void	print_infiles(char **outfiles, int space);
+
 //build_tree.c
 void	*build_tree(t_shell *shell, t_list *token_list);
 void	*insert_node(t_shell *shell, void *node, t_list *token_lst);
 void	*create_pipe(t_shell *shell, t_exec *left, t_exec *right);
 void	*create_exec(t_shell *shell, t_list *token_lst);
+
 //build_tree_utils.c
 char	**get_argv(t_shell *shell, t_list **token_lst);
 char	**get_infiles(t_shell *shell, t_list **token_lst);

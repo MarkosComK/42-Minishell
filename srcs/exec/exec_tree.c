@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:43:04 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/28 21:30:24 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:25:48 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 	int		pipefd[2];
 	pid_t	pid1;
 	pid_t	pid2;
-	int status = 0;
+	int		status;
 
 	if (pipe(pipefd) == -1)
 	{
@@ -53,6 +53,7 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 		handle_pid2(shell, pipefd, pipe_node);
 	close(pipefd[0]);
 	close(pipefd[1]);
+	status = 0;
 	waitpid(pid1, &status, 0);
 	waitpid(pid2, &status, 0);
 	if (WIFEXITED(status))
@@ -73,7 +74,6 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 	handle_outfiles(shell, exec_node);
 	if (exec_node->command && is_builtin(exec_node->command))
 	{
-		//printf("builtin\n");
 		ret = exec_builtin(shell, exec_node);
 		free_shell(shell);
 		exit(ret);

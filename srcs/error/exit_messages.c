@@ -1,43 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   exit_messages.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 13:37:44 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/21 13:44:51 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/24 15:48:20 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/29 21:32:16 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-char *itoa_exit(t_shell *shell, char **str)
-{
-	char	*code;
-	char	*tmp;
-
-	code = ft_itoa(exit_code(-1));
-	if (!code)
-		exit_failure(shell, "itoa_exit");
-	tmp = *str;
-	*str = ft_strjoin(tmp, code);
-	free(tmp);
-	if (!code)
-		exit_failure(shell, "itoa_exit_2");
-	free(code);
-	return (*str);
-}
-
-int	exit_code(int value)
-{
-	static int	code = 0;
-
-	if (value == -1)
-		return (code);
-	code = value;
-	return (code);
-}
 
 void	exit_failure(t_shell *shell, char *function)
 {
@@ -138,4 +111,17 @@ void	exec_failure(t_shell *shell, char *cmd, char **argv)
 	}
 	free_shell(shell);
 	exit(0);
+}
+
+void	exit_message(char *bash, char *file, char *message)
+{
+	if (bash)
+		ft_putstr_fd(bash, 2);
+	if (file)
+	{
+		ft_putstr_fd(file, 2);
+		ft_putstr_fd(": ", 2);
+	}
+	ft_putstr_fd(message, 2);
+	ft_putstr_fd("\n", 2);
 }

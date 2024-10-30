@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:16:13 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 12:54:33 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:16:31 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	ft_isquote(char c)
 	return (false);
 }
 
-int		ft_isredir(char *c)
+int	ft_isredir(char *c)
 {
 	if (c[0] == '>')
 	{

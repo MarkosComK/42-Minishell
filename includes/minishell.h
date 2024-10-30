@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:22:19 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/27 19:17:59 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:30:03 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 
 // MACROS
 # define PROMPT " Minihell:"
-# define MINISHELL YELLOW"hellsh"
+# define MINISHELL "hellsh"
 
 /*metacharaters
  * A character that, when unquoted, separates words. A metacharacter is a space
