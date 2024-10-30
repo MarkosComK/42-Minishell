@@ -6,9 +6,11 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 20:13:51 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/10/29 20:14:13 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/10/30 22:13:35 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <minishell.h>
 
 t_list	*env_list(t_shell *shell, char **envp)
 {
@@ -65,9 +67,9 @@ char	*env_value(t_shell *shell, char *env)
 char	*env_content(t_shell *shell, char *env)
 {
 	int		i;
+	int		j;
 	char	*content;
 
-	python3 - m c_formatter_42 int j;
 	content = ft_calloc(sizeof(char), (env_len(env, 0) + 1));
 	if (!content)
 		exit_failure(shell, "env_value");
