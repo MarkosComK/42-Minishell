@@ -44,12 +44,12 @@ void	terminal(t_shell *shell, char **envp)
 		free_shell(shell);
 		return ;
 	}
-	set_main_signals();
 	shell->envp = env_list(shell, envp);
 	lexer(shell, shell->trim_input);
 	shell->envp_arr = env_arr(shell);
 	shell->path = path_list(shell, envp);
 	shell->root = build_tree(shell, shell->token_lst);
+	set_main_signals();
 	if (fork() == 0)
 		exec_tree(shell, shell->root);
 	waitpid(-1, &status, 0);
