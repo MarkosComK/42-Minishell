@@ -29,6 +29,7 @@
 //exit_code.c
 char	*itoa_exit(t_shell *shell, char **str);
 int		exit_code(int value);
+void	exit_status(int status);
 
 //exit_messages.c
 void	exit_failure(t_shell *shell, char *function);

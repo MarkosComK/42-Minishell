@@ -112,16 +112,3 @@ void	exec_failure(t_shell *shell, char *cmd, char **argv)
 	free_shell(shell);
 	exit(0);
 }
-
-void	exit_message(char *bash, char *file, char *message)
-{
-	if (bash)
-		ft_putstr_fd(bash, 2);
-	if (file)
-	{
-		ft_putstr_fd(file, 2);
-		ft_putstr_fd(": ", 2);
-	}
-	ft_putstr_fd(message, 2);
-	ft_putstr_fd("\n", 2);
-}

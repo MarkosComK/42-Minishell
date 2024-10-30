@@ -35,3 +35,11 @@ int	exit_code(int value)
 	code = value;
 	return (code);
 }
+
+void	exit_status(int status)
+{
+	if (WIFEXITED(status))
+		exit_code(WEXITSTATUS(status));
+	if (WIFSIGNALED(status))
+		exit_code(128 + WTERMSIG(status));
+}

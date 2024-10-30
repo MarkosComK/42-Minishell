@@ -56,10 +56,7 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 	status = 0;
 	waitpid(pid1, &status, 0);
 	waitpid(pid2, &status, 0);
-	if (WIFEXITED(status))
-		exit_code(WEXITSTATUS(status));
-	if (WIFSIGNALED(status))
-		exit_code(128 + WTERMSIG(status));
+	exit_status(status);
 	free_shell(shell);
 	exit(exit_code(-1));
 }
