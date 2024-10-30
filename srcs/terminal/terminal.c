@@ -55,6 +55,8 @@ void	terminal(t_shell *shell, char **envp)
 	waitpid(-1, &status, 0);
 	if (WIFEXITED(status))
 		exit_code(WEXITSTATUS(status));
+	if (WIFSIGNALED(status))
+		exit_code(128 + WTERMSIG(status));
 	free_shell(shell);
 	terminal(shell, envp);
 }

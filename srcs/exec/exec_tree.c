@@ -57,6 +57,8 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 	waitpid(pid2, &status, 0);
 	if (WIFEXITED(status))
 		exit_code(WEXITSTATUS(status));
+	if (WIFSIGNALED(status))
+		printf("%i\n", exit_code(128 + WTERMSIG(status)));
 	free_shell(shell);
 	exit(exit_code(-1));
 }
@@ -77,6 +79,7 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 		exit(ret);
 		return ;
 	}
+	set_fork1_signal();
 	shell->cmd_path = find_cmd_path(shell, shell->path, exec_node->command);
 	if (exec_node->argv)
 		is_directory(shell, exec_node->argv[0]);
