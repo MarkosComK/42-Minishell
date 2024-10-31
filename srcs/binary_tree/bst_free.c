@@ -49,9 +49,7 @@ void	free_exec(t_exec *node)
 			free(node->argv);
 		if (node->infiles)
 		{
-			while (node->infiles[i])
-				free(node->infiles[i++]);
-			free(node->infiles);
+			ft_lstclear(&node->infiles, free);
 		}
 		i = 0;
 		if (node->outfiles)
