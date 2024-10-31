@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:36:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/31 16:58:40 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:10:06 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,36 +137,6 @@ bool	check_pipes(char *str)
 	}
 	return (str[i - 1] != '|' || in_single_quote || in_double_quote);
 }
-
-/*
-bool	check_pipes(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == '|')
-		return (false);
-	while (str[i])
-	{
-		while (ft_isspace(str[i]))
-			i++;
-		if (str[i] == '|')
-		{
-			if (str[i + 1] == '|' || str[i + 1] == '\0')
-				return (false);
-			i++;
-			while (ft_isspace(str[i]))
-				i++;
-			if (str[i] == '|')
-				return (false);
-		}
-		else
-			i++;
-	}
-	if (str[i - 1] == '|')
-		return (false);
-	return (true);
-}*/
 
 bool	check_redirs(char *str)
 {
