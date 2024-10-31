@@ -35,15 +35,20 @@ void	handle_infiles(t_shell *shell, t_exec *exec_node)
 void	handle_outfiles(t_shell *shell, t_exec *exec_node)
 {
 	int		fd;
+	t_outf	*outf;
 
 	if (exec_node->outfiles)
 	{
 		while (exec_node->outfiles)
 		{
-			fd = open(exec_node->outfiles->content, O_RDWR | O_CREAT, 0644);
+			outf = ((t_outf *)exec_node->outfiles->content);
+			if (outf->type == APP)
+				fd = open(outf->name, O_RDWR | O_CREAT | O_APPEND , 0644);
+			else if (outf->type == ADD)
+				fd = open(outf->name, O_RDWR | O_CREAT | O_TRUNC, 0644);
 			if (fd < 0)
 			{
-				outfile_failure(shell, exec_node->outfiles->content);
+				outfile_failure(shell, outf->name);
 			}
 			dup2(fd, STDOUT_FILENO);
 			close(fd);
