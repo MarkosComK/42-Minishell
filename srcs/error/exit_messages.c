@@ -1,13 +1,12 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   exit_messages.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 13:37:44 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/21 13:44:51 by marsoare         ###   ########.fr       */
+/*   Created: 2024/10/24 15:48:20 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/29 21:32:16 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,38 +22,78 @@ void	exit_failure(t_shell *shell, char *function)
 
 void	infile_failure(t_shell *shell, char *file)
 {
-	ft_putstr_fd(YELLOW"hellsh: "DEFAULT, 2);
-	perror(file);
-	//ft_putendl_fd(": No such file or directory", 2);
-	free_shell(shell);
-	exit(1);
+	struct stat	file_stat;
+
+	errno = 0;
+	stat(file, &file_stat);
+	if (errno == ENOENT)
+	{
+		ft_putstr_fd(MINISHELL " " DEFAULT, 2);
+		ft_putstr_fd(file, 2);
+		ft_putendl_fd(": No such file or directory", 2);
+		free_shell(shell);
+		exit(127);
+	}
+	else if (errno == EACCES || (stat(file, &file_stat) == 0
+			&& !(file_stat.st_mode & S_IRUSR)))
+	{
+		ft_putstr_fd(MINISHELL " " DEFAULT, 2);
+		ft_putstr_fd(file, 2);
+		ft_putendl_fd(": Permission denied", 2);
+		free_shell(shell);
+		exit(126);
+	}
+}
+
+void	outfile_failure(t_shell *shell, char *file)
+{
+	struct stat	file_stat;
+
+	errno = 0;
+	stat(file, &file_stat);
+	if (S_ISDIR(file_stat.st_mode))
+	{
+		ft_putstr_fd(MINISHELL " " DEFAULT, 2);
+		ft_putstr_fd(file, 2);
+		ft_putendl_fd(": Is a directory", 2);
+		free_shell(shell);
+		exit(126);
+	}
+	else if (errno == EACCES || !(file_stat.st_mode & S_IWUSR))
+	{
+		ft_putstr_fd(MINISHELL " " DEFAULT, 2);
+		ft_putstr_fd(file, 2);
+		ft_putendl_fd(": Permission denied", 2);
+		free_shell(shell);
+		exit(126);
+	}
 }
 
 //tem coisa inutil aqui mas fdase
-void	is_directory(t_shell *shell, char *path, char *cmd)
+void	is_directory(t_shell *shell, char *path)
 {
 	struct stat	path_stat;
 
 	errno = 0;
-	(void) cmd;
 	stat(path, &path_stat);
 	if (!path)
 		return ;
 	if (ft_strchr(path, '/'))
 	{
-		ft_putstr_fd(MINISHELL " " DEFAULT, 2);
-		ft_putstr_fd(path, 2);
-		free_shell(shell);
 		if (errno == ENOENT)
 		{
+			ft_putstr_fd(MINISHELL " " DEFAULT, 2);
+			ft_putstr_fd(path, 2);
+			free_shell(shell);
 			ft_putendl_fd(": No such file or directory", 2);
-			exit_code(127);
 			exit(127);
 		}
 		else if (S_ISDIR(path_stat.st_mode))
 		{
+			ft_putstr_fd(MINISHELL " " DEFAULT, 2);
+			ft_putstr_fd(path, 2);
+			free_shell(shell);
 			ft_putendl_fd(": Is a directory", 2);
-			exit_code(126);
 			exit(126);
 		}
 	}
@@ -68,7 +107,6 @@ void	exec_failure(t_shell *shell, char *cmd, char **argv)
 		ft_putstr_fd(argv[0], 2);
 		ft_putendl_fd(": command not found", 2);
 		free_shell(shell);
-		exit_code(127);
 		exit(127);
 	}
 	free_shell(shell);

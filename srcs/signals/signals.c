@@ -12,7 +12,7 @@
 
 #include <minishell.h>
 
-void	sig_function(int signo)
+void	sig_main(int signo)
 {
 	if (signo == SIGINT)
 	{
@@ -31,7 +31,12 @@ void	set_main_signals(void)
 
 void	handle_signals(void)
 {
-	signal(SIGINT, sig_function);
+	signal(SIGINT, sig_main);
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
+}
+
+void	set_fork1_signal(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 }

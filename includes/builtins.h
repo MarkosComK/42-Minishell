@@ -17,7 +17,7 @@
 # include <structs.h>
 
 // EXEC
-int     exec_builtin(t_shell *shell,t_exec *exec_node);
+int		exec_builtin(t_shell *shell, t_exec *exec_node);
 int		is_builtin(const char *command);
 
 // ECHO

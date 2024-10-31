@@ -47,7 +47,7 @@ void	handle_outfiles(t_shell *shell, t_exec *exec_node)
 			fd = open(exec_node->outfiles[i], O_RDWR | O_CREAT, 0644);
 			if (fd < 0)
 			{
-				exit_failure(shell, "INFILE FAILURE\n");
+				outfile_failure(shell, exec_node->outfiles[i]);
 			}
 			dup2(fd, STDOUT_FILENO);
 			close(fd);

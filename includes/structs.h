@@ -27,6 +27,7 @@ typedef struct s_shell
 	void		*root; //binary tree root
 	char		*cmd_path;
 	char		*cwd;
+	int			exit_code;
 }				t_shell;
 
 #endif

@@ -6,20 +6,11 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/29 20:02:17 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:17:52 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-int		exit_code(int	value)
-{
-	static int	code = 0;
-
-	code = value;
-	//printf("exit code: %i\n", code);
-	return (code);
-}
 
 void	shell_input(t_shell *shell)
 {
@@ -27,17 +18,17 @@ void	shell_input(t_shell *shell)
 	char	cwd[PATH_MAX];
 	char	*tmp;
 
-	prompt = B_RED PROMPT DEFAULT;
 	getcwd(cwd, sizeof(cwd));
-	shell->cwd = ft_strjoin(prompt, cwd);
-	tmp = shell->cwd;
-	shell->cwd = ft_strjoin(tmp, B_RED" → "DEFAULT);
+	prompt = "\001" B_RED "\002Minishell\001" DEFAULT "\002";
+	tmp = ft_strjoin(prompt, cwd);
+	shell->cwd = ft_strjoin(tmp, "\001"B_RED"\002 → \001"DEFAULT"\002");
 	free(tmp);
 }
 
 void	terminal(t_shell *shell, char **envp)
 {
 	ft_bzero(shell, sizeof(t_shell));
+	int	status = 0;
 	handle_signals();
 	shell_input(shell);
 	shell->input = readline(shell->cwd);
@@ -53,22 +44,16 @@ void	terminal(t_shell *shell, char **envp)
 		free_shell(shell);
 		return ;
 	}
-	set_main_signals();
-	lexer(shell, shell->trim_input);
 	shell->envp = env_list(shell, envp);
+	lexer(shell, shell->trim_input);
 	shell->envp_arr = env_arr(shell);
-	/*
-	for (int i = 0; shell->envp_arr[i]; i++)
-		printf("%s\n", shell->envp_arr[i]);
-		*/
 	shell->path = path_list(shell, envp);
 	shell->root = build_tree(shell, shell->token_lst);
-	//print_env_lst(shell->envp);
-	//print_token_lst(shell->token_lst);
-	//print_bst(shell->root, 5);
+	set_main_signals();
 	if (fork() == 0)
 		exec_tree(shell, shell->root);
-	wait(NULL);
+	waitpid(-1, &status, 0);
+	exit_status(status);
 	free_shell(shell);
 	terminal(shell, envp);
 }
@@ -76,7 +61,8 @@ void	terminal(t_shell *shell, char **envp)
 void	free_shell(t_shell *shell)
 {
 	t_list	*tmp;
-	t_token *token;
+	t_token	*token;
+	int		i;
 
 	tmp = shell->token_lst;
 	while (shell->token_lst)
@@ -95,9 +81,10 @@ void	free_shell(t_shell *shell)
 		tmp = shell->envp->next;
 		free(shell->envp->content);
 		free(shell->envp);
+<<<<<<< HEAD
 		shell->envp= tmp;
 	}*/
-	int i = 0;
+	i = 0;
 	if (shell->envp_arr)
 	{
 		while (shell->envp_arr[i])
@@ -112,7 +99,7 @@ void	free_shell(t_shell *shell)
 		tmp = shell->path->next;
 		free(shell->path->content);
 		free(shell->path);
-		shell->path= tmp;
+		shell->path = tmp;
 	}
 	if (shell->input)
 		free(shell->input);
