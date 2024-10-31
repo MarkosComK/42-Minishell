@@ -1,0 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pids_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/24 03:43:13 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/24 03:51:40 by marsoare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <minishell.h>
+
+void original_fds(int value)
+{
+	static int original_stdin = -1;  // Static variable to store original stdin
+	static int original_stdout = -1; // Static variable to store original stdout
+
+	if (value == -1)
+	{
+		// Save the original fds
+		if (original_stdin == -1) // Only save if not already saved
+			original_stdin = dup(STDIN_FILENO);
+		if (original_stdout == -1) // Only save if not already saved
+			original_stdout = dup(STDOUT_FILENO);
+	}
+	else
+	{
+		// Close the original fds
+		if (original_stdin != -1) // Close only if previously saved
+		{
+			close(original_stdin);
+			original_stdin = -1; // Reset to indicate it's closed
+		}
+		if (original_stdout != -1) // Close only if previously saved
+		{
+			close(original_stdout);
+			original_stdout = -1; // Reset to indicate it's closed
+		}
+	}
+}
+void	handle_pid1(t_shell *shell, int pipefd[], t_pipe *pipe_node)
+{
+	original_fds(-1);
+	close(pipefd[0]);
+	if (dup2(pipefd[1], STDOUT_FILENO) == -1) // Redirect stdout
+	{
+		perror("dup2 failed");
+		exit(1);
+	}
+	close(pipefd[1]);
+	exec_tree(shell, pipe_node->left);
+	exit(0);
+}
+
+void	handle_pid2(t_shell *shell, int pipefd[], t_pipe *pipe_node)
+{
+	original_fds(-1);
+	close(pipefd[1]);
+	if (dup2(pipefd[0], STDOUT_FILENO) == -1) // Redirect stdout
+	{
+		perror("dup2 failed");
+		exit(1);
+	}
+	close(pipefd[0]);
+	exec_tree(shell, pipe_node->right);
+	exit(0);
+}

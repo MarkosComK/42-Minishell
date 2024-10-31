@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 18:49:40 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/10/28 21:22:09 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:01:07 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,11 @@ void	print_env_lst(t_list *lst);
 //env_utils.c
 t_list	*env_list(t_shell *shell, char **envp);
 t_env	*create_node_env(t_shell *shell, char **envp, int index);
-char	*env_value(t_shell *shell, char *env);
+char	*get_value(t_shell *shell, char *env);
+char	*get_content(t_shell *shell, char *env);
+
+//env_utils_sizes.c
+int		content_size(char *env);
 int		val_size(char *env);
 
 // PWD

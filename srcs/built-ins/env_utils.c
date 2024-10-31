@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 20:13:51 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/10/30 22:13:35 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:01:09 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ t_env	*create_node_env(t_shell *shell, char **envp, int index)
 	if (!node)
 		exit_failure(shell, "create_node_env");
 	node->key = index;
-	node->value = env_value(shell, *envp);
-	node->content = "";
+	node->value = get_value(shell, *envp);
+	node->content = get_content(shell, *envp);
 	return (node);
 }
 
-char	*env_value(t_shell *shell, char *env)
+char	*get_value(t_shell *shell, char *env)
 {
 	char	*value;
 
@@ -57,13 +57,13 @@ char	*env_value(t_shell *shell, char *env)
 	return (value);
 }
 
-int	val_size(char *env)
+char	*get_content(t_shell *shell, char *env)
 {
-	int	i;
+	char	*value;
 
-	i = 0;
-	while (env[i] && env[i] != '=')
-		i++;
-	i++;
-	return (i);
+	value = malloc(sizeof(char) * (content_size(env) + 1));
+	if (!value)
+		exit_failure(shell, "env_value");
+	ft_strlcpy(value, env + val_size(env), ft_strlen(env));
+	return (value);
 }

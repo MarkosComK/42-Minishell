@@ -78,6 +78,7 @@ void	free_shell(t_shell *shell)
 	{
 		tmp = shell->envp->next;
 		free(((t_env *)shell->envp->content)->value);
+		free(((t_env *)shell->envp->content)->content);
 		free(shell->envp->content);
 		free(shell->envp);
 		shell->envp = tmp;
