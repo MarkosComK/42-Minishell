@@ -33,6 +33,18 @@ typedef struct s_pipe
 	struct s_exec	*right;
 }				t_pipe;
 
+typedef enum e_outf_t
+{
+	APP,
+	ADD,
+}				t_outf_t;
+
+typedef struct s_outf
+{
+	t_outf_t	type;
+	char		*name;
+}				t_outf;
+
 typedef struct s_exec
 {
 	t_node		type;
