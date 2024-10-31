@@ -15,11 +15,14 @@
 char	*itoa_exit(t_shell *shell, char **str)
 {
 	char	*code;
+	char	*tmp;
 
 	code = ft_itoa(exit_code(-1));
 	if (!code)
 		exit_failure(shell, "itoa_exit");
+	tmp = *str;
 	*str = ft_strjoin(*str, code);
+	free(tmp);
 	free(code);
 	if (!code)
 		exit_failure(shell, "itoa_exit_2");
