@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:41:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/28 13:02:13 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:27:17 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef enum s_token_state
 {
 	GENERAL,
 	IN_DQUOTES,
-	IN_SQUOTES
+	IN_SQUOTES,
+	EXPAND,
 }	t_token_state;
 
 typedef struct s_token

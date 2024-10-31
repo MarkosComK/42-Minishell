@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 16:14:07 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/29 21:22:46 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:33:22 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,12 @@ void	print_lst(t_list *lst)
 
 void	print_token_lst(t_list *lst)
 {
+	t_token	*token;
+
 	printf("+-----------------+------------+--------------+--------+\n");
 	printf("|     Value       |    Type    |    State     |  Pos   |\n");
 	printf("+-----------------+------------+--------------+--------+\n");
 	printf("+-----------------+------------+--------------+--------+\n");
-	token_loop(lst);
-}
-
-void	token_loop(t_list *lst)
-{
-	t_token	*token;
-
 	while (lst)
 	{
 		token = (t_token *)lst->content;
@@ -49,15 +44,22 @@ void	token_loop(t_list *lst)
 			printf("%-10s | ", "OUTFILE");
 		else if (token->type == INFILE)
 			printf("%-10s | ", "INFILE");
-		if (token->state == GENERAL)
-			printf("%-12s | ", "GENERAL");
-		else if (token->state == IN_DQUOTES)
-			printf("%-12s | ", "IN_DQUOTES");
-		else if (token->state == IN_SQUOTES)
-			printf("%-12s | ", "IN_SQUOTES");
+		token_loop(token);
 		printf("%-6d |\n", token->pos);
 		lst = lst->next;
 	}
+}
+
+void	token_loop(t_token *token)
+{
+	if (token->state == GENERAL)
+		printf("%-12s | ", "GENERAL");
+	else if (token->state == IN_DQUOTES)
+		printf("%-12s | ", "IN_DQUOTES");
+	else if (token->state == IN_SQUOTES)
+		printf("%-12s | ", "IN_SQUOTES");
+	else if (token->state == EXPAND)
+		printf("%-12s | ", "EXPANSION");
 }
 
 void	print_cmd_lst(t_shell *shell)

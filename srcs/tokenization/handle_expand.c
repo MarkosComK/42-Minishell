@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 20:12:39 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/28 13:03:25 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:28:19 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	handle_expand(t_shell *shell, char *input, int i)
 	new_token = ft_calloc(1, sizeof(t_token));
 	new_token->value = str;
 	new_token->type = WORD;
-	new_token->state = GENERAL;
+	new_token->state = EXPAND;
 	ft_lstadd_back(&shell->token_lst, ft_lstnew(new_token));
 	while (ft_isspace(input[i]))
 		i++;
