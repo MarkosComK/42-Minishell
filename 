@@ -1,0 +1,28 @@
+a
+42-Libft
+a
+compile_flags.txt
+includes
+infile
+Makefile
+minishell
+outfile1
+readline.supp
+README.md
+srcs
+96 Oct 31 10:53 .
+drwxr-xr-x  8 marsoare 2024_lisboa   123 Oct 30 19:11 ..
+drwxr-xr-x  3 marsoare 2024_lisboa    64 Oct 31 10:42 42-Libft
+-rw-r--r--  1 marsoare 2024_lisboa   106 Oct 31 10:32 a
+-rw-r--r--  1 marsoare 2024_lisboa    82 Oct 18 15:41 compile_flags.txt
+drwxr-xr-x  9 marsoare 2024_lisboa  4096 Oct 31 10:42 .git
+-rw-r--r--  1 marsoare 2024_lisboa    45 Oct 20 17:02 .gitignore
+-rw-r--r--  1 marsoare 2024_lisboa    86 Oct 18 15:17 .gitmodules
+drwxr-xr-x  2 marsoare 2024_lisboa  4096 Oct 31 10:42 includes
+-rw-r--r--  1 marsoare 2024_lisboa     6 Oct 31 10:04 infile
+-rw-r--r--  1 marsoare 2024_lisboa  2829 Oct 29 20:57 Makefile
+-rwxr-xr-x  1 marsoare 2024_lisboa 99160 Oct 31 10:53 minishell
+-rw-r--r--  1 marsoare 2024_lisboa     0 Oct 31 09:35 outfile1
+-rw-r--r--  1 marsoare 2024_lisboa   137 Oct 18 15:17 readline.supp
+-rw-r--r--  1 marsoare 2024_lisboa  2498 Oct 29 20:57 README.md
+drwxr-xr-x 12 marsoare 2024_lisboa  4096 Oct 31 10:42 srcs

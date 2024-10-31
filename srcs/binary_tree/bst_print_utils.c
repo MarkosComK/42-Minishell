@@ -47,7 +47,7 @@ void	print_outfiles(t_list *outfiles, int space)
 	i = 0;
 	while (outfiles)
 	{
-		printf("%s", (char *)outfiles->content);
+		printf("%s", (char *)((t_outf *)outfiles->content)->name);
 		if (outfiles->next)
 			printf(", ");
 		outfiles = outfiles->next;
