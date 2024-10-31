@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 20:12:39 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/31 16:28:19 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:23:35 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,28 @@ int	handle_expand(t_shell *shell, char *input, int i)
 
 int	prcs_expansion(t_shell *shell, char **str, char *input, int i)
 {
-	if (input[i] == '$')
-		i = expand_unquoted(shell, str, input, i);
-	else if (input[i] == '"')
+	while (input[i])
 	{
-		i++;
-		while (input[i] && (input[i] != '$' && input[i] != '"'))
-			*str = ft_strjoin_char(*str, input[i++]);
 		if (input[i] == '$')
-			i = expand_quoted(shell, str, input, i);
-		while (input[i] && (input[i] != '$' && input[i] != '"'))
-			*str = ft_strjoin_char(*str, input[i++]);
-		if (input[i] == '"')
+			i = expand_unquoted(shell, str, input, i);
+		else if (input[i] == '"')
+		{
 			i++;
-	}
-	else if (input[i] == '\'')
-	{
-		i = expand_single(shell, str, input, i);
+			while (input[i] && input[i] != '$' && input[i] != '"')
+				*str = ft_strjoin_char(*str, input[i++]);
+			if (input[i] == '$')
+				i = expand_quoted(shell, str, input, i);
+			while (input[i] && input[i] != '$' && input[i] != '"')
+				*str = ft_strjoin_char(*str, input[i++]);
+			if (input[i] == '"')
+				i++;
+		}
+		else if (input[i] == '\'')
+		{
+			i = expand_single(shell, str, input, i);
+		}
+		else
+			*str = ft_strjoin_char(*str, input[i++]);
 	}
 	return (i);
 }
