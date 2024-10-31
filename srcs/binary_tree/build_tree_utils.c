@@ -47,10 +47,7 @@ t_list	*get_infiles(t_shell *shell, t_list **token_lst)
 	t_list	*current;
 	char	*content;
 
-	current = *token_lst;
-	infiles = malloc(sizeof(char *));
-	if (!infiles)
-		exit_failure(shell, "get_infiles");
+	infiles = NULL;
 	current = *token_lst;
 	while (current && ((t_token *)current->content)->type == INFILE)
 	{

@@ -74,7 +74,7 @@ void	print_exec(char **argv, int space)
 	}
 }
 
-void	print_infiles(char **outfiles, int space)
+void	print_infiles(t_list *infiles, int space)
 {
 	int	i;
 
@@ -86,12 +86,12 @@ void	print_infiles(char **outfiles, int space)
 	}
 	printf("[INFILES]: ");
 	i = 0;
-	while (outfiles[i])
+	while (infiles)
 	{
-		printf("%s", outfiles[i]);
-		if (outfiles[i + 1])
+		printf("%s", (char *)infiles->content);
+		if (infiles->next)
 			printf(", ");
-		i++;
+		infiles = infiles->next;
 	}
 	printf("\n");
 }

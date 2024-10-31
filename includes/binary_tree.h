@@ -57,7 +57,7 @@ void	print_bst_exec(t_exec *node, int space);
 void	print_bst_exec(t_exec *node, int space);
 void	print_outfiles(char **outfiles, int space);
 void	print_exec(char **argv, int space);
-void	print_infiles(char **outfiles, int space);
+void	print_infiles(t_list *infiles, int space);
 
 //build_tree.c
 void	*build_tree(t_shell *shell, t_list *token_list);

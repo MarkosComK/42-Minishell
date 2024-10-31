@@ -14,22 +14,20 @@
 
 void	handle_infiles(t_shell *shell, t_exec *exec_node)
 {
-	int		i;
 	int		fd;
 
-	i = 0;
 	if (exec_node->infiles)
 	{
-		while (exec_node->infiles[i])
+		while (exec_node->infiles)
 		{
-			fd = open(exec_node->infiles[i], O_RDONLY);
+			fd = open(exec_node->infiles->content, O_RDONLY);
 			if (fd < 0)
 			{
-				infile_failure(shell, exec_node->infiles[i]);
+				infile_failure(shell, exec_node->infiles->content);
 			}
 			dup2(fd, STDIN_FILENO);
 			close(fd);
-			i++;
+			exec_node->infiles = exec_node->infiles->next;
 		}
 	}
 }

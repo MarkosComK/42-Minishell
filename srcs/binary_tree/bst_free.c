@@ -41,6 +41,7 @@ void	free_pipe_children(t_pipe *pipe)
 void	free_exec(t_exec *node)
 {
 	int	i;
+	t_list	*tmp;
 
 	i = 0;
 	if (node)
@@ -49,8 +50,15 @@ void	free_exec(t_exec *node)
 			free(node->argv);
 		if (node->infiles)
 		{
-			ft_lstclear(&node->infiles, free);
+			while (node->infiles)
+			{
+				tmp = node->infiles->next;
+				free(node->infiles->content);
+				free(node->infiles);
+				node->infiles = tmp;
+			}
 		}
+		free(node->infiles);
 		i = 0;
 		if (node->outfiles)
 		{
