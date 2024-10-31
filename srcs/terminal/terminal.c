@@ -74,16 +74,14 @@ void	free_shell(t_shell *shell)
 		free(shell->token_lst);
 		shell->token_lst = tmp;
 	}
-	free_env_vars(shell);
-	/*
 	while (shell->envp)
 	{
 		tmp = shell->envp->next;
+		free(((t_env *)shell->envp->content)->value);
 		free(shell->envp->content);
 		free(shell->envp);
-<<<<<<< HEAD
-		shell->envp= tmp;
-	}*/
+		shell->envp = tmp;
+	}
 	i = 0;
 	if (shell->envp_arr)
 	{
@@ -112,21 +110,4 @@ void	free_shell(t_shell *shell)
 	if (shell->cwd)
 		free(shell->cwd);
 	ft_bzero(shell, sizeof(t_shell));
-}
-
-void free_env_vars(t_shell *shell) 
-{
-    t_list *current = shell->envp;
-
-    while (current) {
-        t_env *env = (t_env *)current->content; 
-        if (env) {
-            free(env->value);
-            free(env->content); 
-            free(env); 
-        }
-        t_list *temp = current;
-        current = current->next;
-        free(temp);
-    }
 }

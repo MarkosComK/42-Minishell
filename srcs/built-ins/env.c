@@ -74,6 +74,7 @@ int	get_path(t_shell *shell, t_list **path_list, char *path, int i)
 
 void	print_env_lst(t_list *lst)
 {
+	(void) lst;
 	while (lst)
 	{
 		printf("%s", (char *)((t_env *)lst->content)->value);
