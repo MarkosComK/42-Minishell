@@ -40,7 +40,7 @@ void	free_pipe_children(t_pipe *pipe)
 
 void	free_outf(void *content)
 {
-	const t_outf *outfile = (t_outf *)content;
+	const t_outf	*outfile = (t_outf *)content;
 
 	if (outfile)
 	{
@@ -58,29 +58,10 @@ void	free_exec(t_exec *node)
 		if (node->infiles)
 		{
 			ft_lstclear(&node->infiles, free);
-			/*
-			while (node->infiles)
-			{
-				tmp = node->infiles->next;
-				free(node->infiles->content);
-				free(node->infiles);
-				node->infiles = tmp;
-			}
-			*/
 		}
 		free(node->infiles);
 		if (node->outfiles)
 		{
-			/*
-			while (node->outfiles)
-			{
-				t_list *tmp = node->outfiles->next;
-				free(((t_outf *)node->outfiles->content)->name);
-				free(node->outfiles->content);
-				free(node->outfiles);
-				node->outfiles = tmp;
-			}
-			*/
 			ft_lstclear(&node->outfiles, free_outf);
 		}
 		free(node->outfiles);
