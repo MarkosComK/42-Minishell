@@ -69,6 +69,7 @@ t_list	*get_outfiles(t_shell *shell, t_list **token_lst)
 
 	outfiles = NULL;
 	current = *token_lst;
+	printf("token: %s\n", (char *)current->content);
 	while (current && (((t_token *)current->content)->type == OUTFILE
 			|| ((t_token *)current->content)->type == APPEND))
 	{
@@ -78,6 +79,7 @@ t_list	*get_outfiles(t_shell *shell, t_list **token_lst)
 		else
 			content->type = ADD;
 		content->name = ft_strdup(((t_token *)current->next->content)->value);
+		//printf("YOURE CREATING A OUTF: %s\n", content->name);
 		ft_lstadd_back(&outfiles, ft_lstnew(content));
 		if (!outfiles)
 			exit_failure(shell, "get_infiles");
