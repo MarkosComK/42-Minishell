@@ -28,7 +28,6 @@
 # include <utils.h>
 # include <builtins.h>
 # include <binary_tree.h>
-# include <environment.h>
 # include <exec.h>
 # include <sys/wait.h>
 # include <sys/stat.h>

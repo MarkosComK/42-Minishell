@@ -37,30 +37,24 @@ t_env	*create_node_env(t_shell *shell, char **envp, int index)
 {
 	t_env	*node;
 
-	node = ft_calloc(1, sizeof(t_env));
+	node = malloc(sizeof(t_env));
 	if (!node)
 		exit_failure(shell, "create_node_env");
 	node->key = index;
 	node->value = env_value(shell, *envp);
-	node->content = env_content(shell, *envp);
+	node->content = "example";
 	return (node);
 }
 
 char	*env_value(t_shell *shell, char *env)
 {
-	int		i;
 	char	*value;
 
-	value = ft_calloc(sizeof(char), (env_len(env, 1) + 1));
+	printf("env_len_1:%i\n", val_len(env));
+	value = malloc(sizeof(char *) * (val_len(env) + 1));
 	if (!value)
 		exit_failure(shell, "env_value");
-	i = 0;
-	while (env[i] && env[i] != '=')
-	{
-		value[i] = env[i];
-		i++;
-	}
-	value[i] = '\0';
+	ft_strlcpy(value, env, env_len(env, 1) + 1);
 	return (value);
 }
 
@@ -83,28 +77,13 @@ char	*env_content(t_shell *shell, char *env)
 	return (content);
 }
 
-int	env_len(char *env, int flag)
+int	val_len(char *env)
 {
 	int	i;
-	int	size_content;
 
 	i = 0;
-	size_content = 0;
-	if (flag == 1)
-	{
-		while (env[i] && env[i] != '=')
-			i++;
-		return (i);
-	}
-	else
-	{
-		while (env[i] && env[i] != '=')
-			i++;
-		while (env[i])
-		{
-			i++;
-			size_content++;
-		}
-		return (size_content);
-	}
+	while (env[i] && env[i] != '=')
+		i++;
+	i++;
+	return (i);
 }

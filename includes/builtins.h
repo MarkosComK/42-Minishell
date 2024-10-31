@@ -24,6 +24,13 @@ int		is_builtin(const char *command);
 int		ft_echo(t_exec *exec_node);
 int		echo_flag_n(char *arg);
 void	echo_output(char **args, int idx, int newline);
+
+//ENV
+char	**env_arr(t_shell *shell);
+t_list	*path_list(t_shell *shell, char **envp);
+int		get_path(t_shell *shell, t_list **path_list, char *path, int i);
+void	print_env_lst(t_list *lst);
+
 // PWD
 void	ft_pwd(void);
 int		check_pwd(t_exec *exec_node);
