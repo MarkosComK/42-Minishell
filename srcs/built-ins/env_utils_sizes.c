@@ -1,27 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   env_utils_sizes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 17:03:14 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/10/29 18:19:09 by hluiz-ma         ###   ########.fr       */
+/*   Created: 2024/10/31 15:59:43 by marsoare          #+#    #+#             */
+/*   Updated: 2024/10/31 16:00:05 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	ft_pwd(void)
+int	content_size(char *env)
 {
-	char	cwd[PATH_MAX];
+	int	i;
+	int	j;
 
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
-	{
-		printf("%s\n", cwd);
-	}
-	else
-	{
-		perror("pwd error:");
-	}
+	i = 0;
+	j = 0;
+	while (env[i] && env[i] != '=')
+		i++;
+	i++;
+	while (env[j] && env[j] != '\0')
+		j++;
+	return (j - i);
+}
+
+int	val_size(char *env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i] && env[i] != '=')
+		i++;
+	i++;
+	return (i);
 }
