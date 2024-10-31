@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 16:14:07 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/31 16:33:22 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:36:35 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	print_token_lst(t_list *lst)
 	printf("+-----------------+------------+--------------+--------+\n");
 	printf("|     Value       |    Type    |    State     |  Pos   |\n");
 	printf("+-----------------+------------+--------------+--------+\n");
-	printf("+-----------------+------------+--------------+--------+\n");
 	while (lst)
 	{
 		token = (t_token *)lst->content;
@@ -48,6 +47,7 @@ void	print_token_lst(t_list *lst)
 		printf("%-6d |\n", token->pos);
 		lst = lst->next;
 	}
+	printf("+-----------------+------------+--------------+--------+\n");
 }
 
 void	token_loop(t_token *token)
