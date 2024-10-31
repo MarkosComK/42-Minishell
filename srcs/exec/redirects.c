@@ -34,22 +34,20 @@ void	handle_infiles(t_shell *shell, t_exec *exec_node)
 
 void	handle_outfiles(t_shell *shell, t_exec *exec_node)
 {
-	int		i;
 	int		fd;
 
-	i = 0;
 	if (exec_node->outfiles)
 	{
-		while (exec_node->outfiles[i])
+		while (exec_node->outfiles)
 		{
-			fd = open(exec_node->outfiles[i], O_RDWR | O_CREAT, 0644);
+			fd = open(exec_node->outfiles->content, O_RDWR | O_CREAT, 0644);
 			if (fd < 0)
 			{
-				outfile_failure(shell, exec_node->outfiles[i]);
+				outfile_failure(shell, exec_node->outfiles->content);
 			}
 			dup2(fd, STDOUT_FILENO);
 			close(fd);
-			i++;
+			exec_node->outfiles = exec_node->outfiles->next;
 		}
 	}
 }

@@ -1,9 +1,10 @@
-teste
-ft
+42-Libft
 a
+abc
 b
 c
 compile_flags.txt
+example
 includes
 infile
 Makefile

@@ -33,7 +33,7 @@ void	print_bst_exec(t_exec *node, int space)
 		print_infiles(node->infiles, space);
 }
 
-void	print_outfiles(char **outfiles, int space)
+void	print_outfiles(t_list *outfiles, int space)
 {
 	int	i;
 
@@ -45,12 +45,12 @@ void	print_outfiles(char **outfiles, int space)
 	}
 	printf("[OUTFILES]: ");
 	i = 0;
-	while (outfiles[i])
+	while (outfiles)
 	{
-		printf("%s", outfiles[i]);
-		if (outfiles[i + 1])
+		printf("%s", (char *)outfiles->content);
+		if (outfiles->next)
 			printf(", ");
-		i++;
+		outfiles = outfiles->next;
 	}
 	printf("\n");
 }

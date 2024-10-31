@@ -39,7 +39,7 @@ typedef struct s_exec
 	char		*command;
 	char		**argv;
 	t_list		*infiles;
-	char		**outfiles;
+	t_list		*outfiles;
 }				t_exec;
 
 //bst_free.c
@@ -55,7 +55,7 @@ void	print_bst_exec(t_exec *node, int space);
 
 //bst_print_utils.c
 void	print_bst_exec(t_exec *node, int space);
-void	print_outfiles(char **outfiles, int space);
+void	print_outfiles(t_list *outfiles, int space);
 void	print_exec(char **argv, int space);
 void	print_infiles(t_list *infiles, int space);
 
@@ -68,7 +68,7 @@ void	*create_exec(t_shell *shell, t_list *token_lst);
 //build_tree_utils.c
 char	**get_argv(t_shell *shell, t_list **token_lst);
 t_list	*get_infiles(t_shell *shell, t_list **token_lst);
-char	**get_outfiles(t_shell *shell, t_list **token_lst);
+t_list	*get_outfiles(t_shell *shell, t_list **token_lst);
 char	**get_colors(t_shell *shell, char **argv);
 
 #endif
