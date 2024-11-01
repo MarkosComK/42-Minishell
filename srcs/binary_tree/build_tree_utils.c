@@ -41,24 +41,21 @@ char	**get_argv(t_shell *shell, t_list **token_lst)
 	return (argv[argc] = NULL, argv);
 }
 
-t_list	*get_infiles(t_shell *shell, t_list **token_lst)
+t_list	*get_infiles(t_shell *shell, t_list **token_lst, t_list **infiles)
 {
-	t_list	*infiles;
 	t_list	*current;
 	char	*content;
 
-	infiles = NULL;
 	current = *token_lst;
-	while (current && ((t_token *)current->content)->type == INFILE)
+	if (current && ((t_token *)current->content)->type == INFILE)
 	{
 		content = ft_strdup(((t_token *)current->next->content)->value);
-		ft_lstadd_back(&infiles, ft_lstnew(content));
-		if (!infiles)
+		if (!content)
 			exit_failure(shell, "get_infiles");
-		current = current->next->next;
-		*token_lst = (*token_lst)->next->next;
+		ft_lstadd_back(infiles, ft_lstnew(content));
+		return (current->next->next);
 	}
-	return (infiles);
+	return (current);
 }
 
 t_list	*get_outfiles(t_shell *shell, t_list **token_lst)
@@ -69,7 +66,6 @@ t_list	*get_outfiles(t_shell *shell, t_list **token_lst)
 
 	outfiles = NULL;
 	current = *token_lst;
-	printf("token: %s\n", (char *)current->content);
 	while (current && (((t_token *)current->content)->type == OUTFILE
 			|| ((t_token *)current->content)->type == APPEND))
 	{

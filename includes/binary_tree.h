@@ -79,7 +79,7 @@ void	*create_exec(t_shell *shell, t_list *token_lst);
 
 //build_tree_utils.c
 char	**get_argv(t_shell *shell, t_list **token_lst);
-t_list	*get_infiles(t_shell *shell, t_list **token_lst);
+t_list	*get_infiles(t_shell *shell, t_list **token_lst, t_list **infiles);
 t_list	*get_outfiles(t_shell *shell, t_list **token_lst);
 char	**get_colors(t_shell *shell, char **argv);
 

@@ -62,14 +62,7 @@ t_list	*get_args(t_shell *shell, t_list *token_lst, t_list	**infiles, t_list	**o
 	flag = 1;
 	while (current && ((t_token *)current->content)->type != PIPE)
 	{
-		if (current && ((t_token *)current->content)->type == INFILE)
-		{
-			char	*content;
-			content = ft_strdup(((t_token *)current->next->content)->value);
-			ft_lstadd_back(infiles, ft_lstnew(content));
-			current = current->next->next;
-			continue ;
-		}
+		current = get_infiles(shell, &current, infiles);
 		if (current && (((t_token *)current->content)->type == OUTFILE
 			|| ((t_token *)current->content)->type == APPEND))
 		{
@@ -88,6 +81,7 @@ t_list	*get_args(t_shell *shell, t_list *token_lst, t_list	**infiles, t_list	**o
 			word = current;
 			flag = 0;
 		}
+		printf("cmd: %p\n", current);
 		current = current->next;
 	}
 	return (word);
