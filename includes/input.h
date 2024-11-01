@@ -30,11 +30,6 @@ bool	check_redirs(char *str);
 //input_validation_utils.c
 bool	ft_isquote(char c);
 int		ft_isredir(char *c);
-
-//quote_parser.c
-char	*quote_space_parser(char *argv);
-int		counter(char *str, char c);
-char	*space_to_minus(char *str);
-char	*dequote_single(char *str);
+void	toggle_quotes(char c, bool *in_single_quote, bool *in_double_quote);
 
 #endif

@@ -35,3 +35,11 @@ int	ft_isredir(char *c)
 	}
 	return (0);
 }
+
+void	toggle_quotes(char c, bool *in_single_quote, bool *in_double_quote)
+{
+	if (c == '\'' && !*in_double_quote)
+		*in_single_quote = !*in_single_quote;
+	else if (c == '\"' && !*in_single_quote)
+		*in_double_quote = !*in_double_quote;
+}
