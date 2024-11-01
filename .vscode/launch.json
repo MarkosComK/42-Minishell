@@ -24,3 +24,25 @@
             }
         ]
     }
+
+    {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "type": "lldb",
+                "request": "launch",
+                "name": "Debug Minishell",
+                "program": "${workspaceFolder}/minishell",
+                "args": [],
+                "cwd": "${workspaceFolder}",
+                "terminal": "integrated",
+                "expressions": "native",
+                "initCommands": [
+                    "settings set target.display-string-max-length 1024",
+                    "type format add --format string \"char *\"",
+                    "type summary add --summary-string \"${var%s}\" \"char *\"",
+                    "type summary add -e --summary-string \"value = '${var.value%s}' content = '${var.content%s}'\" t_env"
+                ]
+            }
+        ]
+    }
