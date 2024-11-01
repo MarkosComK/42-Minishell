@@ -74,7 +74,8 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 		if (ft_strcmp(node->argv[0], "ls") == 0)
 			node->argv = get_colors(shell, node->argv);
 	}
-	if (token_lst && ((t_token *)token_lst->content)->type == OUTFILE)
+	if (token_lst && (((t_token *)token_lst->content)->type == OUTFILE
+			|| ((t_token *)token_lst->content)->type == APPEND))
 		node->outfiles = get_outfiles(shell, &token_lst);
 	return (node);
 }
