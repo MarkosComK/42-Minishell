@@ -23,16 +23,17 @@ typedef struct s_env
 	char	*content;
 }				t_env;
 
-// EXEC
-int		exec_builtin(t_shell *shell, t_exec *exec_node);
+//builtins_utils.c
 int		is_builtin(const char *command);
+int		exec_builtin(t_shell *shell, t_exec *exec_node);
+void	ft_putendl_fd_pt(char *s, int fd);
 
-// ECHO
+//echo.c
 int		ft_echo(t_exec *exec_node);
 int		echo_flag_n(char *arg);
 void	echo_output(char **args, int idx, int newline);
 
-//ENV
+//env.c
 char	**env_arr(t_shell *shell);
 t_list	*path_list(t_shell *shell, char **envp);
 int		get_path(t_shell *shell, t_list **path_list, char *path, int i);
@@ -48,13 +49,14 @@ char	*get_content(t_shell *shell, char *env);
 int		content_size(char *env);
 int		val_size(char *env);
 
-// PWD
+//exit.c ~ empty
+
+//export.c ~ empty
+
+//pwd.c
 void	ft_pwd(void);
 int		check_pwd(t_exec *exec_node);
 
-//UTILS
-void	ft_putendl_fd_pt(char *s, int fd);
-
-void	test_echo(void);
+//unset.c ~ empty
 
 #endif
