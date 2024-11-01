@@ -38,28 +38,33 @@ void	free_pipe_children(t_pipe *pipe)
 	free(pipe);
 }
 
+void	free_outf(void *content)
+{
+	const t_outf	*outfile = (t_outf *)content;
+
+	if (outfile)
+	{
+		free(outfile->name);
+		free((void *)outfile);
+	}
+}
+
 void	free_exec(t_exec *node)
 {
-	int	i;
-
-	i = 0;
 	if (node)
 	{
 		if (node->argv)
 			free(node->argv);
 		if (node->infiles)
 		{
-			while (node->infiles[i])
-				free(node->infiles[i++]);
-			free(node->infiles);
+			ft_lstclear(&node->infiles, free);
 		}
-		i = 0;
+		free(node->infiles);
 		if (node->outfiles)
 		{
-			while (node->outfiles[i])
-				free(node->outfiles[i++]);
-			free(node->outfiles);
+			ft_lstclear(&node->outfiles, free_outf);
 		}
+		free(node->outfiles);
 		free(node);
 	}
 }

@@ -26,6 +26,7 @@ void	infile_failure(t_shell *shell, char *file)
 
 	errno = 0;
 	stat(file, &file_stat);
+	is_directory(shell, file);
 	if (errno == ENOENT)
 	{
 		ft_putstr_fd(MINISHELL " " DEFAULT, 2);
@@ -51,6 +52,7 @@ void	outfile_failure(t_shell *shell, char *file)
 
 	errno = 0;
 	stat(file, &file_stat);
+	is_directory(shell, file);
 	if (S_ISDIR(file_stat.st_mode))
 	{
 		ft_putstr_fd(MINISHELL " " DEFAULT, 2);
