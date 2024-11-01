@@ -69,7 +69,6 @@ t_list	*get_outfiles(t_shell *shell, t_list **token_lst)
 
 	outfiles = NULL;
 	current = *token_lst;
-	printf("token: %s\n", (char *)current->content);
 	while (current && (((t_token *)current->content)->type == OUTFILE
 			|| ((t_token *)current->content)->type == APPEND))
 	{
