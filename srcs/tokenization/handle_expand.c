@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 20:12:39 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/28 13:03:25 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:23:35 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	handle_expand(t_shell *shell, char *input, int i)
 	new_token = ft_calloc(1, sizeof(t_token));
 	new_token->value = str;
 	new_token->type = WORD;
-	new_token->state = GENERAL;
+	new_token->state = EXPAND;
 	ft_lstadd_back(&shell->token_lst, ft_lstnew(new_token));
 	while (ft_isspace(input[i]))
 		i++;
@@ -43,23 +43,28 @@ int	handle_expand(t_shell *shell, char *input, int i)
 
 int	prcs_expansion(t_shell *shell, char **str, char *input, int i)
 {
-	if (input[i] == '$')
-		i = expand_unquoted(shell, str, input, i);
-	else if (input[i] == '"')
+	while (input[i] && !ft_isspace(input[i]) && !ft_ismeta(input, i))
 	{
-		i++;
-		while (input[i] && (input[i] != '$' && input[i] != '"'))
-			*str = ft_strjoin_char(*str, input[i++]);
 		if (input[i] == '$')
-			i = expand_quoted(shell, str, input, i);
-		while (input[i] && (input[i] != '$' && input[i] != '"'))
-			*str = ft_strjoin_char(*str, input[i++]);
-		if (input[i] == '"')
+			i = expand_unquoted(shell, str, input, i);
+		else if (input[i] == '"')
+		{
 			i++;
-	}
-	else if (input[i] == '\'')
-	{
-		i = expand_single(shell, str, input, i);
+			while (input[i] && input[i] != '$' && input[i] != '"')
+				*str = ft_strjoin_char(*str, input[i++]);
+			if (input[i] == '$')
+				i = expand_quoted(shell, str, input, i);
+			while (input[i] && input[i] != '$' && input[i] != '"')
+				*str = ft_strjoin_char(*str, input[i++]);
+			if (input[i] == '"')
+				i++;
+		}
+		else if (input[i] == '\'')
+		{
+			i = expand_single(shell, str, input, i);
+		}
+		else if (!ft_ismeta(input, i))
+			*str = ft_strjoin_char(*str, input[i++]);
 	}
 	return (i);
 }

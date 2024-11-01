@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:36:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/24 05:06:01 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:10:06 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,33 +102,40 @@ bool	check_quotes_pos(char *str)
  * (Pipes cannot have space between them OR start at the input)
  * Input cannot end with a pipe
  */
+void	toggle_quotes(char c, bool *in_single_quote, bool *in_double_quote)
+{
+	if (c == '\'' && !*in_double_quote)
+		*in_single_quote = !*in_single_quote;
+	else if (c == '\"' && !*in_single_quote)
+		*in_double_quote = !*in_double_quote;
+}
+
 bool	check_pipes(char *str)
 {
-	int	i;
+	int		i;
+	bool	in_single_quote;
+	bool	in_double_quote;
 
 	i = 0;
+	in_single_quote = false;
+	in_double_quote = false;
 	if (str[i] == '|')
 		return (false);
 	while (str[i])
 	{
-		while (isspace(str[i]))
-			i++;
-		if (str[i] == '|')
+		toggle_quotes(str[i], &in_single_quote, &in_double_quote);
+		if (str[i] == '|' && !in_single_quote && !in_double_quote)
 		{
 			if (str[i + 1] == '|' || str[i + 1] == '\0')
 				return (false);
-			i++;
-			while (isspace(str[i]))
-				i++;
+			while (ft_isspace(str[++i]))
+				;
 			if (str[i] == '|')
 				return (false);
 		}
-		else
-			i++;
+		i++;
 	}
-	if (str[i - 1] == '|')
-		return (false);
-	return (true);
+	return (str[i - 1] != '|' || in_single_quote || in_double_quote);
 }
 
 bool	check_redirs(char *str)
