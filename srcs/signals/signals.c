@@ -20,6 +20,7 @@ void	sig_main(int signo)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+		exit_code(130);
 	}
 }
 
