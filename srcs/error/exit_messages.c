@@ -35,10 +35,7 @@ void	infile_failure(t_shell *shell, char *file)
 		err_msg = ": Permission denied";
 	else
 		return ;
-	ft_putstr_fd(MINISHELL " " DEFAULT, 2);
-	ft_putstr_fd(file, 2);
-	ft_putendl_fd(err_msg, 2);
-	free_shell(shell);
+	path_message(shell, file, err_msg);
 	exit(1);
 }
 
@@ -57,10 +54,7 @@ void	outfile_failure(t_shell *shell, char *file)
 		err_msg = ": Permission denied";
 	else
 		return ;
-	ft_putstr_fd(MINISHELL " " DEFAULT, 2);
-	ft_putstr_fd(file, 2);
-	ft_putendl_fd(err_msg, 2);
-	free_shell(shell);
+	path_message(shell, file, err_msg);
 	exit(1);
 }
 
@@ -68,29 +62,28 @@ void	outfile_failure(t_shell *shell, char *file)
 void	is_directory(t_shell *shell, char *path)
 {
 	struct stat	path_stat;
+	char		*error_msg;
+	int			exit_code;
 
-	errno = 0;
-	stat(path, &path_stat);
-	if (!path)
+	if (!path || !ft_strchr(path, '/'))
 		return ;
-	if (ft_strchr(path, '/'))
+	errno = 0;
+	exit_code = 126;
+	error_msg = NULL;
+	stat(path, &path_stat);
+	if (errno == ENOENT)
 	{
-		if (errno == ENOENT)
-		{
-			ft_putstr_fd(MINISHELL " " DEFAULT, 2);
-			ft_putstr_fd(path, 2);
-			free_shell(shell);
-			ft_putendl_fd(": No such file or directory", 2);
-			exit(127);
-		}
-		else if (S_ISDIR(path_stat.st_mode))
-		{
-			ft_putstr_fd(MINISHELL " " DEFAULT, 2);
-			ft_putstr_fd(path, 2);
-			free_shell(shell);
-			ft_putendl_fd(": Is a directory", 2);
-			exit(126);
-		}
+		error_msg = ": No such file or directory";
+		exit_code = 127;
+	}
+	else if (S_ISDIR(path_stat.st_mode))
+		error_msg = ": Is a directory";
+	else if (errno == EACCES || !(path_stat.st_mode & S_IWUSR))
+		error_msg = ": Permission denied";
+	if (error_msg)
+	{
+		path_message(shell, path, error_msg);
+		exit(exit_code);
 	}
 }
 

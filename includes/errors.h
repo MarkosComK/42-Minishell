@@ -40,5 +40,6 @@ void	exec_failure(t_shell *shell, char *cmd, char **argv);
 
 //printers.c
 bool	syntax_error_msg(char *str);
+void	path_message(t_shell *shell, char *path, char *error_msg);
 
 #endif
