@@ -46,15 +46,13 @@ t_token_type	token_type(char *value);
 
 //create_token_lst.c
 void			tokenize_input(t_shell *shell, char *input);
-
-//expand_tokens.c
-void			expand_tokens(t_shell *shell);
-
-//t_list	*tokenize_input(const char *input);
 int				handle_word_token(t_shell *shell, char *input, int i);
 int				handle_redir(t_shell *shell, char *input, int i);
 int				handle_pipe(t_shell *shell, char *input, int i);
 int				handle_quotes(t_shell *shell, char *input, int i);
+
+//expand_tokens.c
+void			expand_tokens(t_shell *shell);
 
 //ft_joinstrs.c
 int				join_strs(t_shell *shell, char **str, char *input, int i);
@@ -73,9 +71,6 @@ char			*ft_strjoin_char(char *str, char c);
 
 //lexer.c
 void			lexer(t_shell *shell, char	*input);
-
-//remove_qutes.c
-void			remove_quotes(t_shell *shell);
 
 //set_token_pos.c
 void			set_token_pos(t_list *lst);
