@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 18:49:40 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/10/31 16:01:07 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/01 18:51:22 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 typedef struct s_env
 {
-	int		key;
 	char	*value;
 	char	*content;
 }				t_env;
@@ -41,7 +40,7 @@ void	print_env_lst(t_list *lst);
 
 //env_utils.c
 t_list	*env_list(t_shell *shell, char **envp);
-t_env	*create_node_env(t_shell *shell, char **envp, int index);
+t_env	*create_node_env(t_shell *shell, char **envp);
 char	*get_value(t_shell *shell, char *env);
 char	*get_content(t_shell *shell, char *env);
 
@@ -52,6 +51,10 @@ int		val_size(char *env);
 //exit.c ~ empty
 
 //export.c ~ empty
+void ft_export(t_shell *shell, char **args);
+void    export_var(t_shell *shell, const char *arg);
+void upt_env_var(t_shell *shell, char *value, char *content);
+char	*create_value(t_shell *shell, const char *arg, char *equal);
 
 //pwd.c
 void	ft_pwd(void);
