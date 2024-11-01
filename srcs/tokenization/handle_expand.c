@@ -43,27 +43,25 @@ int	handle_expand(t_shell *shell, char *input, int i)
 
 int	prcs_expansion(t_shell *shell, char **str, char *input, int i)
 {
+	int	flag;
+
+	flag = 0;
 	while (input[i] && !ft_isspace(input[i]) && !ft_ismeta(input, i))
 	{
 		if (input[i] == '$')
 			i = expand_unquoted(shell, str, input, i);
-		else if (input[i] == '"')
+		flag = ft_flag(input[i], &i, flag);
+		while (input[i] && flag)
 		{
-			i++;
 			while (input[i] && input[i] != '$' && input[i] != '"')
 				*str = ft_strjoin_char(*str, input[i++]);
 			if (input[i] == '$')
 				i = expand_quoted(shell, str, input, i);
-			while (input[i] && input[i] != '$' && input[i] != '"')
-				*str = ft_strjoin_char(*str, input[i++]);
-			if (input[i] == '"')
-				i++;
+			flag = ft_flag(input[i], &i, flag);
 		}
-		else if (input[i] == '\'')
-		{
+		if (input[i] && input[i] == '\'')
 			i = expand_single(shell, str, input, i);
-		}
-		else if (!ft_ismeta(input, i))
+		else if (input[i] && !ft_ismeta(input, i))
 			*str = ft_strjoin_char(*str, input[i++]);
 	}
 	return (i);
