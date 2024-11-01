@@ -58,30 +58,27 @@ t_list	*get_infiles(t_shell *shell, t_list **token_lst, t_list **infiles)
 	return (current);
 }
 
-t_list	*get_outfiles(t_shell *shell, t_list **token_lst)
+t_list	*get_outfiles(t_shell *shell, t_list **token_lst, t_list **outfiles)
 {
-	t_list	*outfiles;
 	t_list	*current;
 	t_outf	*content;
 
-	outfiles = NULL;
 	current = *token_lst;
-	while (current && (((t_token *)current->content)->type == OUTFILE
-			|| ((t_token *)current->content)->type == APPEND))
+	if (current && (((t_token *)current->content)->type == OUTFILE
+		|| ((t_token *)current->content)->type == APPEND))
 	{
 		content = malloc(sizeof(t_outf));
+		if (!content)
+			exit_failure(shell, "get_outfiles");
 		if (((t_token *)current->content)->type == APPEND)
 			content->type = APP;
 		else
 			content->type = ADD;
 		content->name = ft_strdup(((t_token *)current->next->content)->value);
-		ft_lstadd_back(&outfiles, ft_lstnew(content));
-		if (!outfiles)
-			exit_failure(shell, "get_infiles");
-		current = current->next->next;
-		*token_lst = (*token_lst)->next->next;
+		ft_lstadd_back(outfiles, ft_lstnew(content));
+		return (current->next->next);
 	}
-	return (outfiles);
+	return (current);
 }
 
 char	**get_colors(t_shell *shell, char **argv)

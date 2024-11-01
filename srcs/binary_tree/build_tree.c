@@ -51,42 +51,6 @@ void	*insert_node(t_shell *shell, void *node, t_list *token_lst)
 	return (pipe);
 }
 
-t_list	*get_args(t_shell *shell, t_list *token_lst, t_list	**infiles, t_list	**outfiles)
-{
-	t_list	*current;
-	t_list	*word;
-	int		flag;
-
-	current = token_lst;
-	(void) shell;
-	flag = 1;
-	while (current && ((t_token *)current->content)->type != PIPE)
-	{
-		current = get_infiles(shell, &current, infiles);
-		if (current && (((t_token *)current->content)->type == OUTFILE
-			|| ((t_token *)current->content)->type == APPEND))
-		{
-			t_outf	*content = malloc(sizeof(t_outf));
-			if (((t_token *)current->content)->type == APPEND)
-				content->type = APP;
-			else
-				content->type = ADD;
-			content->name = ft_strdup(((t_token *)current->next->content)->value);
-			ft_lstadd_back(outfiles, ft_lstnew(content));
-			current = current->next->next;
-			continue ;
-		}
-		if (current && ((t_token *)current->content)->type == WORD && flag)
-		{
-			word = current;
-			flag = 0;
-		}
-		printf("cmd: %p\n", current);
-		current = current->next;
-	}
-	return (word);
-}
-
 void	*create_exec(t_shell *shell, t_list *token_lst)
 {
 	t_exec	*node;
@@ -121,4 +85,34 @@ void	*create_pipe(t_shell *shell, t_exec *left, t_exec *right)
 	node->left = left;
 	node->right = right;
 	return (node);
+}
+
+t_list	*get_args(t_shell *shell, t_list *tkn_lst, t_list	**inf,
+		t_list	**out)
+{
+	t_list	*word;
+	int		flag;
+
+	flag = 1;
+	while (tkn_lst && ((t_token *)tkn_lst->content)->type != PIPE)
+	{
+		if (tkn_lst && ((t_token *)tkn_lst->content)->type == INFILE)
+		{
+			tkn_lst = get_infiles(shell, &tkn_lst, inf);
+			continue ;
+		}
+		if (tkn_lst && (((t_token *)tkn_lst->content)->type == OUTFILE
+				|| ((t_token *)tkn_lst->content)->type == APPEND))
+		{
+			tkn_lst = get_outfiles(shell, &tkn_lst, out);
+			continue ;
+		}
+		if (tkn_lst && ((t_token *)tkn_lst->content)->type == WORD && flag)
+		{
+			word = tkn_lst;
+			flag = 0;
+		}
+		tkn_lst = tkn_lst->next;
+	}
+	return (word);
 }
