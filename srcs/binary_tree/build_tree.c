@@ -81,10 +81,14 @@ t_list	*get_args(t_shell *shell, t_exec **node, t_list *token_lst, t_list	**infi
 		}
 		if (current && ((t_token *)current->content)->type == WORD)
 		{
+			printf("mem: %p\n", (*node));
 			(*node)->command = ((t_token *)current->content)->value;
+			printf("node->cmd: %s\n", (*node)->command);
 			(*node)->argv = get_argv(shell, &token_lst);
 			if (ft_strcmp((*node)->argv[0], "ls") == 0)
 				(*node)->argv = get_colors(shell, (*node)->argv);
+			current = current->next;
+			continue ;
 		}
 		current = current->next;
 	}
@@ -105,7 +109,9 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 	node->command = NULL;
 	node->argv = NULL;
 	node->outfiles = NULL;
+	printf("mem_sned: %p\n", node);
 	get_args(shell, &node, token_lst, &node->infiles, &node->outfiles);
+	printf("cmd: %s\n", node->command);
 	return (node);
 }
 
