@@ -65,7 +65,7 @@ t_list	*get_outfiles(t_shell *shell, t_list **token_lst, t_list **outfiles)
 
 	current = *token_lst;
 	if (current && (((t_token *)current->content)->type == OUTFILE
-		|| ((t_token *)current->content)->type == APPEND))
+			|| ((t_token *)current->content)->type == APPEND))
 	{
 		content = malloc(sizeof(t_outf));
 		if (!content)
