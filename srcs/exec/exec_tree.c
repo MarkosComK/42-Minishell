@@ -12,19 +12,6 @@
 
 #include <minishell.h>
 
-/*
-void	exec_tree(t_shell *shell, void *root)
-{
-	char	*cmd_path = find_cmd_path(shell->path, ((t_exec *)root)->command);
-	printf("cmd_path: %s\n", cmd_path);
-	if (execve(cmd_path, ((t_exec *)root)->argv, NULL) == -1)
-	{
-		free_shell(shell);
-		exit(1);
-	}
-}
-*/
-
 void	exec_tree(t_shell *shell, void *root)
 {
 	if (((t_node *)root)->type == N_PIPE)

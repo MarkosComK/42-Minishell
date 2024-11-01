@@ -43,7 +43,7 @@ void	handle_outfiles(t_shell *shell, t_exec *exec_node)
 		{
 			outf = ((t_outf *)exec_node->outfiles->content);
 			if (outf->type == APP)
-				fd = open(outf->name, O_RDWR | O_CREAT | O_APPEND , 0644);
+				fd = open(outf->name, O_RDWR | O_CREAT | O_APPEND, 0644);
 			else if (outf->type == ADD)
 				fd = open(outf->name, O_RDWR | O_CREAT | O_TRUNC, 0644);
 			if (fd < 0)

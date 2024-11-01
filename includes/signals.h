@@ -17,7 +17,6 @@
 void	sig_main(int signo);
 void	set_main_signals(void);
 void	handle_signals(void);
-void	sig_fork1(int signo);
 void	set_fork1_signal(void);
 
 #endif

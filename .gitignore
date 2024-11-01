@@ -3,3 +3,4 @@
 */*.o
 compile_flags.txt
 minishell
+readline.supp

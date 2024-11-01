@@ -102,14 +102,6 @@ bool	check_quotes_pos(char *str)
  * (Pipes cannot have space between them OR start at the input)
  * Input cannot end with a pipe
  */
-void	toggle_quotes(char c, bool *in_single_quote, bool *in_double_quote)
-{
-	if (c == '\'' && !*in_double_quote)
-		*in_single_quote = !*in_single_quote;
-	else if (c == '\"' && !*in_single_quote)
-		*in_double_quote = !*in_double_quote;
-}
-
 bool	check_pipes(char *str)
 {
 	int		i;

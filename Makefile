@@ -19,7 +19,7 @@ INCLUDE  = -L${LIBFTDIR}/src -lft -lreadline
 VALGRIND = valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --suppressions=readline.supp
 ENV      = env -i ${VALGRIND}
 
-all: submodule ${LIBFTDIR} ${NAME}
+all: submodule ${LIBFTDIR} ${NAME} ${OBJS}
 
 submodule:
 	@git submodule update --init --recursive
@@ -63,8 +63,22 @@ fclean: clean
 	@echo "┗┛┗┛┗┛┛┗┛┗┗┛┻┛"
 	@echo
 
-test: ${NAME}
+test: ${NAME} readline.supp
 	${VALGRIND} ./${NAME}
+
+readline.supp:
+	echo "{" > readline.supp
+	echo "    leak readline" >> readline.supp
+	echo "    Memcheck:Leak" >> readline.supp
+	echo "    ..." >> readline.supp
+	echo "    fun:readline" >> readline.supp
+	echo "}" >> readline.supp
+	echo "{" >> readline.supp
+	echo "    leak add_history" >> readline.supp
+	echo "    Memcheck:Leak" >> readline.supp
+	echo "    ..." >> readline.supp
+	echo "    fun:add_history" >> readline.supp
+	echo "}" >> readline.supp
 
 env: ${NAME}
 	${ENV} ./${NAME}
