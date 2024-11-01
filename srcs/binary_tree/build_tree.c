@@ -51,11 +51,15 @@ void	*insert_node(t_shell *shell, void *node, t_list *token_lst)
 	return (pipe);
 }
 
-t_list	*get_args(t_shell *shell, t_exec **node, t_list *token_lst, t_list	**infiles, t_list	**outfiles)
+t_list	*get_args(t_shell *shell, t_list *token_lst, t_list	**infiles, t_list	**outfiles)
 {
 	t_list	*current;
+	t_list	*word;
+	int		flag;
 
 	current = token_lst;
+	(void) shell;
+	flag = 1;
 	while (current && ((t_token *)current->content)->type != PIPE)
 	{
 		if (current && ((t_token *)current->content)->type == INFILE)
@@ -79,25 +83,20 @@ t_list	*get_args(t_shell *shell, t_exec **node, t_list *token_lst, t_list	**infi
 			current = current->next->next;
 			continue ;
 		}
-		if (current && ((t_token *)current->content)->type == WORD)
+		if (current && ((t_token *)current->content)->type == WORD && flag)
 		{
-			printf("mem: %p\n", (*node));
-			(*node)->command = ((t_token *)current->content)->value;
-			printf("node->cmd: %s\n", (*node)->command);
-			(*node)->argv = get_argv(shell, &token_lst);
-			if (ft_strcmp((*node)->argv[0], "ls") == 0)
-				(*node)->argv = get_colors(shell, (*node)->argv);
-			current = current->next;
-			continue ;
+			word = current;
+			flag = 0;
 		}
 		current = current->next;
 	}
-	return (NULL);
+	return (word);
 }
 
 void	*create_exec(t_shell *shell, t_list *token_lst)
 {
 	t_exec	*node;
+	t_list	*current;
 
 	if (!token_lst)
 		return (NULL);
@@ -109,9 +108,11 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 	node->command = NULL;
 	node->argv = NULL;
 	node->outfiles = NULL;
-	printf("mem_sned: %p\n", node);
-	get_args(shell, &node, token_lst, &node->infiles, &node->outfiles);
-	printf("cmd: %s\n", node->command);
+	current = get_args(shell, token_lst, &node->infiles, &node->outfiles);
+	node->command = ((t_token *)current->content)->value;
+	node->argv = get_argv(shell, &current);
+	if (ft_strcmp(node->argv[0], "ls") == 0)
+		node->argv = get_colors(shell, node->argv);
 	return (node);
 }
 
