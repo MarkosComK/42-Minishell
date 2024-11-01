@@ -51,6 +51,46 @@ void	*insert_node(t_shell *shell, void *node, t_list *token_lst)
 	return (pipe);
 }
 
+t_list	*get_args(t_shell *shell, t_exec **node, t_list *token_lst, t_list	**infiles, t_list	**outfiles)
+{
+	t_list	*current;
+
+	current = token_lst;
+	while (current && ((t_token *)current->content)->type != PIPE)
+	{
+		if (current && ((t_token *)current->content)->type == INFILE)
+		{
+			char	*content;
+			content = ft_strdup(((t_token *)current->next->content)->value);
+			ft_lstadd_back(infiles, ft_lstnew(content));
+			current = current->next->next;
+			continue ;
+		}
+		if (current && (((t_token *)current->content)->type == OUTFILE
+			|| ((t_token *)current->content)->type == APPEND))
+		{
+			t_outf	*content = malloc(sizeof(t_outf));
+			if (((t_token *)current->content)->type == APPEND)
+				content->type = APP;
+			else
+				content->type = ADD;
+			content->name = ft_strdup(((t_token *)current->next->content)->value);
+			ft_lstadd_back(outfiles, ft_lstnew(content));
+			current = current->next->next;
+			continue ;
+		}
+		if (current && ((t_token *)current->content)->type == WORD)
+		{
+			(*node)->command = ((t_token *)current->content)->value;
+			(*node)->argv = get_argv(shell, &token_lst);
+			if (ft_strcmp((*node)->argv[0], "ls") == 0)
+				(*node)->argv = get_colors(shell, (*node)->argv);
+		}
+		current = current->next;
+	}
+	return (NULL);
+}
+
 void	*create_exec(t_shell *shell, t_list *token_lst)
 {
 	t_exec	*node;
@@ -65,18 +105,7 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 	node->command = NULL;
 	node->argv = NULL;
 	node->outfiles = NULL;
-	if (((t_token *)token_lst->content)->type == INFILE)
-		node->infiles = get_infiles(shell, &token_lst);
-	if (((t_token *)token_lst))
-	{
-		node->command = ((t_token *)token_lst->content)->value;
-		node->argv = get_argv(shell, &token_lst);
-		if (ft_strcmp(node->argv[0], "ls") == 0)
-			node->argv = get_colors(shell, node->argv);
-	}
-	if (token_lst && (((t_token *)token_lst->content)->type == OUTFILE
-			|| ((t_token *)token_lst->content)->type == APPEND))
-		node->outfiles = get_outfiles(shell, &token_lst);
+	get_args(shell, &node, token_lst, &node->infiles, &node->outfiles);
 	return (node);
 }
 
