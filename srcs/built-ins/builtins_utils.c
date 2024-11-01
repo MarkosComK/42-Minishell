@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:03:28 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/10/28 21:29:48 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:38:00 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	exec_builtin(t_shell *shell, t_exec *exec_node)
 	if (ft_strcmp(exec_node->argv[0], "echo") == 0)
 		return (ft_echo(exec_node));
 	if (ft_strcmp(exec_node->argv[0], "pwd") == 0)
-		return (check_pwd(exec_node));
+		return (ft_pwd(), 0);
 	if (ft_strcmp(exec_node->argv[0], "env") == 0)
 		return (print_env_lst(shell->envp), 0);
 	return (1);

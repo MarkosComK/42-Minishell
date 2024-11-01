@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   terminal.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
 /*   Updated: 2024/10/29 21:17:52 by marsoare         ###   ########.fr       */
@@ -79,6 +79,8 @@ void	free_shell(t_shell *shell)
 	while (shell->envp)
 	{
 		tmp = shell->envp->next;
+		free(((t_env *)shell->envp->content)->value);
+		free(((t_env *)shell->envp->content)->content);
 		free(shell->envp->content);
 		free(shell->envp);
 		shell->envp = tmp;

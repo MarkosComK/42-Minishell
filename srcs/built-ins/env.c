@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 20:24:30 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/10/28 21:25:42 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:14:03 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,6 @@ char	**env_arr(t_shell *shell)
 	}
 	env_arr[i] = NULL;
 	return (env_arr);
-}
-
-t_list	*env_list(t_shell *shell, char **envp)
-{
-	t_list	*env_list;
-	char	*content;
-
-	env_list = NULL;
-	if (!envp || !*envp)
-		return (printf("empty env\n"), NULL);
-	while (*envp)
-	{
-		content = ft_strdup(*envp);
-		if (!content)
-			exit_failure(shell, "env_list");
-		ft_lstadd_back(&env_list, ft_lstnew(content));
-		(envp)++;
-	}
-	return (env_list);
 }
 
 t_list	*path_list(t_shell *shell, char **envp)
@@ -93,9 +74,11 @@ int	get_path(t_shell *shell, t_list **path_list, char *path, int i)
 
 void	print_env_lst(t_list *lst)
 {
+	(void) lst;
 	while (lst)
 	{
-		printf("%s\n", (char *)lst->content);
+		printf("%s", (char *)((t_env *)lst->content)->value);
+		printf("%s\n", (char *)((t_env *)lst->content)->content);
 		lst = lst->next;
 	}
 }
