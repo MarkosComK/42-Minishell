@@ -19,7 +19,7 @@ INCLUDE  = -L${LIBFTDIR}/src -lft -lreadline
 VALGRIND = valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --suppressions=readline.supp
 ENV      = env -i ${VALGRIND}
 
-all: submodule ${LIBFTDIR} ${NAME}
+all: submodule ${LIBFTDIR} ${NAME} ${OBJS}
 
 submodule:
 	@git submodule update --init --recursive
