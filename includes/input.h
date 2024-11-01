@@ -31,5 +31,6 @@ bool	check_redirs(char *str);
 bool	ft_isquote(char c);
 int		ft_isredir(char *c);
 void	toggle_quotes(char c, bool *in_single_quote, bool *in_double_quote);
+int		jump_quotes(char *str, int i);
 
 #endif
