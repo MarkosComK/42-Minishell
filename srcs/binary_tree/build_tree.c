@@ -67,10 +67,13 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 	node->argv = NULL;
 	node->outfiles = NULL;
 	current = get_args(shell, token_lst, &node->infiles, &node->outfiles);
-	node->command = ((t_token *)current->content)->value;
-	node->argv = get_argv(shell, &current);
-	if (ft_strcmp(node->argv[0], "ls") == 0)
-		node->argv = get_colors(shell, node->argv);
+	if (current)
+	{
+		node->command = ((t_token *)current->content)->value;
+		node->argv = get_argv(shell, &current);
+		if (ft_strcmp(node->argv[0], "ls") == 0)
+			node->argv = get_colors(shell, node->argv);
+	}
 	return (node);
 }
 
@@ -94,6 +97,7 @@ t_list	*get_args(t_shell *shell, t_list *tkn_lst, t_list	**inf,
 	int		flag;
 
 	flag = 1;
+	word = NULL;
 	while (tkn_lst && ((t_token *)tkn_lst->content)->type != PIPE)
 	{
 		if (tkn_lst && ((t_token *)tkn_lst->content)->type == INFILE)
