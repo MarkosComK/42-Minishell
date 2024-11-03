@@ -95,9 +95,7 @@ void	*create_pipe(t_shell *shell, t_exec *left, t_exec *right)
 t_list	*get_name(t_list *tkn_lst)
 {
 	t_list	*word;
-	int		flag;
 
-	flag = 1;
 	word = NULL;
 	while (tkn_lst && ((t_token *)tkn_lst->content)->type != PIPE)
 	{
@@ -112,11 +110,8 @@ t_list	*get_name(t_list *tkn_lst)
 			tkn_lst = tkn_lst->next->next;
 			continue ;
 		}
-		if (tkn_lst && ((t_token *)tkn_lst->content)->type == WORD && flag)
-		{
-			word = tkn_lst;
-			flag = 0;
-		}
+		if (tkn_lst && ((t_token *)tkn_lst->content)->type == WORD)
+			return (tkn_lst);
 		tkn_lst = tkn_lst->next;
 	}
 	return (word);
