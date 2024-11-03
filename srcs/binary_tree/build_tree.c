@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 17:40:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/24 16:42:30 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/03 22:47:20 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,7 @@ t_list	*get_name(t_list *tkn_lst)
 		{
 			if (tkn_lst && ((t_token *)tkn_lst->content)->state != EXPAND
 				&& ft_strlen(((t_token *)tkn_lst->content)->value) != 0)
-			{
 				return (tkn_lst);
-			}
 		}
 		tkn_lst = tkn_lst->next;
 	}
