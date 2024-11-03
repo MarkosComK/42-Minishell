@@ -12,31 +12,31 @@
 
 #include <minishell.h>
 
-char	**get_argv(t_shell *shell, t_list **token_lst)
+char	**get_argv(t_shell *shell, t_list *token_lst)
 {
 	t_list	*current;
 	int		argc;
 	char	**argv;
 	int		i;
 
-	current = *token_lst;
+	current = token_lst;
 	argc = 0;
 	i = 0;
-	while (current && ((t_token *)current->content)->type == WORD)
-	{
-		argc++;
-		current = current->next;
-	}
+	argc = count_args(current);
 	argv = malloc((argc + 1) * sizeof(char *));
 	if (!argv)
 		exit_failure(shell, "get_argv");
-	current = *token_lst;
-	while (i < argc)
+	current = token_lst;
+	while (current && ((t_token *)current->content)->type != PIPE && i < argc)
 	{
-		argv[i] = ((t_token *)current->content)->value;
-		current = current->next;
-		*token_lst = (*token_lst)->next;
-		i++;
+		if (current && ((t_token *)current->content)->type == WORD)
+		{
+			argv[i] = ((t_token *)current->content)->value;
+			current = current->next;
+			i++;
+			continue ;
+		}
+		current = current->next->next;
 	}
 	return (argv[argc] = NULL, argv);
 }
@@ -109,3 +109,29 @@ char	**get_colors(t_shell *shell, char **argv)
 	free(argv);
 	return (colors);
 }
+
+int	count_args(t_list *tkn_lst)
+{
+	int		args;
+
+	args = 0;
+	while (tkn_lst && ((t_token *)tkn_lst->content)->type != PIPE)
+	{
+		if (tkn_lst && ((t_token *)tkn_lst->content)->type == INFILE)
+		{
+			tkn_lst = tkn_lst->next->next;
+			continue ;
+		}
+		if (tkn_lst && (((t_token *)tkn_lst->content)->type == OUTFILE
+				|| ((t_token *)tkn_lst->content)->type == APPEND))
+		{
+			tkn_lst = tkn_lst->next->next;
+			continue ;
+		}
+		if (tkn_lst && ((t_token *)tkn_lst->content)->type == WORD)
+			args++;
+		tkn_lst = tkn_lst->next;
+	}
+	return (args);
+}
+
