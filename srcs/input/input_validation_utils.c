@@ -43,3 +43,14 @@ void	toggle_quotes(char c, bool *in_single_quote, bool *in_double_quote)
 	else if (c == '\"' && !*in_single_quote)
 		*in_double_quote = !*in_double_quote;
 }
+
+int	jump_quotes(char *str, int i)
+{
+	if (ft_isquote(str[i]))
+	{
+		i++;
+		while (!ft_isquote(str[i]))
+			i++;
+	}
+	return (i);
+}

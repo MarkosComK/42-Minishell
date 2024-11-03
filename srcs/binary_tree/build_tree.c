@@ -54,6 +54,7 @@ void	*insert_node(t_shell *shell, void *node, t_list *token_lst)
 void	*create_exec(t_shell *shell, t_list *token_lst)
 {
 	t_exec	*node;
+	t_list	*current;
 
 	if (!token_lst)
 		return (NULL);
@@ -65,18 +66,11 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 	node->command = NULL;
 	node->argv = NULL;
 	node->outfiles = NULL;
-	if (((t_token *)token_lst->content)->type == INFILE)
-		node->infiles = get_infiles(shell, &token_lst);
-	if (((t_token *)token_lst))
-	{
-		node->command = ((t_token *)token_lst->content)->value;
-		node->argv = get_argv(shell, &token_lst);
-		if (ft_strcmp(node->argv[0], "ls") == 0)
-			node->argv = get_colors(shell, node->argv);
-	}
-	if (token_lst && (((t_token *)token_lst->content)->type == OUTFILE
-			|| ((t_token *)token_lst->content)->type == APPEND))
-		node->outfiles = get_outfiles(shell, &token_lst);
+	current = get_args(shell, token_lst, &node->infiles, &node->outfiles);
+	node->command = ((t_token *)current->content)->value;
+	node->argv = get_argv(shell, &current);
+	if (ft_strcmp(node->argv[0], "ls") == 0)
+		node->argv = get_colors(shell, node->argv);
 	return (node);
 }
 
@@ -91,4 +85,34 @@ void	*create_pipe(t_shell *shell, t_exec *left, t_exec *right)
 	node->left = left;
 	node->right = right;
 	return (node);
+}
+
+t_list	*get_args(t_shell *shell, t_list *tkn_lst, t_list	**inf,
+		t_list	**out)
+{
+	t_list	*word;
+	int		flag;
+
+	flag = 1;
+	while (tkn_lst && ((t_token *)tkn_lst->content)->type != PIPE)
+	{
+		if (tkn_lst && ((t_token *)tkn_lst->content)->type == INFILE)
+		{
+			tkn_lst = get_infiles(shell, &tkn_lst, inf);
+			continue ;
+		}
+		if (tkn_lst && (((t_token *)tkn_lst->content)->type == OUTFILE
+				|| ((t_token *)tkn_lst->content)->type == APPEND))
+		{
+			tkn_lst = get_outfiles(shell, &tkn_lst, out);
+			continue ;
+		}
+		if (tkn_lst && ((t_token *)tkn_lst->content)->type == WORD && flag)
+		{
+			word = tkn_lst;
+			flag = 0;
+		}
+		tkn_lst = tkn_lst->next;
+	}
+	return (word);
 }

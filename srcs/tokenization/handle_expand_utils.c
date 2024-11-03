@@ -33,3 +33,13 @@ char	*ft_strjoin_char(char *str, char c)
 	free(str);
 	return (new_str);
 }
+
+int	ft_flag(char c, int *i, bool flag)
+{
+	if (c == '"')
+	{
+		*i = *i + 1;
+		return (!flag);
+	}
+	return (flag);
+}

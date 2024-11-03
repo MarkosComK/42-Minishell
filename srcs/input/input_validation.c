@@ -138,6 +138,7 @@ bool	check_redirs(char *str)
 	i = 0;
 	while (str[i])
 	{
+		i = jump_quotes(str, i);
 		redir_len = ft_isredir(&str[i]);
 		if (redir_len > 0)
 		{
