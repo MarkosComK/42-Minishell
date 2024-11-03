@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:38:47 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/03 22:40:20 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/03 22:46:40 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,3 +25,18 @@ t_list	*check_word(t_list **current, char **argv, int *i)
 	(*i)++;
 	return (*current);
 }
+
+t_list	*check_w_args(t_list *tkn_lst, int *args)
+{
+	if (tkn_lst && ((t_token *)tkn_lst->content)->type == WORD)
+	{
+		if (((t_token *)tkn_lst->content)->state == EXPAND
+			&& ft_strlen(((t_token *)tkn_lst->content)->value) == 0)
+		{
+			return (tkn_lst->next);
+		}
+		(*args)++;
+	}
+	return (tkn_lst->next);
+}
+

@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:21:22 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/03 22:40:12 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/03 22:45:47 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,20 @@ char	**get_colors(t_shell *shell, char **argv)
 	return (colors);
 }
 
+t_list	*check_w_args(t_list *tkn_lst, int *args)
+{
+	if (tkn_lst && ((t_token *)tkn_lst->content)->type == WORD)
+	{
+		if (((t_token *)tkn_lst->content)->state == EXPAND
+			&& ft_strlen(((t_token *)tkn_lst->content)->value) == 0)
+		{
+			return (tkn_lst->next);
+		}
+		(*args)++;
+	}
+	return (tkn_lst->next);
+}
+
 int	count_args(t_list *tkn_lst)
 {
 	int		args;
@@ -126,17 +140,7 @@ int	count_args(t_list *tkn_lst)
 			tkn_lst = tkn_lst->next->next;
 			continue ;
 		}
-		if (tkn_lst && ((t_token *)tkn_lst->content)->type == WORD)
-		{
-			if (tkn_lst && ((t_token *)tkn_lst->content)->state == EXPAND
-				&& ft_strlen(((t_token *)tkn_lst->content)->value) == 0)
-			{
-				tkn_lst = tkn_lst->next;
-				continue ;
-			}
-			args++;
-		}
-		tkn_lst = tkn_lst->next;
+		tkn_lst = check_w_args(tkn_lst, &args);
 	}
 	return (args);
 }
