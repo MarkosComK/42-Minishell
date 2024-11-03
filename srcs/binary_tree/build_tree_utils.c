@@ -63,25 +63,30 @@ t_list	*get_infiles(t_shell *shell, t_list *token_lst, t_list **infiles)
 	return (current);
 }
 
-t_list	*get_outfiles(t_shell *shell, t_list **token_lst, t_list **outfiles)
+t_list	*get_outfiles(t_shell *shell, t_list *token_lst, t_list **outfiles)
 {
 	t_list	*current;
 	t_outf	*content;
 
-	current = *token_lst;
-	if (current && (((t_token *)current->content)->type == OUTFILE
-			|| ((t_token *)current->content)->type == APPEND))
+	current = token_lst;
+	while (current && ((t_token *)current->content)->type != PIPE)
 	{
-		content = malloc(sizeof(t_outf));
-		if (!content)
-			exit_failure(shell, "get_outfiles");
-		if (((t_token *)current->content)->type == APPEND)
-			content->type = APP;
-		else
-			content->type = ADD;
-		content->name = ft_strdup(((t_token *)current->next->content)->value);
-		ft_lstadd_back(outfiles, ft_lstnew(content));
-		return (current->next->next);
+		if (current && (((t_token *)current->content)->type == OUTFILE
+				|| ((t_token *)current->content)->type == APPEND))
+		{
+			content = malloc(sizeof(t_outf));
+			if (!content)
+				exit_failure(shell, "get_outfiles");
+			if (((t_token *)current->content)->type == APPEND)
+				content->type = APP;
+			else
+				content->type = ADD;
+			content->name = ft_strdup(((t_token *)current->next->content)->value);
+			ft_lstadd_back(outfiles, ft_lstnew(content));
+			current = current->next->next;
+			continue ;
+		}
+		current = current->next;
 	}
 	return (current);
 }
