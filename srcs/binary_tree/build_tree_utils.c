@@ -12,15 +12,18 @@
 
 #include <minishell.h>
 
-t_list	*check_expand(t_list *current)
+t_list	*check_expand(t_list **current, char **argv, int *i)
 {
-	if (current && ((t_token *)current->content)->state == EXPAND
-		&& ft_strlen(((t_token *)current->content)->value) == 0)
+	if (*current && ((t_token *)(*current)->content)->state == EXPAND
+		&& ft_strlen(((t_token *)(*current)->content)->value) == 0)
 	{
-		current = current->next;
-		return (current->next);
+		*current = (*current)->next;
+		return (*current);
 	}
-	return (NULL);
+	argv[*i] = ((t_token *)(*current)->content)->value;
+	*current = (*current)->next;
+	(*i)++;
+	return (*current);
 }
 
 char	**get_argv(t_shell *shell, t_list *token_lst)
@@ -42,15 +45,7 @@ char	**get_argv(t_shell *shell, t_list *token_lst)
 	{
 		if (current && ((t_token *)current->content)->type == WORD)
 		{
-			if (current && ((t_token *)current->content)->state == EXPAND
-				&& ft_strlen(((t_token *)current->content)->value) == 0)
-			{
-				current = current->next;
-				continue ;
-			}
-			argv[i] = ((t_token *)current->content)->value;
-			current = current->next;
-			i++;
+			current = check_expand(&current, argv, &i);
 			continue ;
 		}
 		current = current->next->next;
