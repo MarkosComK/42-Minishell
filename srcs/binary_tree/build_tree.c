@@ -67,10 +67,8 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 	node->argv = NULL;
 	node->outfiles = NULL;
 	get_infiles(shell, token_lst, &node->infiles);
-	get_outfiles(shell, token_lst, &node->infiles);
-	printf("current: %p\n", node);
-	//current = get_args(shell, token_lst);
-	current = NULL;
+	get_outfiles(shell, token_lst, &node->outfiles);
+	current = get_args(shell, token_lst);
 	if (current)
 	{
 		node->command = ((t_token *)current->content)->value;
@@ -107,11 +105,13 @@ t_list	*get_args(t_shell *shell, t_list *tkn_lst)
 		if (tkn_lst && ((t_token *)tkn_lst->content)->type == INFILE)
 		{
 			tkn_lst = tkn_lst->next->next;
+			continue ;
 		}
 		if (tkn_lst && (((t_token *)tkn_lst->content)->type == OUTFILE
 				|| ((t_token *)tkn_lst->content)->type == APPEND))
 		{
 			tkn_lst = tkn_lst->next->next;
+			continue ;
 		}
 		if (tkn_lst && ((t_token *)tkn_lst->content)->type == WORD && flag)
 		{

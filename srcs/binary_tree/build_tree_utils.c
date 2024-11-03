@@ -81,7 +81,8 @@ t_list	*get_outfiles(t_shell *shell, t_list *token_lst, t_list **outfiles)
 				content->type = APP;
 			else
 				content->type = ADD;
-			content->name = ft_strdup(((t_token *)current->next->content)->value);
+			content->name = ft_strdup(((t_token *)
+						current->next->content)->value);
 			ft_lstadd_back(outfiles, ft_lstnew(content));
 			current = current->next->next;
 			continue ;
