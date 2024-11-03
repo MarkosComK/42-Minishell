@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/01 20:38:17 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/03 20:49:29 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@ void	shell_input(t_shell *shell)
 
 void	terminal(t_shell *shell, char **envp)
 {
-	ft_bzero(shell, sizeof(t_shell));
+	static int first_run = 1;
+	t_exec *exec;
+
+	//ft_bzero(shell, sizeof(t_shell));
+    init_shell_command(shell);	
 	int	status = 0;
 	handle_signals();
 	shell_input(shell);
@@ -44,7 +48,11 @@ void	terminal(t_shell *shell, char **envp)
 		free_shell(shell);
 		return ;
 	}
-	shell->envp = env_list(shell, envp);
+    if (first_run || is_env_empty(shell)) 
+	{
+        shell->envp = env_list(shell, envp);
+        first_run = 0;
+    }
 	lexer(shell, shell->trim_input);
 	shell->envp_arr = env_arr(shell);
 	shell->path = path_list(shell, envp);
@@ -52,13 +60,33 @@ void	terminal(t_shell *shell, char **envp)
 	//print_token_lst(shell->token_lst);
 	//print_bst(shell->root, 5);
 	set_main_signals();
-	if (fork() == 0)
-		exec_tree(shell, shell->root);
-	waitpid(-1, &status, 0);
-	exit_status(status);
+
+	
+    exec = (t_exec *)shell->root;
+    if (is_parent_builtin(exec))
+    {
+		printf("[DEBUG] Executando builtin no processo pai - comando: %s\n", exec->argv[0]);		
+        exec_parent_builtin(shell, exec);
+    }
+    else 
+    {
+        if (fork() == 0)
+            exec_tree(shell, shell->root);
+		
+        waitpid(-1, &status, 0);
+        exit_status(status);
+    }
+
+	
+//	if (fork() == 0)
+//		exec_tree(shell, shell->root);
+//	waitpid(-1, &status, 0);
+//	exit_status(status);
 	free_shell(shell);
 	terminal(shell, envp);
 }
+
+
 
 void	free_shell(t_shell *shell)
 {

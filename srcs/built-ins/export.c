@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:03:36 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/01 18:54:39 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/03 20:26:54 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void ft_export(t_shell *shell, char **args)
 {
     int i;
     
+	printf("[DEBUG] ft_export no PID: %d (pai: %d)\n", getpid(), getppid());
+	
     if(!args[1])
     {
         print_env_lst(shell->envp);

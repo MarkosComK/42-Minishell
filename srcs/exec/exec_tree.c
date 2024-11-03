@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:43:04 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/29 21:25:48 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/03 15:59:48 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 {
 	int		ret;
 
+    printf("[DEBUG] exec_node no PID: %d (pai: %d) - comando: %s\n",
+           getpid(), getppid(), exec_node->command);
+		   	 
 	handle_infiles(shell, exec_node);
 	handle_outfiles(shell, exec_node);
 	if (exec_node->command && is_builtin(exec_node->command))

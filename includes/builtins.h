@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 18:49:40 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/01 18:51:22 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/03 15:30:30 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ typedef struct s_env
 //builtins_utils.c
 int		is_builtin(const char *command);
 int		exec_builtin(t_shell *shell, t_exec *exec_node);
-void	ft_putendl_fd_pt(char *s, int fd);
+int		exec_parent_builtin(t_shell *shell, t_exec *exec_node);
+int		is_parent_builtin(t_exec *exec_node);	
+int		handle_builtins(t_shell *shell, t_exec *exec_node);
 
 //echo.c
 int		ft_echo(t_exec *exec_node);

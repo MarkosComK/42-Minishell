@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   terminal.h                                         :+:      :+:    :+:   */
+/*   terminal_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 15:47:06 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/03 20:49:38 by hluiz-ma         ###   ########.fr       */
+/*   Created: 2024/11/03 20:33:58 by hluiz-ma          #+#    #+#             */
+/*   Updated: 2024/11/03 20:49:22 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TERMINAL_H
-# define TERMINAL_H
+#include <minishell.h>
 
-# include <structs.h>
+int is_env_empty(t_shell *shell)
+{
+    return (shell->envp == NULL || ft_lstsize(shell->envp) == 0);
+}
 
-void	terminal(t_shell *shell, char **envp);
-void	prepare_shell(t_shell *shell, char **envp);
-void	execute_command(t_shell *shell, int *status);
-int     is_env_empty(t_shell *shell);
-void init_shell_command(t_shell *shell);
-
-
-void	free_shell(t_shell *shell);
-
-#endif
+void init_shell_command(t_shell *shell)
+{
+    shell->input = NULL;
+    shell->trim_input = NULL;
+    shell->token_lst = NULL;
+    shell->root = NULL;
+    shell->cmd_path = NULL;
+    shell->cwd = NULL;
+    shell->path = NULL;
+    shell->envp_arr = NULL;
+}
