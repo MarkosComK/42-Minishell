@@ -62,6 +62,17 @@ char	*create_value(t_shell *shell, const char *arg, char *equal);
 void	ft_pwd(void);
 int		check_pwd(t_exec *exec_node);
 
-//unset.c ~ empty
+//unset.c
+void	ft_unset(t_shell *shell, char **args);
+void	remove_first_node(t_shell *shell, t_list *curr);
+void	remove_node(t_list *prev);
+int	check_first_node(t_shell *shell, const char *var_name);
+t_list	*find_prev_node(t_list *lst, const char *var_name);
+
+
+//unset_utils.c
+int	is_valid_identifier(const char *str);
+void	print_invalid_identifier(char *arg);
+void	remove_env_var(t_shell *shell, const char *var_name);
 
 #endif
