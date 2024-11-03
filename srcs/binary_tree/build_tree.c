@@ -66,11 +66,16 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 	node->command = NULL;
 	node->argv = NULL;
 	node->outfiles = NULL;
-	current = get_args(shell, token_lst, &node->infiles, &node->outfiles);
-	node->command = ((t_token *)current->content)->value;
-	node->argv = get_argv(shell, &current);
-	if (ft_strcmp(node->argv[0], "ls") == 0)
-		node->argv = get_colors(shell, node->argv);
+	get_infiles(shell, token_lst, &node->infiles);
+	get_outfiles(shell, token_lst, &node->outfiles);
+	current = get_name(token_lst);
+	if (current)
+	{
+		node->command = ((t_token *)current->content)->value;
+		node->argv = get_argv(shell, token_lst);
+		if (ft_strcmp(node->argv[0], "ls") == 0)
+			node->argv = get_colors(shell, node->argv);
+	}
 	return (node);
 }
 
@@ -87,31 +92,26 @@ void	*create_pipe(t_shell *shell, t_exec *left, t_exec *right)
 	return (node);
 }
 
-t_list	*get_args(t_shell *shell, t_list *tkn_lst, t_list	**inf,
-		t_list	**out)
+t_list	*get_name(t_list *tkn_lst)
 {
 	t_list	*word;
-	int		flag;
 
-	flag = 1;
+	word = NULL;
 	while (tkn_lst && ((t_token *)tkn_lst->content)->type != PIPE)
 	{
 		if (tkn_lst && ((t_token *)tkn_lst->content)->type == INFILE)
 		{
-			tkn_lst = get_infiles(shell, &tkn_lst, inf);
+			tkn_lst = tkn_lst->next->next;
 			continue ;
 		}
 		if (tkn_lst && (((t_token *)tkn_lst->content)->type == OUTFILE
 				|| ((t_token *)tkn_lst->content)->type == APPEND))
 		{
-			tkn_lst = get_outfiles(shell, &tkn_lst, out);
+			tkn_lst = tkn_lst->next->next;
 			continue ;
 		}
-		if (tkn_lst && ((t_token *)tkn_lst->content)->type == WORD && flag)
-		{
-			word = tkn_lst;
-			flag = 0;
-		}
+		if (tkn_lst && ((t_token *)tkn_lst->content)->type == WORD)
+			return (tkn_lst);
 		tkn_lst = tkn_lst->next;
 	}
 	return (word);

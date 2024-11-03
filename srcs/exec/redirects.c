@@ -15,19 +15,21 @@
 void	handle_infiles(t_shell *shell, t_exec *exec_node)
 {
 	int		fd;
+	t_list	*infiles;
 
-	if (exec_node->infiles)
+	infiles = exec_node->infiles;
+	if (infiles)
 	{
-		while (exec_node->infiles)
+		while (infiles)
 		{
-			fd = open(exec_node->infiles->content, O_RDONLY);
+			fd = open(infiles->content, O_RDONLY);
 			if (fd < 0)
 			{
-				infile_failure(shell, exec_node->infiles->content);
+				infile_failure(shell, infiles->content);
 			}
 			dup2(fd, STDIN_FILENO);
 			close(fd);
-			exec_node->infiles = exec_node->infiles->next;
+			infiles = infiles->next;
 		}
 	}
 }
@@ -36,12 +38,14 @@ void	handle_outfiles(t_shell *shell, t_exec *exec_node)
 {
 	int		fd;
 	t_outf	*outf;
+	t_list	*outfiles;
 
-	if (exec_node->outfiles)
+	outfiles = exec_node->outfiles;
+	if (outfiles)
 	{
-		while (exec_node->outfiles)
+		while (outfiles)
 		{
-			outf = ((t_outf *)exec_node->outfiles->content);
+			outf = ((t_outf *)outfiles->content);
 			if (outf->type == APP)
 				fd = open(outf->name, O_RDWR | O_CREAT | O_APPEND, 0644);
 			else if (outf->type == ADD)
@@ -52,7 +56,7 @@ void	handle_outfiles(t_shell *shell, t_exec *exec_node)
 			}
 			dup2(fd, STDOUT_FILENO);
 			close(fd);
-			exec_node->outfiles = exec_node->outfiles->next;
+			outfiles = outfiles->next;
 		}
 	}
 }
