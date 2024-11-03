@@ -41,19 +41,24 @@ char	**get_argv(t_shell *shell, t_list **token_lst)
 	return (argv[argc] = NULL, argv);
 }
 
-t_list	*get_infiles(t_shell *shell, t_list **token_lst, t_list **infiles)
+t_list	*get_infiles(t_shell *shell, t_list *token_lst, t_list **infiles)
 {
 	t_list	*current;
 	char	*content;
 
-	current = *token_lst;
-	if (current && ((t_token *)current->content)->type == INFILE)
+	current = token_lst;
+	while (current && ((t_token *)current->content)->type != PIPE)
 	{
-		content = ft_strdup(((t_token *)current->next->content)->value);
-		if (!content)
-			exit_failure(shell, "get_infiles");
-		ft_lstadd_back(infiles, ft_lstnew(content));
-		return (current->next->next);
+		if (current && ((t_token *)current->content)->type == INFILE)
+		{
+			content = ft_strdup(((t_token *)current->next->content)->value);
+			if (!content)
+				exit_failure(shell, "get_infiles");
+			ft_lstadd_back(infiles, ft_lstnew(content));
+			current = current->next->next;
+			continue ;
+		}
+		current = current->next;
 	}
 	return (current);
 }
