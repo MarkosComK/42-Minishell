@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:21:22 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/18 16:28:29 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/03 22:48:51 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ char	**get_argv(t_shell *shell, t_list *token_lst)
 	{
 		if (current && ((t_token *)current->content)->type == WORD)
 		{
-			argv[i] = ((t_token *)current->content)->value;
-			current = current->next;
-			i++;
+			current = check_word(&current, argv, &i);
 			continue ;
 		}
 		current = current->next->next;
@@ -128,9 +126,7 @@ int	count_args(t_list *tkn_lst)
 			tkn_lst = tkn_lst->next->next;
 			continue ;
 		}
-		if (tkn_lst && ((t_token *)tkn_lst->content)->type == WORD)
-			args++;
-		tkn_lst = tkn_lst->next;
+		tkn_lst = check_w_args(tkn_lst, &args);
 	}
 	return (args);
 }

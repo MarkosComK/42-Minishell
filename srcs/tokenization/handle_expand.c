@@ -61,7 +61,7 @@ int	prcs_expansion(t_shell *shell, char **str, char *input, int i)
 		}
 		if (input[i] && input[i] == '\'')
 			i = expand_single(shell, str, input, i);
-		else if (input[i] && !ft_ismeta(input, i))
+		else if (input[i] && !ft_ismeta(input, i) && !ft_isspace(input[i]))
 			*str = ft_strjoin_char(*str, input[i++]);
 	}
 	return (i);

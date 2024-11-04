@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:53:24 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/29 21:09:51 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/03 22:46:47 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,9 @@ t_list	*get_infiles(t_shell *shell, t_list *token_lst, t_list **infiles);
 t_list	*get_outfiles(t_shell *shell, t_list *token_lst, t_list **outfiles);
 char	**get_colors(t_shell *shell, char **argv);
 int		count_args(t_list *tkn_lst);
+
+//build_tree_utils2.c
+t_list	*check_word(t_list **current, char **argv, int *i);
+t_list	*check_w_args(t_list *tkn_lst, int *args);
 
 #endif
