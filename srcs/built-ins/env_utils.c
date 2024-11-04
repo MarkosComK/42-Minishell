@@ -14,11 +14,10 @@
 
 t_list	*env_list(t_shell *shell, char **envp)
 {
-	t_list	*env_list;
 	t_env	*content;
 	int		i;
 
-	env_list = NULL;
+	shell->envp = NULL;
 	if (!envp || !*envp)
 		return (printf("empty env\n"), NULL);
 	i = 0;
@@ -27,10 +26,10 @@ t_list	*env_list(t_shell *shell, char **envp)
 		content = create_node_env(shell, &envp[i]);
 		if (!content)
 			exit_failure(shell, "env_list");
-		ft_lstadd_back(&env_list, ft_lstnew(content));
+		ft_lstadd_back(&shell->envp, ft_lstnew(content));
 		i++;
 	}
-	return (env_list);
+	return (NULL);
 }
 
 t_env	*create_node_env(t_shell *shell, char **envp)

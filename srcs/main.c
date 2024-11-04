@@ -27,8 +27,12 @@ int	main(int argc, char *argv[], char *envp[])
 	t_shell	shell;
 	t_list	*tmp;
 
+	for(int i = 0; envp[i]; i++)
+	{
+		printf("%s\n", envp[i]);
+	}
 	check_args(argc, argv, envp);
-    shell.envp = env_list(&shell, envp);
+    env_list(&shell, envp);
 	terminal(&shell, envp);
 	while (shell.envp)
 	{

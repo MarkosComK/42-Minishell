@@ -54,24 +54,18 @@ void	terminal(t_shell *shell, char **envp)
 	print_token_lst(shell->token_lst);
 	print_bst(shell->root, 5);
 	set_main_signals();
-
-	
-    exec = (t_exec *)shell->root;
-    if (is_parent_builtin(exec))
-    {
-		printf("[DEBUG] Executando builtin no processo pai - comando: %s\n", exec->argv[0]);		
-        exec_parent_builtin(shell, exec);
-    }
-    else 
-    {
-        if (fork() == 0)
-            exec_tree(shell, shell->root);
-		
-        waitpid(-1, &status, 0);
-        exit_status(status);
-    }
-
-	
+	exec = (t_exec *)shell->root;
+	if (is_parent_builtin(exec))
+	{
+		exec_parent_builtin(shell, exec);
+	}
+	else 
+	{
+		if (fork() == 0)
+			exec_tree(shell, shell->root);
+		waitpid(-1, &status, 0);
+		exit_status(status);
+	}
 //	if (fork() == 0)
 //		exec_tree(shell, shell->root);
 //	waitpid(-1, &status, 0);
@@ -79,8 +73,6 @@ void	terminal(t_shell *shell, char **envp)
 	free_shell(shell);
 	terminal(shell, envp);
 }
-
-
 
 void	free_shell(t_shell *shell)
 {
