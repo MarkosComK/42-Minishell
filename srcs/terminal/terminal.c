@@ -27,11 +27,10 @@ void	shell_input(t_shell *shell)
 
 void	terminal(t_shell *shell, char **envp)
 {
-	t_exec *exec;
+	t_exec	*exec = NULL;
+	int		status = 0;
 
-	//ft_bzero(shell, sizeof(t_shell));
     start_shell(shell);	
-	int	status = 0;
 	handle_signals();
 	shell_input(shell);
 	shell->input = readline(shell->cwd);
@@ -54,22 +53,19 @@ void	terminal(t_shell *shell, char **envp)
 	print_token_lst(shell->token_lst);
 	print_bst(shell->root, 5);
 	set_main_signals();
-	exec = (t_exec *)shell->root;
-	if (is_parent_builtin(exec))
+	if (((t_node *)shell->root)->type == N_EXEC)
 	{
-		exec_parent_builtin(shell, exec);
+		exec = (t_exec *)shell->root;
+		if (is_parent_builtin(exec))
+			exec_parent_builtin(shell, exec);
 	}
-	else 
+	else
 	{
 		if (fork() == 0)
 			exec_tree(shell, shell->root);
 		waitpid(-1, &status, 0);
-		exit_status(status);
 	}
-//	if (fork() == 0)
-//		exec_tree(shell, shell->root);
-//	waitpid(-1, &status, 0);
-//	exit_status(status);
+	exit_status(status);
 	free_shell(shell);
 	terminal(shell, envp);
 }
