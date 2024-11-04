@@ -26,7 +26,8 @@ char	**env_arr(t_shell *shell)
 	i = 0;
 	while (envp_list)
 	{
-		env_arr[i] = ft_strdup(envp_list->content);
+		env_arr[i] = ft_strjoin(((t_env *)envp_list->content)->value,
+				((t_env *)envp_list->content)->content);
 		if (!env_arr[i])
 			exit_failure(shell, "env_arr_1");
 		envp_list = envp_list->next;
