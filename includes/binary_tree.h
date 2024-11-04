@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:53:24 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/29 21:09:51 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/03 22:46:47 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,17 @@ void	*build_tree(t_shell *shell, t_list *token_list);
 void	*insert_node(t_shell *shell, void *node, t_list *token_lst);
 void	*create_pipe(t_shell *shell, t_exec *left, t_exec *right);
 void	*create_exec(t_shell *shell, t_list *token_lst);
-t_list	*get_args(t_shell *shell, t_list *tkn_lst, t_list	**inf,
-			t_list	**out);
+t_list	*get_name(t_list *tkn_lst);
 
 //build_tree_utils.c
-char	**get_argv(t_shell *shell, t_list **token_lst);
-t_list	*get_infiles(t_shell *shell, t_list **token_lst, t_list **infiles);
-t_list	*get_outfiles(t_shell *shell, t_list **token_lst, t_list **outfiles);
+char	**get_argv(t_shell *shell, t_list *token_lst);
+t_list	*get_infiles(t_shell *shell, t_list *token_lst, t_list **infiles);
+t_list	*get_outfiles(t_shell *shell, t_list *token_lst, t_list **outfiles);
 char	**get_colors(t_shell *shell, char **argv);
+int		count_args(t_list *tkn_lst);
+
+//build_tree_utils2.c
+t_list	*check_word(t_list **current, char **argv, int *i);
+t_list	*check_w_args(t_list *tkn_lst, int *args);
 
 #endif

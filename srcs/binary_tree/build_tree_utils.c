@@ -6,77 +6,86 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:21:22 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/18 16:28:29 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/03 22:48:51 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	**get_argv(t_shell *shell, t_list **token_lst)
+char	**get_argv(t_shell *shell, t_list *token_lst)
 {
 	t_list	*current;
 	int		argc;
 	char	**argv;
 	int		i;
 
-	current = *token_lst;
+	current = token_lst;
 	argc = 0;
 	i = 0;
-	while (current && ((t_token *)current->content)->type == WORD)
-	{
-		argc++;
-		current = current->next;
-	}
+	argc = count_args(current);
 	argv = malloc((argc + 1) * sizeof(char *));
 	if (!argv)
 		exit_failure(shell, "get_argv");
-	current = *token_lst;
-	while (i < argc)
+	current = token_lst;
+	while (current && ((t_token *)current->content)->type != PIPE && i < argc)
 	{
-		argv[i] = ((t_token *)current->content)->value;
-		current = current->next;
-		*token_lst = (*token_lst)->next;
-		i++;
+		if (current && ((t_token *)current->content)->type == WORD)
+		{
+			current = check_word(&current, argv, &i);
+			continue ;
+		}
+		current = current->next->next;
 	}
 	return (argv[argc] = NULL, argv);
 }
 
-t_list	*get_infiles(t_shell *shell, t_list **token_lst, t_list **infiles)
+t_list	*get_infiles(t_shell *shell, t_list *token_lst, t_list **infiles)
 {
 	t_list	*current;
 	char	*content;
 
-	current = *token_lst;
-	if (current && ((t_token *)current->content)->type == INFILE)
+	current = token_lst;
+	while (current && ((t_token *)current->content)->type != PIPE)
 	{
-		content = ft_strdup(((t_token *)current->next->content)->value);
-		if (!content)
-			exit_failure(shell, "get_infiles");
-		ft_lstadd_back(infiles, ft_lstnew(content));
-		return (current->next->next);
+		if (current && ((t_token *)current->content)->type == INFILE)
+		{
+			content = ft_strdup(((t_token *)current->next->content)->value);
+			if (!content)
+				exit_failure(shell, "get_infiles");
+			ft_lstadd_back(infiles, ft_lstnew(content));
+			current = current->next->next;
+			continue ;
+		}
+		current = current->next;
 	}
 	return (current);
 }
 
-t_list	*get_outfiles(t_shell *shell, t_list **token_lst, t_list **outfiles)
+t_list	*get_outfiles(t_shell *shell, t_list *token_lst, t_list **outfiles)
 {
 	t_list	*current;
 	t_outf	*content;
 
-	current = *token_lst;
-	if (current && (((t_token *)current->content)->type == OUTFILE
-			|| ((t_token *)current->content)->type == APPEND))
+	current = token_lst;
+	while (current && ((t_token *)current->content)->type != PIPE)
 	{
-		content = malloc(sizeof(t_outf));
-		if (!content)
-			exit_failure(shell, "get_outfiles");
-		if (((t_token *)current->content)->type == APPEND)
-			content->type = APP;
-		else
-			content->type = ADD;
-		content->name = ft_strdup(((t_token *)current->next->content)->value);
-		ft_lstadd_back(outfiles, ft_lstnew(content));
-		return (current->next->next);
+		if (current && (((t_token *)current->content)->type == OUTFILE
+				|| ((t_token *)current->content)->type == APPEND))
+		{
+			content = malloc(sizeof(t_outf));
+			if (!content)
+				exit_failure(shell, "get_outfiles");
+			if (((t_token *)current->content)->type == APPEND)
+				content->type = APP;
+			else
+				content->type = ADD;
+			content->name = ft_strdup(((t_token *)
+						current->next->content)->value);
+			ft_lstadd_back(outfiles, ft_lstnew(content));
+			current = current->next->next;
+			continue ;
+		}
+		current = current->next;
 	}
 	return (current);
 }
@@ -97,4 +106,27 @@ char	**get_colors(t_shell *shell, char **argv)
 	colors[i + 1] = NULL;
 	free(argv);
 	return (colors);
+}
+
+int	count_args(t_list *tkn_lst)
+{
+	int		args;
+
+	args = 0;
+	while (tkn_lst && ((t_token *)tkn_lst->content)->type != PIPE)
+	{
+		if (tkn_lst && ((t_token *)tkn_lst->content)->type == INFILE)
+		{
+			tkn_lst = tkn_lst->next->next;
+			continue ;
+		}
+		if (tkn_lst && (((t_token *)tkn_lst->content)->type == OUTFILE
+				|| ((t_token *)tkn_lst->content)->type == APPEND))
+		{
+			tkn_lst = tkn_lst->next->next;
+			continue ;
+		}
+		tkn_lst = check_w_args(tkn_lst, &args);
+	}
+	return (args);
 }
