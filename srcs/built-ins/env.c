@@ -45,7 +45,7 @@ t_list	*path_list(t_shell *shell, char **envp)
 
 	(void)envp;
 	path_list = NULL;
-	path = getenv("PATH");
+	path = sh_get_env(shell->envp, "PATH");
 	if (path == NULL)
 		return (NULL);
 	i = 0;

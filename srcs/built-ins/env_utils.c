@@ -65,3 +65,21 @@ char	*get_content(t_shell *shell, char *env)
 	ft_strlcpy(value, env + val_size(env), ft_strlen(env));
 	return (value);
 }
+#include <string.h>
+
+char *sh_get_env(t_list *envp, const char *value)
+{
+	t_list	*current;
+	t_env	*env_entry;
+
+	current = envp;
+	while (current)
+	{
+		env_entry = (t_env *)current->content;
+		if (strcmp(env_entry->value, value) == 0)
+			return env_entry->content;
+		current = current->next;
+	}
+	return (NULL);
+}
+

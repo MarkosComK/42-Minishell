@@ -45,6 +45,7 @@ t_list	*env_list(t_shell *shell, char **envp);
 t_env	*create_node_env(t_shell *shell, char **envp);
 char	*get_value(t_shell *shell, char *env);
 char	*get_content(t_shell *shell, char *env);
+char	*sh_get_env(t_list *envp, const char *value);
 
 //env_utils_sizes.c
 int		content_size(char *env);
