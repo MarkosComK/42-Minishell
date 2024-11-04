@@ -17,14 +17,28 @@ int is_env_empty(t_shell *shell)
     return (shell->envp == NULL || ft_lstsize(shell->envp) == 0);
 }
 
-void init_shell_command(t_shell *shell)
+void finish_shell(t_shell *shell)
 {
+    shell->envp_arr = NULL;
+    shell->path = NULL;
+    shell->token_lst = NULL;
     shell->input = NULL;
     shell->trim_input = NULL;
-    shell->token_lst = NULL;
     shell->root = NULL;
     shell->cmd_path = NULL;
     shell->cwd = NULL;
-    shell->path = NULL;
+	shell->exit_code = 0;
+}
+
+void start_shell(t_shell *shell)
+{
     shell->envp_arr = NULL;
+    shell->path = NULL;
+    shell->token_lst = NULL;
+    shell->input = NULL;
+    shell->trim_input = NULL;
+    shell->root = NULL;
+    shell->cmd_path = NULL;
+    shell->cwd = NULL;
+	shell->exit_code = 0;
 }

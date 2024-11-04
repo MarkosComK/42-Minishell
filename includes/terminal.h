@@ -15,13 +15,17 @@
 
 # include <structs.h>
 
+//terminal.c
 void	terminal(t_shell *shell, char **envp);
 void	prepare_shell(t_shell *shell, char **envp);
 void	execute_command(t_shell *shell, int *status);
-int     is_env_empty(t_shell *shell);
-void init_shell_command(t_shell *shell);
-
-
+int		is_env_empty(t_shell *shell);
 void	free_shell(t_shell *shell);
+
+//terminal_utils.c
+void	start_shell(t_shell *shell);
+void	finish_shell(t_shell *shell);
+
+
 
 #endif

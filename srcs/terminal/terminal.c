@@ -27,11 +27,10 @@ void	shell_input(t_shell *shell)
 
 void	terminal(t_shell *shell, char **envp)
 {
-	static int first_run = 1;
 	t_exec *exec;
 
 	//ft_bzero(shell, sizeof(t_shell));
-    init_shell_command(shell);	
+    start_shell(shell);	
 	int	status = 0;
 	handle_signals();
 	shell_input(shell);
@@ -48,11 +47,6 @@ void	terminal(t_shell *shell, char **envp)
 		free_shell(shell);
 		return ;
 	}
-    if (first_run || is_env_empty(shell)) 
-	{
-        shell->envp = env_list(shell, envp);
-        first_run = 0;
-    }
 	lexer(shell, shell->trim_input);
 	shell->envp_arr = env_arr(shell);
 	shell->path = path_list(shell, envp);
@@ -104,15 +98,6 @@ void	free_shell(t_shell *shell)
 		free(shell->token_lst);
 		shell->token_lst = tmp;
 	}
-	while (shell->envp)
-	{
-		tmp = shell->envp->next;
-		free(((t_env *)shell->envp->content)->value);
-		free(((t_env *)shell->envp->content)->content);
-		free(shell->envp->content);
-		free(shell->envp);
-		shell->envp = tmp;
-	}
 	i = 0;
 	if (shell->envp_arr)
 	{
@@ -140,5 +125,5 @@ void	free_shell(t_shell *shell)
 		free(shell->cmd_path);
 	if (shell->cwd)
 		free(shell->cwd);
-	ft_bzero(shell, sizeof(t_shell));
+	finish_shell(shell);
 }

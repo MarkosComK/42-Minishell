@@ -25,8 +25,19 @@
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_shell	shell;
+	t_list	*tmp;
 
 	check_args(argc, argv, envp);
+    shell.envp = env_list(&shell, envp);
 	terminal(&shell, envp);
+	while (shell.envp)
+	{
+		tmp = shell.envp->next;
+		free(((t_env *)shell.envp->content)->value);
+		free(((t_env *)shell.envp->content)->content);
+		free(shell.envp->content);
+		free(shell.envp);
+		shell.envp = tmp;
+	}
 	return (0);
 }
