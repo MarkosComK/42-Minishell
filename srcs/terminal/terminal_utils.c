@@ -25,6 +25,34 @@ void	shell_input(t_shell *shell)
 	free(tmp);
 }
 
+void	exec_processes(t_shell *shell)
+{
+	t_exec	*exec;
+	int		status;
+
+	status = 0;
+	exec = NULL;
+	if (((t_node *)shell->root)->type == N_EXEC)
+	{
+		exec = (t_exec *)shell->root;
+		if (is_parent_builtin(exec))
+			exec_parent_builtin(shell, exec);
+		else
+		{
+			if (fork() == 0)
+				exec_tree(shell, shell->root);
+			waitpid(-1, &status, 0);
+		}
+	}
+	else
+	{
+		if (fork() == 0)
+			exec_tree(shell, shell->root);
+		waitpid(-1, &status, 0);
+	}
+	exit_status(status);
+}
+
 int	is_env_empty(t_shell *shell)
 {
 	return (shell->envp == NULL || ft_lstsize(shell->envp) == 0);
