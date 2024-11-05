@@ -36,7 +36,9 @@ void	exec_processes(t_shell *shell)
 	{
 		exec = (t_exec *)shell->root;
 		if (is_parent_builtin(exec))
+		{
 			exec_parent_builtin(shell, exec);
+		}
 		else
 		{
 			if (fork() == 0)

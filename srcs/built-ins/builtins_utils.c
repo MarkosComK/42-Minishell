@@ -18,7 +18,7 @@ int	is_builtin(const char *command)
 	int			i;
 
 	i = 0;
-	while (builtins[i])
+	while (i < 7)
 	{
 		if (ft_strcmp((char *)command, (char *)builtins[i]) == 0)
 			return (1);
