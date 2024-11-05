@@ -12,34 +12,6 @@
 
 #include <minishell.h>
 
-void	exec_processes(t_shell *shell)
-{
-	t_exec	*exec;
-	int		status;
-
-	status = 0;
-	exec = NULL;
-	if (((t_node *)shell->root)->type == N_EXEC)
-	{
-		exec = (t_exec *)shell->root;
-		if (is_parent_builtin(exec))
-			exec_parent_builtin(shell, exec);
-		else
-		{
-			if (fork() == 0)
-				exec_tree(shell, shell->root);
-			waitpid(-1, &status, 0);
-		}
-	}
-	else
-	{
-		if (fork() == 0)
-			exec_tree(shell, shell->root);
-		waitpid(-1, &status, 0);
-	}
-	exit_status(status);
-}
-
 void	terminal(t_shell *shell, char **envp)
 {
 	start_shell(shell);
