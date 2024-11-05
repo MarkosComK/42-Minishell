@@ -6,29 +6,15 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/31 16:45:01 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/03 20:49:29 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	shell_input(t_shell *shell)
-{
-	char	*prompt;
-	char	cwd[PATH_MAX];
-	char	*tmp;
-
-	getcwd(cwd, sizeof(cwd));
-	prompt = "\001" B_RED "\002Minishell\001" DEFAULT "\002";
-	tmp = ft_strjoin(prompt, cwd);
-	shell->cwd = ft_strjoin(tmp, "\001"B_RED"\002 → \001"DEFAULT"\002");
-	free(tmp);
-}
-
 void	terminal(t_shell *shell, char **envp)
 {
-	ft_bzero(shell, sizeof(t_shell));
-	int	status = 0;
+	start_shell(shell);
 	handle_signals();
 	shell_input(shell);
 	shell->input = readline(shell->cwd);
@@ -44,18 +30,12 @@ void	terminal(t_shell *shell, char **envp)
 		free_shell(shell);
 		return ;
 	}
-	shell->envp = env_list(shell, envp);
 	lexer(shell, shell->trim_input);
 	shell->envp_arr = env_arr(shell);
 	shell->path = path_list(shell, envp);
 	shell->root = build_tree(shell, shell->token_lst);
-	print_token_lst(shell->token_lst);
-	print_bst(shell->root, 5);
 	set_main_signals();
-	if (fork() == 0)
-		exec_tree(shell, shell->root);
-	waitpid(-1, &status, 0);
-	exit_status(status);
+	exec_processes(shell);
 	free_shell(shell);
 	terminal(shell, envp);
 }
@@ -75,15 +55,6 @@ void	free_shell(t_shell *shell)
 		free(shell->token_lst->content);
 		free(shell->token_lst);
 		shell->token_lst = tmp;
-	}
-	while (shell->envp)
-	{
-		tmp = shell->envp->next;
-		free(((t_env *)shell->envp->content)->value);
-		free(((t_env *)shell->envp->content)->content);
-		free(shell->envp->content);
-		free(shell->envp);
-		shell->envp = tmp;
 	}
 	i = 0;
 	if (shell->envp_arr)
@@ -112,5 +83,5 @@ void	free_shell(t_shell *shell)
 		free(shell->cmd_path);
 	if (shell->cwd)
 		free(shell->cwd);
-	ft_bzero(shell, sizeof(t_shell));
+	finish_shell(shell);
 }

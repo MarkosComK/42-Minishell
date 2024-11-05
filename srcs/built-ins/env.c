@@ -26,7 +26,8 @@ char	**env_arr(t_shell *shell)
 	i = 0;
 	while (envp_list)
 	{
-		env_arr[i] = ft_strdup(envp_list->content);
+		env_arr[i] = ft_strjoin(((t_env *)envp_list->content)->value,
+				((t_env *)envp_list->content)->content);
 		if (!env_arr[i])
 			exit_failure(shell, "env_arr_1");
 		envp_list = envp_list->next;
@@ -44,7 +45,7 @@ t_list	*path_list(t_shell *shell, char **envp)
 
 	(void)envp;
 	path_list = NULL;
-	path = getenv("PATH");
+	path = sh_get_env(shell->envp, "PATH");
 	if (path == NULL)
 		return (NULL);
 	i = 0;
@@ -80,5 +81,20 @@ void	print_env_lst(t_list *lst)
 		printf("%s", (char *)((t_env *)lst->content)->value);
 		printf("%s\n", (char *)((t_env *)lst->content)->content);
 		lst = lst->next;
+	}
+}
+
+void	free_env_lst(t_list *envp)
+{
+	t_list	*tmp;
+
+	while (envp)
+	{
+		tmp = envp->next;
+		free(((t_env *)envp->content)->value);
+		free(((t_env *)envp->content)->content);
+		free(envp->content);
+		free(envp);
+		envp = tmp;
 	}
 }

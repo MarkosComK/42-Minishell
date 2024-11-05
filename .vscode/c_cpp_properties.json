@@ -1,0 +1,22 @@
+{
+    "version": 4,
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c99",
+            "intelliSenseMode": "linux-gcc-x64",
+            "customConfigurationVariables": {
+                "visualizers": {
+                    "char *": "${var%s}",
+                    "t_env": "value='${var.value%s}' content='${var.content%s}'",
+                    "t_list": "content=${var.content}, next=${var.next}"
+                }
+            }
+        }
+    ]
+}

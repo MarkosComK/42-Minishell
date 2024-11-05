@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:43:04 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/29 21:25:48 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/03 15:59:48 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 	waitpid(pid1, &status, 0);
 	waitpid(pid2, &status, 0);
 	exit_status(status);
+	free_env_lst(shell->envp);
 	free_shell(shell);
 	exit(exit_code(-1));
 }
@@ -59,6 +60,7 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 	if (exec_node->command && is_builtin(exec_node->command))
 	{
 		ret = exec_builtin(shell, exec_node);
+		free_env_lst(shell->envp);
 		free_shell(shell);
 		exit(ret);
 		return ;
@@ -69,6 +71,7 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 		is_directory(shell, exec_node->argv[0]);
 	if (execve(shell->cmd_path, exec_node->argv, shell->envp_arr) < 0)
 	{
+		free_env_lst(shell->envp);
 		exec_failure(shell, shell->cmd_path, exec_node->argv);
 	}
 }
