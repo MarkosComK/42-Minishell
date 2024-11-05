@@ -25,33 +25,33 @@ void	shell_input(t_shell *shell)
 	free(tmp);
 }
 
-int is_env_empty(t_shell *shell)
+int	is_env_empty(t_shell *shell)
 {
-    return (shell->envp == NULL || ft_lstsize(shell->envp) == 0);
+	return (shell->envp == NULL || ft_lstsize(shell->envp) == 0);
 }
 
-void finish_shell(t_shell *shell)
+void	finish_shell(t_shell *shell)
 {
-    shell->envp_arr = NULL;
-    shell->path = NULL;
-    shell->token_lst = NULL;
-    shell->input = NULL;
-    shell->trim_input = NULL;
-    shell->root = NULL;
-    shell->cmd_path = NULL;
-    shell->cwd = NULL;
+	shell->envp_arr = NULL;
+	shell->path = NULL;
+	shell->token_lst = NULL;
+	shell->input = NULL;
+	shell->trim_input = NULL;
+	shell->root = NULL;
+	shell->cmd_path = NULL;
+	shell->cwd = NULL;
 	shell->exit_code = 0;
 }
 
-void start_shell(t_shell *shell)
+void	start_shell(t_shell *shell)
 {
-    shell->envp_arr = NULL;
-    shell->path = NULL;
-    shell->token_lst = NULL;
-    shell->input = NULL;
-    shell->trim_input = NULL;
-    shell->root = NULL;
-    shell->cmd_path = NULL;
-    shell->cwd = NULL;
+	shell->envp_arr = NULL;
+	shell->path = NULL;
+	shell->token_lst = NULL;
+	shell->input = NULL;
+	shell->trim_input = NULL;
+	shell->root = NULL;
+	shell->cmd_path = NULL;
+	shell->cwd = NULL;
 	shell->exit_code = 0;
 }
