@@ -66,7 +66,7 @@ char	*get_content(t_shell *shell, char *env)
 	return (value);
 }
 
-char *sh_get_env(t_list *envp, const char *value)
+char	*sh_get_env(t_list *envp, const char *value)
 {
 	t_list	*current;
 	t_env	*env_entry;
@@ -76,9 +76,8 @@ char *sh_get_env(t_list *envp, const char *value)
 	{
 		env_entry = (t_env *)current->content;
 		if (ft_strncmp(env_entry->value, value, ft_strlen(value)) == 0)
-			return env_entry->content;
+			return (env_entry->content);
 		current = current->next;
 	}
 	return (NULL);
 }
-
