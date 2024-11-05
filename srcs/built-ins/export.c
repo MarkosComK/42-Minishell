@@ -12,22 +12,20 @@
 
 #include <minishell.h>
 
-void ft_export(t_shell *shell, char **args)
+void	ft_export(t_shell *shell, char **args)
 {
-    int i;
-    
-	printf("[DEBUG] ft_export no PID: %d (pai: %d)\n", getpid(), getppid());
-	
-    if(!args[1])
-    {
-        print_env_lst(shell->envp);
-    }
-    i = 1;
-    while(args[i])
-    {
-        export_var(shell, args[i]);
-        i++;
-    }
+	int	i;
+
+	if (!args[1])
+	{
+		print_env_lst(shell->envp);
+	}
+	i = 1;
+	while (args[i])
+	{
+		export_var(shell, args[i]);
+		i++;
+	}
 }
 
 char	*create_value(t_shell *shell, const char *arg, char *equal)
@@ -66,30 +64,29 @@ void	export_var(t_shell *shell, const char *arg)
 	upt_env_var(shell, value, content);
 }
 
-void upt_env_var(t_shell *shell, char *value, char *content)
+void	upt_env_var(t_shell *shell, char *value, char *content)
 {
-    t_list *env_list;
-    t_env *env_var;
-    t_env *new_env;
-    
-    env_list = shell->envp;
-    while(env_list)
-    {
-        env_var = (t_env *)env_list->content;
-        if(ft_strcmp(env_var->value, value) == 0)
-        {
+	t_list	*env_list;
+	t_env	*env_var;
+	t_env	*new_env;
+
+	env_list = shell->envp;
+	while (env_list)
+	{
+		env_var = (t_env *)env_list->content;
+		if (ft_strcmp(env_var->value, value) == 0)
+		{
 			free(env_var->content);
 			env_var->content = content;
 			free(value);
 			return ;
-        }
-        env_list = env_list->next;        
-    }
+		}
+		env_list = env_list->next;
+	}
 	new_env = malloc(sizeof(t_env));
 	if (!new_env)
 		exit_failure(shell, "upt_env_var");
 	new_env->value = value;
 	new_env->content = content;
 	ft_lstadd_back(&shell->envp, ft_lstnew(new_env));
-}   
-
+}
