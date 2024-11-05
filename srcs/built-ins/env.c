@@ -83,3 +83,18 @@ void	print_env_lst(t_list *lst)
 		lst = lst->next;
 	}
 }
+
+void	free_env_lst(t_list *envp)
+{
+	t_list	*tmp;
+
+	while (envp)
+	{
+		tmp = envp->next;
+		free(((t_env *)envp->content)->value);
+		free(((t_env *)envp->content)->content);
+		free(envp->content);
+		free(envp);
+		envp = tmp;
+	}
+}

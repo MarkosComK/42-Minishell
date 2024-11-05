@@ -39,6 +39,7 @@ char	**env_arr(t_shell *shell);
 t_list	*path_list(t_shell *shell, char **envp);
 int		get_path(t_shell *shell, t_list **path_list, char *path, int i);
 void	print_env_lst(t_list *lst);
+void	free_env_lst(t_list *envp);
 
 //env_utils.c
 t_list	*env_list(t_shell *shell, char **envp);

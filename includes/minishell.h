@@ -49,6 +49,5 @@
 # define METACHARS "|;<>"
 
 //check_args.c
-void	free_env_lst(t_list *envp);
 int	check_args(int argc, char *argv[], char *envp[]);
 #endif

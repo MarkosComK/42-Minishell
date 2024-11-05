@@ -22,21 +22,6 @@
  * with no extra args
  */
 
-void	free_env_lst(t_list *envp)
-{
-	t_list	*tmp;
-
-	while (envp)
-	{
-		tmp = envp->next;
-		free(((t_env *)envp->content)->value);
-		free(((t_env *)envp->content)->content);
-		free(envp->content);
-		free(envp);
-		envp = tmp;
-	}
-}
-
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_shell	shell;
@@ -44,6 +29,6 @@ int	main(int argc, char *argv[], char *envp[])
 	check_args(argc, argv, envp);
     env_list(&shell, envp);
 	terminal(&shell, envp);
-	free_env_lst(shell.envp);
+	free_env_lst(shell.envp); //moving this function to a proper folder
 	return (0);
 }
