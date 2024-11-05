@@ -58,6 +58,12 @@ void	terminal(t_shell *shell, char **envp)
 		exec = (t_exec *)shell->root;
 		if (is_parent_builtin(exec))
 			exec_parent_builtin(shell, exec);
+		else
+		{
+			if (fork() == 0)
+				exec_tree(shell, shell->root);
+			waitpid(-1, &status, 0);
+		}
 	}
 	else
 	{
