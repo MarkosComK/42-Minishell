@@ -85,11 +85,10 @@ void	exec_parent_builtin(t_shell *shell)
 		builtin_env(shell);
 }*/
 
-
 int	is_parent_builtin(t_exec *exec_node)
 {
-	char *cmd;
-	
+	char	*cmd;
+
 	cmd = exec_node->argv[0];
 	if (!cmd)
 		return (0);
@@ -102,7 +101,6 @@ int	is_parent_builtin(t_exec *exec_node)
 	return (0);
 }
 
-
 int	exec_parent_builtin(t_shell *shell, t_exec *exec_node)
 {
 	char	*cmd;
@@ -110,15 +108,10 @@ int	exec_parent_builtin(t_shell *shell, t_exec *exec_node)
 	cmd = exec_node->argv[0];
 	if (!cmd)
 		return (1);
-//	if (!ft_strcmp(cmd, "cd"))
-//		return (builtin_cd(shell, exec_node->argv));
 	if (!ft_strcmp(cmd, "export"))
 		return ((ft_export(shell, exec_node->argv)), 0);
-//	if (!ft_strcmp(cmd, "unset"))
-//		return (ft_unset(shell, exec_node->argv));
 	return (1);
 }
-
 
 int	exec_builtin(t_shell *shell, t_exec *exec_node)
 {
@@ -136,19 +129,13 @@ int	exec_builtin(t_shell *shell, t_exec *exec_node)
 	return (1);
 }
 
-
 int	handle_builtins(t_shell *shell, t_exec *exec_node)
 {
-    printf("[DEBUG] handle_builtins - comando: %s\n", exec_node->argv[0]);
-		
 	if (!exec_node || !exec_node->argv[0])
 		return (1);
-	
 	if (is_parent_builtin(exec_node))
-    {
-        printf("[DEBUG] Identificado como builtin do pai\n");
-        return (exec_parent_builtin(shell, exec_node));
-    }
-	
+	{
+		return (exec_parent_builtin(shell, exec_node));
+	}
 	return (exec_builtin(shell, exec_node));
 }
