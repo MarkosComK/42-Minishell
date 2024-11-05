@@ -29,6 +29,4 @@ int		is_env_empty(t_shell *shell);
 void	start_shell(t_shell *shell);
 void	finish_shell(t_shell *shell);
 
-
-
 #endif
