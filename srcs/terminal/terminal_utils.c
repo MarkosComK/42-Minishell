@@ -12,6 +12,19 @@
 
 #include <minishell.h>
 
+void	shell_input(t_shell *shell)
+{
+	char	*prompt;
+	char	cwd[PATH_MAX];
+	char	*tmp;
+
+	getcwd(cwd, sizeof(cwd));
+	prompt = "\001" B_RED "\002Minishell\001" DEFAULT "\002";
+	tmp = ft_strjoin(prompt, cwd);
+	shell->cwd = ft_strjoin(tmp, "\001"B_RED"\002 → \001"DEFAULT"\002");
+	free(tmp);
+}
+
 int is_env_empty(t_shell *shell)
 {
     return (shell->envp == NULL || ft_lstsize(shell->envp) == 0);

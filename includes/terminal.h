@@ -23,6 +23,8 @@ int		is_env_empty(t_shell *shell);
 void	free_shell(t_shell *shell);
 
 //terminal_utils.c
+void	shell_input(t_shell *shell);
+int		is_env_empty(t_shell *shell);
 void	start_shell(t_shell *shell);
 void	finish_shell(t_shell *shell);
 
