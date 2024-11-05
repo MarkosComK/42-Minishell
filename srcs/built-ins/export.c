@@ -33,7 +33,6 @@ char	*create_value(t_shell *shell, const char *arg, char *equal)
 	char	*value;
 	int		len;
 
-	printf("\n[DEBUG] create_value - arg: '%s'\n", arg);
 	if (equal)
 		len = equal - arg;
 	else
