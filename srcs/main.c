@@ -27,8 +27,8 @@ int	main(int argc, char *argv[], char *envp[])
 	t_shell	shell;
 
 	check_args(argc, argv, envp);
-    env_list(&shell, envp);
+	env_list(&shell, envp);
 	terminal(&shell, envp);
-	free_env_lst(shell.envp); //moving this function to a proper folder
+	free_env_lst(shell.envp);
 	return (0);
 }
