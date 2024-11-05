@@ -22,22 +22,28 @@
  * with no extra args
  */
 
+void	free_env_lst(t_list *envp)
+{
+	t_list	*tmp;
+
+	while (envp)
+	{
+		tmp = envp->next;
+		free(((t_env *)envp->content)->value);
+		free(((t_env *)envp->content)->content);
+		free(envp->content);
+		free(envp);
+		envp = tmp;
+	}
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_shell	shell;
-	t_list	*tmp;
 
 	check_args(argc, argv, envp);
     env_list(&shell, envp);
 	terminal(&shell, envp);
-	while (shell.envp)
-	{
-		tmp = shell.envp->next;
-		free(((t_env *)shell.envp->content)->value);
-		free(((t_env *)shell.envp->content)->content);
-		free(shell.envp->content);
-		free(shell.envp);
-		shell.envp = tmp;
-	}
+	free_env_lst(shell.envp);
 	return (0);
 }

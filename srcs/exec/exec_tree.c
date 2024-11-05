@@ -44,6 +44,7 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 	waitpid(pid1, &status, 0);
 	waitpid(pid2, &status, 0);
 	exit_status(status);
+	free_env_lst(shell->envp);
 	free_shell(shell);
 	exit(exit_code(-1));
 }
@@ -54,14 +55,12 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 {
 	int		ret;
 
-    printf("[DEBUG] exec_node no PID: %d (pai: %d) - comando: %s\n",
-           getpid(), getppid(), exec_node->command);
-		   	 
 	handle_infiles(shell, exec_node);
 	handle_outfiles(shell, exec_node);
 	if (exec_node->command && is_builtin(exec_node->command))
 	{
 		ret = exec_builtin(shell, exec_node);
+		free_env_lst(shell->envp);
 		free_shell(shell);
 		exit(ret);
 		return ;
@@ -72,6 +71,7 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 		is_directory(shell, exec_node->argv[0]);
 	if (execve(shell->cmd_path, exec_node->argv, shell->envp_arr) < 0)
 	{
+		free_env_lst(shell->envp);
 		exec_failure(shell, shell->cmd_path, exec_node->argv);
 	}
 }
