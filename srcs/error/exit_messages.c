@@ -26,6 +26,7 @@ void	infile_failure(t_shell *shell, char *file)
 	char		*err_msg;
 
 	errno = 0;
+	ft_bzero(&file_stat, sizeof(file_stat));
 	stat(file, &file_stat);
 	if (S_ISDIR(file_stat.st_mode))
 		err_msg = ": Is a directory";
