@@ -46,6 +46,7 @@ void	outfile_failure(t_shell *shell, char *file)
 	char		*err_msg;
 
 	errno = 0;
+	ft_bzero(&file_stat, sizeof(file_stat));
 	stat(file, &file_stat);
 	if (S_ISDIR(file_stat.st_mode))
 		err_msg = ": Is a directory";
@@ -71,6 +72,7 @@ void	is_directory(t_shell *shell, char *path)
 	errno = 0;
 	exit_code = 126;
 	error_msg = NULL;
+	ft_bzero(&path_stat, sizeof(path_stat));
 	stat(path, &path_stat);
 	if (errno == ENOENT)
 	{
