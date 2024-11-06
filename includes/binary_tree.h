@@ -33,6 +33,18 @@ typedef struct s_pipe
 	struct s_exec	*right;
 }				t_pipe;
 
+typedef enum e_inf_t
+{
+	INF,
+	HERE,
+}				t_inf_t;
+
+typedef struct s_inf
+{
+	t_inf_t	type;
+	char	*eof;
+}				t_inf;
+
 typedef enum e_outf_t
 {
 	APP,
