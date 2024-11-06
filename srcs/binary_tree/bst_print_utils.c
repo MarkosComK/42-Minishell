@@ -88,7 +88,7 @@ void	print_infiles(t_list *infiles, int space)
 	i = 0;
 	while (infiles)
 	{
-		printf("%s", (char *)infiles->content);
+		printf("%s", (char *)((t_inf *)infiles->content)->eof);
 		if (infiles->next)
 			printf(", ");
 		infiles = infiles->next;

@@ -35,6 +35,7 @@ void	terminal(t_shell *shell, char **envp)
 	shell->path = path_list(shell, envp);
 	shell->root = build_tree(shell, shell->token_lst);
 	print_token_lst(shell->token_lst);
+	print_bst(shell->root, 5);
 	set_main_signals();
 	exec_processes(shell);
 	free_shell(shell);
