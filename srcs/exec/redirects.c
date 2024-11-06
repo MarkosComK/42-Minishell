@@ -12,6 +12,27 @@
 
 #include <minishell.h>
 
+int	run_heredoc(t_shell *shell, t_inf *infile)
+{
+	int		fd;
+	char	*line;
+
+	fd = open(infile->eof, O_RDWR | O_CREAT | O_APPEND, 0644);
+	if (fd < 0)
+		infile_failure(shell, infile->eof);
+	while (1)
+	{
+		line = readline("> ");
+		if (line == NULL || !ft_strcmp(line, infile->eof))
+		{
+			break ;
+		}
+		write(fd, line, ft_strlen(line));
+		write(fd, "\n", 1);
+	}
+	return (fd);
+}
+
 void	handle_infiles(t_shell *shell, t_exec *exec_node)
 {
 	int		fd;
@@ -27,10 +48,13 @@ void	handle_infiles(t_shell *shell, t_exec *exec_node)
 			if (inf->type == INF)
 				fd = open(inf->eof, O_RDONLY);
 			else if (inf->type == HERE)
+			{
 				fd = open(inf->eof, O_RDWR | O_CREAT | O_APPEND, 0644);
+				run_heredoc(shell, inf);
+			}
 			if (fd < 0)
 			{
-				infile_failure(shell, infiles->content);
+				infile_failure(shell, inf->eof);
 			}
 			dup2(fd, STDIN_FILENO);
 			close(fd);
