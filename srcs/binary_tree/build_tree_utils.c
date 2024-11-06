@@ -57,7 +57,7 @@ t_list	*get_infiles(t_shell *shell, t_list *token_lst, t_list **infiles)
 				content->type = INF;
 			else
 				content->type = HERE;
-			content->eof= ft_strdup(((t_token *)
+			content->eof = ft_strdup(((t_token *)
 						current->next->content)->value);
 			ft_lstadd_back(infiles, ft_lstnew(content));
 			current = current->next->next;
