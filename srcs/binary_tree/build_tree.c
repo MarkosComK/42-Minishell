@@ -99,7 +99,8 @@ t_list	*get_name(t_list *tkn_lst)
 	word = NULL;
 	while (tkn_lst && ((t_token *)tkn_lst->content)->type != PIPE)
 	{
-		if (tkn_lst && ((t_token *)tkn_lst->content)->type == INFILE)
+		if (tkn_lst && (((t_token *)tkn_lst->content)->type == INFILE
+				|| ((t_token *)tkn_lst->content)->type == HEREDOC))
 		{
 			tkn_lst = tkn_lst->next->next;
 			continue ;
