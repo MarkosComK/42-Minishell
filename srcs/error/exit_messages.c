@@ -36,7 +36,6 @@ void	infile_failure(t_shell *shell, char *file)
 		err_msg = ": Permission denied";
 	else
 		return ;
-	free_env_lst(shell->envp);
 	path_message(shell, file, err_msg);
 	exit(1);
 }
