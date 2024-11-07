@@ -18,8 +18,6 @@ int	run_heredoc(t_shell *shell, t_inf *infile, int fd)
 
 	if (fd < 0)
 		infile_failure(shell, infile->eof);
-	dprintf(2, B_RED"START_HERED\n"DEFAULT);
-	dprintf(2, B_RED"EOF_IS:%s\n"DEFAULT, infile->eof);
 	while (1)
 	{
 		line = readline("> ");
@@ -43,7 +41,7 @@ void	set_exec(t_shell *shell, t_exec *exec)
 	(void) shell;
 	while (infiles)
 	{
-		inf = (t_inf *)exec->infiles->content;
+		inf = (t_inf *)infiles->content;
 		if (inf->type == HERE)
 		{
 			fd = open(inf->eof, O_RDWR | O_CREAT | O_APPEND, 0644);
