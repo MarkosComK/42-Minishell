@@ -43,6 +43,7 @@ typedef struct s_inf
 {
 	t_inf_t	type;
 	char	*eof;
+	char	*name;
 }				t_inf;
 
 typedef enum e_outf_t
