@@ -27,6 +27,7 @@ void	set_exec(t_shell *shell, t_exec *exec)
 		inf = (t_inf *)infiles->content;
 		if (inf->type == HERE)
 		{
+			//inf->name = ft_random_name(inf->eof);
 			fd = open(inf->eof, O_RDWR | O_CREAT | O_APPEND, 0644);
 			pid = fork();
 			if (pid == 0)
@@ -42,6 +43,21 @@ void	set_exec(t_shell *shell, t_exec *exec)
 		}
 		infiles = infiles->next;
 	}
+}
+
+char	*ft_random_name(char *eof)
+{
+	char	*name;
+	int		addr[1] = {42};
+	char	*ptr;
+	int		num;
+
+	num = (*addr + (int)eof[0] + ft_strlen(eof) * *addr);
+	ptr = ft_itoa(num);
+	name = ft_strjoin("/tmp/.heredoc_", ptr);
+	free(ptr);
+	printf("[%s]\n", name);
+	return (name);
 }
 
 int	run_heredoc(t_shell *shell, t_inf *infile, int fd)
