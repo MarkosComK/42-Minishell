@@ -36,8 +36,11 @@ void	set_exec(t_shell *shell, t_exec *exec)
 	t_list	*infiles;
 	t_inf	*inf;
 	int		fd;
+	pid_t	pid;
+	int		status;
 
 	infiles = exec->infiles;
+	status = 0;
 	(void) shell;
 	while (infiles)
 	{
@@ -45,9 +48,8 @@ void	set_exec(t_shell *shell, t_exec *exec)
 		if (inf->type == HERE)
 		{
 			fd = open(inf->eof, O_RDWR | O_CREAT | O_APPEND, 0644);
-			pid_t	pid;
-			int		status = 0;
-			if ((pid = fork()) == 0)
+			pid = fork();
+			if (pid == 0)
 			{
 				run_heredoc(shell, inf, fd);
 				close(fd);
