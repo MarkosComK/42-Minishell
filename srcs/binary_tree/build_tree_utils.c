@@ -50,7 +50,7 @@ t_list	*get_infiles(t_shell *shell, t_list *token_lst, t_list **infiles)
 		if (current && (((t_token *)current->content)->type == INFILE
 				|| ((t_token *)current->content)->type == HEREDOC))
 		{
-			content = malloc(sizeof(t_inf));
+			content = ft_calloc(sizeof(t_inf), 1);
 			if (!content)
 				exit_failure(shell, "get_outfiles");
 			if (((t_token *)current->content)->type == INFILE)
