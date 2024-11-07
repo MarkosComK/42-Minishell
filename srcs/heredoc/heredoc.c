@@ -27,7 +27,7 @@ void	set_exec(t_shell *shell, t_exec *exec)
 		inf = (t_inf *)infiles->content;
 		if (inf->type == HERE)
 		{
-			inf->name = ft_random_name(inf->eof);
+			inf->name = ft_random_name(shell, inf->eof);
 			fd = open(inf->name, O_RDWR | O_CREAT | O_APPEND, 0644);
 			pid = fork();
 			if (pid == 0)
@@ -45,7 +45,7 @@ void	set_exec(t_shell *shell, t_exec *exec)
 	}
 }
 
-char	*ft_random_name(char *eof)
+char	*ft_random_name(t_shell *shell, char *eof)
 {
 	char	*name;
 	int		addr[1] = {42};
@@ -55,6 +55,8 @@ char	*ft_random_name(char *eof)
 	num = (*addr + (int)eof[0] + ft_strlen(eof) * *addr);
 	ptr = ft_itoa(num);
 	name = ft_strjoin("/tmp/.heredoc_", ptr);
+	if (!name)
+		exit_failure(shell, "ft_random_name");
 	free(ptr);
 	return (name);
 }
