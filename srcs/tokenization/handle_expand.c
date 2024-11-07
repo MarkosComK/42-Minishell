@@ -48,7 +48,7 @@ int	prcs_expansion(t_shell *shell, char **str, char *input, int i)
 	flag = 0;
 	while (input[i] && !ft_isspace(input[i]) && !ft_ismeta(input, i))
 	{
-		if (input[i] == '$')
+		while (input[i] == '$')
 			i = expand_unquoted(shell, str, input, i);
 		flag = ft_flag(input[i], &i, flag);
 		while (input[i] && flag)
