@@ -19,6 +19,16 @@ INCLUDE  = -L${LIBFTDIR}/src -lft -lreadline
 VALGRIND = valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --suppressions=readline.supp
 ENV      = env -i ${VALGRIND}
 
+#set readline for MacOs and Linux
+UNAME := $(shell uname)
+ifeq ($(UNAME), Linux)
+    INCLUDE = -L${LIBFTDIR}/src -lft -lreadline -lhistory
+    READLINE =
+else ifeq ($(UNAME), Darwin)
+    INCLUDE = -L${LIBFTDIR}/src -lft -L/opt/homebrew/opt/readline/lib -lreadline
+    READLINE = -I/opt/homebrew/opt/readline/include
+endif
+
 all: submodule ${LIBFTDIR} ${NAME} ${OBJS}
 
 submodule:
@@ -26,7 +36,7 @@ submodule:
 
 ${NAME}: ${OBJS}
 	@make --silent -C ${LIBFTDIR}/src
-	@${CC} ${FLAGS} ${OBJS} ${INCLUDE} -o ${NAME}
+	@${CC} ${FLAGS} ${READLINE} ${OBJS} ${INCLUDE} -o ${NAME}
 	@echo "$(TITLE)━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 	@echo "$(PURPLE)  ██╗  ██╗███████╗██╗     ██╗     ███████╗██╗  ██╗  "
 	@echo "  ██║  ██║██╔════╝██║     ██║     ██╔════╝██║  ██║  "
@@ -40,7 +50,7 @@ ${NAME}: ${OBJS}
 	@echo
 
 .c.o:
-	@${CC} ${FLAGS} ${IFLAGS} -c $< -o ${<:.c=.o}
+	@${CC} ${FLAGS} ${READLINE} ${IFLAGS} -c $< -o ${<:.c=.o}
 	@echo "$(RESET)[$(GREEN)OK$(RESET)]$(BLUE) Compiling $<$(YELLOW)"
 
 clean:
