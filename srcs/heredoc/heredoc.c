@@ -12,25 +12,6 @@
 
 #include <minishell.h>
 
-int	run_heredoc(t_shell *shell, t_inf *infile, int fd)
-{
-	char	*line;
-
-	if (fd < 0)
-		infile_failure(shell, infile->eof);
-	while (1)
-	{
-		line = readline("> ");
-		if (line == NULL || !ft_strcmp(line, infile->eof))
-		{
-			break ;
-		}
-		write(fd, line, ft_strlen(line));
-		write(fd, "\n", 1);
-	}
-	return (fd);
-}
-
 void	set_exec(t_shell *shell, t_exec *exec)
 {
 	t_list	*infiles;
@@ -41,7 +22,6 @@ void	set_exec(t_shell *shell, t_exec *exec)
 
 	infiles = exec->infiles;
 	status = 0;
-	(void) shell;
 	while (infiles)
 	{
 		inf = (t_inf *)infiles->content;
@@ -62,6 +42,25 @@ void	set_exec(t_shell *shell, t_exec *exec)
 		}
 		infiles = infiles->next;
 	}
+}
+
+int	run_heredoc(t_shell *shell, t_inf *infile, int fd)
+{
+	char	*line;
+
+	if (fd < 0)
+		infile_failure(shell, infile->eof);
+	while (1)
+	{
+		line = readline("> ");
+		if (line == NULL || !ft_strcmp(line, infile->eof))
+		{
+			break ;
+		}
+		write(fd, line, ft_strlen(line));
+		write(fd, "\n", 1);
+	}
+	return (fd);
 }
 
 void	traverse_pipe(t_shell *shell, t_pipe *pipe)
