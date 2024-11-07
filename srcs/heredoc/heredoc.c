@@ -55,9 +55,9 @@ char	*ft_random_name(t_shell *shell, char *eof)
 	num = (*addr + (int)eof[0] + ft_strlen(eof) * *addr);
 	ptr = ft_itoa(num);
 	name = ft_strjoin("/tmp/.heredoc_", ptr);
+	free(ptr);
 	if (!name)
 		exit_failure(shell, "ft_random_name");
-	free(ptr);
 	return (name);
 }
 

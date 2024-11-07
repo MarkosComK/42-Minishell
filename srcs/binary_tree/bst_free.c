@@ -44,6 +44,7 @@ void	free_inf(void *content)
 
 	if (infile)
 	{
+		free(infile->name);
 		free(infile->eof);
 		free((void *)infile);
 	}
