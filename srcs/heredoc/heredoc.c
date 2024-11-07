@@ -53,6 +53,8 @@ void	set_exec(t_shell *shell, t_exec *exec)
 			{
 				run_heredoc(shell, inf, fd);
 				close(fd);
+				free_env_lst(shell->envp);
+				free_shell(shell);
 				exit(0);
 			}
 			waitpid(pid, &status, 0);
