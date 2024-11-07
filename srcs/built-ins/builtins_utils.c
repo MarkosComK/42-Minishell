@@ -31,7 +31,9 @@ int	is_parent_builtin(t_exec *exec_node)
 {
 	char	*cmd;
 
-	cmd = exec_node->argv[0];
+	cmd = NULL;
+	if (exec_node->argv)
+		cmd = exec_node->argv[0];
 	if (!cmd)
 		return (0);
 	if (!ft_strcmp(cmd, "cd"))
