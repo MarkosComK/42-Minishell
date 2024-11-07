@@ -12,7 +12,6 @@
 
 #include <minishell.h>
 
-
 void	exec_tree(t_shell *shell, void *root)
 {
 	if (((t_node *)root)->type == N_PIPE)
@@ -36,16 +35,10 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 	status = 0;
 	pid1 = fork();
 	if (pid1 == 0)
-	{
 		handle_pid1(shell, pipefd, pipe_node);
-		exit(0);
-	}
 	pid2 = fork();
 	if (pid2 == 0)
-	{
 		handle_pid2(shell, pipefd, pipe_node);
-		exit(0);
-	}
 	close(pipefd[1]);
 	close(pipefd[0]);
 	waitpid(pid2, &status, 0);
