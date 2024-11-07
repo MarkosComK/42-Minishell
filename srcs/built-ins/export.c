@@ -18,7 +18,7 @@ void	ft_export(t_shell *shell, char **args)
 
 	if (!args[1])
 	{
-		print_env_lst(shell->envp);
+		print_export_lst(shell->envp);
 	}
 	i = 1;
 	while (args[i])
@@ -48,44 +48,94 @@ char	*create_value(t_shell *shell, const char *arg, char *equal)
 
 void	export_var(t_shell *shell, const char *arg)
 {
-	char	*value;
-	char	*content;
+	t_env *new_env;
 	char	*equal;
 
 	if (!arg || !shell)
 		return ;
 	equal = ft_strchr(arg, '=');
-	value = create_value(shell, arg, equal);
-	if (equal)
-		content = ft_strdup(equal + 1);
-	else
-		content = ft_strdup("");
-	upt_env_var(shell, value, content);
+	if(!equal)
+	{
+		mark_isexport(shell, arg);
+		return ;
+	}
+    new_env = malloc(sizeof(t_env));
+    if (!new_env)
+        exit_failure(shell, "export_var");
+    new_env->value = create_value(shell, arg, equal);
+    new_env->content = ft_strdup(equal + 1);
+    new_env->is_export = true;
+    
+    upt_env_var(shell, new_env);
 }
 
-void	upt_env_var(t_shell *shell, char *value, char *content)
+void	upt_env_var(t_shell *shell, t_env *new_env)
 {
 	t_list	*env_list;
 	t_env	*env_var;
-	t_env	*new_env;
 
 	env_list = shell->envp;
 	while (env_list)
 	{
 		env_var = (t_env *)env_list->content;
-		if (ft_strcmp(env_var->value, value) == 0)
+		if (ft_strcmp(env_var->value, new_env->value) == 0)
 		{
 			free(env_var->content);
-			env_var->content = content;
-			free(value);
+			env_var->content = new_env->content;
+			env_var->is_export = true;
+			free(new_env->value);
+			free(new_env);
 			return ;
 		}
 		env_list = env_list->next;
 	}
+	ft_lstadd_back(&shell->envp, ft_lstnew(new_env));
+}
+
+void print_export_lst(t_list *lst)
+{
+    t_list *curr;
+    t_env *env_var;
+
+    curr = lst;
+    while(curr)
+    {
+        env_var = (t_env *)curr->content;
+        if (env_var->content == NULL)
+            printf("declare -x %s\n", env_var->value);
+        else
+        {
+			printf("declare -x ");
+            printf("%s", env_var->value);
+            printf("%s\n", env_var->content);
+        }
+        curr = curr->next;
+    }
+}
+
+
+void mark_isexport(t_shell *shell, const char *var_name)
+{
+	t_list *current;
+	t_env *env_var;
+	t_env *new_env;
+
+	current = shell->envp;
+	while(current)
+	{
+		env_var = (t_env *)current->content;
+		if (ft_strncmp(env_var->value, var_name, ft_strlen(var_name)) == 0)
+		{
+			env_var->is_export = true;
+			return ;
+		}
+		current = current->next;
+	}
 	new_env = malloc(sizeof(t_env));
 	if (!new_env)
-		exit_failure(shell, "upt_env_var");
-	new_env->value = value;
-	new_env->content = content;
+		exit_failure(shell, "mark_isenv");
+	new_env->value = ft_strdup(var_name);
+	new_env->content = NULL;
+	new_env->is_export = true;
 	ft_lstadd_back(&shell->envp, ft_lstnew(new_env));
 }

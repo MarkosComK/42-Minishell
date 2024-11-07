@@ -73,15 +73,22 @@ int	get_path(t_shell *shell, t_list **path_list, char *path, int i)
 	return (i);
 }
 
-void	print_env_lst(t_list *lst)
+
+
+void print_env_lst(t_list *lst)
 {
-	(void) lst;
-	while (lst)
-	{
-		printf("%s", (char *)((t_env *)lst->content)->value);
-		printf("%s\n", (char *)((t_env *)lst->content)->content);
-		lst = lst->next;
-	}
+    t_env *env_var;
+
+    while (lst)
+    {
+        env_var = (t_env *)lst->content;
+        if (ft_strlen(env_var->content) > 0)
+        {
+            printf("%s", env_var->value);
+            printf("%s\n", env_var->content);
+        }
+        lst = lst->next;
+    }
 }
 
 void	free_env_lst(t_list *envp)
