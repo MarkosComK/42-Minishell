@@ -27,8 +27,8 @@ void	set_exec(t_shell *shell, t_exec *exec)
 		inf = (t_inf *)infiles->content;
 		if (inf->type == HERE)
 		{
-			//inf->name = ft_random_name(inf->eof);
-			fd = open(inf->eof, O_RDWR | O_CREAT | O_APPEND, 0644);
+			inf->name = ft_random_name(inf->eof);
+			fd = open(inf->name, O_RDWR | O_CREAT | O_APPEND, 0644);
 			pid = fork();
 			if (pid == 0)
 			{
@@ -56,7 +56,6 @@ char	*ft_random_name(char *eof)
 	ptr = ft_itoa(num);
 	name = ft_strjoin("/tmp/.heredoc_", ptr);
 	free(ptr);
-	printf("[%s]\n", name);
 	return (name);
 }
 

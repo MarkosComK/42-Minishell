@@ -28,7 +28,7 @@ void	handle_infiles(t_shell *shell, t_exec *exec_node)
 				fd = open(inf->eof, O_RDONLY);
 			else if (inf->type == HERE)
 			{
-				fd = open(inf->eof, O_RDWR, 0644);
+				fd = open(inf->name, O_RDWR, 0644);
 			}
 			if (fd < 0)
 			{
