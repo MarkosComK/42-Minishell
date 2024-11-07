@@ -17,9 +17,10 @@ int	run_heredoc(t_shell *shell, t_inf *infile, int fd)
 {
 	char	*line;
 
-	fd = open(infile->eof, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (fd < 0)
 		infile_failure(shell, infile->eof);
+	dprintf(2, B_RED"START_HERED\n"DEFAULT);
+	dprintf(2, B_RED"EOF_IS:%s\n"DEFAULT, infile->eof);
 	while (1)
 	{
 		line = readline("> ");
@@ -47,7 +48,16 @@ void	set_exec(t_shell *shell, t_exec *exec)
 		if (inf->type == HERE)
 		{
 			fd = open(inf->eof, O_RDWR | O_CREAT | O_APPEND, 0644);
-			run_heredoc(shell, inf, fd);
+			pid_t	pid;
+			int		status = 0;
+			if ((pid = fork()) == 0)
+			{
+				run_heredoc(shell, inf, fd);
+				close(fd);
+				exit(0);
+			}
+			waitpid(pid, &status, 0);
+			close(fd);
 		}
 		infiles = infiles->next;
 	}
@@ -74,7 +84,7 @@ void	handle_heredoc(t_shell *shell, void *root)
 
 void	exec_tree(t_shell *shell, void *root)
 {
-	handle_heredoc(shell, root);
+		handle_heredoc(shell, root);
 	if (((t_node *)root)->type == N_PIPE)
 		exec_pipe(shell, root);
 	else if (((t_node *)root)->type == N_EXEC)
@@ -93,17 +103,23 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 		perror("pipe failed");
 		exit(1);
 	}
+	status = 0;
 	pid1 = fork();
 	if (pid1 == 0)
+	{
 		handle_pid1(shell, pipefd, pipe_node);
+		exit(0);
+	}
 	pid2 = fork();
 	if (pid2 == 0)
+	{
 		handle_pid2(shell, pipefd, pipe_node);
-	close(pipefd[0]);
+		exit(0);
+	}
 	close(pipefd[1]);
-	status = 0;
-	waitpid(pid1, &status, 0);
+	close(pipefd[0]);
 	waitpid(pid2, &status, 0);
+	waitpid(pid1, &status, 0);
 	exit_status(status);
 	free_env_lst(shell->envp);
 	free_shell(shell);
