@@ -23,4 +23,7 @@ void	handle_heredoc(t_shell *shell, void *root);
 //heredoc_expand.c
 char	*heredoc_expand(t_shell *shell, char *line);
 
+//heredoc_process.c
+void	heredoc_process(t_shell *shell, t_inf *inf, int fd);
+
 #endif

@@ -17,11 +17,8 @@ void	set_exec(t_shell *shell, t_exec *exec)
 	t_list	*infiles;
 	t_inf	*inf;
 	int		fd;
-	pid_t	pid;
-	int		status;
 
 	infiles = exec->infiles;
-	status = 0;
 	while (infiles)
 	{
 		inf = (t_inf *)infiles->content;
@@ -29,6 +26,8 @@ void	set_exec(t_shell *shell, t_exec *exec)
 		{
 			inf->name = ft_random_name(shell, inf->eof);
 			fd = open(inf->name, O_RDWR | O_CREAT | O_TRUNC, 0600);
+			heredoc_process(shell, inf, fd);
+			/*
 			pid = fork();
 			if (pid == 0)
 			{
@@ -42,7 +41,9 @@ void	set_exec(t_shell *shell, t_exec *exec)
 				exit(exit_code(-1));
 			}
 			waitpid(pid, &status, 0);
+			exit_code(status);
 			close(fd);
+			*/
 		}
 		infiles = infiles->next;
 	}
@@ -50,10 +51,10 @@ void	set_exec(t_shell *shell, t_exec *exec)
 
 char	*ft_random_name(t_shell *shell, char *eof)
 {
-	char	*name;
-	int		addr[1] = {42};
-	char	*ptr;
-	int		num;
+	char		*name;
+	const int	addr[1] = {42};
+	char		*ptr;
+	int			num;
 
 	num = (*addr + (int)eof[0] + ft_strlen(eof) * *addr);
 	ptr = ft_itoa(num);

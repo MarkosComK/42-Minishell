@@ -20,6 +20,7 @@ void	handle_signals(void);
 void	set_fork1_signal(void);
 
 //signals_heredoc.c
+t_shell	*shell_struct(t_shell *shell, int flag);
 void	sigint_heredoc_handler(int sig);
 void	heredoc_signal(void);
 

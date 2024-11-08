@@ -1,42 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals_heredoc.c                                  :+:      :+:    :+:   */
+/*   heredoc_process.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 11:38:33 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/08 11:43:45 by marsoare         ###   ########.fr       */
+/*   Created: 2024/11/08 17:19:25 by marsoare          #+#    #+#             */
+/*   Updated: 2024/11/08 17:21:52 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_shell	*shell_struct(t_shell *shell, int flag)
+void	heredoc_process(t_shell *shell, t_inf *inf, int fd)
 {
-	static t_shell	*ptr;
-	if (flag)
-		return (ptr);
-	ptr = shell;
-	return (ptr);
-}
+	pid_t	pid;
+	int		status;
 
-void	sigint_heredoc_handler(int sig)
-{
-	const t_shell	*shell = shell_struct(NULL, 1);
-
-	if (sig == SIGINT)
+	pid = fork();
+	status = 0;
+	if (pid == 0)
 	{
-		write(STDOUT_FILENO, "\n", 1);
-		close(shell->fd);
+		heredoc_signal();
+		shell->fd = fd;
+		run_heredoc(shell, inf, fd);
+		close(fd);
 		free_env_lst(shell->envp);
-		free_shell((t_shell *)shell);
-		exit(130);
+		free_shell(shell);
+		exit_code(status);
+		exit(exit_code(-1));
 	}
-}
-
-void	heredoc_signal(void)
-{
-	signal(SIGINT, sigint_heredoc_handler);
-	signal(SIGQUIT, SIG_IGN);
+	waitpid(pid, &status, 0);
+	exit_code(status);
+	close(fd);
 }

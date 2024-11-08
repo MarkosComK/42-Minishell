@@ -16,7 +16,6 @@
 # include <structs.h>
 
 //terminal.c
-t_shell	*shell_struct(t_shell *shell, int flag);
 void	terminal(t_shell *shell, char **envp);
 void	prepare_shell(t_shell *shell, char **envp);
 void	execute_command(t_shell *shell, int *status);
