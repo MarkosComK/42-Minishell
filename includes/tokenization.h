@@ -52,7 +52,7 @@ int				handle_pipe(t_shell *shell, char *input, int i);
 int				handle_quotes(t_shell *shell, char *input, int i);
 
 //del_token.c
-void	del_token(void *content);
+void			del_token(void *content);
 
 //expand_tokens.c
 void			expand_tokens(t_shell *shell);
