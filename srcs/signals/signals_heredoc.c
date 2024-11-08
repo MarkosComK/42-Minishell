@@ -14,9 +14,13 @@
 
 void	sigint_heredoc_handler(int sig)
 {
+	t_shell	*shell = shell_struct(NULL, 1);
 	if (sig == SIGINT)
 	{
 		write(STDOUT_FILENO, "\n", 1);
+		close(shell->fd);
+		free_env_lst(shell->envp);
+		free_shell(shell);
 		exit(130);
 	}
 }

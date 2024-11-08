@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:41:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/08 13:48:22 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:56:46 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ void	set_exec(t_shell *shell, t_exec *exec)
 			if (pid == 0)
 			{
 				heredoc_signal();
+				shell->fd = fd;
 				run_heredoc(shell, inf, fd);
 				close(fd);
 				free_env_lst(shell->envp);
 				free_shell(shell);
-				exit(0);
+				exit_code(status);
+				exit(exit_code(-1));
 			}
 			waitpid(pid, &status, 0);
 			close(fd);
@@ -93,6 +95,7 @@ void	traverse_pipe(t_shell *shell, t_pipe *pipe)
 
 void	handle_heredoc(t_shell *shell, void *root)
 {
+	shell_struct(shell, 0);
 	if (((t_node *)root)->type == N_PIPE)
 		traverse_pipe(shell, root);
 	else if (((t_node *)root)->type == N_EXEC)
