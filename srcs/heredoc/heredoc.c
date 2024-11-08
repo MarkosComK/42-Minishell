@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:41:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/08 11:43:30 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:44:46 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	set_exec(t_shell *shell, t_exec *exec)
 		if (inf->type == HERE)
 		{
 			inf->name = ft_random_name(shell, inf->eof);
-			fd = open(inf->name, O_RDWR | O_CREAT | O_APPEND, 0644);
+			fd = open(inf->name, O_RDWR | O_CREAT | O_TRUNC, 0600);
 			pid = fork();
 			if (pid == 0)
 			{
