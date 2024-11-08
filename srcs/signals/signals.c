@@ -24,10 +24,18 @@ void	sig_main(int signo)
 	}
 }
 
+void	sig_pipe(int signo)
+{
+	if (signo == SIGPIPE)
+	{
+	}
+}
+
 void	set_main_signals(void)
 {
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGPIPE, sig_pipe);
 }
 
 void	handle_signals(void)
