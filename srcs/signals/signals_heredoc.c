@@ -15,6 +15,7 @@
 t_shell	*shell_struct(t_shell *shell, int flag)
 {
 	static t_shell	*ptr;
+
 	if (flag)
 		return (ptr);
 	ptr = shell;
