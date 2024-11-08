@@ -54,23 +54,11 @@ void	del_token(void *content)
 
 void	free_shell(t_shell *shell)
 {
-	t_list	*tmp;
-	//t_token	*token;
+	//t_list	*tmp;
 	int		i;
 
-	tmp = shell->token_lst;
+	//tmp = shell->token_lst;
 	ft_lstclear(&shell->token_lst, del_token);
-	/*
-	while (shell->token_lst)
-	{
-		tmp = shell->token_lst -> next;
-		token = (t_token *) shell->token_lst->content;
-		free(token->value);
-		free(shell->token_lst->content);
-		free(shell->token_lst);
-		shell->token_lst = tmp;
-	}
-	*/
 	i = 0;
 	if (shell->envp_arr)
 	{
@@ -81,6 +69,8 @@ void	free_shell(t_shell *shell)
 		}
 		free(shell->envp_arr);
 	}
+	ft_lstclear(&shell->path, free);
+	/*
 	while (shell->path)
 	{
 		tmp = shell->path->next;
@@ -88,6 +78,7 @@ void	free_shell(t_shell *shell)
 		free(shell->path);
 		shell->path = tmp;
 	}
+	*/
 	if (shell->input)
 		free(shell->input);
 	if (shell->trim_input)
