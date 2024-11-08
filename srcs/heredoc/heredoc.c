@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:41:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/08 11:49:15 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:44:21 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	run_heredoc(t_shell *shell, t_inf *infile, int fd)
 		{
 			break ;
 		}
-		line = heredoc_expand();
+		line = heredoc_expand(shell, line);
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
 	}
