@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.h                                          :+:      :+:    :+:   */
+/*   signals_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 11:16:31 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/08 11:41:01 by marsoare         ###   ########.fr       */
+/*   Created: 2024/11/08 11:38:33 by marsoare          #+#    #+#             */
+/*   Updated: 2024/11/08 11:39:30 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNALS_H
-# define SIGNALS_H
+#include <minishell.h>
 
-//signals.c
-void	sig_main(int signo);
-void	set_main_signals(void);
-void	handle_signals(void);
-void	set_fork1_signal(void);
+void	sigint_heredoc_handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		exit(130);
+	}
+}
 
-//signals_heredoc.c
-void	sigint_heredoc_handler(int sig);
-void	set_heredoc_signal(void);
-
-#endif
+void	set_heredoc_signal(void)
+{
+	signal(SIGINT, sigint_heredoc_handler);
+	signal(SIGQUIT, SIG_IGN);
+}
