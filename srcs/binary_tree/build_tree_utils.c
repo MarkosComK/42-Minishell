@@ -42,16 +42,23 @@ char	**get_argv(t_shell *shell, t_list *token_lst)
 t_list	*get_infiles(t_shell *shell, t_list *token_lst, t_list **infiles)
 {
 	t_list	*current;
-	char	*content;
+	t_inf	*content;
 
 	current = token_lst;
 	while (current && ((t_token *)current->content)->type != PIPE)
 	{
-		if (current && ((t_token *)current->content)->type == INFILE)
+		if (current && (((t_token *)current->content)->type == INFILE
+				|| ((t_token *)current->content)->type == HEREDOC))
 		{
-			content = ft_strdup(((t_token *)current->next->content)->value);
+			content = ft_calloc(sizeof(t_inf), 1);
 			if (!content)
-				exit_failure(shell, "get_infiles");
+				exit_failure(shell, "get_outfiles");
+			if (((t_token *)current->content)->type == INFILE)
+				content->type = INF;
+			else
+				content->type = HERE;
+			content->eof = ft_strdup(((t_token *)
+						current->next->content)->value);
 			ft_lstadd_back(infiles, ft_lstnew(content));
 			current = current->next->next;
 			continue ;
@@ -115,7 +122,8 @@ int	count_args(t_list *tkn_lst)
 	args = 0;
 	while (tkn_lst && ((t_token *)tkn_lst->content)->type != PIPE)
 	{
-		if (tkn_lst && ((t_token *)tkn_lst->content)->type == INFILE)
+		if (tkn_lst && (((t_token *)tkn_lst->content)->type == INFILE
+				|| ((t_token *)tkn_lst->content)->type == HEREDOC))
 		{
 			tkn_lst = tkn_lst->next->next;
 			continue ;

@@ -15,6 +15,7 @@
 void	handle_infiles(t_shell *shell, t_exec *exec_node)
 {
 	int		fd;
+	t_inf	*inf;
 	t_list	*infiles;
 
 	infiles = exec_node->infiles;
@@ -22,10 +23,16 @@ void	handle_infiles(t_shell *shell, t_exec *exec_node)
 	{
 		while (infiles)
 		{
-			fd = open(infiles->content, O_RDONLY);
+			inf = ((t_inf *)infiles->content);
+			if (inf->type == INF)
+				fd = open(inf->eof, O_RDONLY);
+			else if (inf->type == HERE)
+			{
+				fd = open(inf->name, O_RDWR, 0644);
+			}
 			if (fd < 0)
 			{
-				infile_failure(shell, infiles->content);
+				infile_failure(shell, inf->eof);
 			}
 			dup2(fd, STDIN_FILENO);
 			close(fd);

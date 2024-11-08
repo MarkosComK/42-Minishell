@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/03 20:49:29 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/07 13:42:01 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	terminal(t_shell *shell, char **envp)
 	shell->path = path_list(shell, envp);
 	shell->root = build_tree(shell, shell->token_lst);
 	set_main_signals();
+	handle_heredoc(shell, shell->root);
 	exec_processes(shell);
 	free_shell(shell);
 	terminal(shell, envp);

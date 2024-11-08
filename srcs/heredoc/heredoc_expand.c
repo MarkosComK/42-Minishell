@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printers.c                                         :+:      :+:    :+:   */
+/*   heredoc_expand.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 13:36:29 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 12:06:46 by marsoare         ###   ########.fr       */
+/*   Created: 2024/11/08 13:37:04 by marsoare          #+#    #+#             */
+/*   Updated: 2024/11/08 13:46:05 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-bool	syntax_error_msg(char *str)
+char	*heredoc_expand(t_shell *shell, char *line)
 {
-	ft_putstr_fd(SYNTAX_ERROR, 2);
-	if (str)
-		ft_putendl_fd(str, 2);
-	return (true);
-}
+	char	*str;
+	int		i;
 
-void	path_message(t_shell *shell, char *path, char *error_msg)
-{
-	ft_putstr_fd(MINISHELL " " DEFAULT, 2);
-	ft_putstr_fd(path, 2);
-	ft_putendl_fd(error_msg, 2);
-	free_env_lst(shell->envp);
-	free_shell(shell);
+	str = ft_strdup("");
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '$' || ft_isquote(line[i]))
+			i = prcs_expansion(shell, &str, line, i);
+		else
+			while (line[i] && (line[i] != '$' && line[i] != '"'))
+				str = ft_strjoin_char(str, line[i++]);
+		if (ft_isspace(line[i]) || ft_ismeta(line, i))
+			break ;
+	}
+	while (ft_isspace(line[i]))
+		i++;
+	return (str);
 }

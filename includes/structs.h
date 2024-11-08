@@ -28,6 +28,7 @@ typedef struct s_shell
 	char		*cmd_path;
 	char		*cwd;
 	int			exit_code;
+	int			fd;
 }				t_shell;
 
 #endif
