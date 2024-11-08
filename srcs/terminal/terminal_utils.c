@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 20:33:58 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/03 20:49:22 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/08 19:44:49 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ void	exec_processes(t_shell *shell)
 	{
 		exec = (t_exec *)shell->root;
 		if (is_parent_builtin(exec))
-		{
 			exec_parent_builtin(shell, exec);
-		}
 		else
 		{
 			if (fork() == 0)

@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 19:42:12 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/08 19:42:22 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/08 19:44:24 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	del_token(void *content)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = (t_token *)content;
 	if (token)
