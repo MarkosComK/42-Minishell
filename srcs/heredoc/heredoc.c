@@ -27,23 +27,6 @@ void	set_exec(t_shell *shell, t_exec *exec)
 			inf->name = ft_random_name(shell, inf->eof);
 			fd = open(inf->name, O_RDWR | O_CREAT | O_TRUNC, 0600);
 			heredoc_process(shell, inf, fd);
-			/*
-			pid = fork();
-			if (pid == 0)
-			{
-				heredoc_signal();
-				shell->fd = fd;
-				run_heredoc(shell, inf, fd);
-				close(fd);
-				free_env_lst(shell->envp);
-				free_shell(shell);
-				exit_code(status);
-				exit(exit_code(-1));
-			}
-			waitpid(pid, &status, 0);
-			exit_code(status);
-			close(fd);
-			*/
 		}
 		infiles = infiles->next;
 	}
