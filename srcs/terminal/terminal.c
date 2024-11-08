@@ -40,13 +40,27 @@ void	terminal(t_shell *shell, char **envp)
 	terminal(shell, envp);
 }
 
+void	del_token(void *content)
+{
+	t_token *token;
+
+	token = (t_token *)content;
+	if (token)
+	{
+		free(token->value);
+		free(token);
+	}
+}
+
 void	free_shell(t_shell *shell)
 {
 	t_list	*tmp;
-	t_token	*token;
+	//t_token	*token;
 	int		i;
 
 	tmp = shell->token_lst;
+	ft_lstclear(&shell->token_lst, del_token);
+	/*
 	while (shell->token_lst)
 	{
 		tmp = shell->token_lst -> next;
@@ -56,6 +70,7 @@ void	free_shell(t_shell *shell)
 		free(shell->token_lst);
 		shell->token_lst = tmp;
 	}
+	*/
 	i = 0;
 	if (shell->envp_arr)
 	{
