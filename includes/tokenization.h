@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:41:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/08 19:43:36 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/08 20:27:42 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,8 @@ bool			ft_ismeta(char *str, int i);
 int				set_append(t_shell *sh, t_token *new_token, char *input, int i);
 int				set_simple(t_shell *sh, t_token *new_token, char *input, int i);
 bool			is_expandable(char *token);
+
+//tokenize_utils.c
+int				set_hered(t_shell *sh, t_token *new_token, char *input, int i);
 
 #endif
