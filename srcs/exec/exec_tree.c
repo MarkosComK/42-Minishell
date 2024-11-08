@@ -32,17 +32,17 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 		perror("pipe failed");
 		exit(1);
 	}
+	status = 0;
 	pid1 = fork();
 	if (pid1 == 0)
 		handle_pid1(shell, pipefd, pipe_node);
 	pid2 = fork();
 	if (pid2 == 0)
 		handle_pid2(shell, pipefd, pipe_node);
-	close(pipefd[0]);
 	close(pipefd[1]);
-	status = 0;
-	waitpid(pid1, &status, 0);
+	close(pipefd[0]);
 	waitpid(pid2, &status, 0);
+	waitpid(pid1, &status, 0);
 	exit_status(status);
 	free_env_lst(shell->envp);
 	free_shell(shell);
