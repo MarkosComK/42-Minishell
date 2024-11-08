@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:38:33 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/08 11:39:30 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:43:45 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	sigint_heredoc_handler(int sig)
 	}
 }
 
-void	set_heredoc_signal(void)
+void	heredoc_signal(void)
 {
 	signal(SIGINT, sigint_heredoc_handler);
 	signal(SIGQUIT, SIG_IGN);

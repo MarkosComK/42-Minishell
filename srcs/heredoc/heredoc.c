@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:41:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/08 11:40:16 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:43:30 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	set_exec(t_shell *shell, t_exec *exec)
 			pid = fork();
 			if (pid == 0)
 			{
+				heredoc_signal();
 				run_heredoc(shell, inf, fd);
 				close(fd);
 				free_env_lst(shell->envp);
