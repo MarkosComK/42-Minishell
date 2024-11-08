@@ -40,24 +40,10 @@ void	terminal(t_shell *shell, char **envp)
 	terminal(shell, envp);
 }
 
-void	del_token(void *content)
-{
-	t_token *token;
-
-	token = (t_token *)content;
-	if (token)
-	{
-		free(token->value);
-		free(token);
-	}
-}
-
 void	free_shell(t_shell *shell)
 {
-	//t_list	*tmp;
 	int		i;
 
-	//tmp = shell->token_lst;
 	ft_lstclear(&shell->token_lst, del_token);
 	i = 0;
 	if (shell->envp_arr)
@@ -70,15 +56,6 @@ void	free_shell(t_shell *shell)
 		free(shell->envp_arr);
 	}
 	ft_lstclear(&shell->path, free);
-	/*
-	while (shell->path)
-	{
-		tmp = shell->path->next;
-		free(shell->path->content);
-		free(shell->path);
-		shell->path = tmp;
-	}
-	*/
 	if (shell->input)
 		free(shell->input);
 	if (shell->trim_input)
