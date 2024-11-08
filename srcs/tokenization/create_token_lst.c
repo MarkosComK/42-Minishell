@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:41:24 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/27 22:05:28 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/08 20:28:45 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,6 @@ int	handle_word_token(t_shell *shell, char *input, int i)
 	return (i);
 }
 
-int	set_heredoc(t_shell *sh, t_token *new_token, char *input, int i)
-{
-	new_token->value = ft_strndup(&input[i], 2);
-	if (!new_token->value)
-		exit_failure(sh, "handle_redir_2");
-	new_token->type = HEREDOC;
-	return (i + 2);
-}
-
 int	handle_redir(t_shell *shell, char *input, int i)
 {
 	t_token	*new_token;
@@ -79,7 +70,7 @@ int	handle_redir(t_shell *shell, char *input, int i)
 	}
 	else if (input[i] == '<' && input[i + 1] == '<')
 	{
-		i = set_heredoc(shell, new_token, input, i);
+		i = set_hered(shell, new_token, input, i);
 	}
 	else
 		i = set_simple(shell, new_token, input, i);
