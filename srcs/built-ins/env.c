@@ -82,7 +82,7 @@ void print_env_lst(t_list *lst)
     while (lst)
     {
         env_var = (t_env *)lst->content;
-        if (env_var->content && ft_strlen(env_var->content) > 0)
+        if (env_var->content && ft_strchr(env_var->value, '='))
         {
             printf("%s", env_var->value);
             printf("%s\n", env_var->content);

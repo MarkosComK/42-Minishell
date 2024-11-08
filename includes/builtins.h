@@ -21,6 +21,7 @@ typedef struct s_env
 	char	*value;
 	char	*content;
 	bool	is_export;
+	bool	printed;
 }				t_env;
 
 //builtins_utils.c
@@ -55,15 +56,18 @@ int		val_size(char *env);
 
 //exit.c ~ empty
 
-//export.c ~ empty
+//export.c
 void	ft_export(t_shell *shell, char **args);
 void	export_var(t_shell *shell, const char *arg);
 void	upt_env_var(t_shell *shell, t_env *new_env);
 char	*create_value(t_shell *shell, const char *arg, char *equal);
+void	mark_isexport(t_shell *shell, const char *var_name);
 
-void mark_isexport(t_shell *shell, const char *var_name);
-void print_export_lst(t_list *lst);
-
+//export_utils.c
+void 	print_export_lst(t_list *lst);
+void	reset_printed(t_list *lst);
+t_list  *get_next_var(t_list *lst);
+void	print_var(t_env *env);
 
 //pwd.c
 void	ft_pwd(void);

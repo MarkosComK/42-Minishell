@@ -54,7 +54,7 @@ void	export_var(t_shell *shell, const char *arg)
 	if (!arg || !shell)
 		return ;
 	equal = ft_strchr(arg, '=');
-	if(!equal)
+	if(!equal && !ft_strchr(arg, '='))
 	{
 		mark_isexport(shell, arg);
 		return ;
@@ -65,54 +65,39 @@ void	export_var(t_shell *shell, const char *arg)
     new_env->value = create_value(shell, arg, equal);
     new_env->content = ft_strdup(equal + 1);
     new_env->is_export = true;
-    
+    new_env->printed = false;
     upt_env_var(shell, new_env);
 }
 
-void	upt_env_var(t_shell *shell, t_env *new_env)
+void    upt_env_var(t_shell *shell, t_env *new_env)
 {
-	t_list	*env_list;
-	t_env	*env_var;
+    t_list  *env_list;
+    t_env   *env_var;
+    char    *tmp_value;
+    int     len;
 
-	env_list = shell->envp;
-	while (env_list)
-	{
-		env_var = (t_env *)env_list->content;
-		if (ft_strcmp(env_var->value, new_env->value) == 0)
-		{
-			free(env_var->content);
-			env_var->content = new_env->content;
-			env_var->is_export = true;
-			free(new_env->value);
-			free(new_env);
-			return ;
-		}
-		env_list = env_list->next;
-	}
-	ft_lstadd_back(&shell->envp, ft_lstnew(new_env));
-}
-
-void print_export_lst(t_list *lst)
-{
-    t_list *curr;
-    t_env *env_var;
-
-    curr = lst;
-    while(curr)
+    env_list = shell->envp;
+    tmp_value = new_env->value;
+    len = ft_strlen(tmp_value) - 1;
+    while (env_list)
     {
-        env_var = (t_env *)curr->content;
-        if (env_var->content == NULL)
-            printf("declare -x %s\n", env_var->value);
-        else
+        env_var = env_list->content;
+        if (ft_strncmp(env_var->value, tmp_value, len) == 0 
+            && (env_var->value[len] == '=' || env_var->value[len] == '\0'))
         {
-			printf("declare -x ");
-            printf("%s", env_var->value);
-            printf("%s\n", env_var->content);
+            free(env_var->value);
+            free(env_var->content);
+            env_var->value = new_env->value;
+            env_var->content = new_env->content;
+            env_var->is_export = true;
+			env_var->printed = false;
+            free(new_env);
+            return ;
         }
-        curr = curr->next;
+        env_list = env_list->next;
     }
+    ft_lstadd_back(&shell->envp, ft_lstnew(new_env));
 }
-
 
 void mark_isexport(t_shell *shell, const char *var_name)
 {
@@ -137,5 +122,6 @@ void mark_isexport(t_shell *shell, const char *var_name)
 	new_env->value = ft_strdup(var_name);
 	new_env->content = NULL;
 	new_env->is_export = true;
+    new_env->printed = false; 	
 	ft_lstadd_back(&shell->envp, ft_lstnew(new_env));
 }
