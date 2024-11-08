@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:41:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/31 16:27:17 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/08 19:43:36 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ int				handle_word_token(t_shell *shell, char *input, int i);
 int				handle_redir(t_shell *shell, char *input, int i);
 int				handle_pipe(t_shell *shell, char *input, int i);
 int				handle_quotes(t_shell *shell, char *input, int i);
+
+//del_token.c
+void	del_token(void *content);
 
 //expand_tokens.c
 void			expand_tokens(t_shell *shell);
