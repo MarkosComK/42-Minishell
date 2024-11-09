@@ -31,6 +31,16 @@ int			exec_parent_builtin(t_shell *shell, t_exec *exec_node);
 int			is_parent_builtin(t_exec *exec_node);
 int			handle_builtins(t_shell *shell, t_exec *exec_node);
 
+//cd.c
+int			ft_cd(t_shell *shell, t_exec *exec_node);
+char		*get_cd_path(t_shell *shell, char *arg);
+int			update_pwd_vars(t_shell *shell);
+int			set_new_pwd(t_shell *shell, char *old_pwd);
+
+//cd_utils.c
+int			handle_chdir_error(char *path);
+int			print_cd_error(char *path, char *msg);
+
 //echo.c
 int			ft_echo(t_exec *exec_node);
 int			echo_flag_n(char *arg);

@@ -32,6 +32,7 @@ int	is_valid_identifier(const char *str)
 
 void	print_invalid_identifier(char *arg, char *cmd)
 {
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": `", 2);
 	ft_putstr_fd(arg, 2);
