@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 15:08:09 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/09 17:14:34 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 17:22:52 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*ltree_print(void *root, int space)
 	node = (t_node *)root;
 	if (node->type == N_ANDIF)
 		ltree_print(((t_andif *)root)->right, space);
-	if (node->type== N_ANDIF)
+	if (node->type == N_ANDIF)
 		printf("               [&&]\n");
 	if (node->type == N_ANDIF)
 		ltree_print(((t_andif *)root)->left, space);
@@ -54,5 +54,4 @@ void	ltree_free(void *root)
 	else
 		free(root);
 	return ;
-
 }
