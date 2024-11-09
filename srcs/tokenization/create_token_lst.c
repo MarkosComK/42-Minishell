@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:41:24 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/08 20:28:45 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 12:07:38 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	tokenize_input(t_shell *shell, char *input)
 			i = handle_quotes(shell, input, i);
 		else if (input[i] == '|')
 			i = handle_pipe(shell, input, i);
+		else if (input[i] == '&' && input[i + 1] == '&')
+			i = handle_andif(shell, input, i);
 		else if (input[i] == '>' || input[i] == '<')
 			i = handle_redir(shell, input, i);
 		else
