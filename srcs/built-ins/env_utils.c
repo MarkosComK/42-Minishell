@@ -41,6 +41,8 @@ t_env	*create_node_env(t_shell *shell, char **envp)
 		exit_failure(shell, "create_node_env");
 	node->value = get_value(shell, *envp);
 	node->content = get_content(shell, *envp);
+	node->is_export = true;
+	node->printed = false;
 	return (node);
 }
 

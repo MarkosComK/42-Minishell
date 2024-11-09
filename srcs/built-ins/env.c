@@ -75,11 +75,16 @@ int	get_path(t_shell *shell, t_list **path_list, char *path, int i)
 
 void	print_env_lst(t_list *lst)
 {
-	(void) lst;
+	t_env	*env_var;
+
 	while (lst)
 	{
-		printf("%s", (char *)((t_env *)lst->content)->value);
-		printf("%s\n", (char *)((t_env *)lst->content)->content);
+		env_var = (t_env *)lst->content;
+		if (env_var->content && ft_strchr(env_var->value, '='))
+		{
+			printf("%s", env_var->value);
+			printf("%s\n", env_var->content);
+		}
 		lst = lst->next;
 	}
 }
