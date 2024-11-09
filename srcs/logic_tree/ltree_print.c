@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 15:08:09 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/09 17:12:20 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 17:14:34 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	ltree_free(void *root)
 	}
 	if (node->type != N_ANDIF)
 		free_bst((t_pipe *)root);
+	else
+		free(root);
 	return ;
 
 }
