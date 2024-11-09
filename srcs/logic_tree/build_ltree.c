@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 12:20:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/09 12:38:50 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 12:42:24 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,9 @@ void	*build_ltree(t_shell *shell, t_list *token_list)
 	while (tmp)
 	{
 		lroot = insert_lnode(shell, lroot, tmp);
-		if (((t_token *)tmp->content)->type != AND_IF)
-		{
-			while (tmp && ((t_token *)tmp->content)->type != AND_IF)
-			{
-				tmp = tmp->next;
-			}
-		}
-		else
+		while (tmp && ((t_token *)tmp->content)->type != AND_IF)
 		{
 			tmp = tmp->next;
-			while (tmp && ((t_token *)tmp->content)->type != AND_IF)
-			{
-				tmp = tmp->next;
-			}
 		}
 	}
 	return (lroot);
@@ -58,6 +47,8 @@ void	*create_subtree(t_shell *shell, t_list *token_lst)
 	if (!token_lst)
 		return (NULL);
 	subtree = build_tree(shell, token_lst);
+	printf("Printing subtree:\n");
+	print_bst(subtree, 5);
 	if (!subtree)
 		exit_failure(shell, "crete_exec");
 	return (subtree);
