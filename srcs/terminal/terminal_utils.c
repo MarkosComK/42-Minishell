@@ -44,6 +44,7 @@ void	exec_processes(t_shell *shell, void *root)
 			if (fork() == 0)
 				exec_tree(shell, root);
 			waitpid(-1, &status, 0);
+			exit_status(status);
 			return ;
 		}
 	}
