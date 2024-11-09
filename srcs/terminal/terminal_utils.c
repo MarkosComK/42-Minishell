@@ -32,6 +32,8 @@ void	exec_processes(t_shell *shell, void *root)
 
 	status = 0;
 	exec = NULL;
+	set_main_signals();
+	handle_heredoc(shell, root);
 	if (((t_node *)root)->type == N_EXEC)
 	{
 		exec = (t_exec *)root;
@@ -42,14 +44,12 @@ void	exec_processes(t_shell *shell, void *root)
 			if (fork() == 0)
 				exec_tree(shell, root);
 			waitpid(-1, &status, 0);
+			return ;
 		}
 	}
-	else
-	{
-		if (fork() == 0)
-			exec_tree(shell, root);
-		waitpid(-1, &status, 0);
-	}
+	if (fork() == 0)
+		exec_tree(shell, root);
+	waitpid(-1, &status, 0);
 	exit_status(status);
 }
 
