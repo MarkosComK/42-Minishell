@@ -51,7 +51,7 @@ char		**env_arr(t_shell *shell);
 t_list		*path_list(t_shell *shell, char **envp);
 int			get_path(t_shell *shell, t_list **path_list, char *path, int i);
 void		print_env_lst(t_list *lst);
-void		free_env_lst(t_list *envp);
+void		free_env_lst(t_list **envp);
 
 //env_utils.c
 t_list		*env_list(t_shell *shell, char **envp);
@@ -64,7 +64,11 @@ char		*sh_get_env(t_list *envp, const char *value);
 int			content_size(char *env);
 int			val_size(char *env);
 
-//exit.c ~ empty
+//exit.c
+void		ft_exit(t_shell *shell, t_exec *exec_node);
+void		exit_error(t_shell *shell, char *arg);
+int			is_numeric(const char *str);
+void		exit_args(void);
 
 //export.c
 void		ft_export(t_shell *shell, char **args);
