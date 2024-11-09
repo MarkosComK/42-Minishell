@@ -34,6 +34,7 @@ void	terminal(t_shell *shell, char **envp)
 	shell->envp_arr = env_arr(shell);
 	shell->path = path_list(shell, envp);
 	shell->root = build_tree(shell, shell->token_lst);
+	print_token_lst(shell->token_lst);
 	set_main_signals();
 	handle_heredoc(shell, shell->root);
 	exec_processes(shell);
