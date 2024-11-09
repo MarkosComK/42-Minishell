@@ -34,6 +34,8 @@ char	**get_argv(t_shell *shell, t_list *token_lst)
 			current = check_word(&current, argv, &i);
 			continue ;
 		}
+		if (current->next && ((t_token *)current->next->content)->type == AND_IF)
+			break ;
 		current = current->next->next;
 	}
 	return (argv[argc] = NULL, argv);
@@ -47,6 +49,8 @@ t_list	*get_infiles(t_shell *shell, t_list *token_lst, t_list **infiles)
 	current = token_lst;
 	while (current && ((t_token *)current->content)->type != PIPE)
 	{
+		if (current->next && ((t_token *)current->next->content)->type == AND_IF)
+			break ;
 		if (current && (((t_token *)current->content)->type == INFILE
 				|| ((t_token *)current->content)->type == HEREDOC))
 		{
@@ -76,6 +80,8 @@ t_list	*get_outfiles(t_shell *shell, t_list *token_lst, t_list **outfiles)
 	current = token_lst;
 	while (current && ((t_token *)current->content)->type != PIPE)
 	{
+		if (current->next && ((t_token *)current->next->content)->type == AND_IF)
+			break ;
 		if (current && (((t_token *)current->content)->type == OUTFILE
 				|| ((t_token *)current->content)->type == APPEND))
 		{
@@ -135,6 +141,8 @@ int	count_args(t_list *tkn_lst)
 			continue ;
 		}
 		tkn_lst = check_w_args(tkn_lst, &args);
+		if (tkn_lst && ((t_token *)tkn_lst->content)->type == AND_IF)
+			break ;
 	}
 	return (args);
 }

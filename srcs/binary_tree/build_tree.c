@@ -19,22 +19,26 @@ void	*build_tree(t_shell *shell, t_list *token_list)
 
 	tmp = token_list;
 	root = NULL;
-	while (tmp)
+	while (tmp && ((t_token *)tmp->content)->type != AND_IF)
 	{
 		root = insert_node(shell, root, tmp);
 		if (((t_token *)tmp->content)->type != PIPE)
 		{
-			while (tmp && ((t_token *)tmp->content)->type != PIPE)
+			while (tmp && (((t_token *)tmp->content)->type != PIPE))
 			{
 				tmp = tmp->next;
+				if (tmp && ((t_token *)tmp->content)->type == AND_IF)
+					break ;
 			}
 		}
 		else
 		{
 			tmp = tmp->next;
-			while (tmp && ((t_token *)tmp->content)->type != PIPE)
+			while (tmp && (((t_token *)tmp->content)->type != PIPE))
 			{
 				tmp = tmp->next;
+				if (tmp && ((t_token *)tmp->content)->type == AND_IF)
+					break ;
 			}
 		}
 	}
@@ -97,7 +101,8 @@ t_list	*get_name(t_list *tkn_lst)
 	t_list	*word;
 
 	word = NULL;
-	while (tkn_lst && ((t_token *)tkn_lst->content)->type != PIPE)
+	while (tkn_lst && (((t_token *)tkn_lst->content)->type != PIPE
+			|| ((t_token *)tkn_lst->content)->type != AND_IF))
 	{
 		if (tkn_lst && (((t_token *)tkn_lst->content)->type == INFILE
 				|| ((t_token *)tkn_lst->content)->type == HEREDOC))
