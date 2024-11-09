@@ -14,10 +14,10 @@
 
 int	is_builtin(const char *command)
 {
-	const char	*builtins[7];
+	const char	*builtins[7] = {"echo", "cd", "pwd",
+		"export", "unset", "env", "exit"};
 	int			i;
 
-	builtins[7] = {"echo", "cd", "pwd", "export", "unset", "env", "exit"};
 	i = 0;
 	while (i < 7)
 	{
