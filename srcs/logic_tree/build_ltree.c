@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 12:20:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/09 12:32:53 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 12:38:50 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	*build_ltree(t_shell *shell, t_list *token_list)
 	while (tmp)
 	{
 		lroot = insert_lnode(shell, lroot, tmp);
-		if (((t_token *)tmp->content)->type != PIPE)
+		if (((t_token *)tmp->content)->type != AND_IF)
 		{
-			while (tmp && ((t_token *)tmp->content)->type != PIPE)
+			while (tmp && ((t_token *)tmp->content)->type != AND_IF)
 			{
 				tmp = tmp->next;
 			}
@@ -32,7 +32,7 @@ void	*build_ltree(t_shell *shell, t_list *token_list)
 		else
 		{
 			tmp = tmp->next;
-			while (tmp && ((t_token *)tmp->content)->type != PIPE)
+			while (tmp && ((t_token *)tmp->content)->type != AND_IF)
 			{
 				tmp = tmp->next;
 			}
@@ -63,14 +63,14 @@ void	*create_subtree(t_shell *shell, t_list *token_lst)
 	return (subtree);
 }
 
-void	*create_andif(t_shell *shell, t_exec *left, t_exec *right)
+void	*create_andif(t_shell *shell, void *left, void *right)
 {
 	t_andif	*node;
 
-	node = (t_pipe *)malloc(sizeof(t_pipe));
+	node = (t_andif *)malloc(sizeof(t_andif));
 	if (!node)
 		exit_failure(shell, "crete_exec");
-	node->type.type = N_PIPE;
+	node->type.type = N_ANDIF;
 	node->left = left;
 	node->right = right;
 	return (node);

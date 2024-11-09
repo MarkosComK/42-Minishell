@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:53:24 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/03 22:46:47 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 12:39:06 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef enum e_node_type
 {
 	N_PIPE,
 	N_EXEC,
+	N_ANDIF,
 }				t_node_type;
 
 typedef struct s_node
