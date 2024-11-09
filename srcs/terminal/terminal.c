@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/09 15:12:57 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 17:10:19 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ void	terminal(t_shell *shell, char **envp)
 	//shell->lroot = build_ltree(shell, shell->token_lst);
 	print_token_lst(shell->token_lst);
 	ltree_print(shell->root, 5);
+	/*
 	set_main_signals();
 	handle_heredoc(shell, shell->root);
 	exec_processes(shell);
+	*/
 	free_shell(shell);
 	terminal(shell, envp);
 }
@@ -64,8 +66,10 @@ void	free_shell(t_shell *shell)
 		free(shell->input);
 	if (shell->trim_input)
 		free(shell->trim_input);
+	//if (shell->root)
+		//free_bst(shell->root);
 	if (shell->root)
-		free_bst(shell->root);
+		ltree_free(shell->root);
 	if (shell->cmd_path)
 		free(shell->cmd_path);
 	if (shell->cwd)

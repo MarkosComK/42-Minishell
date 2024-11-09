@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:21:22 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/03 22:48:51 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 15:30:05 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_list	*get_outfiles(t_shell *shell, t_list *token_lst, t_list **outfiles)
 		if (current && (((t_token *)current->content)->type == OUTFILE
 				|| ((t_token *)current->content)->type == APPEND))
 		{
-			content = malloc(sizeof(t_outf));
+			content = ft_calloc(1, sizeof(t_outf));
 			if (!content)
 				exit_failure(shell, "get_outfiles");
 			if (((t_token *)current->content)->type == APPEND)

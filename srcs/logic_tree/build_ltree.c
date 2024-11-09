@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 12:20:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/09 12:42:24 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 15:26:38 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	*create_andif(t_shell *shell, void *left, void *right)
 {
 	t_andif	*node;
 
-	node = (t_andif *)malloc(sizeof(t_andif));
+	node = malloc(sizeof(t_andif));
 	if (!node)
 		exit_failure(shell, "crete_exec");
 	node->type.type = N_ANDIF;

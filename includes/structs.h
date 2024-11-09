@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:30:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/09 12:42:49 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 17:11:09 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_shell
 	char		*cwd;
 	int			exit_code;
 	int			fd;
-	void		*lroot;
 }				t_shell;
 
 #endif

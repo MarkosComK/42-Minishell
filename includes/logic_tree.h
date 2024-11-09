@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 12:28:11 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/09 15:13:19 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 15:19:32 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	*create_andif(t_shell *shell, void *left, void *right);
 
 //ltree_print.c
 void	*ltree_print(void *root, int space);
+void	ltree_free(void *root);
 
 #endif
