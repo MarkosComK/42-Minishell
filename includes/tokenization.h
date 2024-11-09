@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:41:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/09 12:03:49 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 18:09:19 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int				h_quoted_str(t_shell *shell, char **str, char *input, int i);
 int				h_nonquoted_str(t_shell *shell, char **str, char *input, int i);
 
 //handle_andif.c
-int	handle_andif(t_shell *shell, char *input, int i);
+int				handle_andif(t_shell *shell, char *input, int i);
 
 //handle_expand.c
 int				handle_expand(t_shell *shell, char *input, int i);
