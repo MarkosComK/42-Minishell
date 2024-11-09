@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:47:06 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/03 20:49:38 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/09 17:40:48 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_shell(t_shell *shell);
 
 //terminal_utils.c
 void	shell_input(t_shell *shell);
-void	exec_processes(t_shell *shell);
+void	exec_processes(t_shell *shell, void *root);
 int		is_env_empty(t_shell *shell);
 void	start_shell(t_shell *shell);
 void	finish_shell(t_shell *shell);

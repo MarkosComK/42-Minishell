@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 20:33:58 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/08 19:44:49 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 17:41:45 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,32 @@ void	shell_input(t_shell *shell)
 	free(tmp);
 }
 
-void	exec_processes(t_shell *shell)
+void	exec_processes(t_shell *shell, void *root)
 {
 	t_exec	*exec;
+	t_node	*node;
 	int		status;
 
 	status = 0;
 	exec = NULL;
-	if (((t_node *)shell->root)->type == N_EXEC)
+	node = (t_node *)root;
+	if (node->type == N_EXEC)
 	{
-		exec = (t_exec *)shell->root;
+		printf("executing exec process\n");
+		exec = (t_exec *)root;
 		if (is_parent_builtin(exec))
 			exec_parent_builtin(shell, exec);
 		else
 		{
 			if (fork() == 0)
-				exec_tree(shell, shell->root);
+				exec_tree(shell, root);
 			waitpid(-1, &status, 0);
 		}
 	}
 	else
 	{
 		if (fork() == 0)
-			exec_tree(shell, shell->root);
+			exec_tree(shell, root);
 		waitpid(-1, &status, 0);
 	}
 	exit_status(status);

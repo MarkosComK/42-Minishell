@@ -6,11 +6,28 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:43:04 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/03 15:59:48 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/09 17:38:36 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	lexec_tree(t_shell *shell, void *root)
+{
+	t_node	*node;
+
+	if (!root)
+		return ;
+	node = (t_node *)root;
+	if (node->type == N_ANDIF)
+	{
+		lexec_tree(shell, ((t_andif *)root)->left);
+		lexec_tree(shell, ((t_andif *)root)->right);
+	}
+	if (node->type != N_ANDIF)
+		exec_processes(shell, root);
+	return ;
+}
 
 void	exec_tree(t_shell *shell, void *root)
 {

@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:42:37 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/24 04:21:21 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 17:33:13 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <structs.h>
 
 //exec_tree
+void	lexec_tree(t_shell *shell, void *root);
 void	exec_tree(t_shell *shell, void *root);
 void	exec_pipe(t_shell *shell, t_pipe *pipe_node);
 void	exec_node(t_shell *shell, t_exec *exec_node);
