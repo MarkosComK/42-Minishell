@@ -6,101 +6,94 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:21:22 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/09 15:30:05 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 17:57:41 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	**get_argv(t_shell *shell, t_list *token_lst)
+char	**get_argv(t_shell *shell, t_list *t_lst)
 {
-	t_list	*current;
 	int		argc;
 	char	**argv;
 	int		i;
 
-	current = token_lst;
 	argc = 0;
 	i = 0;
-	argc = count_args(current);
+	argc = count_args(t_lst);
 	argv = malloc((argc + 1) * sizeof(char *));
 	if (!argv)
 		exit_failure(shell, "get_argv");
-	current = token_lst;
-	while (current && ((t_token *)current->content)->type != PIPE && i < argc)
+	while (t_lst && ((t_token *)t_lst->content)->type != PIPE && i < argc)
 	{
-		if (current && ((t_token *)current->content)->type == WORD)
+		if (t_lst && ((t_token *)t_lst->content)->type == WORD)
 		{
-			current = check_word(&current, argv, &i);
+			t_lst = check_word(&t_lst, argv, &i);
 			continue ;
 		}
-		if (current->next && ((t_token *)current->next->content)->type == AND_IF)
+		if (t_lst->next && ((t_token *)t_lst->next->content)->type == AND_IF)
 			break ;
-		current = current->next->next;
+		t_lst = t_lst->next->next;
 	}
 	return (argv[argc] = NULL, argv);
 }
 
-t_list	*get_infiles(t_shell *shell, t_list *token_lst, t_list **infiles)
+t_list	*get_infiles(t_shell *shell, t_list *tkn_lst, t_list **infiles)
 {
-	t_list	*current;
 	t_inf	*content;
 
-	current = token_lst;
-	while (current && ((t_token *)current->content)->type != PIPE)
+	while (tkn_lst && ((t_token *)tkn_lst->content)->type != PIPE)
 	{
-		if (current->next && ((t_token *)current->next->content)->type == AND_IF)
-			break ;
-		if (current && (((t_token *)current->content)->type == INFILE
-				|| ((t_token *)current->content)->type == HEREDOC))
+		if (tkn_lst && (((t_token *)tkn_lst->content)->type == INFILE
+				|| ((t_token *)tkn_lst->content)->type == HEREDOC))
 		{
 			content = ft_calloc(sizeof(t_inf), 1);
 			if (!content)
 				exit_failure(shell, "get_outfiles");
-			if (((t_token *)current->content)->type == INFILE)
+			if (((t_token *)tkn_lst->content)->type == INFILE)
 				content->type = INF;
 			else
 				content->type = HERE;
 			content->eof = ft_strdup(((t_token *)
-						current->next->content)->value);
+						tkn_lst->next->content)->value);
 			ft_lstadd_back(infiles, ft_lstnew(content));
-			current = current->next->next;
+			tkn_lst = tkn_lst->next->next;
 			continue ;
 		}
-		current = current->next;
+		tkn_lst = tkn_lst->next;
+		if (tkn_lst && ((t_token *)tkn_lst->content)->type == AND_IF)
+			break ;
 	}
-	return (current);
+	return (tkn_lst);
 }
 
-t_list	*get_outfiles(t_shell *shell, t_list *token_lst, t_list **outfiles)
+t_list	*get_outfiles(t_shell *shell, t_list *tkn_lst, t_list **outfiles)
 {
-	t_list	*current;
 	t_outf	*content;
 
-	current = token_lst;
-	while (current && ((t_token *)current->content)->type != PIPE)
+	while (tkn_lst && ((t_token *)tkn_lst->content)->type != PIPE)
 	{
-		if (current->next && ((t_token *)current->next->content)->type == AND_IF)
-			break ;
-		if (current && (((t_token *)current->content)->type == OUTFILE
-				|| ((t_token *)current->content)->type == APPEND))
+		if (tkn_lst && (((t_token *)tkn_lst->content)->type == OUTFILE
+				|| ((t_token *)tkn_lst->content)->type == APPEND))
 		{
 			content = ft_calloc(1, sizeof(t_outf));
 			if (!content)
 				exit_failure(shell, "get_outfiles");
-			if (((t_token *)current->content)->type == APPEND)
+			if (((t_token *)tkn_lst->content)->type == APPEND)
 				content->type = APP;
 			else
 				content->type = ADD;
 			content->name = ft_strdup(((t_token *)
-						current->next->content)->value);
+						tkn_lst->next->content)->value);
 			ft_lstadd_back(outfiles, ft_lstnew(content));
-			current = current->next->next;
+			tkn_lst = tkn_lst->next->next;
 			continue ;
 		}
-		current = current->next;
+		tkn_lst = tkn_lst->next;
+		if (tkn_lst && ((t_token *)tkn_lst->content)->type == AND_IF)
+			break ;
 	}
-	return (current);
+	return (tkn_lst);
 }
 
 char	**get_colors(t_shell *shell, char **argv)
