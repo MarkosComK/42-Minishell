@@ -6,34 +6,11 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 17:40:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/09 18:07:16 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 18:08:41 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-t_list	*skip_if(t_list *tmp)
-{
-	while (tmp && ((t_token *)tmp->content)->type != PIPE)
-	{
-		tmp = tmp->next;
-		if (tmp && ((t_token *)tmp->content)->type == AND_IF)
-			break ;
-	}
-	return (tmp);
-}
-
-t_list	*skip_else(t_list *tmp)
-{
-	tmp = tmp->next;
-	while (tmp && ((t_token *)tmp->content)->type != PIPE)
-	{
-		tmp = tmp->next;
-		if (tmp && ((t_token *)tmp->content)->type == AND_IF)
-			break ;
-	}
-	return (tmp);
-}
 
 void	*build_tree(t_shell *shell, t_list *token_list)
 {

@@ -35,7 +35,6 @@ t_list	*skip_else(t_list *tmp)
 	return (tmp);
 }
 
-
 t_list	*check_word(t_list **current, char **argv, int *i)
 {
 	if (*current && ((t_token *)(*current)->content)->state == EXPAND
