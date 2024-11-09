@@ -34,7 +34,6 @@ void	terminal(t_shell *shell, char **envp)
 	shell->envp_arr = env_arr(shell);
 	shell->path = path_list(shell, envp);
 	shell->root = build_ltree(shell, shell->token_lst);
-	print_token_lst(shell->token_lst);
 	ltree_print(shell->root, 5);
 	lexec_tree(shell, shell->root);
 	free_shell(shell);
@@ -62,8 +61,6 @@ void	free_shell(t_shell *shell)
 		free(shell->input);
 	if (shell->trim_input)
 		free(shell->trim_input);
-	//if (shell->root)
-		//free_bst(shell->root);
 	if (shell->root)
 		ltree_free(shell->root);
 	if (shell->cmd_path)
