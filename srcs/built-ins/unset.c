@@ -22,7 +22,7 @@ void	ft_unset(t_shell *shell, char **args)
 	while (args[i])
 	{
 		if (!is_valid_identifier(args[i]))
-			print_invalid_identifier(args[i]);
+			print_invalid_identifier(args[i], "unset");
 		else
 			remove_env_var(shell, args[i]);
 		i++;
