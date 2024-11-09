@@ -49,3 +49,12 @@ void	remove_env_var(t_shell *shell, const char *var_name)
 	if (prev)
 		remove_node(prev);
 }
+
+int	is_exact_var(t_env *env_var, const char *var_name)
+{
+	size_t	len;
+
+	len = ft_strlen(var_name);
+	return (ft_strlen(env_var->value) == len + 1 && ft_strncmp(env_var->value,
+			var_name, len) == 0);
+}
