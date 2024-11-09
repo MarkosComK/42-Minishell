@@ -85,5 +85,6 @@ t_list		*find_prev_node(t_list *lst, const char *var_name);
 int			is_valid_identifier(const char *str);
 void		print_invalid_identifier(char *arg, char *cmd);
 void		remove_env_var(t_shell *shell, const char *var_name);
+int			is_exact_var(t_env *env_var, const char *var_name);
 
 #endif
