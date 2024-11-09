@@ -24,7 +24,7 @@ int	handle_andif(t_shell *shell, char *input, int i)
 	new_token = ft_calloc(1, sizeof(t_token));
 	new_token->value = str;
 	new_token->type = AND_IF;
-	new_token->state = EXPAND;
+	new_token->state = GENERAL;
 	ft_lstadd_back(&shell->token_lst, ft_lstnew(new_token));
 	while (ft_isspace(input[i]))
 		i++;

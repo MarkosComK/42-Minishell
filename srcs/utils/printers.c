@@ -54,6 +54,8 @@ void	token_loop(t_token *token)
 {
 	if (token->type == HEREDOC)
 		printf("%-10s | ", "HEREDOC");
+	if (token->type == AND_IF)
+		printf("%-10s | ", "AND_IF");
 	if (token->state == GENERAL)
 		printf("%-12s | ", "GENERAL");
 	else if (token->state == IN_DQUOTES)
