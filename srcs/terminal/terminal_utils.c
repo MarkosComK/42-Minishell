@@ -34,7 +34,7 @@ void	exec_processes(t_shell *shell, void *root)
 	exec = NULL;
 	set_main_signals();
 	handle_heredoc(shell, root);
-	if (((t_node *)root)->type == N_EXEC)
+	if (((t_node *)root)->type == N_EXEC )
 	{
 		exec = (t_exec *)root;
 		if (is_parent_builtin(exec))

@@ -12,6 +12,16 @@
 
 #include <minishell.h>
 
+int	last_process(int value)
+{
+	static int	code = 0;
+
+	if (value == -1)
+		return (code);
+	code = value;
+	return (code);
+}
+
 void	lexec_tree(t_shell *shell, void *root)
 {
 	t_node	*node;
@@ -24,8 +34,11 @@ void	lexec_tree(t_shell *shell, void *root)
 		lexec_tree(shell, ((t_andif *)root)->left);
 		lexec_tree(shell, ((t_andif *)root)->right);
 	}
-	if (node->type != N_ANDIF)
+	if (node->type != N_ANDIF && last_process(-1) == 0)
+	{
 		exec_processes(shell, root);
+		last_process(exit_code(-1));
+	}
 	return ;
 }
 

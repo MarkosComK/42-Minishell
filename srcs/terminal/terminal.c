@@ -38,6 +38,7 @@ void	terminal(t_shell *shell, char **envp)
 	ltree_print(shell->root, 5);
 	lexec_tree(shell, shell->root);
 	free_shell(shell);
+	last_process(0);
 	terminal(shell, envp);
 }
 
