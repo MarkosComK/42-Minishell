@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 20:33:58 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/09 17:41:45 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 17:44:55 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,12 @@ void	shell_input(t_shell *shell)
 void	exec_processes(t_shell *shell, void *root)
 {
 	t_exec	*exec;
-	t_node	*node;
 	int		status;
 
 	status = 0;
 	exec = NULL;
-	node = (t_node *)root;
-	if (node->type == N_EXEC)
+	if (((t_node *)root)->type == N_EXEC)
 	{
-		printf("executing exec process\n");
 		exec = (t_exec *)root;
 		if (is_parent_builtin(exec))
 			exec_parent_builtin(shell, exec);
