@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 17:40:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/03 22:47:20 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 17:49:08 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,7 @@ t_list	*get_name(t_list *tkn_lst)
 	t_list	*word;
 
 	word = NULL;
-	while (tkn_lst && (((t_token *)tkn_lst->content)->type != PIPE
-			|| ((t_token *)tkn_lst->content)->type != AND_IF))
+	while (tkn_lst && (((t_token *)tkn_lst->content)->type != PIPE))
 	{
 		if (tkn_lst && (((t_token *)tkn_lst->content)->type == INFILE
 				|| ((t_token *)tkn_lst->content)->type == HEREDOC))
@@ -120,6 +119,8 @@ t_list	*get_name(t_list *tkn_lst)
 			if (tkn_lst && ft_strcmp(((t_token *)tkn_lst->content)->value, ""))
 				return (tkn_lst);
 		tkn_lst = tkn_lst->next;
+		if (tkn_lst && ((t_token *)tkn_lst->content)->type == AND_IF)
+			break ;
 	}
 	return (word);
 }
