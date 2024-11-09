@@ -21,7 +21,7 @@ int	is_valid_identifier(const char *str)
 	if (!ft_isalpha(str[0]) && str[0] != '_')
 		return (0);
 	i = 1;
-	while (str[i])
+	while (str[i] && str[i] != '=')
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
 			return (0);
@@ -30,9 +30,10 @@ int	is_valid_identifier(const char *str)
 	return (1);
 }
 
-void	print_invalid_identifier(char *arg)
+void	print_invalid_identifier(char *arg, char *cmd)
 {
-	ft_putstr_fd("unset: `", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": `", 2);
 	ft_putstr_fd(arg, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
 	exit_code(1);

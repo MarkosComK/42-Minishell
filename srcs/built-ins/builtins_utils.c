@@ -14,7 +14,8 @@
 
 int	is_builtin(const char *command)
 {
-	const char	*builtins[7] = {"echo", "cd", "pwd", "export", "unset", "env", "exit"};
+	const char	*builtins[7] = {"echo", "cd", "pwd",
+		"export", "unset", "env", "exit"};
 	int			i;
 
 	i = 0;
@@ -55,7 +56,7 @@ int	exec_parent_builtin(t_shell *shell, t_exec *exec_node)
 	if (!ft_strcmp(cmd, "export"))
 		return ((ft_export(shell, exec_node->argv)), 0);
 	if (!ft_strcmp(cmd, "unset"))
-		return ((ft_unset(shell, exec_node->argv)), 0);	
+		return ((ft_unset(shell, exec_node->argv)), 0);
 	return (1);
 }
 

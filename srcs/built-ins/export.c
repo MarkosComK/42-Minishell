@@ -18,7 +18,7 @@ void	ft_export(t_shell *shell, char **args)
 
 	if (!args[1])
 	{
-		print_env_lst(shell->envp);
+		print_export_lst(shell->envp);
 	}
 	i = 1;
 	while (args[i])
@@ -48,44 +48,59 @@ char	*create_value(t_shell *shell, const char *arg, char *equal)
 
 void	export_var(t_shell *shell, const char *arg)
 {
-	char	*value;
-	char	*content;
+	t_env	*new_env;
 	char	*equal;
 
-	if (!arg || !shell)
+	if (!is_valid_identifier(arg))
+	{
+		print_invalid_identifier((char *)arg, "export");
 		return ;
+	}
 	equal = ft_strchr(arg, '=');
-	value = create_value(shell, arg, equal);
-	if (equal)
-		content = ft_strdup(equal + 1);
-	else
-		content = ft_strdup("");
-	upt_env_var(shell, value, content);
+	if (!equal && !ft_strchr(arg, '='))
+	{
+		mark_isexport(shell, arg);
+		return ;
+	}
+	new_env = malloc(sizeof(t_env));
+	if (!new_env)
+		exit_failure(shell, "export_var");
+	new_env->value = create_value(shell, arg, equal);
+	new_env->content = ft_strdup(equal + 1);
+	new_env->is_export = true;
+	new_env->printed = false;
+	upt_env_var(shell, new_env);
 }
 
-void	upt_env_var(t_shell *shell, char *value, char *content)
+void	update_existing_var(t_env *env_var, t_env *new_env)
+{
+	free(env_var->value);
+	free(env_var->content);
+	env_var->value = new_env->value;
+	env_var->content = new_env->content;
+	env_var->is_export = true;
+	env_var->printed = false;
+	free(new_env);
+}
+
+void	upt_env_var(t_shell *shell, t_env *new_env)
 {
 	t_list	*env_list;
 	t_env	*env_var;
-	t_env	*new_env;
+	int		len;
 
 	env_list = shell->envp;
+	len = ft_strlen(new_env->value) - 1;
 	while (env_list)
 	{
-		env_var = (t_env *)env_list->content;
-		if (ft_strcmp(env_var->value, value) == 0)
+		env_var = env_list->content;
+		if (ft_strncmp(env_var->value, new_env->value, len) == 0
+			&& (env_var->value[len] == '=' || env_var->value[len] == '\0'))
 		{
-			free(env_var->content);
-			env_var->content = content;
-			free(value);
+			update_existing_var(env_var, new_env);
 			return ;
 		}
 		env_list = env_list->next;
 	}
-	new_env = malloc(sizeof(t_env));
-	if (!new_env)
-		exit_failure(shell, "upt_env_var");
-	new_env->value = value;
-	new_env->content = content;
 	ft_lstadd_back(&shell->envp, ft_lstnew(new_env));
 }
