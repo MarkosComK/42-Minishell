@@ -14,7 +14,8 @@
 
 int check_token(t_list *node)
 {
-	return (node && ((t_token *)node->content)->type != AND_IF);
+	return (node && (((t_token *)node->content)->type != AND_IF
+			|| (t_token *)node->content)->type != OR);
 }
 
 void	*build_ltree(t_shell *shell, t_list *token_list)

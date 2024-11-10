@@ -24,6 +24,7 @@ typedef enum s_token_type
 	INFILE,
 	HEREDOC,
 	AND_IF,
+	OR,
 }	t_token_type;
 
 typedef enum s_token_state
