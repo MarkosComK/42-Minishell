@@ -21,6 +21,7 @@ int	print_cd_error(char *path, char *msg)
 		ft_putstr_fd(": ", 2);
 	}
 	ft_putendl_fd(msg, 2);
+	exit_code(1);
 	return (1);
 }
 
