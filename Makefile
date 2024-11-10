@@ -51,6 +51,7 @@ ${NAME}: ${OBJS}
 
 .c.o:
 	@${CC} ${FLAGS} ${READLINE} ${IFLAGS} -c $< -o ${<:.c=.o}
+	@clear
 	@echo "$(RESET)[$(GREEN)OK$(RESET)]$(BLUE) Compiling $<$(YELLOW)"
 
 clean:
