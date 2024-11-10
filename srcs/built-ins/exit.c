@@ -24,9 +24,7 @@ int	is_numeric(const char *str)
 	while (str[i])
 	{
 		if (str[i] && ft_isdigit(str[i]))
-		{
 			flag = 1;
-		}
 		else
 			flag = 0;
 		i++;
@@ -58,36 +56,21 @@ void	numeric_exit(t_shell *shell, char **args)
 	}
 	free_env_lst(shell->envp);
 	free_shell(shell);
-	exit(status);
+	exit((unsigned char)status);
 }
 
 void	ft_exit(t_shell *shell, t_exec *exec_node)
 {
-	//long	status;
 	char	**args;
 
 	args = exec_node->argv;
 	ft_putstr_fd("exit\n", 1);
 	if (is_numeric(args[1]))
-	{
-		printf("numeric\n");
 		numeric_exit(shell, args);
-	}
 	if (!is_numeric(args[1]))
 	{
-		printf("non numeric\n");
 		exit_error(shell, args[1]);
 		return ;
 	}
 	return ;
-	/*
-	if (!args[1])
-	{
-		status = exit_code(-1);
-		free_env_lst(shell->envp);
-		free_shell(shell);
-		exit(status);
-	}
-	numeric_exit(shell, args);
-	*/
 }
