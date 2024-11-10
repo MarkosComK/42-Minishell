@@ -27,6 +27,8 @@ void	tokenize_input(t_shell *shell, char *input)
 			i = handle_pipe(shell, input, i);
 		else if (input[i] == '&' && input[i + 1] == '&')
 			i = handle_andif(shell, input, i);
+		else if (input[i] == '|' && input[i + 1] == '|')
+			i = handle_or(shell, input, i);
 		else if (input[i] == '>' || input[i] == '<')
 			i = handle_redir(shell, input, i);
 		else
