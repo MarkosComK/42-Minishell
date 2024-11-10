@@ -25,32 +25,40 @@ void	shell_input(t_shell *shell)
 	free(tmp);
 }
 
-void	exec_processes(t_shell *shell, void *root)
+int	handle_exec_node(t_shell *shell, void *root, int *status)
 {
 	t_exec	*exec;
-	int		status;
 
-	status = 0;
 	exec = NULL;
-	set_main_signals();
-	handle_heredoc(shell, root);
 	if (((t_node *)root)->type == N_EXEC)
 	{
 		exec = (t_exec *)root;
 		if (is_parent_builtin(exec))
 		{
 			exec_parent_builtin(shell, exec);
-			return ;
+			return (1);
 		}
 		else
 		{
 			if (fork() == 0)
 				exec_tree(shell, root);
-			waitpid(-1, &status, 0);
-			exit_status(status);
-			return ;
+			waitpid(-1, status, 0);
+			exit_status(*status);
+			return (1);
 		}
 	}
+	return (0);
+}
+
+void	exec_processes(t_shell *shell, void *root)
+{
+	int		status;
+
+	status = 0;
+	set_main_signals();
+	handle_heredoc(shell, root);
+	if (handle_exec_node(shell, root, &status))
+		return ;
 	if (fork() == 0)
 		exec_tree(shell, root);
 	waitpid(-1, &status, 0);
