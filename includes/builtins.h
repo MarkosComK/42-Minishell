@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 18:49:40 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/03 15:30:30 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/10 13:44:49 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char		**env_arr(t_shell *shell);
 t_list		*path_list(t_shell *shell, char **envp);
 int			get_path(t_shell *shell, t_list **path_list, char *path, int i);
 void		print_env_lst(t_list *lst);
-void		free_env_lst(t_list **envp);
+void		free_env_lst(t_list *envp);
 
 //env_utils.c
 t_list		*env_list(t_shell *shell, char **envp);
@@ -72,7 +72,7 @@ void		exit_args(void);
 
 //export.c
 void		ft_export(t_shell *shell, char **args);
-void		export_var(t_shell *shell, const char *arg);
+int			export_var(t_shell *shell, const char *arg);
 void		upt_env_var(t_shell *shell, t_env *new_env);
 char		*create_value(t_shell *shell, const char *arg, char *equal);
 void		update_existing_var(t_env *env_var, t_env *new_env);

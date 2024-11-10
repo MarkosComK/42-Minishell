@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:03:36 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/03 20:26:54 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/10 13:43:22 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,25 @@
 void	ft_export(t_shell *shell, char **args)
 {
 	int	i;
+	int status;
+	int ret;
 
+	status = 0;
 	if (!args[1])
 	{
 		print_export_lst(shell->envp);
+		exit_code (0);
+		return ;
 	}
 	i = 1;
 	while (args[i])
 	{
-		export_var(shell, args[i]);
+		ret = export_var(shell, args[i]);
+		if(ret != 0)
+			status = ret;
 		i++;
 	}
+	exit_code(status);
 }
 
 char	*create_value(t_shell *shell, const char *arg, char *equal)
@@ -46,7 +54,7 @@ char	*create_value(t_shell *shell, const char *arg, char *equal)
 	return (value);
 }
 
-void	export_var(t_shell *shell, const char *arg)
+int	export_var(t_shell *shell, const char *arg)
 {
 	t_env	*new_env;
 	char	*equal;
@@ -54,13 +62,13 @@ void	export_var(t_shell *shell, const char *arg)
 	if (!is_valid_identifier(arg))
 	{
 		print_invalid_identifier((char *)arg, "export");
-		return ;
+		return (1);
 	}
 	equal = ft_strchr(arg, '=');
 	if (!equal && !ft_strchr(arg, '='))
 	{
 		mark_isexport(shell, arg);
-		return ;
+		return (0);
 	}
 	new_env = malloc(sizeof(t_env));
 	if (!new_env)
@@ -70,6 +78,7 @@ void	export_var(t_shell *shell, const char *arg)
 	new_env->is_export = true;
 	new_env->printed = false;
 	upt_env_var(shell, new_env);
+	return (0);
 }
 
 void	update_existing_var(t_env *env_var, t_env *new_env)

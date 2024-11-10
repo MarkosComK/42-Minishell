@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/10 10:17:18 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 13:24:02 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	terminal(t_shell *shell, char **envp)
 	shell->envp_arr = env_arr(shell);
 	shell->path = path_list(shell, envp);
 	shell->root = build_ltree(shell, shell->token_lst);
-	print_token_lst(shell->token_lst);
-	ltree_print(shell->root, 1);
+	//print_token_lst(shell->token_lst);
+	//ltree_print(shell->root, 1);
 	lexec_tree(shell, shell->root);
 	free_shell(shell);
 	last_process(0);

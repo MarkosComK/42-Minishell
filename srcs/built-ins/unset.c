@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:03:40 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/03 20:10:46 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/10 13:33:16 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,24 @@
 void	ft_unset(t_shell *shell, char **args)
 {
 	int	i;
+	int exit_status;
 
 	if (!args || !args[1])
 		return ;
+	exit_status = 0;
 	i = 1;
 	while (args[i])
 	{
 		if (!is_valid_identifier(args[i]))
+		{
 			print_invalid_identifier(args[i], "unset");
+			exit_status = 1;
+		}
 		else
 			remove_env_var(shell, args[i]);
 		i++;
 	}
+	exit_code(exit_status);
 }
 
 void	remove_first_node(t_shell *shell, t_list *curr)
