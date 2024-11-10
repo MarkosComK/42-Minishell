@@ -6,13 +6,13 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 12:20:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/09 15:26:38 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 10:29:01 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int check_token(t_list *node)
+int	check_token(t_list *node)
 {
 	return (node && (((t_token *)node->content)->type != AND_IF
 			/*|| (t_token *)node->content)->type != OR */));
