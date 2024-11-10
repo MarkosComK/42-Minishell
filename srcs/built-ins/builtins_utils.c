@@ -91,7 +91,7 @@ int	handle_builtins(t_shell *shell, t_exec *exec_node)
 {
 	if (!exec_node || !exec_node->argv[0])
 		return (1);
-	if (is_parent_builtin(shell, exec_node))
+	if (is_parent_builtin(exec_node))
 	{
 		return (exec_parent_builtin(shell, exec_node));
 	}

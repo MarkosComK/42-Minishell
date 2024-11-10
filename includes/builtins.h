@@ -28,7 +28,7 @@ typedef struct s_env
 int			is_builtin(const char *command);
 int			exec_builtin(t_shell *shell, t_exec *exec_node);
 int			exec_parent_builtin(t_shell *shell, t_exec *exec_node);
-int			is_parent_builtin(t_shell *shell, t_exec *exec_node);
+int			is_parent_builtin(t_exec *exec_node);
 int			handle_builtins(t_shell *shell, t_exec *exec_node);
 
 //cd.c

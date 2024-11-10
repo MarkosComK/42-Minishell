@@ -17,11 +17,11 @@ int	is_numeric(const char *str)
 	int	i;
 
 	i = 0;
-	if (str[i] == '-' || str[i] == '+')
+	if (str[i] && (str[i] == '-' || str[i] == '+'))
 		i++;
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]))
+		if (str[i] && (str[i] <= '0' && str[i] >= '9'))
 			return (0);
 		i++;
 	}
@@ -33,6 +33,7 @@ void	exit_error(t_shell *shell, char *arg)
 	ft_putstr_fd("minishell: exit: ", 2);
 	ft_putstr_fd(arg, 2);
 	ft_putendl_fd(": numeric argument required", 2);
+	free_env_lst(shell->envp);
 	free_shell(shell);
 	exit_code(255);
 }
@@ -48,17 +49,24 @@ void	numeric_exit(t_shell *shell, char **args)
 		exit_code(1);
 		return ;
 	}
+	free_env_lst(shell->envp);
 	free_shell(shell);
-	exit((unsigned char)status);
+	exit(status);
 }
 
 void	ft_exit(t_shell *shell, t_exec *exec_node)
 {
-	long	status;
+	//long	status;
 	char	**args;
 
 	args = exec_node->argv;
 	ft_putstr_fd("exit\n", 1);
+	if (is_numeric(args[1])) // arg[1] is numeric
+	{
+		numeric_exit(shell, args);
+	}
+	return ;
+	/*
 	if (!args[1])
 	{
 		status = exit_code(-1);
@@ -72,4 +80,5 @@ void	ft_exit(t_shell *shell, t_exec *exec_node)
 		return ;
 	}
 	numeric_exit(shell, args);
+	*/
 }
