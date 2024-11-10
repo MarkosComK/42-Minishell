@@ -34,7 +34,7 @@ void	terminal(t_shell *shell, char **envp)
 	shell->envp_arr = env_arr(shell);
 	shell->path = path_list(shell, envp);
 	shell->root = build_ltree(shell, shell->token_lst);
-	ltree_print(shell->root, 5);
+	ltree_print(shell->root, 1);
 	lexec_tree(shell, shell->root);
 	free_shell(shell);
 	last_process(0);
