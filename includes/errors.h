@@ -28,6 +28,7 @@
 
 //exit_code.c
 char	*itoa_exit(t_shell *shell, char **str);
+int		last_process(int value);
 int		exit_code(int value);
 void	exit_status(int status);
 

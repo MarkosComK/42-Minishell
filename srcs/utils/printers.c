@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 16:14:07 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/31 16:36:35 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 10:23:01 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ void	token_loop(t_token *token)
 {
 	if (token->type == HEREDOC)
 		printf("%-10s | ", "HEREDOC");
+	if (token->type == OR)
+		printf("%-10s | ", "OR");
+	if (token->type == AND_IF)
+		printf("%-10s | ", "AND_IF");
 	if (token->state == GENERAL)
 		printf("%-12s | ", "GENERAL");
 	else if (token->state == IN_DQUOTES)

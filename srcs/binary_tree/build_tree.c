@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 17:40:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/03 22:47:20 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 11:04:31 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,16 @@ void	*build_tree(t_shell *shell, t_list *token_list)
 
 	tmp = token_list;
 	root = NULL;
-	while (tmp)
+	while (check_token(tmp))
 	{
 		root = insert_node(shell, root, tmp);
 		if (((t_token *)tmp->content)->type != PIPE)
 		{
-			while (tmp && ((t_token *)tmp->content)->type != PIPE)
-			{
-				tmp = tmp->next;
-			}
+			tmp = skip_if(tmp);
 		}
 		else
 		{
-			tmp = tmp->next;
-			while (tmp && ((t_token *)tmp->content)->type != PIPE)
-			{
-				tmp = tmp->next;
-			}
+			tmp = skip_else(tmp);
 		}
 	}
 	return (root);
@@ -97,7 +90,7 @@ t_list	*get_name(t_list *tkn_lst)
 	t_list	*word;
 
 	word = NULL;
-	while (tkn_lst && ((t_token *)tkn_lst->content)->type != PIPE)
+	while (tkn_lst && (((t_token *)tkn_lst->content)->type != PIPE))
 	{
 		if (tkn_lst && (((t_token *)tkn_lst->content)->type == INFILE
 				|| ((t_token *)tkn_lst->content)->type == HEREDOC))
@@ -115,6 +108,8 @@ t_list	*get_name(t_list *tkn_lst)
 			if (tkn_lst && ft_strcmp(((t_token *)tkn_lst->content)->value, ""))
 				return (tkn_lst);
 		tkn_lst = tkn_lst->next;
+		if (tkn_lst && ((t_token *)tkn_lst->content)->type == AND_IF)
+			break ;
 	}
 	return (word);
 }

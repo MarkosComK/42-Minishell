@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/07 13:42:01 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 10:17:18 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ void	terminal(t_shell *shell, char **envp)
 	lexer(shell, shell->trim_input);
 	shell->envp_arr = env_arr(shell);
 	shell->path = path_list(shell, envp);
-	shell->root = build_tree(shell, shell->token_lst);
-	set_main_signals();
-	handle_heredoc(shell, shell->root);
-	exec_processes(shell);
+	shell->root = build_ltree(shell, shell->token_lst);
+	print_token_lst(shell->token_lst);
+	ltree_print(shell->root, 1);
+	lexec_tree(shell, shell->root);
 	free_shell(shell);
+	last_process(0);
 	terminal(shell, envp);
 }
 
@@ -62,7 +63,7 @@ void	free_shell(t_shell *shell)
 	if (shell->trim_input)
 		free(shell->trim_input);
 	if (shell->root)
-		free_bst(shell->root);
+		ltree_free(shell->root);
 	if (shell->cmd_path)
 		free(shell->cmd_path);
 	if (shell->cwd)

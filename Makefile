@@ -37,20 +37,21 @@ submodule:
 ${NAME}: ${OBJS}
 	@make --silent -C ${LIBFTDIR}/src
 	@${CC} ${FLAGS} ${READLINE} ${OBJS} ${INCLUDE} -o ${NAME}
-	@echo "$(TITLE)━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-	@echo "$(PURPLE)  ██╗  ██╗███████╗██╗     ██╗     ███████╗██╗  ██╗  "
-	@echo "  ██║  ██║██╔════╝██║     ██║     ██╔════╝██║  ██║  "
-	@echo "  ███████║█████╗  ██║     ██║     ███████╗███████║  "
-	@echo "  ██╔══██║██╔══╝  ██║     ██║     ╚════██║██╔══██║  "
-	@echo "  ██║  ██║███████╗███████╗███████╗███████║██║  ██║  "
-	@echo "  ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝  "
-	@echo "$(GREEN)━━━━━━[$(RESET)Made with $(RED)♥ $(RESET)by $(PURPLE)@marsoare$(RESET) and $(PURPLE)@hluiz-ma$(TITLE)]━━━━━━"
+	@echo "$(TITLE)━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+	@echo "$(PURPLE)  ███╗   ███╗██╗███╗   ██╗██╗██╗  ██╗███████╗██╗     ██╗       "
+	@echo "  ████╗ ████║██║████╗  ██║██║██║  ██║██╔════╝██║     ██║       "
+	@echo "  ██╔████╔██║██║██╔██╗ ██║██║███████║█████╗  ██║     ██║       "
+	@echo "  ██║╚██╔╝██║██║██║╚██╗██║██║██╔══██║██╔══╝  ██║     ██║       "
+	@echo "  ██║ ╚═╝ ██║██║██║ ╚████║██║██║  ██║███████╗███████╗███████╗  "
+	@echo "  ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝  "
+	@echo "$(GREEN)━━━━━━━━━━━━━━━━━[$(RESET)Made with $(RED)♥ $(RESET)by $(PURPLE)@marsoare$(RESET) and $(PURPLE)@hluiz-ma$(TITLE)]━━━━━━"
 	@echo
 	@echo "$(GREEN) Successfully compiled minishell.$(RESET)"
 	@echo
 
 .c.o:
 	@${CC} ${FLAGS} ${READLINE} ${IFLAGS} -c $< -o ${<:.c=.o}
+	@clear
 	@echo "$(RESET)[$(GREEN)OK$(RESET)]$(BLUE) Compiling $<$(YELLOW)"
 
 clean:
