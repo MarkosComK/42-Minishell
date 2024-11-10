@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 15:08:09 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/10 11:00:55 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 11:10:46 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,12 @@ void	ltree_free(void *root)
 		ltree_free(((t_andif *)root)->right);
 		ltree_free(((t_andif *)root)->left);
 	}
-	if (node->type != N_ANDIF)
+	if (node->type == N_OR)
+	{
+		ltree_free(((t_or *)root)->right);
+		ltree_free(((t_or *)root)->left);
+	}
+	if (node->type != N_ANDIF && node->type != N_OR)
 		free_bst((t_pipe *)root);
 	else
 		free(root);
