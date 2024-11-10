@@ -28,7 +28,7 @@ int	is_builtin(const char *command)
 	return (0);
 }
 
-int	is_parent_builtin(t_shell *shell, t_exec *exec_node)
+int	is_parent_builtin(t_exec *exec_node)
 {
 	char	*cmd;
 
@@ -37,8 +37,8 @@ int	is_parent_builtin(t_shell *shell, t_exec *exec_node)
 		cmd = exec_node->argv[0];
 	if (!cmd)
 		return (0);
-	if(!ft_strcmp(cmd, "exit"))
-		return (ft_exit(shell, exec_node), 0);	
+	if (!ft_strcmp(cmd, "exit"))
+		return (1);
 	if (!ft_strcmp(cmd, "cd"))
 		return (1);
 	if (!ft_strcmp(cmd, "export"))
@@ -55,8 +55,8 @@ int	exec_parent_builtin(t_shell *shell, t_exec *exec_node)
 	cmd = exec_node->argv[0];
 	if (!cmd)
 		return (1);
-	if(!ft_strcmp(cmd, "exit"))
-		return (ft_exit(shell, exec_node), 0);		
+	if (!ft_strcmp(cmd, "exit"))
+		return (ft_exit(shell, exec_node), 0);
 	if (!ft_strcmp(cmd, "export"))
 	{
 		ft_export(shell, exec_node->argv);
