@@ -79,8 +79,8 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 		handle_pid2(shell, pipefd, pipe_node);
 	close(pipefd[1]);
 	close(pipefd[0]);
-	waitpid(pid2, &status, 0);
 	waitpid(pid1, &status, 0);
+	waitpid(pid2, &status, 0);
 	exit_status(status);
 	free_env_lst(shell->envp);
 	free_shell(shell);
