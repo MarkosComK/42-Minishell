@@ -15,8 +15,8 @@
 void	ft_export(t_shell *shell, char **args)
 {
 	int	i;
-	int status;
-	int ret;
+	int	status;
+	int	ret;
 
 	status = 0;
 	if (!args[1])
@@ -29,7 +29,7 @@ void	ft_export(t_shell *shell, char **args)
 	while (args[i])
 	{
 		ret = export_var(shell, args[i]);
-		if(ret != 0)
+		if (ret != 0)
 			status = ret;
 		i++;
 	}
