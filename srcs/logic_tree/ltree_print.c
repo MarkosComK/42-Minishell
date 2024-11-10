@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <minishell.h>
+
 void	*ltree_print(void *root, int space)
 {
 	t_node	*node;
