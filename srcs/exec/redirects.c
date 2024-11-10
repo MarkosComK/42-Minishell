@@ -18,7 +18,7 @@ void	check_files_order(t_shell *shell, t_exec *exec_node)
 	t_token	*token;
 
 	t_list = shell->token_lst;
-	while(t_list)
+	while (t_list)
 	{
 		token = ((t_token *)t_list->content);
 		if (token->type == INFILE)
