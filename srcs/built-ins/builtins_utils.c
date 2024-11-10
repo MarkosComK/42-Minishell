@@ -76,7 +76,7 @@ int	exec_builtin(t_shell *shell, t_exec *exec_node)
 	cmd = exec_node->argv[0];
 	if (!cmd)
 		return (1);
-	if(!ft_strcmp(cmd, "exit"))
+	if (!ft_strcmp(cmd, "exit"))
 		return (ft_exit(shell, exec_node), 0);
 	if (!ft_strcmp(cmd, "echo"))
 		return (ft_echo(exec_node));
