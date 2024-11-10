@@ -21,7 +21,7 @@ char	**get_argv(t_shell *shell, t_list *t_lst)
 	argc = 0;
 	i = 0;
 	argc = count_args(t_lst);
-	argv = malloc((argc + 1) * sizeof(char *));
+	argv = ft_calloc((argc + 1), sizeof(char *));
 	if (!argv)
 		exit_failure(shell, "get_argv");
 	while (t_lst && ((t_token *)t_lst->content)->type != PIPE && i < argc)
