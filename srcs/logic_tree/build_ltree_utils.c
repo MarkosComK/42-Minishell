@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 10:40:40 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/10 10:58:41 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 11:20:09 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 int	check_token(t_list *node)
 {
 	return (node && (((t_token *)node->content)->type != AND_IF
-			&& ((t_token *)node->content)->type != OR ));
+			&& ((t_token *)node->content)->type != OR));
 }
