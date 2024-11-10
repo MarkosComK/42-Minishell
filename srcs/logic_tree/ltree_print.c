@@ -11,29 +11,29 @@
 /* ************************************************************************** */
 
 #include <minishell.h>
-
 void	*ltree_print(void *root, int space)
 {
 	t_node	*node;
 	int		spacing;
 
 	if (space == 5)
-		printf("\n\n\nTREE VIEW:\n");
+		printf("\n\n\nLOGICAL TREE VIEW:\n");
 	spacing = 5;
 	space += spacing;
 	if (!root)
 		return (NULL);
 	node = (t_node *)root;
 	if (node->type == N_ANDIF)
+	{
 		ltree_print(((t_andif *)root)->right, space);
-	if (node->type == N_ANDIF)
-		printf("               [&&]\n");
-	if (node->type == N_ANDIF)
+		printf("%*s", space, "");
+		printf("-> [&&]\n");
 		ltree_print(((t_andif *)root)->left, space);
+	}
 	else if (node->type == N_PIPE)
-		print_bst((t_pipe *)root, space);
+		print_bst((t_pipe *)root, space + spacing);
 	else if (node->type == N_EXEC)
-		print_bst_exec((t_exec *)root, space);
+		print_bst_exec((t_exec *)root, space + spacing);
 	return (NULL);
 }
 
