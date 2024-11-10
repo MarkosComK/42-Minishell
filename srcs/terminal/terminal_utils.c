@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 20:33:58 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/09 17:44:55 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:12:54 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,40 @@ void	shell_input(t_shell *shell)
 	free(tmp);
 }
 
-void	exec_processes(t_shell *shell, void *root)
+int	handle_exec_node(t_shell *shell, void *root, int *status)
 {
 	t_exec	*exec;
-	int		status;
 
-	status = 0;
 	exec = NULL;
-	set_main_signals();
-	handle_heredoc(shell, root);
 	if (((t_node *)root)->type == N_EXEC)
 	{
 		exec = (t_exec *)root;
 		if (is_parent_builtin(exec))
+		{
 			exec_parent_builtin(shell, exec);
+			return (1);
+		}
 		else
 		{
 			if (fork() == 0)
 				exec_tree(shell, root);
-			waitpid(-1, &status, 0);
-			exit_status(status);
-			return ;
+			waitpid(-1, status, 0);
+			exit_status(*status);
+			return (1);
 		}
 	}
+	return (0);
+}
+
+void	exec_processes(t_shell *shell, void *root)
+{
+	int		status;
+
+	status = 0;
+	set_main_signals();
+	handle_heredoc(shell, root);
+	if (handle_exec_node(shell, root, &status))
+		return ;
 	if (fork() == 0)
 		exec_tree(shell, root);
 	waitpid(-1, &status, 0);
@@ -59,20 +70,7 @@ int	is_env_empty(t_shell *shell)
 	return (shell->envp == NULL || ft_lstsize(shell->envp) == 0);
 }
 
-void	finish_shell(t_shell *shell)
-{
-	shell->envp_arr = NULL;
-	shell->path = NULL;
-	shell->token_lst = NULL;
-	shell->input = NULL;
-	shell->trim_input = NULL;
-	shell->root = NULL;
-	shell->cmd_path = NULL;
-	shell->cwd = NULL;
-	shell->exit_code = 0;
-}
-
-void	start_shell(t_shell *shell)
+void	reset_shell(t_shell *shell)
 {
 	shell->envp_arr = NULL;
 	shell->path = NULL;

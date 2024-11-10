@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 18:49:40 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/03 15:30:30 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:12:02 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,15 @@ char		*sh_get_env(t_list *envp, const char *value);
 int			content_size(char *env);
 int			val_size(char *env);
 
-//exit.c ~ empty
+//exit.c
+void		ft_exit(t_shell *shell, t_exec *exec_node);
+void		exit_error(t_shell *shell, char *arg);
+int			is_numeric(const char *str);
+void		exit_args(void);
 
 //export.c
 void		ft_export(t_shell *shell, char **args);
-void		export_var(t_shell *shell, const char *arg);
+int			export_var(t_shell *shell, const char *arg);
 void		upt_env_var(t_shell *shell, t_env *new_env);
 char		*create_value(t_shell *shell, const char *arg, char *equal);
 void		update_existing_var(t_env *env_var, t_env *new_env);

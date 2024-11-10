@@ -76,7 +76,13 @@ char	*get_cd_path(t_shell *shell, char *arg)
 int	ft_cd(t_shell *shell, t_exec *exec_node)
 {
 	char	*path;
+	int		i;
 
+	i = 0;
+	while (exec_node->argv[i])
+		i++;
+	if (i > 2)
+		return (print_cd_error(NULL, "too many arguments"));
 	path = get_cd_path(shell, exec_node->argv[1]);
 	if (!path)
 	{
