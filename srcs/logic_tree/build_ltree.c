@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 12:20:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/10 10:40:39 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 11:18:35 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,19 @@ void	*build_ltree(t_shell *shell, t_list *token_list)
 	return (lroot);
 }
 
-void	*insert_lnode(t_shell *shell, void *l_node, t_list *token_lst)
+void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 {
 	t_token	*token;
 
 	if (!l_node)
-		return (create_subtree(shell, token_lst));
-	token = (t_token *)token_lst->content;
+		return (create_subtree(shell, t_lst));
+	token = (t_token *)t_lst->content;
 	if (token->type == AND_IF)
-		l_node = create_andif(shell, l_node, create_subtree(shell, token_lst->next));
+		l_node = create_and(shell, l_node, create_subtree(shell, t_lst->next));
 	else if (token->type == OR)
-		l_node = create_or(shell, l_node, create_subtree(shell, token_lst->next));
+		l_node = create_or(shell, l_node, create_subtree(shell, t_lst->next));
 	else
-		return NULL;
+		return (NULL);
 	return (l_node);
 }
 
@@ -69,7 +69,7 @@ void	*create_subtree(t_shell *shell, t_list *token_lst)
 	return (subtree);
 }
 
-void	*create_andif(t_shell *shell, void *left, void *right)
+void	*create_and(t_shell *shell, void *left, void *right)
 {
 	t_andif	*node;
 
