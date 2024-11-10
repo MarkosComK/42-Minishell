@@ -18,15 +18,17 @@ int	is_numeric(const char *str)
 	int	flag;
 
 	i = 0;
-	flag = 1;
+	flag = 0;
 	if (str[i] && (str[i] == '-' || str[i] == '+'))
 		i++;
 	while (str[i])
 	{
 		if (str[i] && ft_isdigit(str[i]))
 		{
-			flag = 0;
+			flag = 1;
 		}
+		else
+			flag = 0;
 		i++;
 	}
 	return (flag);
@@ -68,10 +70,12 @@ void	ft_exit(t_shell *shell, t_exec *exec_node)
 	ft_putstr_fd("exit\n", 1);
 	if (is_numeric(args[1]))
 	{
+		printf("numeric\n");
 		numeric_exit(shell, args);
 	}
 	if (!is_numeric(args[1]))
 	{
+		printf("non numeric\n");
 		exit_error(shell, args[1]);
 		return ;
 	}
