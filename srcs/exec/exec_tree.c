@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:43:04 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/09 17:38:36 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 11:07:40 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,35 @@ int	last_process(int value)
 	code = value;
 	return (code);
 }
+void	lexec_tree(t_shell *shell, void *root)
+{
+	t_node	*node;
 
+	if (!root)
+		return ;
+	node = (t_node *)root;
+	if (node->type == N_ANDIF)
+	{
+		lexec_tree(shell, ((t_andif *)root)->left);
+		if (last_process(-1) == 0)
+			lexec_tree(shell, ((t_andif *)root)->right);
+	}
+	else if (node->type == N_OR)
+	{
+		lexec_tree(shell, ((t_or *)root)->left);
+		if (last_process(-1) != 0)
+			lexec_tree(shell, ((t_or *)root)->right);
+	}
+	else if (node->type == N_PIPE)
+	{
+		exec_processes(shell, root);
+	}
+	else if (node->type == N_EXEC)
+		exec_processes(shell, root);
+	return ;
+}
+
+/*
 void	lexec_tree(t_shell *shell, void *root)
 {
 	t_node	*node;
@@ -41,6 +69,7 @@ void	lexec_tree(t_shell *shell, void *root)
 	}
 	return ;
 }
+*/
 
 void	exec_tree(t_shell *shell, void *root)
 {
