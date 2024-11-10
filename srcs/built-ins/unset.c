@@ -15,7 +15,7 @@
 void	ft_unset(t_shell *shell, char **args)
 {
 	int	i;
-	int exit_status;
+	int	exit_status;
 
 	if (!args || !args[1])
 		return ;
