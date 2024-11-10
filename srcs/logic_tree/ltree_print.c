@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 15:08:09 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/10 11:10:46 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 11:13:32 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	*ltree_print(void *root, int space)
 	t_node	*node;
 	int		spacing;
 
-	if (space == 5)
-		printf("\n\n\nLOGICAL TREE VIEW:\n");
 	spacing = 5;
 	space += spacing;
 	if (!root)
@@ -27,15 +25,13 @@ void	*ltree_print(void *root, int space)
 	if (node->type == N_ANDIF)
 	{
 		ltree_print(((t_andif *)root)->right, space);
-		printf("%*s", space, "");
-		printf("-> [&&]\n");
+		printf("%*s -> [&&]\n", space, "");
 		ltree_print(((t_andif *)root)->left, space);
 	}
 	else if (node->type == N_OR)
 	{
 		ltree_print(((t_or *)root)->right, space);
-		printf("%*s", space, "");
-		printf("-> [||]\n");
+		printf("%*s -> [||]\n", space, "");
 		ltree_print(((t_or *)root)->left, space);
 	}
 	else if (node->type == N_PIPE)
