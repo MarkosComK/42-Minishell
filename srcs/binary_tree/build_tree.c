@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 17:40:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/09 18:08:41 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 11:04:31 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*build_tree(t_shell *shell, t_list *token_list)
 
 	tmp = token_list;
 	root = NULL;
-	while (tmp && ((t_token *)tmp->content)->type != AND_IF)
+	while (check_token(tmp))
 	{
 		root = insert_node(shell, root, tmp);
 		if (((t_token *)tmp->content)->type != PIPE)

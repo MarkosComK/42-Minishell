@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 15:08:09 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/09 17:22:52 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 11:00:55 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ void	*ltree_print(void *root, int space)
 		printf("%*s", space, "");
 		printf("-> [&&]\n");
 		ltree_print(((t_andif *)root)->left, space);
+	}
+	else if (node->type == N_OR)
+	{
+		ltree_print(((t_or *)root)->right, space);
+		printf("%*s", space, "");
+		printf("-> [||]\n");
+		ltree_print(((t_or *)root)->left, space);
 	}
 	else if (node->type == N_PIPE)
 		print_bst((t_pipe *)root, space + spacing);
