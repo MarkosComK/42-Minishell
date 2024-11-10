@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:43:04 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/10 11:11:34 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 11:15:20 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,28 +49,6 @@ void	lexec_tree(t_shell *shell, void *root)
 		exec_processes(shell, root);
 	return ;
 }
-
-/*
-void	lexec_tree(t_shell *shell, void *root)
-{
-	t_node	*node;
-
-	if (!root)
-		return ;
-	node = (t_node *)root;
-	if (node->type == N_ANDIF)
-	{
-		lexec_tree(shell, ((t_andif *)root)->left);
-		lexec_tree(shell, ((t_andif *)root)->right);
-	}
-	if (node->type != N_ANDIF && last_process(-1) == 0)
-	{
-		exec_processes(shell, root);
-		last_process(exit_code(-1));
-	}
-	return ;
-}
-*/
 
 void	exec_tree(t_shell *shell, void *root)
 {
