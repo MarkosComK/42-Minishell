@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:21:22 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/10 10:44:31 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 10:49:59 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**get_argv(t_shell *shell, t_list *t_lst)
 			t_lst = check_word(&t_lst, argv, &i);
 			continue ;
 		}
-		if (check_token(t_lst->next))
+		if (!check_token(t_lst->next))
 			break ;
 		t_lst = t_lst->next->next;
 	}
@@ -61,7 +61,7 @@ t_list	*get_infiles(t_shell *shell, t_list *tkn_lst, t_list **infiles)
 			continue ;
 		}
 		tkn_lst = tkn_lst->next;
-		if (check_token(tkn_lst))
+		if (!check_token(tkn_lst))
 			break ;
 	}
 	return (tkn_lst);
@@ -90,7 +90,7 @@ t_list	*get_outfiles(t_shell *shell, t_list *tkn_lst, t_list **outfiles)
 			continue ;
 		}
 		tkn_lst = tkn_lst->next;
-		if (check_token(tkn_lst))
+		if (!check_token(tkn_lst))
 			break ;
 	}
 	return (tkn_lst);
@@ -134,7 +134,7 @@ int	count_args(t_list *tkn_lst)
 			continue ;
 		}
 		tkn_lst = check_w_args(tkn_lst, &args);
-		if (check_token(tkn_lst))
+		if (!check_token(tkn_lst))
 			break ;
 	}
 	return (args);
