@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:03:34 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/10/29 21:27:10 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:16:20 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	ft_exit(t_shell *shell, t_exec *exec_node)
 	if (!args[1])
 	{
 		status = exit_code(-1);
+		free_env_lst(shell->envp);
 		free_shell(shell);
 		exit(status);
 	}

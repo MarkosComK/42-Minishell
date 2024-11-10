@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 20:33:58 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/10 13:49:56 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:12:54 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	exec_processes(t_shell *shell, void *root)
 	if (((t_node *)root)->type == N_EXEC)
 	{
 		exec = (t_exec *)root;
-		if (is_parent_builtin(exec))
+		if (is_parent_builtin(shell, exec))
 		{
 			exec_parent_builtin(shell, exec);
 			return ;

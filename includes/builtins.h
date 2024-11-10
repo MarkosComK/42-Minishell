@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 18:49:40 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/10 13:44:49 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:12:02 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_env
 int			is_builtin(const char *command);
 int			exec_builtin(t_shell *shell, t_exec *exec_node);
 int			exec_parent_builtin(t_shell *shell, t_exec *exec_node);
-int			is_parent_builtin(t_exec *exec_node);
+int			is_parent_builtin(t_shell *shell, t_exec *exec_node);
 int			handle_builtins(t_shell *shell, t_exec *exec_node);
 
 //cd.c

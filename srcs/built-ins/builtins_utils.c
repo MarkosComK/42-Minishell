@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:03:28 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/10 13:44:10 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:12:35 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	is_builtin(const char *command)
 	return (0);
 }
 
-int	is_parent_builtin(t_exec *exec_node)
+int	is_parent_builtin(t_shell *shell, t_exec *exec_node)
 {
 	char	*cmd;
 
@@ -37,6 +37,8 @@ int	is_parent_builtin(t_exec *exec_node)
 		cmd = exec_node->argv[0];
 	if (!cmd)
 		return (0);
+	if(!ft_strcmp(cmd, "exit"))
+		return (ft_exit(shell, exec_node), 0);	
 	if (!ft_strcmp(cmd, "cd"))
 		return (1);
 	if (!ft_strcmp(cmd, "export"))
@@ -89,7 +91,7 @@ int	handle_builtins(t_shell *shell, t_exec *exec_node)
 {
 	if (!exec_node || !exec_node->argv[0])
 		return (1);
-	if (is_parent_builtin(exec_node))
+	if (is_parent_builtin(shell, exec_node))
 	{
 		return (exec_parent_builtin(shell, exec_node));
 	}
