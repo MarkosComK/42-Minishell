@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:43:04 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/10 11:07:40 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 11:11:23 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	last_process(int value)
 	code = value;
 	return (code);
 }
+
 void	lexec_tree(t_shell *shell, void *root)
 {
 	t_node	*node;
