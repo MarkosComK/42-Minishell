@@ -39,8 +39,8 @@ void	exit_error(t_shell *shell, char *arg)
 	ft_putendl_fd(": numeric argument required", 2);
 	free_env_lst(shell->envp);
 	free_shell(shell);
-	exit_code(255);
-	exit(255);
+	exit_code(2);
+	exit(2);
 }
 
 void	numeric_exit(t_shell *shell, char **args)
