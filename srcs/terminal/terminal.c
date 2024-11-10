@@ -14,7 +14,7 @@
 
 void	terminal(t_shell *shell, char **envp)
 {
-	start_shell(shell);
+	reset_shell(shell);
 	handle_signals();
 	shell_input(shell);
 	shell->input = readline(shell->cwd);
@@ -66,5 +66,5 @@ void	free_shell(t_shell *shell)
 		free(shell->cmd_path);
 	if (shell->cwd)
 		free(shell->cwd);
-	finish_shell(shell);
+	reset_shell(shell);
 }

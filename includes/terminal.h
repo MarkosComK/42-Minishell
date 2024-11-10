@@ -26,7 +26,6 @@ void	free_shell(t_shell *shell);
 void	shell_input(t_shell *shell);
 void	exec_processes(t_shell *shell, void *root);
 int		is_env_empty(t_shell *shell);
-void	start_shell(t_shell *shell);
-void	finish_shell(t_shell *shell);
+void	reset_shell(t_shell *shell);
 
 #endif
