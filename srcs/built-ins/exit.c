@@ -12,13 +12,32 @@
 
 #include <minishell.h>
 
-int	is_numeric(const char *str)
+static int	check_limits(char *str, long long num)
 {
-	int	i;
-	int	flag;
+	if (num > LLONG_MAX || num < LLONG_MIN)
+		return (0);
+	if (num == LLONG_MAX && ft_strcmp(str, "9223372036854775807"))
+	{
+		return (0);
+	}
+	if (num == LLONG_MIN && ft_strcmp(str, "-9223372036854775808"))
+	{
+		return (0);
+	}
+	return (1);
+}
+
+int	is_numeric(char *str)
+{
+	int			i;
+	int			flag;
+	long long	num;
 
 	i = 0;
 	flag = 0;
+	num = ft_atoll(str);
+	if (!check_limits(str, num))
+		return (0);
 	if (str[i] && (str[i] == '-' || str[i] == '+'))
 		i++;
 	while (str[i])
@@ -26,7 +45,7 @@ int	is_numeric(const char *str)
 		if (str[i] && ft_isdigit(str[i]))
 			flag = 1;
 		else
-			flag = 0;
+			return (0);
 		i++;
 	}
 	return (flag);
@@ -45,9 +64,9 @@ void	exit_error(t_shell *shell, char *arg)
 
 void	numeric_exit(t_shell *shell, char **args)
 {
-	int	status;
+	long long	status;
 
-	status = ft_atoi(args[1]);
+	status = ft_atoll(args[1]);
 	if (args[2])
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
