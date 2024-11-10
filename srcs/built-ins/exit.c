@@ -15,17 +15,21 @@
 int	is_numeric(const char *str)
 {
 	int	i;
+	int	flag;
 
 	i = 0;
+	flag = 1;
 	if (str[i] && (str[i] == '-' || str[i] == '+'))
 		i++;
 	while (str[i])
 	{
-		if (str[i] && (str[i] <= '0' && str[i] >= '9'))
-			return (0);
+		if (str[i] && ft_isdigit(str[i]))
+		{
+			flag = 0;
+		}
 		i++;
 	}
-	return (1);
+	return (flag);
 }
 
 void	exit_error(t_shell *shell, char *arg)
@@ -36,6 +40,7 @@ void	exit_error(t_shell *shell, char *arg)
 	free_env_lst(shell->envp);
 	free_shell(shell);
 	exit_code(255);
+	exit(255);
 }
 
 void	numeric_exit(t_shell *shell, char **args)
@@ -61,9 +66,14 @@ void	ft_exit(t_shell *shell, t_exec *exec_node)
 
 	args = exec_node->argv;
 	ft_putstr_fd("exit\n", 1);
-	if (is_numeric(args[1])) // arg[1] is numeric
+	if (is_numeric(args[1]))
 	{
 		numeric_exit(shell, args);
+	}
+	if (!is_numeric(args[1]))
+	{
+		exit_error(shell, args[1]);
+		return ;
 	}
 	return ;
 	/*
@@ -73,11 +83,6 @@ void	ft_exit(t_shell *shell, t_exec *exec_node)
 		free_env_lst(shell->envp);
 		free_shell(shell);
 		exit(status);
-	}
-	if (!is_numeric(args[1]))
-	{
-		exit_error(shell, args[1]);
-		return ;
 	}
 	numeric_exit(shell, args);
 	*/

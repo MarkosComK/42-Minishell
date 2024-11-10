@@ -37,7 +37,7 @@ void	exec_processes(t_shell *shell, void *root)
 	if (((t_node *)root)->type == N_EXEC)
 	{
 		exec = (t_exec *)root;
-		if (is_parent_builtin(shell, exec))
+		if (is_parent_builtin(exec))
 		{
 			exec_parent_builtin(shell, exec);
 			return ;
