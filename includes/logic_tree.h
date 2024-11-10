@@ -20,6 +20,13 @@ typedef struct s_andif
 	void	*right;
 }				t_andif;
 
+typedef struct s_or
+{
+	t_node	type;
+	void	*left;
+	void	*right;
+}				t_or;
+
 //build_ltree.c
 void	*build_ltree(t_shell *shell, t_list *token_list);
 void	*insert_lnode(t_shell *shell, void *lnode, t_list *token_lst);

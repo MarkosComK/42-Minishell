@@ -20,6 +20,7 @@ typedef enum e_node_type
 	N_PIPE,
 	N_EXEC,
 	N_ANDIF,
+	N_OR,
 }				t_node_type;
 
 typedef struct s_node
