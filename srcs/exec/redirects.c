@@ -12,6 +12,25 @@
 
 #include <minishell.h>
 
+void	check_files_order(t_shell *shell, t_exec *exec_node)
+{
+	t_list	*t_list;
+	t_token	*token;
+
+	t_list = shell->token_lst;
+	while (t_list)
+	{
+		token = ((t_token *)t_list->content);
+		if (token->type == INFILE)
+			handle_infiles(shell, exec_node);
+		else if (token->type == OUTFILE)
+			handle_outfiles(shell, exec_node);
+		t_list = t_list->next;
+	}
+	handle_infiles(shell, exec_node);
+	handle_outfiles(shell, exec_node);
+}
+
 void	handle_infiles(t_shell *shell, t_exec *exec_node)
 {
 	int		fd;

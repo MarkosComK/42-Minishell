@@ -29,6 +29,7 @@ void	handle_pid1(t_shell *shell, int pipefd[], t_pipe *pipe_node);
 void	handle_pid2(t_shell *shell, int pipefd[], t_pipe *pipe_node);
 
 //redirects
+void	check_files_order(t_shell *shell, t_exec *exec_node);
 void	handle_infiles(t_shell *shell, t_exec *exec_node);
 void	handle_outfiles(t_shell *shell, t_exec *exec_node);
 

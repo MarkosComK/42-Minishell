@@ -93,8 +93,7 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 {
 	int		ret;
 
-	handle_infiles(shell, exec_node);
-	handle_outfiles(shell, exec_node);
+	check_files_order(shell, exec_node);
 	if (exec_node->command && is_builtin(exec_node->command))
 	{
 		ret = exec_builtin(shell, exec_node);
