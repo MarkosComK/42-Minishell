@@ -12,6 +12,11 @@
 
 #include <minishell.h>
 
+int check_token(t_list *node)
+{
+	return (node && ((t_token *)node->content)->type != AND_IF);
+}
+
 void	*build_ltree(t_shell *shell, t_list *token_list)
 {
 	t_list	*tmp;
@@ -22,9 +27,9 @@ void	*build_ltree(t_shell *shell, t_list *token_list)
 	while (tmp)
 	{
 		lroot = insert_lnode(shell, lroot, tmp);
-		if (tmp && ((t_token *)tmp->content)->type != AND_IF)
+		if (check_token(tmp))
 		{
-			while (tmp && ((t_token *)tmp->content)->type != AND_IF)
+			while (check_token(tmp))
 			{
 				tmp = tmp->next;
 			}
@@ -32,7 +37,7 @@ void	*build_ltree(t_shell *shell, t_list *token_list)
 		else
 		{
 			tmp = tmp->next;
-			while (tmp && ((t_token *)tmp->content)->type != AND_IF)
+			while (check_token(tmp))
 			{
 				tmp = tmp->next;
 			}

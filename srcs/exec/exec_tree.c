@@ -34,7 +34,7 @@ void	lexec_tree(t_shell *shell, void *root)
 		lexec_tree(shell, ((t_andif *)root)->left);
 		lexec_tree(shell, ((t_andif *)root)->right);
 	}
-	if (node->type != N_ANDIF /* && last_process(-1) == 0 */)
+	if (node->type != N_ANDIF && last_process(-1) == 0)
 	{
 		exec_processes(shell, root);
 		last_process(exit_code(-1));
