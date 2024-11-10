@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:41:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/08 20:27:42 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 10:16:11 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef enum s_token_type
 	OUTFILE,
 	INFILE,
 	HEREDOC,
+	AND_IF,
+	OR,
 }	t_token_type;
 
 typedef enum s_token_state
@@ -62,6 +64,9 @@ int				join_strs(t_shell *shell, char **str, char *input, int i);
 int				h_quoted_str(t_shell *shell, char **str, char *input, int i);
 int				h_nonquoted_str(t_shell *shell, char **str, char *input, int i);
 
+//handle_andif.c
+int				handle_andif(t_shell *shell, char *input, int i);
+
 //handle_expand.c
 int				handle_expand(t_shell *shell, char *input, int i);
 int				prcs_expansion(t_shell *shell, char **str, char *input, int i);
@@ -72,6 +77,9 @@ int				expand_single(t_shell *shell, char **str, char *input, int i);
 //handle_expand_utils.c
 char			*ft_strjoin_char(char *str, char c);
 int				ft_flag(char c, int *i, bool flag);
+
+//handle_or.c
+int				handle_or(t_shell *shell, char *input, int i);
 
 //lexer.c
 void			lexer(t_shell *shell, char	*input);

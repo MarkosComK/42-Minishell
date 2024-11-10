@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:22:19 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/07 13:43:29 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/09 12:29:44 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # include <signals.h>
 # include <limits.h>
 # include <heredoc.h>
+# include <logic_tree.h>
 
 // MACROS
 # define PROMPT " Minihell:"
