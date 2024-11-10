@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 22:38:47 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/09 18:07:31 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 10:43:00 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_list	*skip_if(t_list *tmp)
 	while (tmp && ((t_token *)tmp->content)->type != PIPE)
 	{
 		tmp = tmp->next;
-		if (tmp && ((t_token *)tmp->content)->type == AND_IF)
+		if (check_token(tmp))
 			break ;
 	}
 	return (tmp);
@@ -29,7 +29,7 @@ t_list	*skip_else(t_list *tmp)
 	while (tmp && ((t_token *)tmp->content)->type != PIPE)
 	{
 		tmp = tmp->next;
-		if (tmp && ((t_token *)tmp->content)->type == AND_IF)
+		if (check_token(tmp))
 			break ;
 	}
 	return (tmp);
