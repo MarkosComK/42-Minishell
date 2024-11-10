@@ -6,17 +6,11 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 12:20:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/10 10:37:39 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 10:40:39 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-int	check_token(t_list *node)
-{
-	return (node && (((t_token *)node->content)->type != AND_IF
-			/*|| (t_token *)node->content)->type != OR */));
-}
 
 void	*build_ltree(t_shell *shell, t_list *token_list)
 {
@@ -81,7 +75,7 @@ void	*create_andif(t_shell *shell, void *left, void *right)
 
 	node = malloc(sizeof(t_andif));
 	if (!node)
-		exit_failure(shell, "crete_exec");
+		exit_failure(shell, "crete_andif");
 	node->type.type = N_ANDIF;
 	node->left = left;
 	node->right = right;
@@ -94,7 +88,7 @@ void	*create_or(t_shell *shell, void *left, void *right)
 
 	node = malloc(sizeof(t_or));
 	if (!node)
-		exit_failure(shell, "crete_exec");
+		exit_failure(shell, "crete_or");
 	node->type.type = N_OR;
 	node->left = left;
 	node->right = right;

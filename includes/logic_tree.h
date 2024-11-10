@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 12:28:11 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/10 10:38:57 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 10:41:27 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void	*insert_lnode(t_shell *shell, void *lnode, t_list *token_lst);
 void	*create_subtree(t_shell *shell, t_list *token_lst);
 void	*create_andif(t_shell *shell, void *left, void *right);
 void	*create_or(t_shell *shell, void *left, void *right);
+
+//build_ltree_utils.c
+int		check_token(t_list *node);
 
 //ltree_print.c
 void	*ltree_print(void *root, int space);
