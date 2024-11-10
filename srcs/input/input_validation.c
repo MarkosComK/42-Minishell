@@ -142,6 +142,8 @@ bool	check_redirs(char *str)
 		redir_len = ft_isredir(&str[i]);
 		if (redir_len > 0)
 		{
+			if (str[i + 1] == '|')
+				return (false);
 			i += redir_len;
 			while (str[i] && ft_isspace(str[i]))
 				i++;
