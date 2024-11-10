@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 10:15:23 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/10 10:16:45 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/10 10:21:43 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	handle_or(t_shell *shell, char *input, int i)
 	str = ft_strdup("||");
 	i += 2;
 	if (!str)
-		exit_failure(shell, "handle_expand");
+		exit_failure(shell, "handle_or");
 	new_token = ft_calloc(1, sizeof(t_token));
 	new_token->value = str;
 	new_token->type = OR;
