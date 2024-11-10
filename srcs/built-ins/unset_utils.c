@@ -32,6 +32,7 @@ int	is_valid_identifier(const char *str)
 
 void	print_invalid_identifier(char *arg, char *cmd)
 {
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": `", 2);
 	ft_putstr_fd(arg, 2);
@@ -48,4 +49,13 @@ void	remove_env_var(t_shell *shell, const char *var_name)
 	prev = find_prev_node(shell->envp, var_name);
 	if (prev)
 		remove_node(prev);
+}
+
+int	is_exact_var(t_env *env_var, const char *var_name)
+{
+	size_t	len;
+
+	len = ft_strlen(var_name);
+	return (ft_strlen(env_var->value) == len + 1 && ft_strncmp(env_var->value,
+			var_name, len) == 0);
 }

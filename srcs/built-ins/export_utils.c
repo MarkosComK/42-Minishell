@@ -95,8 +95,8 @@ void	mark_isexport(t_shell *shell, const char *var_name)
 	current = shell->envp;
 	while (current)
 	{
-		env_var = (t_env *)current->content;
-		if (ft_strncmp(env_var->value, var_name, ft_strlen(var_name)) == 0)
+		env_var = current->content;
+		if (is_exact_var(env_var, var_name))
 		{
 			env_var->is_export = true;
 			return ;

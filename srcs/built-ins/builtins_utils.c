@@ -57,6 +57,8 @@ int	exec_parent_builtin(t_shell *shell, t_exec *exec_node)
 		return ((ft_export(shell, exec_node->argv)), 0);
 	if (!ft_strcmp(cmd, "unset"))
 		return ((ft_unset(shell, exec_node->argv)), 0);
+	if (!ft_strcmp(cmd, "cd"))
+		return ((ft_cd(shell, exec_node)), 0);
 	return (1);
 }
 
