@@ -38,6 +38,7 @@ void	lexec_tree(t_shell *shell, void *root)
 	else if (node->type == N_OR)
 	{
 		lexec_tree(shell, ((t_or *)root)->left);
+		last_process(exit_code(-1));
 		if (last_process(-1) != 0)
 			lexec_tree(shell, ((t_or *)root)->right);
 	}
