@@ -22,13 +22,13 @@ bool	input_validation(t_shell *shell)
 	if (shell->trim_input[0] == '\0')
 		return (true);
 	if (!check_pipes(shell->trim_input))
-		return (syntax_error_msg(PIPE_ERROR));
+		return (syntax_error_msg(PIPE_ERROR), exit_code(2));
 	if (!check_quotes(shell->trim_input))
-		return (syntax_error_msg(OPEN_QUOTE));
+		return (syntax_error_msg(OPEN_QUOTE), exit_code(2));
 	if (!check_quotes_pos(shell->trim_input))
-		return (syntax_error_msg(SYNTAX_QUOTE));
+		return (syntax_error_msg(SYNTAX_QUOTE), exit_code(2));
 	if (!check_redirs(shell->trim_input))
-		return (true);
+		return (true, exit_code(2));
 	return (false);
 }
 

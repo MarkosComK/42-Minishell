@@ -31,10 +31,7 @@ int	handle_expand(t_shell *shell, char *input, int i)
 		if (ft_isspace(input[i]) || ft_ismeta(input, i))
 			break ;
 	}
-	new_token = ft_calloc(1, sizeof(t_token));
-	new_token->value = str;
-	new_token->type = WORD;
-	new_token->state = EXPAND;
+	new_token = create_token(shell, str);
 	ft_lstadd_back(&shell->token_lst, ft_lstnew(new_token));
 	while (ft_isspace(input[i]))
 		i++;

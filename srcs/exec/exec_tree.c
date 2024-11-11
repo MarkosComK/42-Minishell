@@ -109,6 +109,9 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 	if (execve(shell->cmd_path, exec_node->argv, shell->envp_arr) < 0)
 	{
 		free_env_lst(shell->envp);
-		exec_failure(shell, shell->cmd_path, exec_node->argv);
+		if (exec_node->argv)
+			exec_failure(shell, shell->cmd_path);
+		free_shell(shell);
+		exit(0);
 	}
 }

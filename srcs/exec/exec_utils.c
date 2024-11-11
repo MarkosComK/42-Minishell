@@ -32,7 +32,7 @@ char	*find_cmd_path(t_shell *shell, t_list *path_list, char *command)
 		free(only_path);
 		if (!path)
 			exit_failure(shell, "find_cmd_path");
-		if (access(path, F_OK | X_OK) == 0)
+		if (access(path, F_OK) == 0)
 			return (path);
 		free(path);
 		current = current->next;

@@ -104,9 +104,9 @@ t_list	*get_name(t_list *tkn_lst)
 			tkn_lst = tkn_lst->next->next;
 			continue ;
 		}
-		if (tkn_lst && ((t_token *)tkn_lst->content)->type == WORD)
-			if (tkn_lst && ft_strcmp(((t_token *)tkn_lst->content)->value, ""))
-				return (tkn_lst);
+		if (tkn_lst && ((t_token *)tkn_lst->content)->type == WORD
+			&& ((t_token *)tkn_lst->content)->state != EXPAND)
+			return (tkn_lst);
 		tkn_lst = tkn_lst->next;
 		if (tkn_lst && ((t_token *)tkn_lst->content)->type == AND_IF)
 			break ;

@@ -37,3 +37,17 @@ void	path_message(t_shell *shell, char *path, char *error_msg)
 	free_env_lst(shell->envp);
 	free_shell(shell);
 }
+
+void	set_params(char **var, int *exit_var, char *error_msg, int code)
+{
+	*var = error_msg;
+	*exit_var = code;
+}
+
+void	cmd_message(t_shell *shell, char *cmd, char *error_msg)
+{
+	ft_putstr_fd(MINISHELL " " DEFAULT, 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putendl_fd(error_msg, 2);
+	free_shell(shell);
+}

@@ -40,6 +40,8 @@ int	is_numeric(char *str)
 		return (0);
 	if (str[i] && (str[i] == '-' || str[i] == '+'))
 		i++;
+	if (str[i] == '-')
+		return (1);
 	while (str[i])
 	{
 		if (str[i] && ft_isdigit(str[i]))

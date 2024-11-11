@@ -90,16 +90,31 @@ void	is_directory(t_shell *shell, char *path)
 	}
 }
 
-void	exec_failure(t_shell *shell, char *cmd, char **argv)
+void	exec_failure(t_shell *shell, char *cmd)
 {
-	(void) cmd;
-	if (argv && argv[0])
+	struct stat	cmd_stat;
+	int			status_code;
+	char		*error_msg;
+
+	ft_bzero(&cmd_stat, sizeof(cmd_stat));
+	errno = 0;
+	status_code = 127;
+	error_msg = NULL;
+	if (stat(cmd, &cmd_stat) == -1)
 	{
-		ft_putstr_fd(argv[0], 2);
-		ft_putendl_fd(": command not found", 2);
-		free_shell(shell);
-		exit(127);
+		if (errno == EACCES)
+			set_params(&error_msg, &status_code, ": Permission denied", 126);
+		else if (errno == ENOENT)
+			error_msg = ": command not found";
 	}
-	free_shell(shell);
-	exit(0);
+	else
+	{
+		if (!(cmd_stat.st_mode & S_IXUSR))
+			error_msg = ": command not found";
+		else if (access(cmd, X_OK) == -1)
+			set_params(&error_msg, &status_code, ": Permission denied", 126);
+	}
+	if (cmd && error_msg)
+		cmd_message(shell, cmd, error_msg);
+	exit(status_code);
 }

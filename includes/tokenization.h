@@ -77,6 +77,7 @@ int				expand_single(t_shell *shell, char **str, char *input, int i);
 //handle_expand_utils.c
 char			*ft_strjoin_char(char *str, char c);
 int				ft_flag(char c, int *i, bool flag);
+t_token			*create_token(t_shell *shell, char *str);
 
 //handle_or.c
 int				handle_or(t_shell *shell, char *input, int i);
