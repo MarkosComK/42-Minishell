@@ -43,3 +43,18 @@ int	ft_flag(char c, int *i, bool flag)
 	}
 	return (flag);
 }
+
+t_token	*create_token(t_shell *shell, char *str)
+{
+	t_token	*new_token;
+
+	new_token = ft_calloc(1, sizeof(t_token));
+	if (!new_token)
+		exit_failure(shell, "create_token");
+	new_token->value = str;
+	new_token->type = WORD;
+	new_token->state = GENERAL;
+	if (!ft_strcmp(str, ""))
+		new_token->state = EXPAND;
+	return (new_token);
+}
