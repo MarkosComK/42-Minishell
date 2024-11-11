@@ -85,7 +85,7 @@ int	exec_builtin(t_shell *shell, t_exec *exec_node)
 	if (!ft_strcmp(cmd, "env"))
 		return (print_env_lst(shell->envp), 0);
 	if (!ft_strcmp(cmd, "export") && !exec_node->argv[1])
-		return (print_env_lst(shell->envp), 0);
+		return (ft_export(shell, exec_node->argv), 0);
 	return (1);
 }
 
