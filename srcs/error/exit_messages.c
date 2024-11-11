@@ -90,7 +90,7 @@ void	is_directory(t_shell *shell, char *path)
 	}
 }
 
-void	exec_failure(t_shell *shell, char *cmd, char **argv)
+void	exec_failure(t_shell *shell, char *cmd)
 {
 	struct stat	cmd_stat;
 	int			status_code;
@@ -98,7 +98,6 @@ void	exec_failure(t_shell *shell, char *cmd, char **argv)
 
 	ft_bzero(&cmd_stat, sizeof(cmd_stat));
 	errno = 0;
-	(void) argv;
 	error_msg = NULL;
 	status_code = 127;
 	if (stat(cmd, &cmd_stat) == -1)
