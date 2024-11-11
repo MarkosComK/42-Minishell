@@ -16,73 +16,91 @@ void	check_files_order(t_shell *shell, t_exec *exec_node)
 {
 	t_list	*t_list;
 	t_token	*token;
+	int		in;
+	int		out;
 
 	t_list = shell->token_lst;
+	in = 0;
+	out = 0;
 	while (t_list)
 	{
 		token = ((t_token *)t_list->content);
 		if (token->type == INFILE)
-			handle_infiles(shell, exec_node);
-		else if (token->type == OUTFILE)
-			handle_outfiles(shell, exec_node);
+		{
+			handle_infiles(shell, exec_node, in);
+			in++;
+		}
+		else if (token->type == OUTFILE || token->type == APPEND)
+		{
+			handle_outfiles(shell, exec_node, out);
+			out++;
+		}
 		t_list = t_list->next;
 	}
-	handle_infiles(shell, exec_node);
-	handle_outfiles(shell, exec_node);
+	handle_infiles(shell, exec_node, -1);
+	handle_outfiles(shell, exec_node, -1);
 }
 
-void	handle_infiles(t_shell *shell, t_exec *exec_node)
+void	handle_infiles(t_shell *shell, t_exec *exec_node, int pos)
 {
 	int		fd;
 	t_inf	*inf;
 	t_list	*infiles;
+	int		index;
 
 	infiles = exec_node->infiles;
+	index = 0;
 	if (infiles)
 	{
 		while (infiles)
 		{
-			inf = ((t_inf *)infiles->content);
-			if (inf->type == INF)
-				fd = open(inf->eof, O_RDONLY);
-			else if (inf->type == HERE)
+			if (index == pos || pos == -1)
 			{
-				fd = open(inf->name, O_RDWR, 0644);
+				inf = ((t_inf *)infiles->content);
+				if (inf->type == INF)
+					fd = open(inf->eof, O_RDONLY);
+				else if (inf->type == HERE)
+					fd = open(inf->name, O_RDWR, 0644);
+				if (fd < 0)
+					infile_failure(shell, inf->eof);
+				dup2(fd, STDIN_FILENO);
+				close(fd);
 			}
-			if (fd < 0)
-			{
-				infile_failure(shell, inf->eof);
-			}
-			dup2(fd, STDIN_FILENO);
-			close(fd);
 			infiles = infiles->next;
+			index++;
 		}
 	}
 }
 
-void	handle_outfiles(t_shell *shell, t_exec *exec_node)
+void	handle_outfiles(t_shell *shell, t_exec *exec_node, int pos)
 {
 	int		fd;
 	t_outf	*outf;
 	t_list	*outfiles;
+	int		index;
 
 	outfiles = exec_node->outfiles;
+	index = 0;
 	if (outfiles)
 	{
 		while (outfiles)
 		{
-			outf = ((t_outf *)outfiles->content);
-			if (outf->type == APP)
-				fd = open(outf->name, O_RDWR | O_CREAT | O_APPEND, 0644);
-			else if (outf->type == ADD)
-				fd = open(outf->name, O_RDWR | O_CREAT | O_TRUNC, 0644);
-			if (fd < 0)
+			if (index == pos || pos == -1)
 			{
-				outfile_failure(shell, outf->name);
+				outf = ((t_outf *)outfiles->content);
+				if (outf->type == APP)
+					fd = open(outf->name, O_RDWR | O_CREAT | O_APPEND, 0644);
+				else if (outf->type == ADD)
+					fd = open(outf->name, O_RDWR | O_CREAT | O_TRUNC, 0644);
+				if (fd < 0)
+				{
+					outfile_failure(shell, outf->name);
+				}
+				dup2(fd, STDOUT_FILENO);
+				close(fd);
 			}
-			dup2(fd, STDOUT_FILENO);
-			close(fd);
 			outfiles = outfiles->next;
+			index++;
 		}
 	}
 }
