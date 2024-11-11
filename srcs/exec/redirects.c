@@ -27,28 +27,26 @@ void	check_files_order(t_shell *shell, t_exec *exec_node)
 		token = ((t_token *)t_list->content);
 		if (token->type == INFILE)
 		{
-			handle_infiles(shell, exec_node, in);
+			handle_infiles(shell, exec_node->infiles, in);
 			in++;
 		}
 		else if (token->type == OUTFILE || token->type == APPEND)
 		{
-			handle_outfiles(shell, exec_node, out);
+			handle_outfiles(shell, exec_node->outfiles, out);
 			out++;
 		}
 		t_list = t_list->next;
 	}
-	handle_infiles(shell, exec_node, -1);
-	handle_outfiles(shell, exec_node, -1);
+	handle_infiles(shell, exec_node->infiles, -1);
+	handle_outfiles(shell, exec_node->outfiles, -1);
 }
 
-void	handle_infiles(t_shell *shell, t_exec *exec_node, int pos)
+void	handle_infiles(t_shell *shell, t_list *infiles, int pos)
 {
 	int		fd;
 	t_inf	*inf;
-	t_list	*infiles;
 	int		index;
 
-	infiles = exec_node->infiles;
 	index = 0;
 	if (infiles)
 	{
@@ -72,14 +70,12 @@ void	handle_infiles(t_shell *shell, t_exec *exec_node, int pos)
 	}
 }
 
-void	handle_outfiles(t_shell *shell, t_exec *exec_node, int pos)
+void	handle_outfiles(t_shell *shell, t_list *outfiles, int pos)
 {
 	int		fd;
 	t_outf	*outf;
-	t_list	*outfiles;
 	int		index;
 
-	outfiles = exec_node->outfiles;
 	index = 0;
 	if (outfiles)
 	{
@@ -93,9 +89,7 @@ void	handle_outfiles(t_shell *shell, t_exec *exec_node, int pos)
 				else if (outf->type == ADD)
 					fd = open(outf->name, O_RDWR | O_CREAT | O_TRUNC, 0644);
 				if (fd < 0)
-				{
 					outfile_failure(shell, outf->name);
-				}
 				dup2(fd, STDOUT_FILENO);
 				close(fd);
 			}
