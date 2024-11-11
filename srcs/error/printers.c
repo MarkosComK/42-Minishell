@@ -14,9 +14,18 @@
 
 bool	syntax_error_msg(char *str)
 {
-	ft_putstr_fd(SYNTAX_ERROR, 2);
-	if (str)
-		ft_putendl_fd(str, 2);
+	static bool	message_printed;
+
+	message_printed = false;
+	if (!message_printed)
+	{
+		ft_putstr_fd(SYNTAX_ERROR, 2);
+		if (str)
+			ft_putendl_fd(str, 2);
+		message_printed = true;
+	}
+	else
+		message_printed = false;
 	return (true);
 }
 

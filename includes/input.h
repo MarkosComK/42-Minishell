@@ -13,24 +13,25 @@
 /*
  * This file contains all the functions that handles the input of the user
  * either for validations or parsing the commands.
-*/
+ */
 
 #ifndef INPUT_H
 # define INPUT_H
 
 # include <structs.h>
 
-//input_validation.c
+// input_validation.c
 bool	input_validation(t_shell *shell);
 bool	check_quotes(char *str);
 bool	check_quotes_pos(char *str);
 bool	check_pipes(char *str);
 bool	check_redirs(char *str);
 
-//input_validation_utils.c
+// input_validation_utils.c
 bool	ft_isquote(char c);
 int		ft_isredir(char *c);
 void	toggle_quotes(char c, bool *in_single_quote, bool *in_double_quote);
 int		jump_quotes(char *str, int i);
+bool	handle_redir_error(char *str, int *i, int redir_len);
 
 #endif

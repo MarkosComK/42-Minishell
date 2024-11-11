@@ -24,7 +24,9 @@
 # define D_QUOTE "`\"'"
 # define OPEN_QUOTE "`open quote'"
 # define PIPE_ERROR "near unexpected token `|'"
-# define REDIR_ERROR "near unexpected token `redir'"
+# define REDIR_ERROR_APPEND "near unexpected token `>'"
+# define REDIR_ERROR_DAPPEND "near unexpected token `>>'"
+# define REDIR_ERROR "near unexpected token `newline'"
 
 //exit_code.c
 char	*itoa_exit(t_shell *shell, char **str);

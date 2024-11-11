@@ -54,3 +54,29 @@ int	jump_quotes(char *str, int i)
 	}
 	return (i);
 }
+
+bool	handle_redir_error(char *str, int *i, int redir_len)
+{
+	char	*error_msg;
+
+	if (str[*i + 1] == '|')
+	{
+		syntax_error_msg("near unexpected token `|'");
+		return (false);
+	}
+	*i += redir_len;
+	while (str[*i] && ft_isspace(str[*i]))
+		(*i)++;
+	if (ft_isredir(&str[*i]))
+	{
+		if (str[*i] == '>' && str[*i + 1] == '>')
+			error_msg = "near unexpected token `>>'";
+		else if (str[*i] == '<')
+			error_msg = "near unexpected token `<'";
+		else
+			error_msg = "near unexpected token `>'";
+		syntax_error_msg(error_msg);
+		return (false);
+	}
+	return (true);
+}
