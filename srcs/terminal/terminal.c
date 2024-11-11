@@ -23,7 +23,6 @@ void	terminal(t_shell *shell, char **envp)
 	if (shell->input && input_validation(shell))
 	{
 		free_shell(shell);
-		exit_code(2);
 		terminal(shell, envp);
 	}
 	if (shell->input == NULL || !ft_strcmp(shell->trim_input, "exit"))
