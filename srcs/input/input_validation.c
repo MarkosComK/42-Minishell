@@ -132,8 +132,8 @@ bool	check_pipes(char *str)
 
 bool	check_redirs(char *str)
 {
-	int		i;
-	int		redir_len;
+	int	i;
+	int	redir_len;
 
 	i = 0;
 	while (str[i])
@@ -142,13 +142,13 @@ bool	check_redirs(char *str)
 		redir_len = ft_isredir(&str[i]);
 		if (redir_len > 0)
 		{
-			i += redir_len;
-			while (str[i] && ft_isspace(str[i]))
-				i++;
-			if (ft_isredir(&str[i]))
+			if (!handle_redir_error(str, &i, redir_len))
 				return (false);
 			if (!str[i])
+			{
+				syntax_error_msg(REDIR_ERROR);
 				return (false);
+			}
 			continue ;
 		}
 		if (str[i])
