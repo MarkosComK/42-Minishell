@@ -103,18 +103,12 @@ void	exec_failure(t_shell *shell, char *cmd)
 	if (stat(cmd, &cmd_stat) == -1)
 	{
 		if (errno == EACCES)
-		{
-			error_msg = ": Permission denied";
-			status_code = 126;
-		}
+			set_params(&error_msg, &status_code, ": Permission denied", 126);
 		else if (errno == ENOENT)
 			error_msg = ": command not found";
 	}
 	else if (access(cmd, X_OK) == -1 || !(cmd_stat.st_mode & S_IXUSR))
-	{
-		error_msg = ": Permission denied";
-		status_code = 126;
-	}
+		set_params(&error_msg, &status_code, ": Permission denied", 126);
 	else
 		error_msg = ": command not found";
 	if (cmd && error_msg)
