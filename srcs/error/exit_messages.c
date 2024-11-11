@@ -98,8 +98,8 @@ void	exec_failure(t_shell *shell, char *cmd)
 
 	ft_bzero(&cmd_stat, sizeof(cmd_stat));
 	errno = 0;
-	error_msg = NULL;
 	status_code = 127;
+	error_msg = NULL;
 	if (stat(cmd, &cmd_stat) == -1)
 	{
 		if (errno == EACCES)
@@ -107,10 +107,13 @@ void	exec_failure(t_shell *shell, char *cmd)
 		else if (errno == ENOENT)
 			error_msg = ": command not found";
 	}
-	else if (access(cmd, X_OK) == -1 || !(cmd_stat.st_mode & S_IXUSR))
-		set_params(&error_msg, &status_code, ": Permission denied", 126);
 	else
-		error_msg = ": command not found";
+	{
+		if (!(cmd_stat.st_mode & S_IXUSR))
+			error_msg = ": command not found";
+		else if (access(cmd, X_OK) == -1)
+			set_params(&error_msg, &status_code, ": Permission denied", 126);
+	}
 	if (cmd && error_msg)
 		cmd_message(shell, cmd, error_msg);
 	exit(status_code);
