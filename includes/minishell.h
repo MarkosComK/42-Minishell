@@ -38,6 +38,7 @@
 # include <limits.h>
 # include <heredoc.h>
 # include <logic_tree.h>
+# include <string.h>
 
 // MACROS
 # define PROMPT " Minihell:"

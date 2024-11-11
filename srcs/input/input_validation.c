@@ -28,7 +28,7 @@ bool	input_validation(t_shell *shell)
 	if (!check_quotes_pos(shell->trim_input))
 		return (syntax_error_msg(SYNTAX_QUOTE));
 	if (!check_redirs(shell->trim_input))
-		return (syntax_error_msg(REDIR_ERROR));
+		return (true);
 	return (false);
 }
 
