@@ -92,14 +92,33 @@ void	is_directory(t_shell *shell, char *path)
 
 void	exec_failure(t_shell *shell, char *cmd, char **argv)
 {
-	(void) cmd;
-	if (argv && argv[0])
+	struct stat	cmd_stat;
+	int			status_code;
+	char		*error_msg;
+
+	ft_bzero(&cmd_stat, sizeof(cmd_stat));
+	errno = 0;
+	(void) argv;
+	error_msg = NULL;
+	status_code = 127;
+	if (stat(cmd, &cmd_stat) == -1)
 	{
-		ft_putstr_fd(argv[0], 2);
-		ft_putendl_fd(": command not found", 2);
-		free_shell(shell);
-		exit(127);
+		if (errno == EACCES)
+		{
+			error_msg = ": Permission denied";
+			status_code = 126;
+		}
+		else if (errno == ENOENT)
+			error_msg = ": command not found";
 	}
-	free_shell(shell);
-	exit(0);
+	else if (access(cmd, X_OK) == -1 || !(cmd_stat.st_mode & S_IXUSR))
+	{
+		error_msg = ": Permission denied";
+		status_code = 126;
+	}
+	else
+		error_msg = ": command not found";
+	if (cmd && error_msg)
+		cmd_message(shell, cmd, error_msg);
+	exit(status_code);
 }
