@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 12:20:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 12:17:15 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:16:32 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ void	*build_ltree(t_shell *shell, t_list *token_list)
 	lroot = NULL;
 	while (tmp)
 	{
+		printf("check_token->%s\n", ((t_token *)tmp->content)->value);
 		lroot = insert_lnode(shell, lroot, tmp);
-		if (check_token(tmp))
+		printf("current tree:\n");
+		ltree_print(lroot, 2);
+		if (check_token(tmp) && ((t_token *)tmp->content)->type != PARENTHESIS)
 		{
 			while (check_token(tmp))
 			{
@@ -31,13 +34,26 @@ void	*build_ltree(t_shell *shell, t_list *token_list)
 		}
 		else
 		{
-			tmp = tmp->next;
-			while (check_token(tmp))
+			if (((t_token *)tmp->content)->type == PARENTHESIS)
 			{
 				tmp = tmp->next;
+				while (((t_token *)tmp->content)->type != PARENTHESIS)
+					tmp = tmp->next;
+				tmp = tmp->next;
+			}
+			else
+			{
+				tmp = tmp->next;
+				while (check_token(tmp) && ((t_token *)tmp->content)->type != PARENTHESIS)
+				{
+					tmp = tmp->next;
+				}
 			}
 		}
 	}
+	printf(GREEN"FINAL:\n");
+	ltree_print(lroot, 2);
+	printf(DEFAULT);
 	return (lroot);
 }
 
@@ -60,15 +76,18 @@ void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 		}
 
 		//check new list
-		printf("New_list:\n");
-		print_token_lst(new);
+		//printf("New_list:\n");
+		//print_token_lst(new);
 
 		//build subtree based on ()
-		l_node = build_ltree(shell, new);
+		if (!l_node)
+			l_node = build_ltree(shell, new);
+		if (token->type == AND_IF)
+			l_node = create_and(shell, l_node, build_ltree(shell, new));
 
 		//check the subtree from list inside ()
-		printf("subtree:\n");
-		ltree_print(l_node, 3);
+		//printf("subtree:\n");
+		//ltree_print(l_node, 3);
 
 		//free the new tmp list
 		t_list *tmp = new;
@@ -82,8 +101,29 @@ void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 	}
 	if (!l_node)
 		return (create_subtree(shell, t_lst));
-	if (token->type == AND_IF)
+	if (token->type == AND_IF && ((t_token *)t_lst->next->content)->type != PARENTHESIS)
 		l_node = create_and(shell, l_node, create_subtree(shell, t_lst->next));
+	else if (token->type == AND_IF && ((t_token *)t_lst->next->content)->type == PARENTHESIS)
+	{
+		t_list	*new = NULL;
+		t_lst = t_lst->next->next;
+		token = (t_token *)t_lst->content;
+		while (t_lst && token->type != PARENTHESIS)
+		{
+			ft_lstadd_back(&new, ft_lstnew(token));
+			t_lst = t_lst->next;
+			token = (t_token *)t_lst->content;
+		}
+		//create subtree at right side of && when theres (new)
+		l_node = create_and(shell, l_node, build_ltree(shell, new));
+		t_list *tmp = new;
+		while (new)
+		{
+			tmp = new->next;
+			free(new);
+			new = tmp;
+		}
+	}
 	else if (token->type == OR)
 		l_node = create_or(shell, l_node, create_subtree(shell, t_lst->next));
 	else
