@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 10:39:11 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 11:01:11 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:25:20 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	handle_parenthesis(t_shell *shell, char *input, int i)
 		str = ft_strdup(")");
 	i++;
 	if (!str)
-		exit_failure(shell, "handle_or");
+		exit_failure(shell, "handle_parenthesis");
 	new_token = ft_calloc(1, sizeof(t_token));
 	new_token->value = str;
 	new_token->type = OR;

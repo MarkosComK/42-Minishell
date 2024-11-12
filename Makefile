@@ -10,7 +10,7 @@ TITLE  = $(shell printf "\33[32;40m")
 
 LIBFTDIR = 42-Libft
 NAME     = minishell
-FLAGS    = -Wall -Wextra -Werror -g -Iincludes
+FLAGS    = -Wall -Wextra -Werror -g -Iincludes -fsanitize=address
 IFLAGS   = -Iincludes/ -I${LIBFTDIR}/src
 CC       = cc
 SRCS     = $(wildcard srcs/*.c) $(wildcard srcs/*/*.c)
