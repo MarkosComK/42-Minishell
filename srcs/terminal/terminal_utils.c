@@ -17,12 +17,21 @@ void	shell_input(t_shell *shell)
 	char	*prompt;
 	char	cwd[PATH_MAX];
 	char	*tmp;
+	char	*tmp2;
+	char	*tmp3;
+	char	*code;
 
+	code = ft_itoa(exit_code(-1));
 	getcwd(cwd, sizeof(cwd));
 	prompt = "\001" B_RED "\002Minishell\001" DEFAULT "\002";
 	tmp = ft_strjoin(prompt, cwd);
-	shell->cwd = ft_strjoin(tmp, "\001"B_RED"\002 → \001"DEFAULT"\002");
+	tmp2 = ft_strjoin(tmp, "\001"BLUE" [""\002");
 	free(tmp);
+	tmp3 = ft_strjoin(tmp2, code);
+	free(tmp2);
+	free(code);
+	shell->cwd = ft_strjoin(tmp3, "]\001"B_RED"\002 → \001"DEFAULT"\002");
+	free(tmp3);
 }
 
 int	handle_exec_node(t_shell *shell, void *root, int *status)
