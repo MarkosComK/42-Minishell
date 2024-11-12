@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:41:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/10 10:16:11 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:17:00 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,9 @@ t_token			*create_token(t_shell *shell, char *str);
 
 //handle_or.c
 int				handle_or(t_shell *shell, char *input, int i);
+
+//handle_parenthesis.c
+int				handle_parenthesis(t_shell *shell, char *input, int i);
 
 //lexer.c
 void			lexer(t_shell *shell, char	*input);
