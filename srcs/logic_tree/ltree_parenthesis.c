@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:43:42 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 17:03:20 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:09:42 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	*get_or_subnode(t_shell *shell, void *l_node, t_list *t_lst)
 
 bool	is_parenthesis(t_list *t_lst)
 {
-	if (t_lst->next)
-		return (((t_token *)t_lst->next->content)->type == PARENTHESIS);
+	if (t_lst)
+		return (((t_token *)t_lst->content)->type == PARENTHESIS);
 	return (NULL);
 }
