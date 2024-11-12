@@ -15,9 +15,10 @@
 t_list	*new_sublist(t_list *t_lst)
 {
 	t_token	*token;
+	t_list	*new;
 
 	token = (t_token *)t_lst->content;
-	t_list	*new = NULL;
+	new = NULL;
 	t_lst = t_lst->next;
 	token = (t_token *)t_lst->content;
 	while (t_lst && token->type != PARENTHESIS)
@@ -31,7 +32,7 @@ t_list	*new_sublist(t_list *t_lst)
 
 void	clean_sublist(t_list *new)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = new;
 	while (new)
