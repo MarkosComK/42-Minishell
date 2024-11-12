@@ -72,15 +72,15 @@ void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 	}
 	if (!l_node)
 		return (create_subtree(shell, t_lst));
-	if (token->type == AND_IF && ((t_token *)t_lst->next->content)->type != PARENTHESIS)
+	if (token->type == AND_IF && !is_parenthesis(t_lst))
 		l_node = create_and(shell, l_node, create_subtree(shell, t_lst->next));
-	else if (token->type == AND_IF && ((t_token *)t_lst->next->content)->type == PARENTHESIS)
+	else if (token->type == AND_IF && is_parenthesis(t_lst))
 	{
 		l_node = get_andif_subnode(shell, l_node, t_lst);
 	}
-	else if (token->type == OR && ((t_token *)t_lst->next->content)->type != PARENTHESIS)
+	else if (token->type == OR && !is_parenthesis(t_lst))
 		l_node = create_or(shell, l_node, create_subtree(shell, t_lst->next));
-	else if (token->type == OR && ((t_token *)t_lst->next->content)->type == PARENTHESIS)
+	else if (token->type == OR && is_parenthesis(t_lst))
 	{
 		l_node = get_or_subnode(shell, l_node, t_lst);
 	}

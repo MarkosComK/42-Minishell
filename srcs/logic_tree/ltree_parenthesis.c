@@ -64,3 +64,8 @@ void	*get_or_subnode(t_shell *shell, void *l_node, t_list *t_lst)
 	clean_sublist(new);
 	return (l_node);
 }
+
+bool	is_parenthesis(t_list *t_lst)
+{
+	return (((t_token *)t_lst->next->content)->type == PARENTHESIS);
+}

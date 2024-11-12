@@ -42,6 +42,7 @@ t_list	*new_sublist(t_list *t_lst);
 void	clean_sublist(t_list *new);
 void	*get_andif_subnode(t_shell *shell, void *l_node, t_list *t_lst);
 void	*get_or_subnode(t_shell *shell, void *l_node, t_list *t_lst);
+bool	is_parenthesis(t_list *t_lst);
 
 //ltree_print.c
 void	*ltree_print(void *root, int space);
