@@ -32,8 +32,10 @@ void	lexec_tree(t_shell *shell, void *root)
 	if (node->type == N_ANDIF)
 	{
 		lexec_tree(shell, ((t_andif *)root)->left);
+		last_process(exit_code(-1));
 		if (last_process(-1) == 0)
 			lexec_tree(shell, ((t_andif *)root)->right);
+		last_process(exit_code(-1));
 	}
 	else if (node->type == N_OR)
 	{
@@ -43,9 +45,7 @@ void	lexec_tree(t_shell *shell, void *root)
 			lexec_tree(shell, ((t_or *)root)->right);
 	}
 	else if (node->type == N_PIPE)
-	{
 		exec_processes(shell, root);
-	}
 	else if (node->type == N_EXEC)
 		exec_processes(shell, root);
 	return ;
