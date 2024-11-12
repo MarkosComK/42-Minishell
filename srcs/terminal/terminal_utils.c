@@ -24,12 +24,20 @@ void	shell_input(t_shell *shell)
 	getcwd(cwd, sizeof(cwd));
 	prompt = "\001" B_RED "\002Minishell\001" DEFAULT "\002";
 	tmp = ft_strjoin(prompt, cwd);
+	if (!tmp)
+		return (exit_failure(shell, "shell_input"), free(tmp));
 	tmp2 = ft_strjoin(tmp, "\001"BLUE" [""\002");
+	if (!tmp2)
+		return (exit_failure(shell, "shell_input"), free(tmp2));
 	free(tmp);
 	tmp = ft_strjoin(tmp2, code);
+	if (!tmp)
+		return (exit_failure(shell, "shell_input"), free(tmp));
 	free(tmp2);
 	free(code);
 	shell->cwd = ft_strjoin(tmp, "]\001"B_RED"\002 → \001"DEFAULT"\002");
+	if (!shell->cwd)
+		return (exit_failure(shell, "shell_input"), free(shell->cwd));
 	free(tmp);
 }
 
