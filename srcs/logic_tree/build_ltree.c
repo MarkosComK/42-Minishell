@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 12:20:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 13:38:38 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:41:13 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,19 @@ t_list	*new_sublist(t_list *t_lst)
 	return (new);
 }
 
+void	clean_sublist(t_list *new)
+{
+	t_list *tmp;
+
+	tmp = new;
+	while (new)
+	{
+		tmp = new->next;
+		free(new);
+		new = tmp;
+	}
+}
+
 void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 {
 	t_token	*token;
@@ -76,24 +89,10 @@ void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 	//handle first token as parenthesis
 	if (token->type == PARENTHESIS)
 	{
-		t_list	*new = NULL;
-		printf("New_list:\n");
+		t_list	*new;
+
+		new = NULL;
 		new =  new_sublist(t_lst);
-		//create a list with tokens inside ()
-		/*
-		t_list	*new = NULL;
-		t_lst = t_lst->next;
-		token = (t_token *)t_lst->content;
-		while (t_lst && token->type != PARENTHESIS)
-		{
-			ft_lstadd_back(&new, ft_lstnew(token));
-			t_lst = t_lst->next;
-			token = (t_token *)t_lst->content;
-		}
-		*/
-		//new_sublist(t_lst);
-		//check new list
-		//printf("New_list:\n");
 		print_token_lst(new);
 
 		//build subtree based on ()
@@ -102,18 +101,7 @@ void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 		if (token->type == AND_IF)
 			l_node = create_and(shell, l_node, build_ltree(shell, new));
 
-		//check the subtree from list inside ()
-		//printf("subtree:\n");
-		//ltree_print(l_node, 3);
-
-		//free the new tmp list
-		t_list *tmp = new;
-		while (new)
-		{
-			tmp = new->next;
-			free(new);
-			new = tmp;
-		}
+		clean_sublist(new);
 		return (l_node);
 	}
 	if (!l_node)
