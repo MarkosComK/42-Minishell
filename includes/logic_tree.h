@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 12:28:11 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 13:44:32 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:00:32 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ t_list	*new_sublist(t_list *t_lst);
 void	clean_sublist(t_list *new);
 void	*get_andif_subnode(t_shell *shell, void *l_node, t_list *t_lst);
 void	*get_or_subnode(t_shell *shell, void *l_node, t_list *t_lst);
+bool	is_parenthesis(t_list *t_lst);
+
+//ltree_parenthesis2
+void	*start_parenthesis(t_shell *shell, t_list *t_lst, void *l_node);
+t_list	*jump_parenthesis(t_list *tmp);
 
 //ltree_print.c
 void	*ltree_print(void *root, int space);
