@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 16:14:07 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/10 10:23:01 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:29:03 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	token_loop(t_token *token)
 		printf("%-10s | ", "OR");
 	if (token->type == AND_IF)
 		printf("%-10s | ", "AND_IF");
+	if (token->type == PARENTHESIS)
+		printf("%-10s | ", "PARNTHSIS");
 	if (token->state == GENERAL)
 		printf("%-12s | ", "GENERAL");
 	else if (token->state == IN_DQUOTES)
