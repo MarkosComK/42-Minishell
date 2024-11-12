@@ -41,3 +41,25 @@ void	clean_sublist(t_list *new)
 		new = tmp;
 	}
 }
+
+void	*get_andif_subnode(t_shell *shell, void *l_node, t_list *t_lst)
+{
+	t_list	*new;
+
+	new = NULL;
+	new = new_sublist(t_lst->next);
+	l_node = create_and(shell, l_node, build_ltree(shell, new));
+	clean_sublist(new);
+	return (l_node);
+}
+
+void	*get_or_subnode(t_shell *shell, void *l_node, t_list *t_lst)
+{
+	t_list	*new;
+
+	new = NULL;
+	new = new_sublist(t_lst->next);
+	l_node = create_or(shell, l_node, build_ltree(shell, new));
+	clean_sublist(new);
+	return (l_node);
+}
