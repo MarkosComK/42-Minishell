@@ -90,6 +90,12 @@ readline.supp:
 	echo "    ..." >> readline.supp
 	echo "    fun:add_history" >> readline.supp
 	echo "}" >> readline.supp
+	echo "{" >> readline.supp
+	echo "    leak rl_parse_and_bind" >> readline.supp
+	echo "    Memcheck:Leak" >> readline.supp
+	echo "    ..." >> readline.supp
+	echo "    fun:add_history" >> readline.supp
+	echo "}" >> readline.supp
 
 env: ${NAME}
 	${ENV} ./${NAME}
