@@ -6,13 +6,13 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 10:39:11 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 10:40:46 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:01:11 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	handle_or(t_shell *shell, char *input, int i)
+int	handle_parenthesis(t_shell *shell, char *input, int i)
 {
 	t_token	*new_token;
 	char	*str;
