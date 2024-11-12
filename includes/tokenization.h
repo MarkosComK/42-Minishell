@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:41:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 11:17:00 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:27:08 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef enum s_token_type
 	HEREDOC,
 	AND_IF,
 	OR,
+	PARENTHESIS,
 }	t_token_type;
 
 typedef enum s_token_state
