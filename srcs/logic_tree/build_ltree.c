@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 12:20:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 13:53:14 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:56:07 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,11 @@ void	*build_ltree(t_shell *shell, t_list *token_list)
 void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 {
 	t_token	*token;
-	t_list	*new;
 
 	token = (t_token *)t_lst->content;
-	new = NULL;
 	if (token->type == PARENTHESIS)
 	{
-		new = new_sublist(t_lst);
-		if (!l_node)
-			l_node = build_ltree(shell, new);
-		if (token->type == AND_IF)
-			l_node = create_and(shell, l_node, build_ltree(shell, new));
-		if (token->type == OR)
-			l_node = create_and(shell, l_node, build_ltree(shell, new));
-		clean_sublist(new);
-		return (l_node);
+		return (start_parenthesis(shell, t_lst, l_node));
 	}
 	if (!l_node)
 		return (create_subtree(shell, t_lst));
