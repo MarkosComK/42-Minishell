@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 12:20:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 13:41:13 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:44:52 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,36 +51,6 @@ void	*build_ltree(t_shell *shell, t_list *token_list)
 	return (lroot);
 }
 
-t_list	*new_sublist(t_list *t_lst)
-{
-	t_token	*token;
-
-	token = (t_token *)t_lst->content;
-	t_list	*new = NULL;
-	t_lst = t_lst->next;
-	token = (t_token *)t_lst->content;
-	while (t_lst && token->type != PARENTHESIS)
-	{
-		ft_lstadd_back(&new, ft_lstnew(token));
-		t_lst = t_lst->next;
-		token = (t_token *)t_lst->content;
-	}
-	return (new);
-}
-
-void	clean_sublist(t_list *new)
-{
-	t_list *tmp;
-
-	tmp = new;
-	while (new)
-	{
-		tmp = new->next;
-		free(new);
-		new = tmp;
-	}
-}
-
 void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 {
 	t_token	*token;
@@ -94,13 +64,12 @@ void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 		new = NULL;
 		new =  new_sublist(t_lst);
 		print_token_lst(new);
-
 		//build subtree based on ()
 		if (!l_node)
 			l_node = build_ltree(shell, new);
 		if (token->type == AND_IF)
 			l_node = create_and(shell, l_node, build_ltree(shell, new));
-
+		//sublist not needed anymore
 		clean_sublist(new);
 		return (l_node);
 	}
@@ -110,24 +79,15 @@ void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 		l_node = create_and(shell, l_node, create_subtree(shell, t_lst->next));
 	else if (token->type == AND_IF && ((t_token *)t_lst->next->content)->type == PARENTHESIS)
 	{
-		t_list	*new = NULL;
-		t_lst = t_lst->next->next;
-		token = (t_token *)t_lst->content;
-		while (t_lst && token->type != PARENTHESIS)
-		{
-			ft_lstadd_back(&new, ft_lstnew(token));
-			t_lst = t_lst->next;
-			token = (t_token *)t_lst->content;
-		}
+		t_list	*new;
+
+		new = NULL;
+		new =  new_sublist(t_lst);
+		print_token_lst(new);
 		//create subtree at right side of && when theres (new)
 		l_node = create_and(shell, l_node, build_ltree(shell, new));
-		t_list *tmp = new;
-		while (new)
-		{
-			tmp = new->next;
-			free(new);
-			new = tmp;
-		}
+		//sublist not needed anymore
+		clean_sublist(new);
 	}
 	else if (token->type == OR)
 		l_node = create_or(shell, l_node, create_subtree(shell, t_lst->next));
