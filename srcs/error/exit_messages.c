@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:48:20 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/29 21:32:16 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:02:06 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	exit_failure(t_shell *shell, char *function)
 {
+	free_env_lst(shell->envp);
 	free_shell(shell);
 	ft_putstr_fd(RED"malloc error: "DEFAULT, 2);
 	ft_putendl_fd(function, 2);
