@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:51:53 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 16:55:34 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:59:29 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,13 @@ void	*start_parenthesis(t_shell *shell, t_list *t_lst, void *l_node)
 		l_node = create_and(shell, l_node, build_ltree(shell, new));
 	clean_sublist(new);
 	return (l_node);
+}
+
+t_list	*jump_parenthesis(t_list *tmp)
+{
+	tmp = tmp->next;
+	while (!is_parenthesis(tmp))
+		tmp = tmp->next;
+	tmp = tmp->next;
+	return (tmp);
 }
