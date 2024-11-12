@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 12:20:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 13:16:32 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:38:38 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ void	*build_ltree(t_shell *shell, t_list *token_list)
 	lroot = NULL;
 	while (tmp)
 	{
-		printf("check_token->%s\n", ((t_token *)tmp->content)->value);
 		lroot = insert_lnode(shell, lroot, tmp);
-		printf("current tree:\n");
-		ltree_print(lroot, 2);
 		if (check_token(tmp) && ((t_token *)tmp->content)->type != PARENTHESIS)
 		{
 			while (check_token(tmp))
@@ -51,10 +48,24 @@ void	*build_ltree(t_shell *shell, t_list *token_list)
 			}
 		}
 	}
-	printf(GREEN"FINAL:\n");
-	ltree_print(lroot, 2);
-	printf(DEFAULT);
 	return (lroot);
+}
+
+t_list	*new_sublist(t_list *t_lst)
+{
+	t_token	*token;
+
+	token = (t_token *)t_lst->content;
+	t_list	*new = NULL;
+	t_lst = t_lst->next;
+	token = (t_token *)t_lst->content;
+	while (t_lst && token->type != PARENTHESIS)
+	{
+		ft_lstadd_back(&new, ft_lstnew(token));
+		t_lst = t_lst->next;
+		token = (t_token *)t_lst->content;
+	}
+	return (new);
 }
 
 void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
@@ -62,9 +73,14 @@ void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 	t_token	*token;
 
 	token = (t_token *)t_lst->content;
+	//handle first token as parenthesis
 	if (token->type == PARENTHESIS)
 	{
+		t_list	*new = NULL;
+		printf("New_list:\n");
+		new =  new_sublist(t_lst);
 		//create a list with tokens inside ()
+		/*
 		t_list	*new = NULL;
 		t_lst = t_lst->next;
 		token = (t_token *)t_lst->content;
@@ -74,10 +90,11 @@ void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 			t_lst = t_lst->next;
 			token = (t_token *)t_lst->content;
 		}
-
+		*/
+		//new_sublist(t_lst);
 		//check new list
 		//printf("New_list:\n");
-		//print_token_lst(new);
+		print_token_lst(new);
 
 		//build subtree based on ()
 		if (!l_node)
