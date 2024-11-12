@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 12:20:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 13:47:55 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:53:14 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,14 @@ void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 
 	token = (t_token *)t_lst->content;
 	new = NULL;
-	//handle first token as parenthesis
 	if (token->type == PARENTHESIS)
 	{
-		new =  new_sublist(t_lst);
+		new = new_sublist(t_lst);
 		if (!l_node)
 			l_node = build_ltree(shell, new);
 		if (token->type == AND_IF)
+			l_node = create_and(shell, l_node, build_ltree(shell, new));
+		if (token->type == OR)
 			l_node = create_and(shell, l_node, build_ltree(shell, new));
 		clean_sublist(new);
 		return (l_node);
@@ -75,12 +76,18 @@ void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 		l_node = create_and(shell, l_node, create_subtree(shell, t_lst->next));
 	else if (token->type == AND_IF && ((t_token *)t_lst->next->content)->type == PARENTHESIS)
 	{
-		new =  new_sublist(t_lst->next);
+		new = new_sublist(t_lst->next);
 		l_node = create_and(shell, l_node, build_ltree(shell, new));
 		clean_sublist(new);
 	}
-	else if (token->type == OR)
+	else if (token->type == OR && ((t_token *)t_lst->next->content)->type != PARENTHESIS)
 		l_node = create_or(shell, l_node, create_subtree(shell, t_lst->next));
+	else if (token->type == OR && ((t_token *)t_lst->next->content)->type == PARENTHESIS)
+	{
+		new = new_sublist(t_lst->next);
+		l_node = create_or(shell, l_node, build_ltree(shell, new));
+		clean_sublist(new);
+	}
 	else
 		return (NULL);
 	return (l_node);
