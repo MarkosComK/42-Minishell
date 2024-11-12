@@ -25,7 +25,7 @@ int	is_valid_identifier(const char *str)
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '+')
 			return (0);
-		python3 - m c_formatter_42 i++;
+		i++;
 	}
 	return (1);
 }
