@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 12:20:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 17:10:33 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:16:09 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ void	*build_ltree(t_shell *shell, t_list *token_list)
 	while (tmp)
 	{
 		lroot = insert_lnode(shell, lroot, tmp);
-		if (check_token(tmp) && ((t_token *)tmp->content)->type != PARENTHESIS)
+		if (check_token(tmp) && !is_parenthesis(tmp))
 			while (check_token(tmp))
 				tmp = tmp->next;
 		else
 		{
-			if (((t_token *)tmp->content)->type == PARENTHESIS)
+			if (is_parenthesis(tmp))
 				tmp = jump_parenthesis(tmp);
 			else
 			{
 				tmp = tmp->next;
-				while (check_token(tmp) && ((t_token *)tmp->content)->type != PARENTHESIS)
+				while (check_token(tmp) && !is_parenthesis(tmp))
 					tmp = tmp->next;
 			}
 		}
