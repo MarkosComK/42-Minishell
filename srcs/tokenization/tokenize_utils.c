@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:39:51 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/22 21:12:42 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:19:05 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	ft_ismeta(char *str, int i)
 	char	*metachars;
 	int		j;
 
-	metachars = "<|>";
+	metachars = "<|>()";
 	j = 0;
 	if (!str || i < 0)
 		return (false);
