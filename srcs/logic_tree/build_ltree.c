@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 12:20:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/10 11:18:35 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:17:15 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,43 @@ void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 {
 	t_token	*token;
 
+	token = (t_token *)t_lst->content;
+	if (token->type == PARENTHESIS)
+	{
+		//create a list with tokens inside ()
+		t_list	*new = NULL;
+		t_lst = t_lst->next;
+		token = (t_token *)t_lst->content;
+		while (t_lst && token->type != PARENTHESIS)
+		{
+			ft_lstadd_back(&new, ft_lstnew(token));
+			t_lst = t_lst->next;
+			token = (t_token *)t_lst->content;
+		}
+
+		//check new list
+		printf("New_list:\n");
+		print_token_lst(new);
+
+		//build subtree based on ()
+		l_node = build_ltree(shell, new);
+
+		//check the subtree from list inside ()
+		printf("subtree:\n");
+		ltree_print(l_node, 3);
+
+		//free the new tmp list
+		t_list *tmp = new;
+		while (new)
+		{
+			tmp = new->next;
+			free(new);
+			new = tmp;
+		}
+		return (l_node);
+	}
 	if (!l_node)
 		return (create_subtree(shell, t_lst));
-	token = (t_token *)t_lst->content;
 	if (token->type == AND_IF)
 		l_node = create_and(shell, l_node, create_subtree(shell, t_lst->next));
 	else if (token->type == OR)
