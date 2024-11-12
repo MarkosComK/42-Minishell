@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:51:53 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 16:59:29 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:07:49 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	*start_parenthesis(t_shell *shell, t_list *t_lst, void *l_node)
 t_list	*jump_parenthesis(t_list *tmp)
 {
 	tmp = tmp->next;
-	while (!is_parenthesis(tmp))
+	while (((t_token *)tmp->content)->type != PARENTHESIS)
 		tmp = tmp->next;
 	tmp = tmp->next;
 	return (tmp);
