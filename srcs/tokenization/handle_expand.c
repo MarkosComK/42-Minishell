@@ -66,12 +66,11 @@ int	prcs_expansion(t_shell *shell, char **str, char *input, int i)
 
 int	expand_unquoted(t_shell *shell, char **str, char *input, int i)
 {
-	int		start;
-	char	*tmp;
-	char	*var_name;
-	char	*var_value;
+	const int		start = ++i;
+	char			*tmp;
+	char			*var_name;
+	char			*var_value;
 
-	start = ++i;
 	while (input[i] && !ft_isspace(input[i])
 		&& (ft_isalnum(input[i]) || input[i] == '_')
 		&& !ft_ismeta(input, i))
@@ -83,6 +82,8 @@ int	expand_unquoted(t_shell *shell, char **str, char *input, int i)
 		exit_failure(shell, "expand_unquoted");
 	var_value = sh_get_env(shell->envp, var_name);
 	free(var_name);
+	if (var_value && ft_strchr(var_value, ' ') && !**str)
+		return (tokenize_input(shell, var_value), i);
 	if (var_value)
 	{
 		tmp = *str;
