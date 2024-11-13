@@ -26,7 +26,7 @@ void	shell_input(t_shell *shell)
 	tmp = ft_strjoin(prompt, cwd);
 	if (!tmp)
 		return (exit_failure(shell, "shell_input"), free(tmp));
-	tmp2 = ft_strjoin(tmp, "\001"BLUE" [""\002");
+	tmp2 = ft_strjoin(tmp, "\001"B_RED" [""\002""\001"YELLOW"\002");
 	if (!tmp2)
 		return (exit_failure(shell, "shell_input"), free(tmp2));
 	free(tmp);
@@ -35,7 +35,7 @@ void	shell_input(t_shell *shell)
 		return (exit_failure(shell, "shell_input"), free(tmp));
 	free(tmp2);
 	free(code);
-	shell->cwd = ft_strjoin(tmp, "]\001"B_RED"\002 → \001"DEFAULT"\002");
+	shell->cwd = ft_strjoin(tmp, "\001"B_RED"]\002 → \001"DEFAULT"\002");
 	if (!shell->cwd)
 		return (exit_failure(shell, "shell_input"), free(shell->cwd));
 	free(tmp);
