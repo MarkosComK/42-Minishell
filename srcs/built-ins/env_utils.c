@@ -72,12 +72,15 @@ char	*sh_get_env(t_list *envp, const char *value)
 {
 	t_list	*current;
 	t_env	*env_entry;
+	size_t	len;
 
 	current = envp;
 	while (current)
 	{
 		env_entry = (t_env *)current->content;
-		if (ft_strncmp(env_entry->value, value, ft_strlen(value)) == 0)
+		if (env_entry && env_entry->value)
+			len = ft_strlen(env_entry->value);
+		if (ft_strncmp(env_entry->value, value, len - 1) == 0)
 			return (env_entry->content);
 		current = current->next;
 	}
