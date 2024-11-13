@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 14:20:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 11:00:12 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:04:15 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # define INPUT_H
 
 # include <structs.h>
+
+//check_len.c
+bool	check_line_len(char *line);
 
 //input_parenthesis.c
 bool	check_parenthesis(char *str);

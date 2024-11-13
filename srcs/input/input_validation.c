@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:36:58 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 11:37:45 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:03:48 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ bool	input_validation(t_shell *shell)
 	if (!check_redirs(shell->trim_input))
 		return (exit_code(2));
 	if (!check_parenthesis(shell->trim_input))
+		return (exit_code(2));
+	if (!check_line_len(shell->input))
 		return (exit_code(2));
 	return (false);
 }

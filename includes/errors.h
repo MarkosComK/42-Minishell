@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 20:07:07 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 11:06:10 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:05:05 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define REDIR_ERROR "near unexpected token `newline'"
 # define OPEN_ERROR "near unexpected token `('"
 # define CLOSE_ERROR "near unexpected token `)'"
+# define LINE_ERROR "line too long!"
 
 //exit_code.c
 char	*itoa_exit(t_shell *shell, char **str);
