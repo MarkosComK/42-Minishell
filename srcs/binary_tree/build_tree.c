@@ -66,7 +66,8 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 	{
 		node->command = ((t_token *)current->content)->value;
 		node->argv = get_argv(shell, token_lst);
-		if (ft_strcmp(node->argv[0], "ls") == 0)
+		if (ft_strcmp(node->argv[0], "ls") == 0
+			|| ft_strcmp(node->argv[0], "grep") == 0)
 			node->argv = get_colors(shell, node->argv);
 	}
 	return (node);
