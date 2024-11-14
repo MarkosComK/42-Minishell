@@ -50,17 +50,17 @@ void	ltree_free(void *root)
 	node = (t_node *)root;
 	if (node->type == N_ANDIF)
 	{
-		ltree_free(((t_andif *)root)->right);
 		ltree_free(((t_andif *)root)->left);
+		ltree_free(((t_andif *)root)->right);
 	}
 	if (node->type == N_OR)
 	{
-		ltree_free(((t_or *)root)->right);
 		ltree_free(((t_or *)root)->left);
+		ltree_free(((t_or *)root)->right);
 	}
 	if (node->type != N_ANDIF && node->type != N_OR)
 		free_bst((t_pipe *)root);
-	else
+	else if (node->type == N_ANDIF || node->type == N_OR)
 		free(root);
 	return ;
 }

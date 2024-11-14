@@ -23,8 +23,15 @@ void	*build_ltree(t_shell *shell, t_list *token_list)
 	{
 		lroot = insert_lnode(shell, lroot, tmp);
 		if (check_token(tmp) && !is_parenthesis(tmp))
+		{
 			while (check_token(tmp))
-				tmp = tmp->next;
+			{
+				if (is_parenthesis(tmp))
+					tmp = jump_parenthesis(tmp);
+				else
+					tmp = tmp->next;
+			}
+		}
 		else
 		{
 			if (is_parenthesis(tmp))
@@ -63,7 +70,17 @@ void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 	{
 		l_node = get_or_subnode(shell, l_node, t_lst);
 	}
-	else
+	else if (token->type == PIPE && is_parenthesis(t_lst->next))
+	{
+		t_list	*new;
+
+		new = NULL;
+		new = new_sublist(t_lst->next);
+		print_token_lst(new);
+		l_node = create_pipe(shell, l_node, build_ltree(shell, new));
+		clean_sublist(new);
+	}
+	else if (token->type == PIPE && !is_parenthesis(t_lst->next))
 	{
 		l_node = create_pipe(shell, l_node, create_exec(shell, t_lst->next));
 	}
