@@ -64,7 +64,16 @@ void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 		l_node = get_or_subnode(shell, l_node, t_lst);
 	}
 	else
-		l_node = build_tree(shell, t_lst);
+	{
+		printf("value: %s\n", token->value);
+		printf(B_RED);
+		ltree_print(l_node, 2);
+		printf(DEFAULT);
+		l_node = create_pipe(shell, l_node, create_exec(shell, t_lst->next));
+		printf(GREEN);
+		ltree_print(l_node, 2);
+		printf(DEFAULT);
+	}
 	return (l_node);
 }
 
