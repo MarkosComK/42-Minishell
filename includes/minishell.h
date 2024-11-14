@@ -41,7 +41,11 @@
 # include <string.h>
 
 // MACROS
-# define PROMPT " Minihell:"
+# define ESC_START "\001\033[1;91m\002"
+# define ESC_RESET "\001\033[0;93m\002"
+# define PROMPT "Minishell ["
+# define ESC_CODE "\001\033[1;91m\002] [\001\033[0;39m\002"
+# define ARROW "\001\033[1;91m]\002 → \001\033[0;39m\002"
 # define MINISHELL "hellsh"
 
 /*metacharaters
