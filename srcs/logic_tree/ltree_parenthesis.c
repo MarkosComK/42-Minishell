@@ -16,16 +16,22 @@ t_list	*new_sublist(t_list *t_lst)
 {
 	t_token	*token;
 	t_list	*new;
+	int		balance;
 
 	token = (t_token *)t_lst->content;
 	new = NULL;
+	balance = 1;
 	t_lst = t_lst->next;
 	token = (t_token *)t_lst->content;
-	while (t_lst && token->type != PARENTHESIS)
+	while (t_lst && balance != 0)
 	{
 		ft_lstadd_back(&new, ft_lstnew(token));
 		t_lst = t_lst->next;
 		token = (t_token *)t_lst->content;
+		if (*token->value == ')')
+			balance--;
+		else if (*token->value == '(')
+			balance++;
 	}
 	return (new);
 }
