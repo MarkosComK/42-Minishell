@@ -46,7 +46,7 @@
 # define PROMPT "Minishell ["
 # define ESC_CODE "\001\033[1;91m\002] [\001\033[0;39m\002"
 # define ARROW "\001\033[1;91m]\002 → \001\033[0;39m\002"
-# define MINISHELL "hellsh"
+# define MINISHELL "\033[0;93mminihell\033[0;39m"
 
 /*metacharaters
  * A character that, when unquoted, separates words. A metacharacter is a space
