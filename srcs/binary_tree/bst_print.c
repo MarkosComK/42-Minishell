@@ -26,8 +26,12 @@ void	*print_bst(void *root, int space)
 	node = (t_node *)root;
 	if (node->type == N_PIPE)
 		print_pipe_children((t_pipe *)root, space);
-	else
+	else if (node->type == N_EXEC)
 		print_bst_exec((t_exec *)root, space);
+	else if (node->type == N_ANDIF)
+		ltree_print((t_andif *)root, space);
+	else if (node->type == N_OR)
+		ltree_print((t_or *)root, space);
 	return (NULL);
 }
 
