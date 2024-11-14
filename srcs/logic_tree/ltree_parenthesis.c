@@ -22,7 +22,8 @@ t_list	*new_sublist(t_list *t_lst)
 	new = NULL;
 	balance = 1;
 	t_lst = t_lst->next;
-	token = (t_token *)t_lst->content;
+	if (t_lst)
+		token = (t_token *)t_lst->content;
 	while (t_lst && balance != 0)
 	{
 		if (t_lst)

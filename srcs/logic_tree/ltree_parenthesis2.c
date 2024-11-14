@@ -37,7 +37,8 @@ t_list	*jump_parenthesis(t_list *tmp)
 
 	tmp = tmp->next;
 	balance = 1;
-	token = (t_token *)tmp->content;
+	if (tmp)
+		token = (t_token *)tmp->content;
 	while (tmp && balance != 0)
 	{
 		if (tmp)
@@ -51,6 +52,7 @@ t_list	*jump_parenthesis(t_list *tmp)
 		if (balance != 0)
 			tmp = tmp->next;
 	}
-	tmp = tmp->next;
+	if (tmp)
+		tmp = tmp->next;
 	return (tmp);
 }
