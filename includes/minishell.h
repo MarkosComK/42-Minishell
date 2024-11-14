@@ -41,8 +41,8 @@
 # include <string.h>
 
 // MACROS
-# define PROMPT " Minihell:"
-# define MINISHELL "hellsh"
+# define PROMPT "minishell:"
+# define MINISHELL "minishell:"
 
 /*metacharaters
  * A character that, when unquoted, separates words. A metacharacter is a space
