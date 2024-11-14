@@ -33,7 +33,7 @@ void	*start_parenthesis(t_shell *shell, t_list *t_lst, void *l_node)
 
 t_list	*jump_parenthesis(t_list *tmp)
 {
-	int	balance;
+	int		balance;
 	t_token	*token;
 
 	tmp = tmp->next;
@@ -52,6 +52,6 @@ t_list	*jump_parenthesis(t_list *tmp)
 		if (balance != 0)
 			tmp = tmp->next;
 	}
-		tmp = tmp->next;
+	tmp = tmp->next;
 	return (tmp);
 }

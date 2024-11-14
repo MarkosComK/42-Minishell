@@ -37,8 +37,6 @@ t_list	*new_sublist(t_list *t_lst)
 			ft_lstadd_back(&new, ft_lstnew(token));
 		t_lst = t_lst->next;
 	}
-	printf("new list\n");
-	print_token_lst(new);
 	return (new);
 }
 
