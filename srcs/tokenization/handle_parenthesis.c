@@ -18,13 +18,25 @@ int	handle_parenthesis(t_shell *shell, char *input, int i)
 	int			start;
 	char		*subs;
 
-	i = handle_closing(shell, input, i, valid);
-	if (i != -1)
-		return (i);
+	printf("you are here:\n");
+	if (input[i] == ')')
+	{
+		i = handle_closing(shell, input, i, valid);
+		if (i != -1)
+			return (i);
+	}
 	start = i;
-	while (input[i] && input[i] != ')')
+	int balance = 1;
+	while (input[i] && balance != 0)
+	{
 		i++;
+		if (input[i] && input[i] == '(')
+			balance++;
+		if (input[i] && input[i] == ')')
+			balance--;
+	}
 	subs = ft_substr(&input[start + 1], 0, i - start - 1);
+	printf("subs: %s\n", subs);
 	valid = validate_subs(subs);
 	free(subs);
 	i = handle_opening(shell, input, start, valid);
@@ -60,6 +72,7 @@ int	handle_closing(t_shell *shell, char *input, int i, bool valid)
 	else
 	{
 		i = jump_spaces(input, i);
+		printf("%c\n", input[i]);
 		return (i);
 	}
 	return (-1);
