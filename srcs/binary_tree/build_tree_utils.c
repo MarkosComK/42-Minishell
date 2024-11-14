@@ -96,10 +96,14 @@ t_list	*get_outfiles(t_shell *shell, t_list *tkn_lst, t_list **outfiles)
 	return (tkn_lst);
 }
 
-char **get_colors(t_shell *shell, char **argv) 
+char	**get_colors(t_shell *shell, char **argv)
 {
-	char **colors;
-	int i = 0;
+	char	**colors;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 1;
 	while (argv[i])
 		i++;
 	colors = malloc(sizeof(char *) * (i + 2));
@@ -107,13 +111,15 @@ char **get_colors(t_shell *shell, char **argv)
 		exit_failure(shell, "get_colors");
 	colors[0] = argv[0];
 	colors[1] = "--color=auto";
-	for (int j = 1; j < i; j++)
+	while (j < i)
+	{
 		colors[j + 1] = argv[j];
+		j++;
+	}
 	colors[i + 1] = NULL;
 	free(argv);
-	return colors;
+	return (colors);
 }
-
 
 int	count_args(t_list *tkn_lst)
 {
