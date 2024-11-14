@@ -18,6 +18,7 @@ void	*start_parenthesis(t_shell *shell, t_list *t_lst, void *l_node)
 	t_token	*token;
 
 	new = NULL;
+	printf("value-> %s\n", ((t_token *)t_lst->content)->value);
 	new = new_sublist(t_lst);
 	token = (t_token *)t_lst->content;
 	if (!l_node)
@@ -32,9 +33,25 @@ void	*start_parenthesis(t_shell *shell, t_list *t_lst, void *l_node)
 
 t_list	*jump_parenthesis(t_list *tmp)
 {
+	int	balance;
+	t_token	*token;
+
 	tmp = tmp->next;
-	while (((t_token *)tmp->content)->type != PARENTHESIS)
+	balance = 1;
+	token = (t_token *)tmp->content;
+	while (tmp && balance != 0)
+	{
+		if (tmp)
+		{
+			token = (t_token *)tmp->content;
+			if (token->type == PARENTHESIS && *token->value == ')')
+				balance--;
+			if (token->type == PARENTHESIS && *token->value == '(')
+				balance++;
+		}
+		if (balance != 0)
+			tmp = tmp->next;
+	}
 		tmp = tmp->next;
-	tmp = tmp->next;
 	return (tmp);
 }

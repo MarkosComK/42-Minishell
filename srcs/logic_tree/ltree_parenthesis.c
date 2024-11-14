@@ -25,14 +25,20 @@ t_list	*new_sublist(t_list *t_lst)
 	token = (t_token *)t_lst->content;
 	while (t_lst && balance != 0)
 	{
-		ft_lstadd_back(&new, ft_lstnew(token));
+		if (t_lst)
+		{
+			token = (t_token *)t_lst->content;
+			if (token->type == PARENTHESIS && *token->value == ')')
+				balance--;
+			if (token->type == PARENTHESIS && *token->value == '(')
+				balance++;
+		}
+		if (balance != 0)
+			ft_lstadd_back(&new, ft_lstnew(token));
 		t_lst = t_lst->next;
-		token = (t_token *)t_lst->content;
-		if (*token->value == ')')
-			balance--;
-		else if (*token->value == '(')
-			balance++;
 	}
+	printf("new list\n");
+	print_token_lst(new);
 	return (new);
 }
 
