@@ -85,6 +85,10 @@ int				handle_or(t_shell *shell, char *input, int i);
 
 //handle_parenthesis.c
 int				handle_parenthesis(t_shell *shell, char *input, int i);
+int				handle_closing(t_shell *shell, char *input, int i, bool valid);
+bool			validate_subs(char *subs);
+int				handle_opening(t_shell *shell, char *input, int i, bool valid);
+int				jump_spaces(char *input, int i);
 
 //lexer.c
 void			lexer(t_shell *shell, char	*input);

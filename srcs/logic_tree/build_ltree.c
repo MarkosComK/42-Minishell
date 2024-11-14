@@ -64,7 +64,7 @@ void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 		l_node = get_or_subnode(shell, l_node, t_lst);
 	}
 	else
-		return (NULL);
+		l_node = build_tree(shell, t_lst);
 	return (l_node);
 }
 
