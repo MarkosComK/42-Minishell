@@ -18,7 +18,6 @@ void	*start_parenthesis(t_shell *shell, t_list *t_lst, void *l_node)
 	t_token	*token;
 
 	new = NULL;
-	printf("value-> %s\n", ((t_token *)t_lst->content)->value);
 	new = new_sublist(t_lst);
 	token = (t_token *)t_lst->content;
 	if (!l_node)
