@@ -73,7 +73,7 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 	return (node);
 }
 
-void	*create_pipe(t_shell *shell, t_exec *left, t_exec *right)
+void	*create_pipe(t_shell *shell, void *left, void *right)
 {
 	t_pipe	*node;
 
