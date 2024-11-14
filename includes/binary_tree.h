@@ -89,7 +89,7 @@ void	print_infiles(t_list *infiles, int space);
 //build_tree.c
 void	*build_tree(t_shell *shell, t_list *token_list);
 void	*insert_node(t_shell *shell, void *node, t_list *token_lst);
-void	*create_pipe(t_shell *shell, t_exec *left, t_exec *right);
+void	*create_pipe(t_shell *shell, void *left, void *right);
 void	*create_exec(t_shell *shell, t_list *token_lst);
 t_list	*get_name(t_list *tkn_lst);
 
