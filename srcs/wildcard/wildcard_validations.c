@@ -95,52 +95,20 @@ void	check_wildcards(t_shell *shell, t_exec *exec_node)
 void    check_wildcards(t_shell *shell, t_exec *exec_node)
 {
     char    **expanded_argv;
-    int     i;
 	(void)shell;
 
-    printf("\n[CHECK_WILDCARDS] Iniciando...\n");
     if (!exec_node || !exec_node->argv || !has_wildcard(exec_node->argv))
     {
         printf("[CHECK_WILDCARDS] Condições não atendidas\n");
         return;
     }
-
-    printf("[CHECK_WILDCARDS] Argumentos originais:\n");
-    i = 0;
-    while (exec_node->argv[i])
-    {
-        printf("  argv[%d]: '%s'\n", i, exec_node->argv[i]);
-        i++;
-    }
-
     expanded_argv = process_wildcards(exec_node->argv);
     if (!expanded_argv)
     {
         printf("[CHECK_WILDCARDS] Falha na expansão\n");
         return;
     }
-
-    printf("[CHECK_WILDCARDS] Argumentos após expansão:\n");
-    i = 0;
-    while (expanded_argv[i])
-    {
-        printf("  expanded[%d]: '%s'\n", i, expanded_argv[i]);
-        i++;
-    }
-
-    if (expanded_argv == exec_node->argv)
-    {
-        printf("[CHECK_WILDCARDS] Não houve expansão\n");
-        return;
-    }
-
-    printf("[CHECK_WILDCARDS] Atualizando comando e argumentos\n");
-    printf("  Comando antigo: '%s'\n", exec_node->command);
-
-
-
     free(exec_node->command);
     exec_node->command = ft_strdup(expanded_argv[0]);
     exec_node->argv = expanded_argv;	
-    printf("[CHECK_WILDCARDS] Finalizado\n\n");
 }
