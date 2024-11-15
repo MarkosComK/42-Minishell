@@ -19,7 +19,6 @@ char	**process_wildcards(char **argv)
 	int		i;
 
 	i = 0;
-
 	while (argv[i])
 		i++;
 	expanded = ft_calloc(i + 1, sizeof(char **));
@@ -151,54 +150,3 @@ char	**pattern_to_arr(t_list *matches, char *token)
 	result[i] = NULL;
 	return (result);
 }
-
-
-
-/*
-char	**process_wildcards(char **argv)
-{
-	char	***expanded;
-	char	**result;
-	size_t	i;
-
-	if (!argv)
-		return (NULL);
-	i = 0;
-	while (argv[i])
-		i++;
-	expanded = ft_calloc(i + 1, sizeof(char **));
-	if (!expanded)
-		return (argv);
-	i = -1;
-	while (argv[++i])
-	{
-		if (ft_strchr(argv[i], '*'))
-			expanded[i] = expand_wildcard(argv[i]);
-		else
-		{
-			expanded[i] = ft_calloc(2, sizeof(char *));
-			if (!expanded[i])
-			{
-				ft_free_expansion(expanded, i);
-				return (argv);
-			}
-			expanded[i][0] = ft_strdup(argv[i]);
-			if (!expanded[i][0])
-			{
-				ft_free_expansion(expanded, i);
-				return (argv);
-			}
-			expanded[i][1] = NULL;
-		}
-		if (!expanded[i])
-			return (ft_free_expansion(expanded, i), NULL);
-	}
-	result = merge_expansions(expanded, i);
-	if (!result)
-	{
-		return (argv);
-	}
-	ft_free_arr(argv);
-	return (result);
-}
-*/
