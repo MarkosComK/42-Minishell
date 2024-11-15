@@ -21,8 +21,12 @@ void	free_bst(void *root)
 	node = (t_node *)root;
 	if (node->type == N_PIPE)
 		free_pipe_children((t_pipe *)root);
-	else
+	else if (node->type == N_EXEC)
 		free_exec((t_exec *)root);
+	else if (node->type == N_ANDIF)
+		ltree_free((t_andif *)root);
+	else if (node->type == N_OR)
+		ltree_free((t_or *)root);
 	return ;
 }
 
@@ -31,9 +35,9 @@ void	free_pipe_children(t_pipe *pipe)
 	if (pipe)
 	{
 		if (pipe->left)
-			free_bst(pipe->left);
+			ltree_free(pipe->left);
 		if (pipe->right)
-			free_bst(pipe->right);
+			ltree_free(pipe->right);
 	}
 	free(pipe);
 }

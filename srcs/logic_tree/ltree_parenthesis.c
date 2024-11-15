@@ -16,16 +16,27 @@ t_list	*new_sublist(t_list *t_lst)
 {
 	t_token	*token;
 	t_list	*new;
+	int		balance;
 
 	token = (t_token *)t_lst->content;
 	new = NULL;
+	balance = 1;
 	t_lst = t_lst->next;
-	token = (t_token *)t_lst->content;
-	while (t_lst && token->type != PARENTHESIS)
-	{
-		ft_lstadd_back(&new, ft_lstnew(token));
-		t_lst = t_lst->next;
+	if (t_lst)
 		token = (t_token *)t_lst->content;
+	while (t_lst && balance != 0)
+	{
+		if (t_lst)
+		{
+			token = (t_token *)t_lst->content;
+			if (token->type == PARENTHESIS && *token->value == ')')
+				balance--;
+			if (token->type == PARENTHESIS && *token->value == '(')
+				balance++;
+		}
+		if (balance != 0)
+			ft_lstadd_back(&new, ft_lstnew(token));
+		t_lst = t_lst->next;
 	}
 	return (new);
 }

@@ -12,6 +12,22 @@
 
 #include <minishell.h>
 
+int	check_balance(char *input, int i)
+{
+	int	balance;
+
+	balance = 1;
+	while (input[i] && balance != 0)
+	{
+		i++;
+		if (input[i] && input[i] == '(')
+			balance++;
+		if (input[i] && input[i] == ')')
+			balance--;
+	}
+	return (i);
+}
+
 int	set_hered(t_shell *sh, t_token *new_token, char *input, int i)
 {
 	new_token->value = ft_strndup(&input[i], 2);
