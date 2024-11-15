@@ -100,6 +100,36 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 	exit(exit_code(-1));
 }
 
+char	**expand_argv(t_shell *shell, char **argv)
+{
+	char	**new_argv = NULL;
+	char	*expand;
+	int		i;
+	int		j;
+
+
+	i = 0;
+	while (argv[i])
+	{
+		i++;
+	}
+	new_argv = ft_calloc(i + 1, sizeof(char *));
+	printf("args: %i\n", i);
+	i = 0;
+	j = 0;
+    while (argv[i])
+    {
+        expand = handle_expand(shell, argv[i], 0);
+		if (expand && ft_strlen(expand) != 0)
+		{
+			new_argv[j] = expand;
+			j++;
+		}
+		printf("expand_res: %s\n", expand);
+        i++;
+    }
+    return (new_argv);
+}
 //muitas coisas na vida sao estranhas, mas nada vencera as validacoes
 //pra minha menssagem de erro.
 void	exec_node(t_shell *shell, t_exec *exec_node)
@@ -107,6 +137,9 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 	int		ret;
 
 	check_files_order(shell, exec_node);
+	exec_node->argv = expand_argv(shell, exec_node->argv);
+	printf("argv[0]: %s\n", exec_node->argv[0]);
+	ltree_print(exec_node, 2);
 	if (exec_node->command && is_builtin(exec_node->command))
 	{
 		ret = exec_builtin(shell, exec_node);

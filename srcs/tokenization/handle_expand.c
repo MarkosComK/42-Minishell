@@ -13,9 +13,9 @@
 #include <minishell.h>
 
 //do never touch this
-int	handle_expand(t_shell *shell, char *input, int i)
+char	*handle_expand(t_shell *shell, char *input, int i)
 {
-	t_token	*new_token;
+	//t_token	*new_token;
 	char	*str;
 
 	str = ft_strdup("");
@@ -31,11 +31,14 @@ int	handle_expand(t_shell *shell, char *input, int i)
 		if (ft_isspace(input[i]) || ft_ismeta(input, i))
 			break ;
 	}
+	return (str);
+	/*
 	new_token = create_token(shell, str);
 	ft_lstadd_back(&shell->token_lst, ft_lstnew(new_token));
 	while (ft_isspace(input[i]))
 		i++;
 	return (i);
+	*/
 }
 
 int	prcs_expansion(t_shell *shell, char **str, char *input, int i)
