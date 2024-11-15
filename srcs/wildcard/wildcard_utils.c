@@ -58,7 +58,7 @@ void	ft_free_arr(char **arr)
 	free(arr);
 }
 
-void	ft_free_expansion(char ***expansions, int count)
+void	ft_free_exp(char ***expansions, int count)
 {
 	int	i;
 

@@ -35,11 +35,11 @@ char	**process_wildcards(char **argv)
 			expanded[i][0] = ft_strdup(argv[i]);
 		}
 		if (!expanded[i])
-			return (ft_free_expansion(expanded, i), argv);
+			return (ft_free_exp(expanded, i), argv);
 	}
 	result = merge_expansions(expanded, i);
 	if (!result)
-		return (ft_free_expansion(expanded, i), argv);
+		return (ft_free_exp(expanded, i), argv);
 	return (result);
 }
 
@@ -54,42 +54,52 @@ char	**expand_wildcard(char *token)
 	return (result);
 }
 
+char	**get_result(char ***exp, int count, int total)
+{
+	char	**result;
+	int		i;
+	int		j;
+	int		k;
+
+	result = ft_calloc(total + 1, sizeof(char *));
+	if (!result)
+		return (ft_free_exp(exp, count), NULL);
+	k = 0;
+	i = 0;
+	while (i < count)
+	{
+		j = 0;
+		while (exp[i][j])
+		{
+			result[k] = ft_strdup(exp[i][j]);
+			if (!result[k])
+				return (ft_free_arr(result), ft_free_exp(exp, count), NULL);
+			k++;
+			j++;
+		}
+		i++;
+	}
+	result[k] = NULL;
+	return (result);
+}
+
 char	**merge_expansions(char ***expanded, int count)
 {
 	char	**result;
 	int		total;
 	int		i;
-	int		j;
-	int		k;
 
 	total = 0;
-	i = -1;
-	i = -1;
-	while (++i < count)
-		total += ft_arrlen(expanded[i]);
-	result = ft_calloc(total + 1, sizeof(char *));
-	if (!result)
-		return (ft_free_expansion(expanded, count), NULL);
-	k = 0;
-	i = -1;
-	while (++i < count)
-	{
-		j = -1;
-		while (expanded[i][++j])
-		{
-			result[k] = ft_strdup(expanded[i][j]);
-			if (!result[k])
-			{
-				ft_free_arr(result);
-				ft_free_expansion(expanded, count);
-				return (NULL);
-			}
-			k++;
-		}
-	}
-	result[k] = NULL;
 	i = 0;
-	return (ft_free_expansion(expanded, count), result);
+	while (i < count)
+	{
+		total += ft_arrlen(expanded[i]);
+		i++;
+	}
+	result = get_result(expanded, count, total);
+	if (!result)
+		return (NULL);
+	return (ft_free_exp(expanded, count), result);
 }
 
 int	match_pattern(char *pattern, char *str)

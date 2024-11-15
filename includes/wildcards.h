@@ -30,7 +30,7 @@ char					**pattern_to_arr(t_list *matches, char *token);
 int						ft_arrlen(char **arr);
 t_list					*pattern_new(char *str);
 void					ft_free_arr(char **arr);
-void					ft_free_expansion(char ***expansion, int count);
+void					ft_free_exp(char ***expansion, int count);
 
 // wildcard_validations.c
 void					check_wildcards(t_shell *shell, t_exec *exec_node);
