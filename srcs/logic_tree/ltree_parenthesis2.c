@@ -56,3 +56,15 @@ t_list	*jump_parenthesis(t_list *tmp)
 		tmp = tmp->next;
 	return (tmp);
 }
+
+void	*get_pipe_subnode(t_shell *shell, void *l_node, t_list *t_lst)
+{
+	t_list	*new;
+
+	new = NULL;
+	new = new_sublist(t_lst->next);
+	print_token_lst(new);
+	l_node = create_pipe(shell, l_node, build_ltree(shell, new));
+	clean_sublist(new);
+	return (l_node);
+}

@@ -53,37 +53,21 @@ void	*insert_lnode(t_shell *shell, void *l_node, t_list *t_lst)
 
 	token = (t_token *)t_lst->content;
 	if (token->type == PARENTHESIS)
-	{
 		return (start_parenthesis(shell, t_lst, l_node));
-	}
 	if (!l_node)
 		return (create_subtree(shell, t_lst));
 	if (token->type == AND_IF && !is_parenthesis(t_lst->next))
 		l_node = create_and(shell, l_node, create_subtree(shell, t_lst->next));
 	else if (token->type == AND_IF && is_parenthesis(t_lst->next))
-	{
 		l_node = get_andif_subnode(shell, l_node, t_lst);
-	}
 	else if (token->type == OR && !is_parenthesis(t_lst->next))
 		l_node = create_or(shell, l_node, create_subtree(shell, t_lst->next));
 	else if (token->type == OR && is_parenthesis(t_lst->next))
-	{
 		l_node = get_or_subnode(shell, l_node, t_lst);
-	}
 	else if (token->type == PIPE && is_parenthesis(t_lst->next))
-	{
-		t_list	*new;
-
-		new = NULL;
-		new = new_sublist(t_lst->next);
-		print_token_lst(new);
-		l_node = create_pipe(shell, l_node, build_ltree(shell, new));
-		clean_sublist(new);
-	}
+		l_node = get_pipe_subnode(shell, l_node, t_lst);
 	else if (token->type == PIPE && !is_parenthesis(t_lst->next))
-	{
 		l_node = create_pipe(shell, l_node, create_exec(shell, t_lst->next));
-	}
 	return (l_node);
 }
 

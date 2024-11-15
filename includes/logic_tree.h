@@ -47,6 +47,7 @@ bool	is_parenthesis(t_list *t_lst);
 //ltree_parenthesis2
 void	*start_parenthesis(t_shell *shell, t_list *t_lst, void *l_node);
 t_list	*jump_parenthesis(t_list *tmp);
+void	*get_pipe_subnode(t_shell *shell, void *l_node, t_list *t_lst);
 
 //ltree_print.c
 void	*ltree_print(void *root, int space);
