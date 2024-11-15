@@ -4,6 +4,12 @@
 
 Welcome to **Minishell**! This project involves creating a simple shell, essentially a miniature Bash, teaching us about process management, POSIX standards, and efficient memory handling. With Minishell, you'll get to experience command-line environments as coders did in the early days of computing.
 
+![image](https://github.com/user-attachments/assets/1820ebd6-a450-43af-b462-dd11e206631c)
+
+![image](https://github.com/user-attachments/assets/ad348c52-a258-4ff6-a9ed-fa36f9ba9ca0)
+
+![image](https://github.com/user-attachments/assets/4c014c12-9bd4-40c4-a604-5fc59fb18395)
+
 ## 🚀 How to Clone the Project
 
 To properly clone this project, as it uses **libft** as a submodule, use the following command:

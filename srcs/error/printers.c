@@ -46,7 +46,8 @@ void	set_params(char **var, int *exit_var, char *error_msg, int code)
 
 void	cmd_message(t_shell *shell, char *cmd, char *error_msg)
 {
-	ft_putstr_fd(MINISHELL " " DEFAULT, 2);
+	if (ft_strcmp(error_msg, ": command not found"))
+		ft_putstr_fd(MINISHELL " " DEFAULT, 2);
 	ft_putstr_fd(cmd, 2);
 	ft_putendl_fd(error_msg, 2);
 	free_shell(shell);

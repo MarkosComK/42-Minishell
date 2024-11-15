@@ -57,6 +57,18 @@ void	exec_tree(t_shell *shell, void *root)
 		exec_pipe(shell, root);
 	else if (((t_node *)root)->type == N_EXEC)
 		exec_node(shell, root);
+	else if (((t_node *)root)->type == N_ANDIF)
+	{
+		lexec_tree(shell, root);
+		free_env_lst(shell->envp);
+		free_shell(shell);
+	}
+	else if (((t_node *)root)->type == N_OR)
+	{
+		lexec_tree(shell, root);
+		free_env_lst(shell->envp);
+		free_shell(shell);
+	}
 }
 
 void	exec_pipe(t_shell *shell, t_pipe *pipe_node)

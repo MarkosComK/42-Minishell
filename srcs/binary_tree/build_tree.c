@@ -37,10 +37,19 @@ void	*build_tree(t_shell *shell, t_list *token_list)
 void	*insert_node(t_shell *shell, void *node, t_list *token_lst)
 {
 	t_pipe	*pipe;
+	t_list	*new;
 
 	if (!node)
 		return (create_exec(shell, token_lst));
-	pipe = create_pipe(shell, node, create_exec(shell, token_lst->next));
+	if (is_parenthesis(token_lst->next))
+	{
+		new = NULL;
+		new = new_sublist(token_lst->next);
+		pipe = create_pipe(shell, node, build_ltree(shell, new));
+		clean_sublist(new);
+	}
+	else
+		pipe = create_pipe(shell, node, create_exec(shell, token_lst->next));
 	return (pipe);
 }
 
@@ -73,7 +82,7 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 	return (node);
 }
 
-void	*create_pipe(t_shell *shell, t_exec *left, t_exec *right)
+void	*create_pipe(t_shell *shell, void *left, void *right)
 {
 	t_pipe	*node;
 
