@@ -24,13 +24,7 @@ void	*build_ltree(t_shell *shell, t_list *token_list)
 		lroot = insert_lnode(shell, lroot, tmp);
 		if (check_token(tmp) && !is_parenthesis(tmp))
 		{
-			while (check_token(tmp))
-			{
-				if (is_parenthesis(tmp))
-					tmp = jump_parenthesis(tmp);
-				else
-					tmp = tmp->next;
-			}
+			tmp = get_new_token(tmp);
 		}
 		else
 		{

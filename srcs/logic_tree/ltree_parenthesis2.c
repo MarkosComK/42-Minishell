@@ -68,3 +68,15 @@ void	*get_pipe_subnode(t_shell *shell, void *l_node, t_list *t_lst)
 	clean_sublist(new);
 	return (l_node);
 }
+
+t_list	*get_new_token(t_list *tmp)
+{
+	while (check_token(tmp))
+	{
+		if (is_parenthesis(tmp))
+			tmp = jump_parenthesis(tmp);
+		else
+			tmp = tmp->next;
+	}
+	return (tmp);
+}
