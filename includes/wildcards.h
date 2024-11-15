@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:12:02 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/10 14:12:02 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/15 15:46:52 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ int						ft_arrlen(char **arr);
 t_list					*pattern_new(char *str);
 void					ft_free_arr(char **arr);
 void					ft_free_exp(char ***expansion, int count);
+char					**get_result(char ***exp, int count, int total);
+
+// wildcard_utils2.c
+char					***get_expand(char **argv, int size);
 
 // wildcard_validations.c
 void					check_wildcards(t_shell *shell, t_exec *exec_node);

@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 17:03:28 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/11 14:12:35 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/15 15:46:34 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,7 @@ char	**process_wildcards(char **argv)
 	expanded = ft_calloc(i + 1, sizeof(char **));
 	if (!expanded)
 		return (argv);
-	i = -1;
-	while (argv[++i])
-	{
-		if (ft_strchr(argv[i], '*'))
-			expanded[i] = expand_wildcard(argv[i]);
-		else
-		{
-			expanded[i] = ft_calloc(2, sizeof(char *));
-			expanded[i][0] = ft_strdup(argv[i]);
-		}
-		if (!expanded[i])
-			return (ft_free_exp(expanded, i), argv);
-	}
+	expanded = get_expand(argv, i);
 	result = merge_expansions(expanded, i);
 	if (!result)
 		return (ft_free_exp(expanded, i), argv);
@@ -51,35 +39,6 @@ char	**expand_wildcard(char *token)
 	matches = get_matches(token);
 	result = pattern_to_arr(matches, token);
 	ft_lstclear(&matches, free);
-	return (result);
-}
-
-char	**get_result(char ***exp, int count, int total)
-{
-	char	**result;
-	int		i;
-	int		j;
-	int		k;
-
-	result = ft_calloc(total + 1, sizeof(char *));
-	if (!result)
-		return (ft_free_exp(exp, count), NULL);
-	k = 0;
-	i = 0;
-	while (i < count)
-	{
-		j = 0;
-		while (exp[i][j])
-		{
-			result[k] = ft_strdup(exp[i][j]);
-			if (!result[k])
-				return (ft_free_arr(result), ft_free_exp(exp, count), NULL);
-			k++;
-			j++;
-		}
-		i++;
-	}
-	result[k] = NULL;
 	return (result);
 }
 

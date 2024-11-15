@@ -71,3 +71,32 @@ void	ft_free_exp(char ***expansions, int count)
 	}
 	free(expansions);
 }
+
+char	**get_result(char ***exp, int count, int total)
+{
+	char	**result;
+	int		i;
+	int		j;
+	int		k;
+
+	result = ft_calloc(total + 1, sizeof(char *));
+	if (!result)
+		return (ft_free_exp(exp, count), NULL);
+	k = 0;
+	i = 0;
+	while (i < count)
+	{
+		j = 0;
+		while (exp[i][j])
+		{
+			result[k] = ft_strdup(exp[i][j]);
+			if (!result[k])
+				return (ft_free_arr(result), ft_free_exp(exp, count), NULL);
+			k++;
+			j++;
+		}
+		i++;
+	}
+	result[k] = NULL;
+	return (result);
+}
