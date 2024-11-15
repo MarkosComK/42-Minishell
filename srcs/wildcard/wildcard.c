@@ -154,7 +154,9 @@ char	**expand_wildcard(char *token)
         }
     }
     else
+	{
         printf("  -> Nenhum match encontrado\n");
+	}
 	result = pattern_to_arr(matches, token);
 	printf("[EXPAND_WILDCARD] Resultado da conversão:\n");
 	if (result)
@@ -167,7 +169,9 @@ char	**expand_wildcard(char *token)
         }
     }
     else
+	{
         printf("  -> Falha na conversão\n");
+	}
 	ft_lstclear(&matches, free);
     printf("[EXPAND_WILDCARD] Finalizado\n\n");	
 	return (result);
@@ -184,7 +188,7 @@ char	**process_wildcards(char **argv)
 	printf("\n[PROCESS_WILDCARDS] Iniciando...\n");
 	while (argv[i])
 		i++;
-	printf("[PROCESS_WILDCARDS] Total de argumentos: %zu\n", i);
+	printf("[PROCESS_WILDCARDS] Total de argumentos: %d\n", i);
 	expanded = ft_calloc(i + 1, sizeof(char **));
     if (!expanded)
     {
@@ -194,7 +198,7 @@ char	**process_wildcards(char **argv)
 	i = -1;
 	while (argv[++i])
 	{
-		printf("[PROCESS_WILDCARDS] Processando argv[%zu]: '%s'\n", i, argv[i]);
+		printf("[PROCESS_WILDCARDS] Processando argv[%d]: '%s'\n", i, argv[i]);
 		if (ft_strchr(argv[i], '*'))
         {
             printf("  -> Contém wildcard, expandindo...\n");
@@ -214,7 +218,7 @@ char	**process_wildcards(char **argv)
             }
 		printf("  -> Resultado:\n");
         for (int j = 0; expanded[i][j]; j++)
-            printf("    expanded[%zu][%d] = '%s'\n", i, j, expanded[i][j]);	
+            printf("    expanded[%d][%d] = '%s'\n", i, j, expanded[i][j]);	
 	}
     printf("[PROCESS_WILDCARDS] Mesclando resultados...\n");	
 	result = merge_expansions(expanded, i);
@@ -228,7 +232,7 @@ char	**process_wildcards(char **argv)
     i = 0;
     while (result[i])
     {
-        printf("  result[%zu] = '%s'\n", i, result[i]);
+        printf("  result[%d] = '%s'\n", i, result[i]);
         i++;
     }
     printf("[PROCESS_WILDCARDS] Finalizado\n\n");	
