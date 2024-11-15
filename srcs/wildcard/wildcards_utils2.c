@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:46:13 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/15 16:07:24 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:14:43 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,18 @@ t_list	*generate_matches(t_dirent *entry, char *token, t_list *matches)
 	}
 	closedir(dir);
 	return (matches);
+}
+
+char	**validate_matches(char *token)
+{
+	char	**result;
+
+	result = ft_calloc(2, sizeof(char *));
+	if (!result)
+		return (NULL);
+	result[0] = ft_strdup(token);
+	if (!result[0])
+		return (free(result), NULL);
+	result[1] = NULL;
+	return (result);
 }

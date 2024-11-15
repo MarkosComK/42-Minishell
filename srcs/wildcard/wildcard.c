@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 17:03:28 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/15 15:46:34 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:15:30 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,7 @@ char	**pattern_to_arr(t_list *matches, char *token)
 
 	if (!matches)
 	{
-		result = ft_calloc(2, sizeof(char *));
-		if (!result)
-			return (NULL);
-		result[0] = ft_strdup(token);
-		if (!result[0])
-			return (free(result), NULL);
-		result[1] = NULL;
+		result = validate_matches(token);
 		return (result);
 	}
 	size = ft_lstsize(matches);
@@ -116,6 +110,5 @@ char	**pattern_to_arr(t_list *matches, char *token)
 		curr = curr->next;
 		i++;
 	}
-	result[i] = NULL;
-	return (result);
+	return (result[i] = NULL, result);
 }

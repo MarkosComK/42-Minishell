@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:12:02 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/15 16:06:54 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:14:38 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char		**get_result(char ***exp, int count, int total);
 // wildcard_utils2.c
 char		***get_expand(char **argv, int size);
 t_list		*generate_matches(t_dirent *entry, char *token, t_list *matches);
+char		**validate_matches(char *token);
 
 // wildcard_validations.c
 void		check_wildcards(t_shell *shell, t_exec *exec_node);
