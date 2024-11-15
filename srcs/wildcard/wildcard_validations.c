@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 17:03:28 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/11 14:12:35 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/15 15:49:58 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	has_wildcard(char **argv)
 {
 	size_t	i;
 
-	i = 0;
+	i = 1;
 	while (argv[i])
 	{
 		if (ft_strchr(argv[i], '*') && is_valid_wildcard(argv[i]))
