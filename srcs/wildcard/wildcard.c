@@ -236,7 +236,6 @@ char	**process_wildcards(char **argv)
         i++;
     }
     printf("[PROCESS_WILDCARDS] Finalizado\n\n");	
-	ft_free_arr(argv);
 	return (result);
 }
 /*

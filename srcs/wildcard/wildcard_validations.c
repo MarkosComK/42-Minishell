@@ -95,8 +95,8 @@ void	check_wildcards(t_shell *shell, t_exec *exec_node)
 void    check_wildcards(t_shell *shell, t_exec *exec_node)
 {
     char    **expanded_argv;
-    char    *cmd_backup;
     int     i;
+	(void)shell;
 
     printf("\n[CHECK_WILDCARDS] Iniciando...\n");
     if (!exec_node || !exec_node->argv || !has_wildcard(exec_node->argv))
@@ -117,7 +117,7 @@ void    check_wildcards(t_shell *shell, t_exec *exec_node)
     if (!expanded_argv)
     {
         printf("[CHECK_WILDCARDS] Falha na expansão\n");
-        exit_failure(shell, "wildcard expansion failed");
+        return;
     }
 
     printf("[CHECK_WILDCARDS] Argumentos após expansão:\n");
@@ -134,21 +134,13 @@ void    check_wildcards(t_shell *shell, t_exec *exec_node)
         return;
     }
 
-    cmd_backup = ft_strdup(expanded_argv[0]);
-    if (!cmd_backup)
-    {
-        printf("[CHECK_WILDCARDS] Falha no backup do comando\n");
-        ft_free_arr(expanded_argv);
-        exit_failure(shell, "command backup failed");
-    }
-
     printf("[CHECK_WILDCARDS] Atualizando comando e argumentos\n");
     printf("  Comando antigo: '%s'\n", exec_node->command);
-    printf("  Comando novo: '%s'\n", cmd_backup);
 
-    ft_free_arr(exec_node->argv);
-    exec_node->argv = expanded_argv;
+
+
     free(exec_node->command);
-    exec_node->command = cmd_backup;
+    exec_node->command = ft_strdup(expanded_argv[0]);
+    exec_node->argv = expanded_argv;	
     printf("[CHECK_WILDCARDS] Finalizado\n\n");
 }
