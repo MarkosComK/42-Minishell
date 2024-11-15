@@ -27,10 +27,10 @@ int						match_pattern(char *pattern, char *str);
 char					**pattern_to_arr(t_list *matches, char *token);
 
 // wildcard_utils.c
-void					ft_free_arr(char **arr);
-void					ft_free_expansion(char ***expansion, int count);
 int						ft_arrlen(char **arr);
 t_list					*pattern_new(char *str);
+void					ft_free_arr(char **arr);
+void					ft_free_expansion(char ***expansion, int count);
 
 // wildcard_validations.c
 void					check_wildcards(t_shell *shell, t_exec *exec_node);
