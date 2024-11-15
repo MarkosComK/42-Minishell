@@ -12,6 +12,27 @@
 
 #include <minishell.h>
 
+void	check_wildcards(t_shell *shell, t_exec *exec_node)
+{
+	char	**expanded_argv;
+
+	(void)shell;
+	if (!exec_node || !exec_node->argv || !has_wildcard(exec_node->argv))
+	{
+		printf("[CHECK_WILDCARDS] Condições não atendidas\n");
+		return ;
+	}
+	expanded_argv = process_wildcards(exec_node->argv);
+	if (!expanded_argv)
+	{
+		printf("[CHECK_WILDCARDS] Falha na expansão\n");
+		return ;
+	}
+	free(exec_node->command);
+	exec_node->command = ft_strdup(expanded_argv[0]);
+	exec_node->argv = expanded_argv;
+}
+
 int	is_valid_wildcard(char *arg)
 {
 	if (ft_strcmp(arg, "*") == 0)
@@ -91,24 +112,3 @@ void	check_wildcards(t_shell *shell, t_exec *exec_node)
 	exec_node->command = cmd_backup;
 	exec_node->argv = expanded_argv;
 }*/
-
-void    check_wildcards(t_shell *shell, t_exec *exec_node)
-{
-    char    **expanded_argv;
-	(void)shell;
-
-    if (!exec_node || !exec_node->argv || !has_wildcard(exec_node->argv))
-    {
-        printf("[CHECK_WILDCARDS] Condições não atendidas\n");
-        return;
-    }
-    expanded_argv = process_wildcards(exec_node->argv);
-    if (!expanded_argv)
-    {
-        printf("[CHECK_WILDCARDS] Falha na expansão\n");
-        return;
-    }
-    free(exec_node->command);
-    exec_node->command = ft_strdup(expanded_argv[0]);
-    exec_node->argv = expanded_argv;	
-}
