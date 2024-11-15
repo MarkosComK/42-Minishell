@@ -111,19 +111,18 @@ char	**expand_argv(t_shell *shell, char **argv)
 	while (argv[i])
 		i++;
 	new_argv = ft_calloc(i + 1, sizeof(char *));
-	printf("args: %i\n", i);
 	i = 0;
 	j = 0;
 	while (argv[i])
 	{
-		printf("sizeof: %s %zi\n", argv[i], sizeof(argv[i]));
 		expand = handle_expand(shell, argv[i], 0);
-		if (expand && ft_strlen(expand) != 0)
+		if ((ft_strlen(argv[i]) == 0) || (expand && ft_strlen(expand) != 0))
 		{
 			new_argv[j] = expand;
 			j++;
 		}
-		printf("expand_res: %s\n", expand);
+		else
+			free(expand);
 		i++;
 	}
 	free(argv);
@@ -150,7 +149,6 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 
 	check_files_order(shell, exec_node);
 	exec_node->argv = expand_argv(shell, exec_node->argv);
-	ltree_print(exec_node, 2);
 	if (exec_node->command && is_builtin(exec_node->command))
 	{
 		ret = exec_builtin(shell, exec_node);
@@ -167,7 +165,7 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 	if (execve(shell->cmd_path, exec_node->argv, shell->envp_arr) < 0)
 	{
 		free_env_lst(shell->envp);
-		if (exec_node->argv)
+		if (exec_node->argv && exec_node->argv[0])
 		{
 			free_expand(exec_node->argv);
 			exec_failure(shell, shell->cmd_path);
