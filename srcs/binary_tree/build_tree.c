@@ -37,13 +37,12 @@ void	*build_tree(t_shell *shell, t_list *token_list)
 void	*insert_node(t_shell *shell, void *node, t_list *token_lst)
 {
 	t_pipe	*pipe;
+	t_list	*new;
 
 	if (!node)
 		return (create_exec(shell, token_lst));
 	if (is_parenthesis(token_lst->next))
 	{
-		t_list	*new;
-
 		new = NULL;
 		new = new_sublist(token_lst->next);
 		pipe = create_pipe(shell, node, build_ltree(shell, new));
