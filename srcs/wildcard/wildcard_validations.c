@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 17:03:28 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/15 15:49:58 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/15 15:50:50 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ void	check_wildcards(t_shell *shell, t_exec *exec_node)
 	(void)shell;
 	if (!exec_node || !exec_node->argv || !has_wildcard(exec_node->argv))
 	{
-		printf("[CHECK_WILDCARDS] Condições não atendidas\n");
 		return ;
 	}
 	expanded_argv = process_wildcards(exec_node->argv);
 	if (!expanded_argv)
 	{
-		printf("[CHECK_WILDCARDS] Falha na expansão\n");
 		return ;
 	}
 	free(exec_node->command);
