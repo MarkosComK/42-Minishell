@@ -70,7 +70,9 @@ void	free_exec(t_exec *node)
 	if (node)
 	{
 		if (node->argv)
+		{
 			free(node->argv);
+		}
 		if (node->infiles)
 		{
 			ft_lstclear(&node->infiles, free_inf);

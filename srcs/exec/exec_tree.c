@@ -116,6 +116,7 @@ char	**expand_argv(t_shell *shell, char **argv)
 	j = 0;
 	while (argv[i])
 	{
+		printf("sizeof: %s %zi\n", argv[i], sizeof(argv[i]));
 		expand = handle_expand(shell, argv[i], 0);
 		if (expand && ft_strlen(expand) != 0)
 		{
@@ -125,8 +126,22 @@ char	**expand_argv(t_shell *shell, char **argv)
 		printf("expand_res: %s\n", expand);
 		i++;
 	}
+	free(argv);
 	return (new_argv);
 }
+
+void	free_expand(char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+	{
+		free(argv[i]);
+		i++;
+	}
+}
+
 //muitas coisas na vida sao estranhas, mas nada vencera as validacoes
 //pra minha menssagem de erro.
 void	exec_node(t_shell *shell, t_exec *exec_node)
@@ -135,11 +150,11 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 
 	check_files_order(shell, exec_node);
 	exec_node->argv = expand_argv(shell, exec_node->argv);
-	printf("argv[0]: %s\n", exec_node->argv[0]);
 	ltree_print(exec_node, 2);
 	if (exec_node->command && is_builtin(exec_node->command))
 	{
 		ret = exec_builtin(shell, exec_node);
+		free_expand(exec_node->argv);
 		free_env_lst(shell->envp);
 		free_shell(shell);
 		exit(ret);
@@ -153,8 +168,12 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 	{
 		free_env_lst(shell->envp);
 		if (exec_node->argv)
+		{
+			free_expand(exec_node->argv);
 			exec_failure(shell, shell->cmd_path);
+		}
 		free_shell(shell);
 		exit(0);
 	}
+	free_expand(exec_node->argv);
 }
