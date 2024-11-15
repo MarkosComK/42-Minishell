@@ -107,28 +107,25 @@ char	**expand_argv(t_shell *shell, char **argv)
 	int		i;
 	int		j;
 
-
 	i = 0;
 	while (argv[i])
-	{
 		i++;
-	}
 	new_argv = ft_calloc(i + 1, sizeof(char *));
 	printf("args: %i\n", i);
 	i = 0;
 	j = 0;
-    while (argv[i])
-    {
-        expand = handle_expand(shell, argv[i], 0);
+	while (argv[i])
+	{
+		expand = handle_expand(shell, argv[i], 0);
 		if (expand && ft_strlen(expand) != 0)
 		{
 			new_argv[j] = expand;
 			j++;
 		}
 		printf("expand_res: %s\n", expand);
-        i++;
-    }
-    return (new_argv);
+		i++;
+	}
+	return (new_argv);
 }
 //muitas coisas na vida sao estranhas, mas nada vencera as validacoes
 //pra minha menssagem de erro.
@@ -149,7 +146,7 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 		return ;
 	}
 	set_fork1_signal();
-	shell->cmd_path = find_cmd_path(shell, shell->path, exec_node->command);
+	shell->cmd_path = find_cmd_path(shell, shell->path, exec_node->argv[0]);
 	if (exec_node->argv)
 		is_directory(shell, exec_node->argv[0]);
 	if (execve(shell->cmd_path, exec_node->argv, shell->envp_arr) < 0)
