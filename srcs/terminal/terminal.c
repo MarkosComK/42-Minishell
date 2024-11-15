@@ -31,7 +31,6 @@ void	terminal(t_shell *shell, char **envp)
 		return ;
 	}
 	lexer(shell, shell->trim_input);
-	print_token_lst(shell->token_lst);
 	shell->envp_arr = env_arr(shell);
 	shell->path = path_list(shell, envp);
 	shell->root = build_ltree(shell, shell->token_lst);
