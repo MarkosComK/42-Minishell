@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:46:13 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/15 15:46:38 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:07:24 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,3 @@ t_list	*generate_matches(t_dirent *entry, char *token, t_list *matches)
 	closedir(dir);
 	return (matches);
 }
-
