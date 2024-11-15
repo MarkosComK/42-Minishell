@@ -36,3 +36,33 @@ char	***get_expand(char **argv, int size)
 	}
 	return (expanded);
 }
+
+t_list	*generate_matches(t_dirent *entry, char *token, t_list *matches)
+{
+	DIR			*dir;
+	t_list		*new;
+
+	dir = opendir(".");
+	if (!dir)
+		return (NULL);
+	entry = readdir(dir);
+	while (entry)
+	{
+		if (entry->d_name[0] == '.' && token[0] != '.')
+		{
+			entry = readdir(dir);
+			continue ;
+		}
+		if (match_pattern(token, entry->d_name))
+		{
+			new = pattern_new(entry->d_name);
+			if (!new)
+				return (ft_lstclear(&matches, free), closedir(dir), NULL);
+			ft_lstadd_back(&matches, new);
+		}
+		entry = readdir(dir);
+	}
+	closedir(dir);
+	return (matches);
+}
+
