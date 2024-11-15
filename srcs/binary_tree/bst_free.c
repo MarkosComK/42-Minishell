@@ -32,9 +32,6 @@ void	free_bst(void *root)
 
 void	free_pipe_children(t_pipe *pipe)
 {
-	static int i = 1;
-	printf(B_RED"exec being freed: %i\n"DEFAULT, i);
-	i++;
 	if (pipe)
 	{
 		if (pipe->left)
