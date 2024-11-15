@@ -106,4 +106,7 @@ bool			is_expandable(char *token);
 //tokenize_utils.c
 int				set_hered(t_shell *sh, t_token *new_token, char *input, int i);
 
+//tokenize_utils2.c
+int				check_balance(char *input, int i);
+
 #endif
