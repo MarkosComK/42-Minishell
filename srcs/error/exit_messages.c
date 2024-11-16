@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:48:20 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/16 12:18:55 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 12:50:47 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	is_directory(t_shell *shell, char **path)
 	char		*error_msg;
 	int			e_code;
 
-	if (!path || !ft_strchr(path[0], '/'))
+	if (!path || !path[0] || !ft_strchr(path[0], '/'))
 		return (1);
 	errno = 0;
 	e_code = 126;
