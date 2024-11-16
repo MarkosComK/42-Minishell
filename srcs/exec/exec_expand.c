@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 11:46:13 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/16 13:18:37 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 13:59:33 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ char	**expand_argv(t_shell *shell, char **argv)
 
 	i = 0;
 	new_argv = NULL;
-	while (argv[i])
+	while (argv && argv[i])
 		i++;
 	new_argv = ft_calloc(i + 1, sizeof(char *));
 	if (!new_argv)
 		exit_failure(shell, "expand_argv");
 	i = 0;
 	j = 0;
-	while (argv[i])
+	while (argv && argv[i])
 	{
 		expand = handle_expand(shell, argv[i], 0);
 		if (expand)
