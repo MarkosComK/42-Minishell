@@ -98,7 +98,7 @@ Minishell implements core shell features, such as:
 - **Signal Handling**: Manages `Ctrl+C`, `Ctrl+D`, and `Ctrl+\` similar to Bash.
 - **Command History**: User can navigate command history with up and down arrows.
 
-For detailed requirements, check the (en.subject-Minishell (1)).
+For detailed requirements, check the <a href="https://github.com/MarkosComK/42-Minishell/blob/main/en.subject.pdf">subject.pdf</a>.</li>
 
 ## 🌟 Bonus Features
 
