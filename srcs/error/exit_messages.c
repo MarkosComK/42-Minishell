@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:48:20 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 18:02:06 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 11:58:46 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,19 @@ void	outfile_failure(t_shell *shell, char *file)
 }
 
 //tem coisa inutil aqui mas fdase
-void	is_directory(t_shell *shell, char *path)
+void	is_directory(t_shell *shell, char **path)
 {
 	struct stat	path_stat;
 	char		*error_msg;
 	int			exit_code;
 
-	if (!path || !ft_strchr(path, '/'))
+	if (!path || !ft_strchr(path[0], '/'))
 		return ;
 	errno = 0;
 	exit_code = 126;
 	error_msg = NULL;
 	ft_bzero(&path_stat, sizeof(path_stat));
-	stat(path, &path_stat);
+	stat(path[0], &path_stat);
 	if (errno == ENOENT)
 	{
 		error_msg = ": No such file or directory";
@@ -86,7 +86,7 @@ void	is_directory(t_shell *shell, char *path)
 		error_msg = ": Permission denied";
 	if (error_msg)
 	{
-		path_message(shell, path, error_msg);
+		path_message(shell, path[0], error_msg);
 		exit(exit_code);
 	}
 }

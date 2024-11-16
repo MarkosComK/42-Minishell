@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 20:07:07 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/12 18:05:05 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 11:59:32 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	exit_status(int status);
 void	exit_failure(t_shell *shell, char *function);
 void	infile_failure(t_shell *shell, char *file);
 void	outfile_failure(t_shell *shell, char *file);
-void	is_directory(t_shell *shell, char *path);
+void	is_directory(t_shell *shell, char **path);
 void	exec_failure(t_shell *shell, char *cmd);
 
 //printers.c
