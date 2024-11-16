@@ -72,7 +72,10 @@ void	numeric_exit(t_shell *shell, char **args)
 	if (args[2])
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+		free_env_lst(shell->envp);
+		free_shell(shell);
 		exit_code(1);
+		exit(1);
 		return ;
 	}
 	free_env_lst(shell->envp);
@@ -85,7 +88,6 @@ void	ft_exit(t_shell *shell, t_exec *exec_node)
 	char	**args;
 
 	args = exec_node->argv;
-	ft_putstr_fd("exit\n", 1);
 	if (is_numeric(args[1]))
 		numeric_exit(shell, args);
 	if (!is_numeric(args[1]))

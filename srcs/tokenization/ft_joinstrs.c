@@ -32,11 +32,11 @@ int	h_quoted_str(t_shell *shell, char **str, char *input, int i)
 	int		start;
 	char	*tmp;
 
-	quote = input[i++];
-	start = i;
+	quote = input[i];
+	start = i++;
 	while (input[i] != quote && input[i] != '\0')
 		i++;
-	join = ft_substr(input, start, i - start);
+	join = ft_substr(input, start, i - start + 1);
 	if (!join)
 		exit_failure(shell, "handle_quotes_str");
 	tmp = *str;

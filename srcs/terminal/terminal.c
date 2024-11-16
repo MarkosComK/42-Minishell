@@ -27,6 +27,7 @@ void	terminal(t_shell *shell, char **envp)
 	}
 	if (shell->input == NULL || !ft_strcmp(shell->trim_input, "exit"))
 	{
+		print_exit();
 		free_shell(shell);
 		return ;
 	}

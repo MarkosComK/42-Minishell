@@ -69,7 +69,7 @@ int				h_nonquoted_str(t_shell *shell, char **str, char *input, int i);
 int				handle_andif(t_shell *shell, char *input, int i);
 
 //handle_expand.c
-int				handle_expand(t_shell *shell, char *input, int i);
+char			*handle_expand(t_shell *shell, char *input, int i);
 int				prcs_expansion(t_shell *shell, char **str, char *input, int i);
 int				expand_unquoted(t_shell *shell, char **str, char *input, int i);
 int				expand_quoted(t_shell *shell, char **str, char *input, int i);

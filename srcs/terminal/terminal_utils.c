@@ -15,13 +15,13 @@
 void	shell_input(t_shell *shell)
 {
 	char	*prompt;
-	char	cwd[PATH_MAX];
+	char	*cwd;
 	char	*tmp;
 	char	*tmp2;
 	char	*code;
 
 	code = ft_itoa(exit_code(-1));
-	getcwd(cwd, sizeof(cwd));
+	cwd = getcwd(NULL, 0);
 	prompt = ESC_START PROMPT ESC_RESET;
 	tmp = ft_strjoin(prompt, code);
 	free(code);
@@ -36,9 +36,8 @@ void	shell_input(t_shell *shell)
 	if (!tmp)
 		exit_failure(shell, "shell_input");
 	shell->cwd = ft_strjoin(tmp, ARROW);
+	free(cwd);
 	free(tmp);
-	if (!shell->cwd)
-		exit_failure(shell, "shell_input");
 }
 
 int	handle_exec_node(t_shell *shell, void *root, int *status)

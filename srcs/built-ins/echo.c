@@ -14,12 +14,12 @@
 
 int	ft_echo(t_exec *exec_node)
 {
-	bool			newline;
-	unsigned int	i;
+	bool	newline;
+	int		i;
 
 	newline = true;
 	i = 1;
-	if (exec_node->argv[i] && echo_flag_n(exec_node->argv[i]))
+	while (exec_node->argv[i] && echo_flag_n(exec_node->argv[i]))
 	{
 		newline = false;
 		i++;
@@ -32,7 +32,7 @@ int	echo_flag_n(char *arg)
 {
 	int	i;
 
-	if (arg[0] != '-')
+	if (!arg || arg[0] != '-')
 		return (0);
 	i = 1;
 	while (arg[i])
@@ -41,7 +41,7 @@ int	echo_flag_n(char *arg)
 			return (0);
 		i++;
 	}
-	return (1);
+	return (i > 1);
 }
 
 void	echo_output(char **args, int idx, int newline)
