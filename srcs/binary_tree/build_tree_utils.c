@@ -26,7 +26,7 @@ char	**get_argv(t_shell *shell, t_list *t_lst)
 		exit_failure(shell, "get_argv");
 	while (t_lst && ((t_token *)t_lst->content)->type != PIPE && i < argc)
 	{
-		if (!check_token(t_lst->next))
+		if (!check_token(t_lst))
 			break ;
 		if (t_lst && ((t_token *)t_lst->content)->type == WORD)
 		{
