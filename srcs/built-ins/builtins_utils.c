@@ -56,7 +56,10 @@ int	exec_parent_builtin(t_shell *shell, t_exec *exec_node)
 	if (!cmd)
 		return (1);
 	if (!ft_strcmp(cmd, "exit"))
+	{
+		ft_putstr_fd("exit\n", 2);
 		return (ft_exit(shell, exec_node), 0);
+	}
 	if (!ft_strcmp(cmd, "export"))
 	{
 		ft_export(shell, exec_node->argv);
