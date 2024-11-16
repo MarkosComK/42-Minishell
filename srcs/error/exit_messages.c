@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:48:20 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/16 12:50:47 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 13:55:06 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,9 @@ void	exec_failure(t_shell *shell, char *cmd)
 		if (!(cmd_stat.st_mode & S_IXUSR) || access(cmd, X_OK) == -1)
 			set_params(&error_msg, &status_code, ": Permission denied", 126);
 	}
+	if (ft_strcmp(cmd, ".") == 0)
+		error_msg = "bash: .: filename argument required\n\
+.: usage: . filename [arguments]";
 	if (cmd && error_msg)
 		cmd_message(shell, cmd, error_msg);
 	exit(status_code);
