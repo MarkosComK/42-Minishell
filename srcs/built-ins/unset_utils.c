@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+     */
+/*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:03:40 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/03 20:25:46 by hluiz-ma         ###   ########.fr      */
+/*   Updated: 2024/11/03 20:25:46 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	is_valid_identifier(const char *str)
 	i = 1;
 	while (str[i] && str[i] != '=')
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
+		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '+')
 			return (0);
 		i++;
 	}
@@ -53,9 +53,13 @@ void	remove_env_var(t_shell *shell, const char *var_name)
 
 int	is_exact_var(t_env *env_var, const char *var_name)
 {
+	char	*plus;
 	size_t	len;
 
-	len = ft_strlen(var_name);
-	return (ft_strlen(env_var->value) == len + 1 && ft_strncmp(env_var->value,
-			var_name, len) == 0);
+	plus = ft_strnstr(var_name, "+=", ft_strlen(var_name));
+	if (plus)
+		len = plus - var_name;
+	else
+		len = ft_strlen(var_name);
+	return (ft_strncmp(env_var->value, var_name, len) == 0);
 }
