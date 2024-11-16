@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:43:04 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/16 11:48:15 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 11:50:41 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 
 //muitas coisas na vida sao estranhas, mas nada vencera as validacoes
 //pra minha menssagem de erro.
-void	exec_node(t_shell *shell, t_exec *exec_node)
+void	*exec_node(t_shell *shell, t_exec *exec_node)
 {
 	int		ret;
 
@@ -115,7 +115,7 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 		free_env_lst(shell->envp);
 		free_shell(shell);
 		exit(ret);
-		return ;
+		return (NULL);
 	}
 	set_fork1_signal();
 	shell->cmd_path = find_cmd_path(shell, shell->path, exec_node->argv[0]);
@@ -133,4 +133,5 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 		exit(0);
 	}
 	free_expand(exec_node->argv);
+	return (NULL);
 }
