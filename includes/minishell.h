@@ -39,6 +39,7 @@
 # include <heredoc.h>
 # include <logic_tree.h>
 # include <string.h>
+# include <wildcards.h>
 
 // MACROS
 # define ESC_START "\001\033[1;91m\002"

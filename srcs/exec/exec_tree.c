@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:43:04 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/16 13:18:43 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 18:14:04 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	*exec_node(t_shell *shell, t_exec *exec_node)
 
 	check_files_order(shell, exec_node);
 	exec_node->argv = expand_argv(shell, exec_node->argv);
+	check_wildcards(shell, exec_node);
 	if (exec_node->command && is_builtin(exec_node->command))
 	{
 		ret = exec_builtin(shell, exec_node);
@@ -125,8 +126,7 @@ void	*exec_node(t_shell *shell, t_exec *exec_node)
 			free_expand(exec_node->argv);
 			exec_failure(shell, shell->cmd_path);
 		}
-		free_shell(shell);
-		exit(0);
+		return(free_shell(shell), exit(0), NULL);
 	}
 	return (free_expand(exec_node->argv), NULL);
 }

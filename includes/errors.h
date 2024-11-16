@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 20:07:07 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/16 12:11:16 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 18:12:52 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	path_message2(t_shell *shell, char **path, char *error_msg);
 void	path_message(t_shell *shell, char **path, char *error_msg);
 void	set_params(char **var, int *exit_var, char *error_msg, int code);
 void	cmd_message(t_shell *shell, char *cmd, char *error_msg);
+
+//printers2.c
 void	print_exit(void);
 
 #endif
