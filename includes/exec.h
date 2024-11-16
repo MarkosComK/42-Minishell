@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:42:37 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/16 11:47:36 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 11:48:02 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <structs.h>
 
 //exec_expand.c
+char	**expand_argv(t_shell *shell, char **argv);
+void	free_expand(char **argv);
 
 //exec_tree.c
 void	lexec_tree(t_shell *shell, void *root);

@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:43:04 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/10 11:15:20 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 11:48:15 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,46 +100,6 @@ void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
 	exit(exit_code(-1));
 }
 
-char	**expand_argv(t_shell *shell, char **argv)
-{
-	char	**new_argv = NULL;
-	char	*expand;
-	int		i;
-	int		j;
-
-	i = 0;
-	while (argv[i])
-		i++;
-	new_argv = ft_calloc(i + 1, sizeof(char *));
-	if (!new_argv)
-		exit_failure(shell, "expand_argv");
-	i = 0;
-	j = 0;
-	while (argv[i])
-	{
-		expand = handle_expand(shell, argv[i], 0);
-		if ((ft_strlen(argv[i]) == 0) || (expand && ft_strlen(expand) != 0))
-			new_argv[j++] = expand;
-		else
-			free(expand);
-		i++;
-	}
-	free(argv);
-	return (new_argv);
-}
-
-void	free_expand(char **argv)
-{
-	int	i;
-
-	i = 0;
-	while (argv[i])
-	{
-		free(argv[i]);
-		i++;
-	}
-}
-
 //muitas coisas na vida sao estranhas, mas nada vencera as validacoes
 //pra minha menssagem de erro.
 void	exec_node(t_shell *shell, t_exec *exec_node)
@@ -147,8 +107,6 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 	int		ret;
 
 	check_files_order(shell, exec_node);
-	for (int i = 0; exec_node->argv[i]; i++)
-		printf("argv[%i], %s\n", i, exec_node->argv[i]);
 	exec_node->argv = expand_argv(shell, exec_node->argv);
 	if (exec_node->command && is_builtin(exec_node->command))
 	{
