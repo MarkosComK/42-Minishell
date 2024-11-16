@@ -54,17 +54,39 @@ char	*create_value(t_shell *shell, const char *arg, char *equal)
 	return (value);
 }
 
-int	export_var(t_shell *shell, const char *arg)
+void	handle_append(t_shell *shell, t_env *new_env, const char *arg,
+		char *plus)
+{
+	t_list	*current;
+	t_env	*env_var;
+	char	*var_name;
+
+	var_name = ft_substr(arg, 0, plus - arg);
+	if (!var_name)
+		exit_failure(shell, "handle_append");
+	current = shell->envp;
+	while (current)
+	{
+		env_var = current->content;
+		if (is_exact_var(env_var, var_name))
+		{
+			new_env->content = ft_strjoin(env_var->content, plus + 2);
+			break ;
+		}
+		current = current->next;
+	}
+	if (!current)
+		new_env->content = ft_strdup(plus + 2);
+	new_env->value = ft_strjoin(var_name, "=");
+	if (!new_env->content || !new_env->value)
+		exit_failure(shell, "handle_append");
+	free(var_name);
+}
+
+int	handle_export_var(t_shell *shell, const char *arg, char *equal, char *plus)
 {
 	t_env	*new_env;
-	char	*equal;
 
-	if (!is_valid_identifier(arg))
-	{
-		print_invalid_identifier((char *)arg, "export");
-		return (1);
-	}
-	equal = ft_strchr(arg, '=');
 	if (!equal && !ft_strchr(arg, '='))
 	{
 		mark_isexport(shell, arg);
@@ -73,55 +95,30 @@ int	export_var(t_shell *shell, const char *arg)
 	new_env = malloc(sizeof(t_env));
 	if (!new_env)
 		exit_failure(shell, "export_var");
-	new_env->value = create_value(shell, arg, equal);
-	new_env->content = ft_strdup(equal + 1);
+	if (plus && plus[1] == '=')
+		handle_append(shell, new_env, arg, plus);
+	else
+	{
+		new_env->value = create_value(shell, arg, equal);
+		new_env->content = ft_strdup(equal + 1);
+	}
 	new_env->is_export = true;
 	new_env->printed = false;
 	upt_env_var(shell, new_env);
 	return (0);
 }
 
-void	update_existing_var(t_env *env_var, t_env *new_env)
+int	export_var(t_shell *shell, const char *arg)
 {
-	char	*tmp_content;
+	char	*equal;
 	char	*plus;
 
-	plus = ft_strnstr(new_env->value, "+=", ft_strlen(new_env->value));
-	if (plus)
+	if (!is_valid_identifier(arg))
 	{
-		tmp_content = ft_strjoin(env_var->content, new_env->content);
-		free(env_var->content);
-		env_var->content = tmp_content;
-		free(new_env->value);
-		free(new_env->content);
+		print_invalid_identifier((char *)arg, "export");
+		return (1);
 	}
-	else
-	{
-		free(env_var->value);
-		free(env_var->content);
-		env_var->value = new_env->value;
-		env_var->content = new_env->content;
-	}
-	env_var->is_export = true;
-	env_var->printed = false;
-	free(new_env);
-}
-
-void	upt_env_var(t_shell *shell, t_env *new_env)
-{
-	t_list	*env_list;
-	t_env	*env_var;
-
-	env_list = shell->envp;
-	while (env_list)
-	{
-		env_var = env_list->content;
-		if (is_exact_var(env_var, new_env->value))
-		{
-			update_existing_var(env_var, new_env);
-			return ;
-		}
-		env_list = env_list->next;
-	}
-	ft_lstadd_back(&shell->envp, ft_lstnew(new_env));
+	equal = ft_strchr(arg, '=');
+	plus = ft_strchr(arg, '+');
+	return (handle_export_var(shell, arg, equal, plus));
 }
