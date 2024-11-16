@@ -22,10 +22,10 @@ void	tokenize_input(t_shell *shell, char *input)
 		/*
 		if (is_expandable(&input[i]))
 			i = handle_expand(shell, input, i);
-		*/
 		if (input[i] == '"' || input[i] == '\'')
 			i = handle_quotes(shell, input, i);
-		else if (input[i] == '|' && input[i + 1] == '|')
+		*/
+		if (input[i] == '|' && input[i + 1] == '|')
 			i = handle_or(shell, input, i);
 		else if (input[i] == '|')
 			i = handle_pipe(shell, input, i);
