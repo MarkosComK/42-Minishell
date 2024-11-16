@@ -111,16 +111,15 @@ char	**expand_argv(t_shell *shell, char **argv)
 	while (argv[i])
 		i++;
 	new_argv = ft_calloc(i + 1, sizeof(char *));
+	if (!new_argv)
+		exit_failure(shell, "expand_argv");
 	i = 0;
 	j = 0;
 	while (argv[i])
 	{
 		expand = handle_expand(shell, argv[i], 0);
 		if ((ft_strlen(argv[i]) == 0) || (expand && ft_strlen(expand) != 0))
-		{
-			new_argv[j] = expand;
-			j++;
-		}
+			new_argv[j++] = expand;
 		else
 			free(expand);
 		i++;
@@ -148,6 +147,8 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 	int		ret;
 
 	check_files_order(shell, exec_node);
+	for (int i = 0; exec_node->argv[i]; i++)
+		printf("argv[%i], %s\n", i, exec_node->argv[i]);
 	exec_node->argv = expand_argv(shell, exec_node->argv);
 	if (exec_node->command && is_builtin(exec_node->command))
 	{
