@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_exec.c                                      :+:      :+:    :+:   */
+/*   exec_expand.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 11:46:13 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/16 11:46:29 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 12:17:59 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 char	**expand_argv(t_shell *shell, char **argv)
 {
-	char	**new_argv = NULL;
+	char	**new_argv;
 	char	*expand;
 	int		i;
 	int		j;
 
 	i = 0;
+	new_argv = NULL;
 	while (argv[i])
 		i++;
 	new_argv = ft_calloc(i + 1, sizeof(char *));
