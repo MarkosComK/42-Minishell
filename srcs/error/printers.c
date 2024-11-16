@@ -34,6 +34,7 @@ void	path_message2(t_shell *shell, char **path, char *error_msg)
 	ft_putstr_fd(MINISHELL " " DEFAULT, 2);
 	ft_putstr_fd(path[0], 2);
 	ft_putendl_fd(error_msg, 2);
+	free(path[0]);
 	free_env_lst(shell->envp);
 	free_shell(shell);
 }

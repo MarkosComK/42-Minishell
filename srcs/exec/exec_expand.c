@@ -52,3 +52,30 @@ void	free_expand(char **argv)
 		i++;
 	}
 }
+
+char	*f(t_shell *shell, char *input)
+{
+	char	*str;
+	int		i;
+
+	str = ft_strdup("");
+	if (!str)
+		exit_failure(shell, "handle_expand");
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == '$' || ft_isquote(input[i]))
+			i = prcs_expansion(shell, &str, input, i);
+		else
+			while (input[i] && (input[i] != '$' && input[i] != '"'))
+				str = ft_strjoin_char(str, input[i++]);
+		if (ft_isspace(input[i]) || ft_ismeta(input, i))
+			break ;
+	}
+	if (ft_strlen(str) == 0 && input[0] == '$')
+	{
+		free(str);
+		return (NULL);
+	}
+	return (str);
+}
