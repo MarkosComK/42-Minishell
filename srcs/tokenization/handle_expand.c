@@ -6,16 +6,15 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 20:12:39 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/31 17:23:35 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 13:24:49 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 //do never touch this
-int	handle_expand(t_shell *shell, char *input, int i)
+char	*handle_expand(t_shell *shell, char *input, int i)
 {
-	t_token	*new_token;
 	char	*str;
 
 	str = ft_strdup("");
@@ -31,11 +30,12 @@ int	handle_expand(t_shell *shell, char *input, int i)
 		if (ft_isspace(input[i]) || ft_ismeta(input, i))
 			break ;
 	}
-	new_token = create_token(shell, str);
-	ft_lstadd_back(&shell->token_lst, ft_lstnew(new_token));
-	while (ft_isspace(input[i]))
-		i++;
-	return (i);
+	if (ft_strlen(str) == 0 && input[0] == '$')
+	{
+		free(str);
+		return (NULL);
+	}
+	return (str);
 }
 
 int	prcs_expansion(t_shell *shell, char **str, char *input, int i)
@@ -52,7 +52,7 @@ int	prcs_expansion(t_shell *shell, char **str, char *input, int i)
 		{
 			while (input[i] && input[i] != '$' && input[i] != '"')
 				*str = ft_strjoin_char(*str, input[i++]);
-			if (input[i] == '$')
+			if (input[i] == '$' || input[i] == '"')
 				i = expand_quoted(shell, str, input, i);
 			flag = ft_flag(input[i], &i, flag);
 		}
