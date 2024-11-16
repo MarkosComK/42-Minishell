@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 13:36:29 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/15 12:06:46 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 12:11:08 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,21 @@ bool	syntax_error_msg(char *str)
 	return (true);
 }
 
-void	path_message(t_shell *shell, char *path, char *error_msg)
+void	path_message2(t_shell *shell, char **path, char *error_msg)
 {
 	ft_putstr_fd(MINISHELL " " DEFAULT, 2);
-	ft_putstr_fd(path, 2);
+	ft_putstr_fd(path[0], 2);
 	ft_putendl_fd(error_msg, 2);
+	free_env_lst(shell->envp);
+	free_shell(shell);
+}
+
+void	path_message(t_shell *shell, char **path, char *error_msg)
+{
+	ft_putstr_fd(MINISHELL " " DEFAULT, 2);
+	ft_putstr_fd(path[0], 2);
+	ft_putendl_fd(error_msg, 2);
+	free_expand(path);
 	free_env_lst(shell->envp);
 	free_shell(shell);
 }
