@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 20:12:39 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/16 13:03:43 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 13:24:49 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*handle_expand(t_shell *shell, char *input, int i)
 	if (ft_strlen(str) == 0 && input[0] == '$')
 	{
 		free(str);
-		return NULL;
+		return (NULL);
 	}
 	return (str);
 }
