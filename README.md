@@ -56,7 +56,13 @@ Our implementation respects POSIX standards, ensuring our shell behaves similarl
     <img src="https://github.com/user-attachments/assets/b708eb21-cae1-411a-a49c-1c16e2350da2">
 </p>
 
-The example above illustrates our current asymmetric binary tree implementation, still a work-in-progress as we refine our parsing approach.
+The example above illustrates our current asymmetric binary tree implementation, still a work-in-progress as we refine our parsing approach. This is a basic implementations of a tree, the current one is much more comples and can handle multple nodes like the example below:
+
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/b51d1765-3484-4658-bf2d-277a35cd0089">
+</p>
+
+The top of the tree is the closest node from left corner. Imagine turn the image clockwise and you'll understand how to acually see the tree.
 
 ## ⚙️ Project Fundamentals
 
@@ -87,10 +93,10 @@ Minishell implements core shell features, such as:
 - **Prompt Display**: Shows a prompt while waiting for user input.
 - **Builtins**: Supports `echo`, `cd`, `pwd`, `export`, `unset`, `env`, and `exit` commands.
 - **Path Resolution**: Searches and launches executables based on `$PATH` or relative/absolute paths.
-- **Redirections and Pipes**: Handles `|`, `<`, `>`, and `>>` similar to Bash.
+- **Redirections and Pipes**: Handles `|`, `<`, `>`, `<<` and `>>` similar to Bash.
 - **Environment Variables**: Expands `$` variables and `$?` exit codes.
 - **Signal Handling**: Manages `Ctrl+C`, `Ctrl+D`, and `Ctrl+\` similar to Bash.
-- **Command History**: Uses Termcap to navigate command history with up and down arrows.
+- **Command History**: User can navigate command history with up and down arrows.
 
 For detailed requirements, check the (en.subject-Minishell (1)).
 
@@ -98,10 +104,11 @@ For detailed requirements, check the (en.subject-Minishell (1)).
 
 The project also includes bonus features for an advanced shell experience:
 
-- **Here Documents (`<<`)**: Implements Bash-style here-documents.
-- **Enhanced Line Editing**: Supports cutting, copying, and pasting text, moving by words, and multi-line commands with Termcaps.
+- **Enhanced Line Editing**: Supports cutting, copying, and pasting text, moving by words through readline.
 - **Logical Operators**: Adds support for `&&` and `||` operators.
 - **Wildcards (`*`)**: Implements wildcard expansion.
+- **Exit code prompt**: Implements current exit code on the minishell prompt.
+- **CWD**: Implements current working directory on the minishell prompt.
 
 > **Note**: Only attempt bonuses after the mandatory features are working perfectly.
 
