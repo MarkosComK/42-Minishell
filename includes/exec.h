@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:42:37 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/16 11:50:18 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 11:51:17 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	*exec_node(t_shell *shell, t_exec *exec_node);
 
 //exec_utils.c
 char	*find_cmd_path(t_shell *shell, t_list *path_list, char *command);
+void	exec_free(t_shell *shell, t_exec *exec_node);
 
 //pids_utils.c
 void	handle_pid1(t_shell *shell, int pipefd[], t_pipe *pipe_node);
