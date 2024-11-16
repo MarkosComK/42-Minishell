@@ -63,3 +63,12 @@ void	cmd_message(t_shell *shell, char *cmd, char *error_msg)
 	ft_putendl_fd(error_msg, 2);
 	free_shell(shell);
 }
+
+void	print_exit(void)
+{
+	static int	value = 0;
+
+	if (value == 0)
+		ft_putstr_fd("exit\n", 1);
+	value++;
+}
