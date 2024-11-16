@@ -15,7 +15,6 @@
 //do never touch this
 char	*handle_expand(t_shell *shell, char *input, int i)
 {
-	//t_token	*new_token;
 	char	*str;
 
 	str = ft_strdup("");
@@ -32,13 +31,6 @@ char	*handle_expand(t_shell *shell, char *input, int i)
 			break ;
 	}
 	return (str);
-	/*
-	new_token = create_token(shell, str);
-	ft_lstadd_back(&shell->token_lst, ft_lstnew(new_token));
-	while (ft_isspace(input[i]))
-		i++;
-	return (i);
-	*/
 }
 
 int	prcs_expansion(t_shell *shell, char **str, char *input, int i)
@@ -55,7 +47,7 @@ int	prcs_expansion(t_shell *shell, char **str, char *input, int i)
 		{
 			while (input[i] && input[i] != '$' && input[i] != '"')
 				*str = ft_strjoin_char(*str, input[i++]);
-			if (input[i] == '$')
+			if (input[i] == '$' || input[i] == '"')
 				i = expand_quoted(shell, str, input, i);
 			flag = ft_flag(input[i], &i, flag);
 		}
