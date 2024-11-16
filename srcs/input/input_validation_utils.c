@@ -67,7 +67,7 @@ bool	handle_redir_error(char *str, int *i, int redir_len)
 	*i += redir_len;
 	while (str[*i] && ft_isspace(str[*i]))
 		(*i)++;
-	if (ft_isredir(&str[*i]))
+	if (ft_isredir(&str[*i]) || ft_ismeta(str, *i))
 	{
 		if (str[*i] == '>' && str[*i + 1] == '>')
 			error_msg = "near unexpected token `>>'";
