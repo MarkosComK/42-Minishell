@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:48:20 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/16 12:15:54 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 12:18:55 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	is_directory(t_shell *shell, char **path)
 	else if (errno == EACCES || !(path_stat.st_mode & S_IWUSR))
 		error_msg = ": Permission denied";
 	if (error_msg)
-		return(path_message(shell, path, error_msg), exit(e_code), e_code);
+		return (path_message(shell, path, error_msg), exit(e_code), e_code);
 	return (e_code);
 }
 
