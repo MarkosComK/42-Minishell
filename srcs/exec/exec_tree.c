@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 12:43:04 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/16 11:59:40 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 12:14:47 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,7 @@ void	*exec_node(t_shell *shell, t_exec *exec_node)
 	set_fork1_signal();
 	shell->cmd_path = find_cmd_path(shell, shell->path, exec_node->argv[0]);
 	if (exec_node->argv)
-	{
 		is_directory(shell, exec_node->argv);
-		free_expand(exec_node->argv);
-	}
 	if (execve(shell->cmd_path, exec_node->argv, shell->envp_arr) < 0)
 	{
 		free_env_lst(shell->envp);
