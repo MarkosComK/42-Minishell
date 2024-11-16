@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:41:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/10 10:16:11 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:27:08 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef enum s_token_type
 	HEREDOC,
 	AND_IF,
 	OR,
+	PARENTHESIS,
 }	t_token_type;
 
 typedef enum s_token_state
@@ -77,9 +78,17 @@ int				expand_single(t_shell *shell, char **str, char *input, int i);
 //handle_expand_utils.c
 char			*ft_strjoin_char(char *str, char c);
 int				ft_flag(char c, int *i, bool flag);
+t_token			*create_token(t_shell *shell, char *str);
 
 //handle_or.c
 int				handle_or(t_shell *shell, char *input, int i);
+
+//handle_parenthesis.c
+int				handle_parenthesis(t_shell *shell, char *input, int i);
+int				handle_closing(t_shell *shell, char *input, int i, bool valid);
+bool			validate_subs(char *subs);
+int				handle_opening(t_shell *shell, char *input, int i, bool valid);
+int				jump_spaces(char *input, int i);
 
 //lexer.c
 void			lexer(t_shell *shell, char	*input);
@@ -96,5 +105,8 @@ bool			is_expandable(char *token);
 
 //tokenize_utils.c
 int				set_hered(t_shell *sh, t_token *new_token, char *input, int i);
+
+//tokenize_utils2.c
+int				check_balance(char *input, int i);
 
 #endif

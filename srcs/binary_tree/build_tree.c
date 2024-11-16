@@ -37,10 +37,19 @@ void	*build_tree(t_shell *shell, t_list *token_list)
 void	*insert_node(t_shell *shell, void *node, t_list *token_lst)
 {
 	t_pipe	*pipe;
+	t_list	*new;
 
 	if (!node)
 		return (create_exec(shell, token_lst));
-	pipe = create_pipe(shell, node, create_exec(shell, token_lst->next));
+	if (is_parenthesis(token_lst->next))
+	{
+		new = NULL;
+		new = new_sublist(token_lst->next);
+		pipe = create_pipe(shell, node, build_ltree(shell, new));
+		clean_sublist(new);
+	}
+	else
+		pipe = create_pipe(shell, node, create_exec(shell, token_lst->next));
 	return (pipe);
 }
 
@@ -66,13 +75,14 @@ void	*create_exec(t_shell *shell, t_list *token_lst)
 	{
 		node->command = ((t_token *)current->content)->value;
 		node->argv = get_argv(shell, token_lst);
-		if (ft_strcmp(node->argv[0], "ls") == 0)
+		if (ft_strcmp(node->argv[0], "ls") == 0
+			|| ft_strcmp(node->argv[0], "grep") == 0)
 			node->argv = get_colors(shell, node->argv);
 	}
 	return (node);
 }
 
-void	*create_pipe(t_shell *shell, t_exec *left, t_exec *right)
+void	*create_pipe(t_shell *shell, void *left, void *right)
 {
 	t_pipe	*node;
 
@@ -104,9 +114,9 @@ t_list	*get_name(t_list *tkn_lst)
 			tkn_lst = tkn_lst->next->next;
 			continue ;
 		}
-		if (tkn_lst && ((t_token *)tkn_lst->content)->type == WORD)
-			if (tkn_lst && ft_strcmp(((t_token *)tkn_lst->content)->value, ""))
-				return (tkn_lst);
+		if (tkn_lst && ((t_token *)tkn_lst->content)->type == WORD
+			&& ((t_token *)tkn_lst->content)->state != EXPAND)
+			return (tkn_lst);
 		tkn_lst = tkn_lst->next;
 		if (tkn_lst && ((t_token *)tkn_lst->content)->type == AND_IF)
 			break ;

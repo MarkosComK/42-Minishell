@@ -32,19 +32,20 @@ void	lexec_tree(t_shell *shell, void *root)
 	if (node->type == N_ANDIF)
 	{
 		lexec_tree(shell, ((t_andif *)root)->left);
+		last_process(exit_code(-1));
 		if (last_process(-1) == 0)
 			lexec_tree(shell, ((t_andif *)root)->right);
+		last_process(exit_code(-1));
 	}
 	else if (node->type == N_OR)
 	{
 		lexec_tree(shell, ((t_or *)root)->left);
+		last_process(exit_code(-1));
 		if (last_process(-1) != 0)
 			lexec_tree(shell, ((t_or *)root)->right);
 	}
 	else if (node->type == N_PIPE)
-	{
 		exec_processes(shell, root);
-	}
 	else if (node->type == N_EXEC)
 		exec_processes(shell, root);
 	return ;
@@ -56,6 +57,18 @@ void	exec_tree(t_shell *shell, void *root)
 		exec_pipe(shell, root);
 	else if (((t_node *)root)->type == N_EXEC)
 		exec_node(shell, root);
+	else if (((t_node *)root)->type == N_ANDIF)
+	{
+		lexec_tree(shell, root);
+		free_env_lst(shell->envp);
+		free_shell(shell);
+	}
+	else if (((t_node *)root)->type == N_OR)
+	{
+		lexec_tree(shell, root);
+		free_env_lst(shell->envp);
+		free_shell(shell);
+	}
 }
 
 void	exec_pipe(t_shell *shell, t_pipe *pipe_node)
@@ -109,6 +122,9 @@ void	exec_node(t_shell *shell, t_exec *exec_node)
 	if (execve(shell->cmd_path, exec_node->argv, shell->envp_arr) < 0)
 	{
 		free_env_lst(shell->envp);
-		exec_failure(shell, shell->cmd_path, exec_node->argv);
+		if (exec_node->argv)
+			exec_failure(shell, shell->cmd_path);
+		free_shell(shell);
+		exit(0);
 	}
 }

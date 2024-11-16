@@ -1,38 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenize_utils2.c                                  :+:      :+:    :+:   */
+/*   input_parenthesis.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 20:24:16 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/08 20:28:57 by marsoare         ###   ########.fr       */
+/*   Created: 2024/11/12 10:42:05 by marsoare          #+#    #+#             */
+/*   Updated: 2024/11/12 11:14:16 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	check_balance(char *input, int i)
+void	balance_message(int balance)
 {
-	int	balance;
-
-	balance = 1;
-	while (input[i] && balance != 0)
-	{
-		i++;
-		if (input[i] && input[i] == '(')
-			balance++;
-		if (input[i] && input[i] == ')')
-			balance--;
-	}
-	return (i);
+	if (balance < 0)
+		ft_putendl_fd(CLOSE_ERROR, 2);
+	else if (balance > 0)
+		ft_putendl_fd(OPEN_ERROR, 2);
 }
 
-int	set_hered(t_shell *sh, t_token *new_token, char *input, int i)
+bool	check_parenthesis(char *str)
 {
-	new_token->value = ft_strndup(&input[i], 2);
-	if (!new_token->value)
-		exit_failure(sh, "handle_redir_2");
-	new_token->type = HEREDOC;
-	return (i + 2);
+	int	balance;
+	int	i;
+
+	balance = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ')' && balance == 0)
+			return (balance_message(-1), false);
+		if (str[i] == '(')
+			balance++;
+		else if (str[i] == ')')
+			balance--;
+		i++;
+	}
+	if (balance != 0)
+		balance_message(balance);
+	if (balance == 0)
+		return (true);
+	return (false);
 }

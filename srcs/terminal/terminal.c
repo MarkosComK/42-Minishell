@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:38:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/10 13:24:02 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:21:33 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	terminal(t_shell *shell, char **envp)
 	if (shell->input && input_validation(shell))
 	{
 		free_shell(shell);
-		exit_code(2);
 		terminal(shell, envp);
 	}
 	if (shell->input == NULL || !ft_strcmp(shell->trim_input, "exit"))
 	{
+		ft_putstr_fd("exit\n", 2);
 		free_shell(shell);
 		return ;
 	}

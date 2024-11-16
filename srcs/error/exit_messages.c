@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:48:20 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/29 21:32:16 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:02:06 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	exit_failure(t_shell *shell, char *function)
 {
+	free_env_lst(shell->envp);
 	free_shell(shell);
 	ft_putstr_fd(RED"malloc error: "DEFAULT, 2);
 	ft_putendl_fd(function, 2);
@@ -90,16 +91,27 @@ void	is_directory(t_shell *shell, char *path)
 	}
 }
 
-void	exec_failure(t_shell *shell, char *cmd, char **argv)
+void	exec_failure(t_shell *shell, char *cmd)
 {
-	(void) cmd;
-	if (argv && argv[0])
+	struct stat	cmd_stat;
+	int			status_code;
+	char		*error_msg;
+
+	ft_bzero(&cmd_stat, sizeof(cmd_stat));
+	errno = 0;
+	status_code = 127;
+	error_msg = ": command not found";
+	if (stat(cmd, &cmd_stat) == -1)
 	{
-		ft_putstr_fd(argv[0], 2);
-		ft_putendl_fd(": command not found", 2);
-		free_shell(shell);
-		exit(127);
+		if (errno == EACCES)
+			set_params(&error_msg, &status_code, ": Permission denied", 126);
 	}
-	free_shell(shell);
-	exit(0);
+	else
+	{
+		if (!(cmd_stat.st_mode & S_IXUSR) || access(cmd, X_OK) == -1)
+			set_params(&error_msg, &status_code, ": Permission denied", 126);
+	}
+	if (cmd && error_msg)
+		cmd_message(shell, cmd, error_msg);
+	exit(status_code);
 }

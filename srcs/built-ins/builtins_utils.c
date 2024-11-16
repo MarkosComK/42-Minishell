@@ -56,7 +56,10 @@ int	exec_parent_builtin(t_shell *shell, t_exec *exec_node)
 	if (!cmd)
 		return (1);
 	if (!ft_strcmp(cmd, "exit"))
+	{
+		ft_putstr_fd("exit\n", 2);
 		return (ft_exit(shell, exec_node), 0);
+	}
 	if (!ft_strcmp(cmd, "export"))
 	{
 		ft_export(shell, exec_node->argv);
@@ -84,6 +87,8 @@ int	exec_builtin(t_shell *shell, t_exec *exec_node)
 		return (ft_pwd(), 0);
 	if (!ft_strcmp(cmd, "env"))
 		return (print_env_lst(shell->envp), 0);
+	if (!ft_strcmp(cmd, "export") && !exec_node->argv[1])
+		return (ft_export(shell, exec_node->argv), 0);
 	return (1);
 }
 

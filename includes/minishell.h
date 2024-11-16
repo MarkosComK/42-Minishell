@@ -41,8 +41,12 @@
 # include <string.h>
 
 // MACROS
-# define PROMPT "minishell:"
-# define MINISHELL "minishell:"
+# define ESC_START "\001\033[1;91m\002"
+# define ESC_RESET "\001\033[0;93m\002"
+# define PROMPT "Minishell ["
+# define ESC_CODE "\001\033[1;91m\002] [\001\033[0;39m\002"
+# define ARROW "\001\033[1;91m]\002 \001→\002\001\033[0m\002  \b"
+# define MINISHELL "\001\033[0;93\002mminishell\001\033[0;39m\002"
 
 /*metacharaters
  * A character that, when unquoted, separates words. A metacharacter is a space

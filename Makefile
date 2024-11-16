@@ -16,7 +16,7 @@ CC       = cc
 SRCS     = $(wildcard srcs/*.c) $(wildcard srcs/*/*.c)
 OBJS     = ${SRCS:.c=.o}
 INCLUDE  = -L${LIBFTDIR}/src -lft -lreadline
-VALGRIND = valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --suppressions=readline.supp
+VALGRIND = valgrind  --track-fds=yes --leak-check=full --show-leak-kinds=all --suppressions=readline.supp
 ENV      = env -i ${VALGRIND}
 
 #set readline for MacOs and Linux
@@ -86,6 +86,12 @@ readline.supp:
 	echo "}" >> readline.supp
 	echo "{" >> readline.supp
 	echo "    leak add_history" >> readline.supp
+	echo "    Memcheck:Leak" >> readline.supp
+	echo "    ..." >> readline.supp
+	echo "    fun:add_history" >> readline.supp
+	echo "}" >> readline.supp
+	echo "{" >> readline.supp
+	echo "    leak rl_parse_and_bind" >> readline.supp
 	echo "    Memcheck:Leak" >> readline.supp
 	echo "    ..." >> readline.supp
 	echo "    fun:add_history" >> readline.supp
