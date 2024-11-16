@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 20:12:39 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/31 17:23:35 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 13:03:43 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ char	*handle_expand(t_shell *shell, char *input, int i)
 				str = ft_strjoin_char(str, input[i++]);
 		if (ft_isspace(input[i]) || ft_ismeta(input, i))
 			break ;
+	}
+	if (ft_strlen(str) == 0 && input[0] == '$')
+	{
+		free(str);
+		return NULL;
 	}
 	return (str);
 }

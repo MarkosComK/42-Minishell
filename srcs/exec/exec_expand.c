@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 11:46:13 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/16 12:17:59 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/16 13:18:37 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**expand_argv(t_shell *shell, char **argv)
 	while (argv[i])
 	{
 		expand = handle_expand(shell, argv[i], 0);
-		if ((ft_strlen(argv[i]) == 0) || (expand && ft_strlen(expand) != 0))
+		if (expand)
 			new_argv[j++] = expand;
 		else
 			free(expand);
