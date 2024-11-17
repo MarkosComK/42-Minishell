@@ -106,7 +106,7 @@ void	exec_failure(t_shell *shell, char *cmd)
 	}
 	else
 	{
-		if (!(cmd_stat.st_mode & S_IXUSR) || access(cmd, X_OK) == -1)
+		if ((cmd_stat.st_mode & S_IXUSR) && access(cmd, X_OK) == -1)
 			set_params(&error_msg, &status_code, ": Permission denied", 126);
 	}
 	if (ft_strcmp(cmd, ".") == 0)
