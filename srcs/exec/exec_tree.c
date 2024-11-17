@@ -126,7 +126,7 @@ void	*exec_node(t_shell *shell, t_exec *exec_node)
 			free_expand(exec_node->argv);
 			exec_failure(shell, shell->cmd_path);
 		}
-		return(free_shell(shell), exit(0), NULL);
+		return (free_shell(shell), exit(0), NULL);
 	}
 	return (free_expand(exec_node->argv), NULL);
 }

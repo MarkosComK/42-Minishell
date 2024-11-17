@@ -19,7 +19,7 @@ t_list	*env_list(t_shell *shell, char **envp)
 
 	shell->envp = NULL;
 	if (!envp || !*envp)
-		return (printf("empty env\n"), NULL);
+		return (NULL);
 	i = 0;
 	while (envp[i])
 	{

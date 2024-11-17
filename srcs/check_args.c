@@ -17,7 +17,7 @@ int	check_args(int argc, char *argv[], char *envp[])
 	(void) argv;
 	if (!envp || !*envp)
 	{
-		ft_putendl_fd(RED"Executed withou env"DEFAULT, 2);
+		ft_putendl_fd(RED""DEFAULT, 2);
 	}
 	if (argc > 1)
 	{
