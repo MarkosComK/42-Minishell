@@ -65,5 +65,5 @@ int	is_exact_var(t_env *env_var, const char *var_name)
 	len_env = ft_strlen(env_var->value);
 	if (len_env > len_name)
 		len_name = len_env - 1;
-	return (ft_strncmp(env_var->value, var_name, len) == 0);
+	return (ft_strncmp(env_var->value, var_name, len_name) == 0);
 }
