@@ -45,7 +45,9 @@ int	has_wildcard(char **argv)
 	size_t	i;
 
 	i = 1;
-	while (argv[i])
+	if (!argv || !argv[0])
+		return (0);
+	while (argv && argv[i])
 	{
 		if (ft_strchr(argv[i], '*') && is_valid_wildcard(argv[i]))
 			return (1);
