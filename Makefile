@@ -8,12 +8,81 @@ BLUE   = $(shell printf "\33[34m")
 PURPLE = $(shell printf "\33[35m")
 TITLE  = $(shell printf "\33[32;40m")
 
-LIBFTDIR = 42-Libft
+LIBFTDIR = libft
 NAME     = minishell
+NAME_BONUS     = minishell_bonus
 FLAGS    = -Wall -Wextra -Werror -g -Iincludes
 IFLAGS   = -Iincludes/ -I${LIBFTDIR}/src
 CC       = cc
-SRCS     = $(wildcard srcs/*.c) $(wildcard srcs/*/*.c)
+SRC_DIR = srcs
+SRCS = \
+	$(SRC_DIR)/binary_tree/bst_free.c \
+	$(SRC_DIR)/binary_tree/bst_print.c \
+	$(SRC_DIR)/binary_tree/bst_print_utils.c \
+	$(SRC_DIR)/binary_tree/build_tree.c \
+	$(SRC_DIR)/binary_tree/build_tree_utils2.c \
+	$(SRC_DIR)/binary_tree/build_tree_utils.c \
+	$(SRC_DIR)/built-ins/builtins_utils.c \
+	$(SRC_DIR)/built-ins/cd.c \
+	$(SRC_DIR)/built-ins/cd_utils.c \
+	$(SRC_DIR)/built-ins/echo.c \
+	$(SRC_DIR)/built-ins/env.c \
+	$(SRC_DIR)/built-ins/env_utils.c \
+	$(SRC_DIR)/built-ins/env_utils_sizes.c \
+	$(SRC_DIR)/built-ins/exit.c \
+	$(SRC_DIR)/built-ins/export.c \
+	$(SRC_DIR)/built-ins/export_utils2.c \
+	$(SRC_DIR)/built-ins/export_utils.c \
+	$(SRC_DIR)/built-ins/pwd.c \
+	$(SRC_DIR)/built-ins/unset.c \
+	$(SRC_DIR)/built-ins/unset_utils.c \
+	$(SRC_DIR)/check_args.c \
+	$(SRC_DIR)/error/exit_code.c \
+	$(SRC_DIR)/error/exit_messages.c \
+	$(SRC_DIR)/error/printers2.c \
+	$(SRC_DIR)/error/printers.c \
+	$(SRC_DIR)/exec/exec_expand.c \
+	$(SRC_DIR)/exec/exec_tree.c \
+	$(SRC_DIR)/exec/exec_utils.c \
+	$(SRC_DIR)/exec/pids_utils.c \
+	$(SRC_DIR)/exec/redirects.c \
+	$(SRC_DIR)/exec/redirects_utils.c \
+	$(SRC_DIR)/heredoc/heredoc.c \
+	$(SRC_DIR)/heredoc/heredoc_expand.c \
+	$(SRC_DIR)/heredoc/heredoc_process.c \
+	$(SRC_DIR)/input/check_len.c \
+	$(SRC_DIR)/input/input_parenthesis.c \
+	$(SRC_DIR)/input/input_validation.c \
+	$(SRC_DIR)/input/input_validation_utils.c \
+	$(SRC_DIR)/logic_tree/build_ltree.c \
+	$(SRC_DIR)/logic_tree/build_ltree_utils.c \
+	$(SRC_DIR)/logic_tree/ltree_parenthesis2.c \
+	$(SRC_DIR)/logic_tree/ltree_parenthesis.c \
+	$(SRC_DIR)/logic_tree/ltree_print.c \
+	$(SRC_DIR)/main.c \
+	$(SRC_DIR)/signals/signals.c \
+	$(SRC_DIR)/signals/signals_heredoc.c \
+	$(SRC_DIR)/terminal/terminal.c \
+	$(SRC_DIR)/terminal/terminal_utils.c \
+	$(SRC_DIR)/tokenization/check_token_type.c \
+	$(SRC_DIR)/tokenization/create_token_lst.c \
+	$(SRC_DIR)/tokenization/del_token.c \
+	$(SRC_DIR)/tokenization/ft_joinstrs.c \
+	$(SRC_DIR)/tokenization/handle_andif.c \
+	$(SRC_DIR)/tokenization/handle_expand.c \
+	$(SRC_DIR)/tokenization/handle_expand_utils.c \
+	$(SRC_DIR)/tokenization/handle_or.c \
+	$(SRC_DIR)/tokenization/handle_parenthesis.c \
+	$(SRC_DIR)/tokenization/lexer.c \
+	$(SRC_DIR)/tokenization/set_token_pos.c \
+	$(SRC_DIR)/tokenization/tokenize_utils2.c \
+	$(SRC_DIR)/tokenization/tokenize_utils.c \
+	$(SRC_DIR)/utils/printers.c \
+	$(SRC_DIR)/wildcard/wildcard.c \
+	$(SRC_DIR)/wildcard/wildcards_utils2.c \
+	$(SRC_DIR)/wildcard/wildcard_utils.c \
+	$(SRC_DIR)/wildcard/wildcard_validations.c
+
 OBJS     = ${SRCS:.c=.o}
 INCLUDE  = -L${LIBFTDIR}/src -lft -lreadline
 VALGRIND = valgrind  --track-fds=yes --leak-check=full --show-leak-kinds=all --suppressions=readline.supp
@@ -29,7 +98,14 @@ else ifeq ($(UNAME), Darwin)
     READLINE = -I/opt/homebrew/opt/readline/include
 endif
 
-all: submodule ${LIBFTDIR} ${NAME} ${OBJS}
+all: ${LIBFTDIR} ${NAME} ${OBJS}
+
+bonus: ${LIBFTDIR} ${NAME_BONUS} ${OBJS}
+
+${NAME_BONUS}: ${LIBFTDIR} ${OBJS} ${NAME}
+	@make --silent -C ${LIBFTDIR}/src
+	@${CC} ${FLAGS} ${OBJS} ${READLINE} ${INCLUDE} -o ${NAME_BONUS}
+	@echo "\n minishell_bonus created"
 
 submodule:
 	@git submodule update --init --recursive
@@ -55,7 +131,7 @@ ${NAME}: ${OBJS}
 	@echo "$(RESET)[$(GREEN)OK$(RESET)]$(BLUE) Compiling $<$(YELLOW)"
 
 clean:
-	@${RM} ${OBJS} ${NAME}
+	@${RM} ${OBJS}
 	@cd ${LIBFTDIR}/src && $(MAKE) --silent clean
 	@clear
 	@echo
@@ -65,8 +141,9 @@ clean:
 	@echo
 
 fclean: clean
-	rm -rf ${LIBFTDIR}
 	rm -f ${NAME}
+	@rm -f ${NAME_BONUS}
+	@cd ${LIBFTDIR}/src && $(MAKE) --silent fclean
 	@clear
 	@echo
 	@echo "$(RED)┏┓┓ ┏┓┏┓┳┓┏┓┳┓"
@@ -78,24 +155,26 @@ test: ${NAME} readline.supp
 	${VALGRIND} ./${NAME}
 
 readline.supp:
-	echo "{" > readline.supp
-	echo "    leak readline" >> readline.supp
-	echo "    Memcheck:Leak" >> readline.supp
-	echo "    ..." >> readline.supp
-	echo "    fun:readline" >> readline.supp
-	echo "}" >> readline.supp
-	echo "{" >> readline.supp
-	echo "    leak add_history" >> readline.supp
-	echo "    Memcheck:Leak" >> readline.supp
-	echo "    ..." >> readline.supp
-	echo "    fun:add_history" >> readline.supp
-	echo "}" >> readline.supp
-	echo "{" >> readline.supp
-	echo "    leak rl_parse_and_bind" >> readline.supp
-	echo "    Memcheck:Leak" >> readline.supp
-	echo "    ..." >> readline.supp
-	echo "    fun:add_history" >> readline.supp
-	echo "}" >> readline.supp
+	@echo "$(RED)"
+	@echo "{" > readline.supp
+	@echo "    leak readline" >> readline.supp
+	@echo "    Memcheck:Leak" >> readline.supp
+	@echo "    ..." >> readline.supp
+	@echo "    fun:readline" >> readline.supp
+	@echo "}" >> readline.supp
+	@echo "{" >> readline.supp
+	@echo "    leak add_history" >> readline.supp
+	@echo "    Memcheck:Leak" >> readline.supp
+	@echo "    ..." >> readline.supp
+	@echo "    fun:add_history" >> readline.supp
+	@echo "}" >> readline.supp
+	@echo "{" >> readline.supp
+	@echo "    leak rl_parse_and_bind" >> readline.supp
+	@echo "    Memcheck:Leak" >> readline.supp
+	@echo "    ..." >> readline.supp
+	@echo "    fun:add_history" >> readline.supp
+	@echo "}" >> readline.supp
+	@echo "$(RESET)"
 
 env: ${NAME}
 	${ENV} ./${NAME}
