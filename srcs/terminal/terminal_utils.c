@@ -50,9 +50,7 @@ int	handle_exec_node(t_shell *shell, void *root, int *status)
 		exec = (t_exec *)root;
 		if (is_parent_builtin(exec))
 		{
-			exec->argv = expand_argv(shell, exec->argv);
 			exec_parent_builtin(shell, exec);
-			free_expand(exec->argv);
 			return (1);
 		}
 		else
