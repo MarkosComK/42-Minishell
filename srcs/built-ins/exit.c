@@ -35,6 +35,8 @@ int	is_numeric(char *str)
 
 	i = 0;
 	flag = 0;
+	if (!str)
+		return (0);
 	num = ft_atoll(str);
 	if (!check_limits(str, num))
 		return (0);
@@ -91,6 +93,8 @@ void	ft_exit(t_shell *shell, t_exec *exec_node)
 	char	**args;
 
 	args = exec_node->argv;
+	if (!args || !args[1])
+		return ;
 	if (is_numeric(args[1]))
 		numeric_exit(shell, args);
 	if (!is_numeric(args[1]))
