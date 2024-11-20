@@ -113,6 +113,8 @@ int	export_var(t_shell *shell, const char *arg)
 	char	*equal;
 	char	*plus;
 
+	if (arg[0] == '_' && arg[1] == '=')
+		return (0);
 	if (!is_valid_identifier(arg))
 	{
 		print_invalid_identifier((char *)arg, "export");
