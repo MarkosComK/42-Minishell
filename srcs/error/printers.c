@@ -32,7 +32,10 @@ bool	syntax_error_msg(char *str)
 void	path_message2(t_shell *shell, char **path, char *error_msg)
 {
 	ft_putstr_fd(MINISHELL " " DEFAULT, 2);
-	ft_putstr_fd(path[0], 2);
+	if (path && path[0])
+		ft_putstr_fd(path[0], 2);
+	else
+		error_msg = "ambiguos redirect";
 	ft_putendl_fd(error_msg, 2);
 	free(path[0]);
 	free_env_lst(shell->envp);
