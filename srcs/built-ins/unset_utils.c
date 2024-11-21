@@ -54,16 +54,25 @@ void	remove_env_var(t_shell *shell, const char *var_name)
 int	is_exact_var(t_env *env_var, const char *var_name)
 {
 	char	*plus;
+	char    *equals_var;
+	char    *equals_env;
 	size_t	len_name;
 	size_t	len_env;
 
 	plus = ft_strnstr(var_name, "+=", ft_strlen(var_name));
+	equals_var = ft_strchr(var_name, '=');
+	equals_env = ft_strchr(env_var->value, '=');
 	if (plus)
 		len_name = plus - var_name;
+	else if (equals_var)
+		len_name = equals_var - var_name;
 	else
 		len_name = ft_strlen(var_name);
-	len_env = ft_strlen(env_var->value);
-	if (len_env > len_name)
-		len_name = len_env - 1;
+	if (equals_env)
+		len_env = equals_env - env_var->value;
+	else
+		len_env = ft_strlen(env_var->value);
+	if (len_name != len_env)
+		return (0);
 	return (ft_strncmp(env_var->value, var_name, len_name) == 0);
 }
