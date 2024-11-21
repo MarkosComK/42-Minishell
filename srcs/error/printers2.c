@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   printers2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 15:49:49 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/29 21:27:55 by marsoare         ###   ########.fr       */
+/*   Created: 2024/11/16 18:10:59 by marsoare          #+#    #+#             */
+/*   Updated: 2024/11/16 18:12:59 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	check_args(int argc, char *argv[], char *envp[])
+void	print_exit(void)
 {
-	(void) argv;
-	if (!envp || !*envp)
-	{
-		ft_putendl_fd(RED""DEFAULT, 2);
-	}
-	if (argc > 1)
-	{
-		ft_putendl_fd(RED"Invalid input"DEFAULT, 2);
-		exit(1);
-	}
-	return (0);
+	static int	value = 0;
+
+	if (value == 0)
+		ft_putstr_fd("exit\n", 1);
+	value++;
 }

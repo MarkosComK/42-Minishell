@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   redirects_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/25 15:49:49 by marsoare          #+#    #+#             */
-/*   Updated: 2024/10/29 21:27:55 by marsoare         ###   ########.fr       */
+/*   Created: 2024/11/16 16:54:55 by marsoare          #+#    #+#             */
+/*   Updated: 2024/11/16 16:55:04 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	check_args(int argc, char *argv[], char *envp[])
+void	dup_file2(char *name, int fd)
 {
-	(void) argv;
-	if (!envp || !*envp)
-	{
-		ft_putendl_fd(RED""DEFAULT, 2);
-	}
-	if (argc > 1)
-	{
-		ft_putendl_fd(RED"Invalid input"DEFAULT, 2);
-		exit(1);
-	}
-	return (0);
+	dup2(fd, STDIN_FILENO);
+	close(fd);
+	free(name);
+}
+
+void	dup_file(char *name, int fd)
+{
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
+	free(name);
 }

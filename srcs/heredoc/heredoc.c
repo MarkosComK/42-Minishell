@@ -35,11 +35,12 @@ void	set_exec(t_shell *shell, t_exec *exec)
 char	*ft_random_name(t_shell *shell, char *eof)
 {
 	char		*name;
-	const int	addr[1] = {42};
+	static int	addr = 1;
 	char		*ptr;
 	int			num;
 
-	num = (*addr + (int)eof[0] + ft_strlen(eof) * *addr);
+	num = (addr + (int)eof[0] + ft_strlen(eof) * addr);
+	addr++;
 	ptr = ft_itoa(num);
 	name = ft_strjoin("/tmp/.heredoc_", ptr);
 	free(ptr);

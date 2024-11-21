@@ -66,7 +66,7 @@ int			val_size(char *env);
 
 // exit.c
 void		ft_exit(t_shell *shell, t_exec *exec_node);
-void		exit_error(t_shell *shell, char *arg);
+void		exit_error(t_shell *shell, char **arg);
 int			is_numeric(char *str);
 void		exit_args(void);
 

@@ -35,6 +35,8 @@ int	is_numeric(char *str)
 
 	i = 0;
 	flag = 0;
+	if (!str)
+		return (0);
 	num = ft_atoll(str);
 	if (!check_limits(str, num))
 		return (0);
@@ -53,11 +55,12 @@ int	is_numeric(char *str)
 	return (flag);
 }
 
-void	exit_error(t_shell *shell, char *arg)
+void	exit_error(t_shell *shell, char **arg)
 {
 	ft_putstr_fd("minishell: exit: ", 2);
-	ft_putstr_fd(arg, 2);
+	ft_putstr_fd(arg[1], 2);
 	ft_putendl_fd(": numeric argument required", 2);
+	free_expand(arg);
 	free_env_lst(shell->envp);
 	free_shell(shell);
 	exit_code(2);
@@ -72,12 +75,14 @@ void	numeric_exit(t_shell *shell, char **args)
 	if (args[2])
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+		free_expand(args);
 		free_env_lst(shell->envp);
 		free_shell(shell);
 		exit_code(1);
 		exit(1);
 		return ;
 	}
+	free_expand(args);
 	free_env_lst(shell->envp);
 	free_shell(shell);
 	exit((unsigned char)status);
@@ -88,11 +93,13 @@ void	ft_exit(t_shell *shell, t_exec *exec_node)
 	char	**args;
 
 	args = exec_node->argv;
+	if (!args || !args[1])
+		return ;
 	if (is_numeric(args[1]))
 		numeric_exit(shell, args);
 	if (!is_numeric(args[1]))
 	{
-		exit_error(shell, args[1]);
+		exit_error(shell, args);
 		return ;
 	}
 	return ;

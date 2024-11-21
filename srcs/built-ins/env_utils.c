@@ -19,7 +19,7 @@ t_list	*env_list(t_shell *shell, char **envp)
 
 	shell->envp = NULL;
 	if (!envp || !*envp)
-		return (printf("empty env\n"), NULL);
+		return (NULL);
 	i = 0;
 	while (envp[i])
 	{
@@ -72,15 +72,12 @@ char	*sh_get_env(t_list *envp, const char *value)
 {
 	t_list	*current;
 	t_env	*env_entry;
-	size_t	len;
 
 	current = envp;
 	while (current)
 	{
 		env_entry = (t_env *)current->content;
-		if (env_entry && env_entry->value)
-			len = ft_strlen(env_entry->value);
-		if (ft_strncmp(env_entry->value, value, len - 1) == 0)
+		if (is_exact_var(env_entry, value))
 			return (env_entry->content);
 		current = current->next;
 	}
