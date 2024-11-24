@@ -74,6 +74,8 @@ void	exec_processes(t_shell *shell, void *root)
 	status = 0;
 	set_main_signals();
 	handle_heredoc(shell, root);
+	if (exit_code(-1) != 0)
+		return ;
 	if (handle_exec_node(shell, root, &status))
 		return ;
 	if (fork() == 0)
