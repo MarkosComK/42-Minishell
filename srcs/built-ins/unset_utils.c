@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   unset_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:03:40 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/03 20:25:46 by hluiz-ma         ###   ########.fr       */
+/*   Updated: 2024/11/24 14:25:37 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	remove_env_var(t_shell *shell, const char *var_name)
 int	is_exact_var(t_env *env_var, const char *var_name)
 {
 	char	*plus;
-	char    *equals_var;
-	char    *equals_env;
+	char	*equals_var;
+	char	*equals_env;
 	size_t	len_name;
 	size_t	len_env;
 

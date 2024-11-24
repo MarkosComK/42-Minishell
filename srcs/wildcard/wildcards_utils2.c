@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:46:13 by marsoare          #+#    #+#             */
-/*   Updated: 2024/11/15 16:14:43 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/24 14:25:24 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ char	***get_expand(char **argv, int size)
 		else
 		{
 			expanded[i] = ft_calloc(2, sizeof(char *));
+			if (!expanded[i])
+				return (ft_free_exp(expanded, i), NULL);
 			expanded[i][0] = ft_strdup(argv[i]);
+			if (!expanded[i][0])
+				return (free(expanded[i]), ft_free_exp(expanded, i), NULL);
 		}
 		if (!expanded[i])
 			return (ft_free_exp(expanded, i), NULL);
