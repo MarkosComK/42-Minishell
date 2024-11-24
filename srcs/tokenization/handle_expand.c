@@ -82,8 +82,6 @@ int	expand_unquoted(t_shell *shell, char **str, char *input, int i)
 		exit_failure(shell, "expand_unquoted");
 	var_value = sh_get_env(shell->envp, var_name);
 	free(var_name);
-	if (var_value && ft_strchr(var_value, ' ') && !**str)
-		return (tokenize_input(shell, var_value), i);
 	if (var_value)
 	{
 		tmp = *str;
