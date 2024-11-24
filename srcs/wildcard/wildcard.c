@@ -6,7 +6,7 @@
 /*   By: hluiz-ma <hluiz-ma@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 17:03:28 by hluiz-ma          #+#    #+#             */
-/*   Updated: 2024/11/15 16:15:30 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/11/24 14:25:22 by hluiz-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,20 @@ char	**process_wildcards(char **argv)
 		i++;
 	expanded = ft_calloc(i + 1, sizeof(char **));
 	if (!expanded)
+	{
 		return (argv);
+	}
 	expanded = get_expand(argv, i);
+	if (!expanded)
+	{
+		return (argv);
+	}
 	result = merge_expansions(expanded, i);
 	if (!result)
-		return (ft_free_exp(expanded, i), argv);
+	{
+		ft_free_exp(expanded, i);
+		return (argv);
+	}
 	return (result);
 }
 
