@@ -17,8 +17,8 @@ void	heredoc_process(t_shell *shell, t_inf *inf, int fd)
 	pid_t	pid;
 	int		status;
 
-	pid = fork();
 	status = 0;
+	pid = fork();
 	if (pid == 0)
 	{
 		heredoc_signal();
@@ -27,10 +27,10 @@ void	heredoc_process(t_shell *shell, t_inf *inf, int fd)
 		close(fd);
 		free_env_lst(shell->envp);
 		free_shell(shell);
-		exit_code(status);
+		exit_code(0);
 		exit(exit_code(-1));
 	}
 	waitpid(pid, &status, 0);
-	exit_code(status);
+	exit_status(status);
 	close(fd);
 }

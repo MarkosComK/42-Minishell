@@ -32,6 +32,7 @@ void	sigint_heredoc_handler(int sig)
 		close(shell->fd);
 		free_env_lst(shell->envp);
 		free_shell((t_shell *)shell);
+		exit_code(130);
 		exit(130);
 	}
 }
